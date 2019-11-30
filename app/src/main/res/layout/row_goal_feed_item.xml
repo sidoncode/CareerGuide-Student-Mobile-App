@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/ll_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Counsellors"
+            android:textColor="@color/app_blue"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingStart="10dp"
+            android:layout_weight="8"/>
+
+        <TextView
+            android:id="@+id/tv_see_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="See all"
+            android:gravity="center"
+            android:textColor="@color/app_blue"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

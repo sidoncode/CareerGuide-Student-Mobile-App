@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:state_pressed="true" android:drawable="@drawable/answer_selected_background"/>
+        <item android:state_pressed="false"
+            android:drawable="@drawable/answer_background" /> <!-- pressed -->
+        <!--<item android:state_enabled="true" android:drawable="@drawable/answer_background"/>--> <!-- idle state -->
+    </selector>
+</selector>

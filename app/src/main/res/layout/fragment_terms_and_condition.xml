@@ -1,0 +1,1346 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.careerguide.TermsAndConditionFragment">
+    <!--<LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#e8e8e8">
+        <RelativeLayout
+            android:id="@+id/aboutRL"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="#fafafa">
+            <ImageView
+                android:id="@+id/aboutIcon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_tnc_selected"
+                android:layout_centerInParent="true"/>
+            <View
+                android:id="@+id/aboutBar"
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="#d81b60"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c3c3c3"/>
+    </LinearLayout>-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#d81b60"
+                android:textStyle="bold"
+                android:text="Terms and Conditions"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:textColor="#000"
+                android:text="By accessing any part of this website you agree to be bound by the following terms and conditions which you should read carefully.\n\nCareerGuide.com may change these conditions at any time without any prior notice. By your continued access and use of this website, you agree to be bound by the latest version of the site terms and conditions. Please check these periodically for any changes that may have been made. " />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="1. Disclamer"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 We use our reasonable endeavors to ensure the accuracy of the information provided on the CareerGuide.com service. "/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 We do not warrant or guarantee the accuracy, reliability or legality of any of the information contained in the CareerGuide.com,"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 We makes no warranty that the contents of this site are free from infection by viruses or anything else which has contaminating or destructive properties."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 Reserves the right, at its discretion, from time to time to make changes to the information provided on the CareerGuide.com service, or to alter the nature of the CareerGuide.com service. "/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 Will not be liable to you under any circumstances whatsoever for any direct, indirect, consequential, punitive or special damages arising from your use of the CareerGuide.com service."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 Will not guarantee the availability of the CareerGuide.com service during maintenance of the website. Will not be responsible for the site content provided by advertisers including product/service performance claims, advertisement and/or sales promotions is the sole responsibility of such advertisers and they alone shall be liable for all disputes and liabilities arising therefrom and CareerGuide.com will in no way be responsible for it. CareerGuide.com and its affiliates, associates, agents or employees shall not be liable, at any time for any damages (including, damages for loss of profits or loss of business) arising in contract, or otherwise from the use of or inability to use the Site, or any of its contents, or from any act(s) or omission(s) a result of using the Site or any such contents or for any failure of performance, error, omission, interruption, deletion, defect, delay in operation or transmission, computer virus, communications line failure, theft or destruction or unauthorised access to, alteration of, or use of information contained on the site."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 Has compiled data from a variety of sources on this website and reserves the right, in its sole discretion, to correct any errors or omissions in any portion of the site. CareerGuide.com may make any other changes to the site, the materials and the products, programs, services or prices (if any) described in the site at any time without notice."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 You are therefore advised to check the information provided to you through the CareerGuide.com service as any reliance that you place on the accuracy of that information is at your own risk. While users are offered free access to CareerGuide.com service, CareerGuide.com reserves the right to discontinue these free promotions at any time and with no notice given."/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="2. Restriction on Use of the CareerGuide.com Service"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 Users are permitted to read, print or download text, data and/or graphics from the site, for their personal and non-commercial use only. Any copies of these pages saved to disk or to any other storage medium be only used for subsequent viewing purposes or to print extracts for personal use. "/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 You may not integrate the CareerGuide.com service into another internet/extranet except through our permission in writing from our customer relations department. Unauthorised access, redistribution, transmission and/or dealing with any information contained in this site, re- production in any other manner, either in whole or in part, is strictly prohibited, failing which strict legal action will be initiated against such users. You may not use automated scripts, software, spiders or any other automated means to perform searches on CareerGuide.com. Any attempt to extract or download significant amounts of data from CareerGuide.com or to compile a database from data obtained from CareerGuide.com is strictly forbidden. Please call our customer relations department on 011 66487704 or e-mail: info@careerguide.com for more information about such access. You are only entitled to use the information provided on the CareerGuide.com service in responsible ways and this information may not be used in any malicious, illegal or anti-social activity. We reserve the right to suspend any accounts where a user has supplied CareerGuide.com with a false information."/>
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="3. Intellectual Property"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 The data and information contained on the CareerGuide.com service, the software used to operate it and the trade marks, logos and other intellectual property used in connection with it are the property of CareerGuide.com No licence of any such intellectual property rights is granted to you as a result of your use of the CareerGuide.com service."/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="4. The Rights of CareerGuide.com"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 Send you e-mails relating to your registration, purchase and account, including site upgrades. Keep a log file of all searches, which can be made available to data subjects and/or the law enforcement authorities."/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="5. Cookies"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 By accessing our Site, you permit us to put our cookies on your hard disc subject. You may, if you please, refuse cookies sent by us."/>
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="6. Hyper Text Links to Third Party Sites"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 CareerGuide.com may provide, through this Site, links to Web sites operated by others. If you decide to visit any linked site, you will be doing so at your sole risk and it is your responsibility to take all protective measures to guard against viruses or other destructive elements. CareerGuide.com makes no warranty or representation regarding, and does not endorse, any linked Web sites or the information appearing thereon or any of the products or services described thereon. Links do not imply that CareerGuide.com or this Site sponsors, endorses, is affiliated or associated with, or is legally authorized to use any trademark, trade name, logo or copyright symbol displayed in or accessible through the links, or that any linked site is authorized to use any trademark, trade name, logo or copyright symbol of CareerGuide.com."/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="7. Information Provided By Users"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 You agree that any material, information, and ideas that you transmit to this site shall become the property of CareerGuide.com No Transmissions shall be treated as confidential and proprietary and CareerGuide.com shall be under no obligation with regard to such information and shall be free to use, disclose, reproduce or distribute it to others without restriction. CareerGuide.com shall also be free to use any ideas, concepts, know-how, or techniques contained in such information for any purpose whatsoever. You further agree that CareerGuide.com may use information about your demographics and use of this site in any manner. You agree, and are hereby put on notice, that you are prohibited from posting or transmitting to or from this Site any unlawful, threatening, libelous, defamatory, inflammatory, pornographic, or profane material or any other material that could give rise to any civil or criminal liability under law. You are solely responsible for the content of any comments you make. CareerGuide.com does not solicit information from you for hosting on the website. Any information you send is sent so by you voluntarily and so CareerGuide.com is not liable to pay you any consideration for hosting the information sent."/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="8. Indemnity"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 In consideration of posting the information sent by users on our website or obtained through the means of a cookie or sent by users; Users undertake to indemnify CareerGuide.com and keep it indemnified against all proceedings, claims, expenses and liabilities whatsoever which may be taken or made against or incurred by CareerGuide.com or by reasons of the premises."/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="9. Endorsements"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 All Product and Services marks contained herein that are not CareerGuide.com or CareerGuide.com marks are the trademarks of their respective owners. References that we make to any names, marks, products or services of third parties or information do not, unless otherwise indicated, constitute or imply our endorsement, sponsorship or recommendation of the third party, information, product or service."/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="10. Jurisdiction as per Indian Laws"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 These conditions shall be governed by and construed in accordance with Indian laws. All disputes are subject to jurisdiction of the courts of New Delhi, India. This website can be accessed from any place around the world. However, by accessing this website you agree that the laws of India, without regard to rules relating to conflict of laws, will apply to all matters relating to your use of this website. Users of this website accessing it from places outside of India acknowledge that they do so voluntarily and are responsible for complying with local laws. CareerGuide.com reserves the right at all times to disclose any information as necessary to satisfy any applicable law, regulation, legal process or governmental request, or to edit, refuse to post or to remove any information or materials, in whole or in part, at the sole discretion of CareerGuide.com"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 These Site Terms and conditions constitute the entire agreement between the parties with respect to the subject matter hereof and this supersedes and replaces all previous or coexisting understandings/agreements, written/oral, with respect to the subject matter. If any of these conditions is determined by a court of competent jurisdiction to be illegal, invalid or otherwise unenforceable, that provision shall be severed from these conditions and the remaining provisions shall continue in full force and effect."/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="11. For any issue or query"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 In case customer have any issue/query he/she will contact on 011 66487704 number Or send mail on email id customercare@careerguide.com and will be resolved on basis of severability of the complaint"/>
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:text="12. Refund cancellation policy"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:text="\u2022 You will be charged as set forth on the payment page. If you are not satisfied with your experience with the Service for any reason, then as your sole remedy and within ten (10) days of when you paid, you may request a refund by emailing us at customercare@careerguide.com. We want you to be satisfied and will make refunds in appropriate circumstances in our sole discretion."/>
+        </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:background="#fff"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/TandCRelativeL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <!--<de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/personal_image"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/prof_pers_dtl"/>-->
+                        <TextView
+                            android:id="@+id/personal_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:text="Terms And Conditions"
+                            android:textColor="@color/app_blue"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"/>
+                        <ImageView
+                            android:id="@+id/arrowTAndC"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_expand"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <WebView
+                        android:visibility="gone"
+                        android:id="@+id/tandCWebView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+                    </WebView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:background="#fff"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/PrivacyPolicyRelativeL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/education_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:text="Privacy Policy"
+                            android:textColor="@color/app_blue"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@id/education_image"
+                            tools:ignore="NotSibling" />
+                        <ImageView
+                            android:id="@+id/arrowPrivacyPolicy"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_expand"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <WebView
+                        android:visibility="gone"
+                        android:id="@+id/privacyPolicyWebView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                    </WebView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="30dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#d81b60"
+                    android:textStyle="bold"
+                    android:text="TERMS OF SERVICE"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:text="(Effective Date of Terms: 16 May, 2018)"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:textColor="#000"
+                    android:text="This document is an electronic contract between ‘Catalog Educational Services Pvt. Ltd.’ also popular by the brand name ‘CareerGuide’ and ‘CareerGuide.com’ (hereafter referred to as “CareerGuide”, “we“ or “us“), an Indian company having its registered office at Cabin No. 1B, 3rd Floor 2A/3, Front Portion, Asaf Ali Road, New Delhi - 110002 (IN), and you, under the provisions of the Information Technology Act, 2000 and the relevant rules framed thereunder. These Terms of Service (“Agreement“) describe the terms and conditions on which CareerGuide provides access to the CareerGuide online platform, related services, modules and applications (and collectively with any related documentation, upgrades and updates, the “Service“), either through or on the CareerGuide website or for download, install and possible purchase from a third party provider such as the Google Play Store or the Apple App Store, to:
+
+\n\n\t\t\t1. the individual, enterprise or organization that is registering to use the Service (“Licensee“);
+\n\t\t\t2. the individual users who use the Service on behalf of the Licensee (each an “Authorized User“);
+\n\t\t\t3. and Visitor (“Unregistered User“).
+
+\n\nEach Licensee and Authorized User (together, “Registered User“) and Unregistered User (collectively “you“) should read this Agreement carefully. By indicating acceptance of this Agreement or by otherwise using the Service, you are entering into a legally binding agreement with CareerGuide. If you do not agree to these terms and conditions, you must not use the Service.
+"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="1. Description"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="The Service is a online marketplace and counselling platform for use by individuals or organizations to coordinate, collaborate, review, analyze, discuss and connect amongst themselves and with external parties and individuals over various economic and counselling opportunities of guidance, engagement and employment.
+
+\n\nIn order to provide services to you, the Service relies on the data that you supply to CareerGuide, on other external data sources that you link to the Service, and on data generated by use of the Service by you (collectively, all of this data is referred to in this Agreement as the “User Data“).
+"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="2. Registration"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="In order to use the Service, the Licensee must create an account and register with CareerGuide. The Licensee, and the Authorized User entering this Agreement on the Licensee's behalf, represent and warrant to CareerGuide that:
+
+\n\n\t\t\t1. the person executing this Agreement has the right to enter this Agreement on behalf of the Licensee and to bind the Licensee to this Agreement;
+\n\t\t\t2. the Licensee will provide CareerGuide with accurate, current and complete registration information about the Licensee; and
+\n\t\t\t3. the Licensee's registration and your use of the Service is not prohibited by law. The Licensee is responsible for its registration and all use of the Service by its Authorized Users and by any person using any user ID or password issued to any Authorized User of the Licensee.
+
+\n\nWhen a Licensee creates an account, the Licensee may invite, depending on the account type, invite a certain number of colleagues and other users within its enterprise to participate in use of the Service by becoming Authorized Users. All Authorized Users will provide CareerGuide with accurate and complete registration information. No Authorized Users may share passwords or user IDs with any other person.
+"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="3. Proprietary Materials and Ownership"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="The Service and the CareerGuide website are the properties of CareerGuide. Without limitation of the foregoing, all the software, algorithms, functionality, text, images, sounds, marks, logos, compilations (meaning the collection, arrangement and assembly of information), content and software used to deliver the Service or otherwise embodied in or displayed through the Service (the “CareerGuide Property“), which excludes the User Data, is proprietary to CareerGuide or to third parties and is protected by copyright and other intellectual property laws. Except as otherwise expressly permitted by this Agreement, any use, copying, making derivative works, transmitting, posting, linking, deep linking, redistribution, sale, decompilation, modification, reverse engineering, translation or disassembly of the CareerGuide Property is prohibited. You acknowledge that the CareerGuide Property has been created, compiled, developed and maintained by CareerGuide at great expense of time and money such that misappropriation or unauthorized disclosure or use of the CareerGuide Property by others for commercial gain would unfairly and irreparably harm CareerGuide in a manner for which damages would not be an adequate remedy, and you consent to CareerGuide obtaining injunctive relief to restrain any breach or threatened breach of this Agreement. You may be subject to criminal or civil penalties for violation of this paragraph.
+
+\n\nThe marks CareerGuide and the CareerGuide logo are registered or unregistered trademarks of CareerGuide, and they may not be used in connection with any service or products other than those provided by CareerGuide, in any manner that is likely to cause confusion, or in any manner that disparages or discredits CareerGuide. The Service may also feature other trademarks, service marks, and logos of CareerGuide or third parties, and each owner retains all rights in such marks. Any use of such marks, or any others displayed on the Service, will inure solely to the benefit of their respective owners.
+"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="4. License to Use the Service"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide authorizes the Licensee and its Authorized Users to provide and upload User Data to the Service, and to access, view and use the Service and CareerGuide Property, to the extent necessary for the Licensee's internal group email collaboration and management purposes, subject to the payment of any applicable fees. If your applicable payment plan is subject to any limitations with respect to number of Authorized Users, data usage or storage limits, your license rights are limited to use within those specified limitations. Any re-sale, re-distribution, modification, reproduction, republication, transmission, or other exploitation of the CareerGuide Property, or any portion of the CareerGuide Property, is strictly prohibited without the prior written permission of CareerGuide. You may not combine the Service with any other service or product and supply the combined product or service to third parties. You may not rent or lease use of the Service to any third party. You may not remove any copyright, trademark or other proprietary notices that have been placed on the CareerGuide Property.
+
+\n\nYou warrant and agree that your use of the Service will be consistent with this Agreement and will not infringe nor violate the rights of any other party or breach any contract or legal duty to any other parties. You will comply with all applicable laws, regulations and ordinances relating to the Service, the CareerGuide Property or your use of them, and in using the Service you will not engage in any conduct that restricts or inhibits any other person from using or enjoying the Service.
+
+\n\nYou are responsible for obtaining and maintaining the computer and other equipment you use to access the Service, and for paying for such equipment and any telecommunications charges. We are not liable for any loss or damage you suffer arising from damage to equipment used in connection with use of the Service.
+"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="5. Fees and Payment"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="The fees applicable to use the Service and the different subscription models to access the Service are available under PRICING. Licensee must pay any applicable fees. You shall pay all applicable fees or charges to your account in accordance with the fees, charges, and billing terms in effect at the time a fee or charge is due and payable. All payment obligations are non-cancelable and all amounts paid are non-refundable, unless covered under the subscription model. If in connection with your intended or ongoing use of the Service, CareerGuide requests credit card or other payment information from you, you must provide a valid credit card as a condition to signing up for or your ongoing use of the Service otherwise set forth in any subscription agreement between you and CareerGuide.
+
+\n\nYou hereby represent that you are authorized to provide any credit card you use to sign up for the Service. You acknowledge and agree that any credit card and related billing and payment information that you provide to CareerGuide may be shared by CareerGuide with third party providers, such as payment processors and/or credit agencies, solely for the purposes of checking credit, effecting payment to CareerGuide and servicing your account. CareerGuide may also provide information in response to valid legal process, such as subpoenas, search warrants and court orders, or to establish or exercise its legal rights or defend against legal claims. CareerGuide shall not be liable for any use or disclosure of such information by such third parties. CareerGuide reserves the right to modify its fees and charges and to introduce new charges at any time.
+"/>
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="6. User Data"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="In connection with using the Service, you may upload multimedia content, create notes and engage in communication with external parties or other users, or upload or submit to CareerGuide data, documents, and other materials and information in communication with external originators (collectively, “User Data“). The User Data remains your property, and CareerGuide does not claim any ownership of the copyright or other proprietary rights in such information and User Data. Notwithstanding the foregoing, you agree that:
+
+\n\n\t\t\t1. you grant CareerGuide a worldwide, non-exclusive, perpetual, irrevocable, royalty-free, transferable license, to copy, edit, modify, publish, distribute, prepare derivative works, and use the User Data for the purpose of delivering the Service to Registered and Unregistered Users;
+\n\t\t\t2. all Authorized Users for the applicable Licensee have the right to access your User Data through the Service, subject to any permission limitations you may establish;
+\n\t\t\t3. you represent and warrant that you own all proprietary rights in your User Data or, with respect to any User Data you do not own, you have the full authority and right to upload and post the User Data and to grant the licenses granted hereunder, and that your uploading and posting of the User Data, and the exercise by CareerGuide and Authorized Users of the license rights granted by you shall not infringe any third party intellectual property rights, nor violate any rights of privacy or publicity, nor be defamatory, libelous, vulgar, profane or obscene, nor violate any law or other right, privilege or interest of any third party;
+\n\t\t\t4. if any royalties are payable to any third party for exploitation of User Data posted by you in accordance with the licenses granted by you in this Agreement, you shall be responsible for and pay such royalties
+
+\n\nCareerGuide does not control User Data. Any opinions, advice, statements, or other content included within User Data are those of the respective authors or distributors, and not CareerGuide, and CareerGuide is not responsible for the accuracy or reliability of User Data. CareerGuide is under no obligation to edit or control User Data that Licensees and Authorized Users post or distribute, and will not be in any way responsible or liable for User Data. Each Licensee is responsible for controlling and monitoring the User Data that its Authorized Users provide to the Service.
+"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="7. Confidentiality of User Data"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide shall treat your User Data as information owned by you, and take reasonable precautions to avoid disclosure of sensitive contact information to others. CareerGuide will use the User Data provided by the Licensee and its Authorized Users to provide Services to such Licensee. CareerGuide may conduct analytics and data aggregation activities across all of its customers using all or subsets of User Data from its customers generally, for the purposes of improving and developing the Service, and this Agreement shall not prohibit such activities. CareerGuide will implement reasonable and appropriate measures designed to secure User Data against accidental or unlawful loss, access or disclosure. The foregoing obligations shall not apply to any information that:
+
+\n\n\t\t\t1. was in the public domain prior to the date of this Agreement or subsequently came into the public domain by other than an unauthorized disclosure;
+\n\t\t\t2. was previously known to CareerGuide free of any obligation to keep it confidential;
+\n\t\t\t3. was rightfully received by CareerGuide from a third party whose disclosure would not violate a confidentiality obligation and which disclosure was not in breach of this Agreement;
+\n\t\t\t4. was required to be disclosed in a judicial or administrative proceeding;
+\n\t\t\t5. was independently developed by CareerGuide without breach of this Agreement; or
+\n\t\t\t6. was approved for release by the written authorization of Licensee. On termination of this Agreement, CareerGuide shall be under no obligation to return User Data to you.
+"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="8. Service Restrictions"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="Licensee and each Authorized User shall comply with all rules and policies for use of the Service that are published by CareerGuide from time to time. Without limitation of the foregoing, you shall not:
+
+\n\n\t\t\t1. Use, upload, post, distribute or transmit, any User Data in violation of, or in connection with any violation of, any local, state, national or international laws;
+\n\t\t\t2. Impersonate any person or entity, or forge or manipulate headers to disguise the origin of any User Data;
+\n\t\t\t3. Except as otherwise permitted by this Agreement, harvest or otherwise collect information about others, including email addresses, without their consent;
+\n\t\t\t4. Engage in any other conduct that interferes with the Service or that restricts or inhibits any other person from using or enjoying any User Data, or the Service, or which, in CareerGuide's sole judgment, exposes CareerGuide or any of their officers, directors, employees or agents to any liability or detriment of any type.
+
+\n\nYou shall not submit, post, upload to, distribute through or otherwise use in connection with the Service any User Data that:
+
+\n\n\t\t\t1. Is libelous, vulgar, defamatory, threatening, abusive, scandalous, obscene, pornographic or unlawful or that encourages a criminal offense;
+\n\t\t\t2. Contains material from other copyrighted works without the written consent of the owner of such copyrighted material, other than reasonable excerpts permitted under the copyright doctrine of fair use;
+\n\t\t\t3. Infringes any copyright or violates any property rights, rights of privacy or publicity, or any other rights of any third party; or
+\n\t\t\t4. Contains any software viruses or any other code, file or program that is designed to interrupt, destroy or limit the functionality of any computer software, hardware or telecommunications equipment.
+
+\n\nCareerGuide reserves the right (but is not obligated) to do any or all of the following:
+
+\n\t\t\t1. Investigate any allegation that User Data or Licensee registration information does not conform to the terms and conditions of this Agreement; and
+\n\t\t\t2. Remove User Data or Licensee registration information that is abusive, illegal or disruptive, or that otherwise fails to conform to the terms and conditions of this Agreement.
+
+\n\nCareerGuide has no liability or responsibility to Licensees of the Service or any other person or entity for performance or nonperformance of the aforementioned activities.
+"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="9. Minors"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="Use of the Service is not directed to Licensees under the age of 13. If you are under the age of 13, you are not permitted to register as a Licensee or to send personal information to CareerGuide without the supervision of a guardian."/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="10. Other Content, Third Party Websites and Apps"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="The CareerGuide website may contain links to third-party websites in the form of hyperlinks or social media widgets such as Facebook Like or Twitter Tweet This buttons or offers from such websites. The linked sites and/or widgets are not under our control, and we are not responsible for the contents of any linked site. We provide these as a convenience only, and a link and/or widget does not imply endorsement of, sponsorship of, or affiliation with the linked site by CareerGuide. You should make whatever investigation you feel necessary or appropriate before proceeding with any transaction with any of these third parties.
+
+\n\nYou must consider the content and information posted by third parties including other users, on our Services at your own risk. Such content may be inaccurate, incomplete, delayed, misleading, illegal, offensive or otherwise harmful. CareerGuide generally does not review content posted by users. You agree that we are not responsible for third parties' (including other users') content or information shared on our Service, or any actions that may arise out of your reliance on it.
+"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="11. Ideas Submitted to CareerGuide"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide is pleased to hear from you and welcomes your comments about the Service. In the event that you submit ideas or suggestions for the Service (“Service Comments“), the Service Comments will be deemed, and will remain, the sole property of CareerGuide.
+
+\n\nNone of the Service Comments will be subject to any obligation of confidence on the part of CareerGuide, and CareerGuide will not be liable for any use or disclosure of any Service Comments. Without limiting the foregoing, CareerGuide will be entitled to unrestricted use of the Service Comments for any purpose whatsoever, commercial or otherwise, by any means, by any media, without compensation to the provider, author, creator or inventor of the Service Comments.
+"/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="12. WARRANTY EXCLUSIONS AND LIMITATIONS OF LIABILITY"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="IF CAREERGUIDE PROVIDES THE SERVICE TO YOU AT NO CHARGE, THE SERVICE IS PROVIDED “AS IS“, WITH ALL FAULTS. IF YOU PAY CAREERGUIDE FEES FOR THE SERVICE, CAREERGUIDE WARRANTS THAT THE SERVICE WILL SUBSTANTIALLY CONFORM TO THE DESCRIPTIONS FOR THE SERVICE SET FORTH IN CAREERGUIDE'S USER DOCUMENTATION. CAREERGUIDE'S SOLE AND EXCLUSIVE LIABILITY, AND YOUR SOLE AND EXCLUSIVE REMEDY, WITH RESPECT TO BREACH OF THE FOREGOING WARRANTY SHALL BE CAREERGUIDE'S REASONABLE COMMERCIAL EFFORTS TO REMEDY THE ERROR, OR DAMAGES UP TO THE LIMITATIONS OF LIABILITY SET FORTH IN THIS SECTION. EXCEPT AS EXPRESSLY STATED IN THIS SECTION, CAREERGUIDE EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING:
+
+\n\n\t\t\t1. ALL WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, AND ANY AND ALL WARRANTIES ARISING FROM COURSE OF DEALING AND USAGE OF TRADE;
+\n\t\t\t2. THAT THE SERVICE AND CAREERGUIDE PROPERTY WILL MEET YOUR REQUIREMENTS, WILL ALWAYS BE AVAILABLE, ACCESSIBLE, UNINTERRUPTED, TIMELY, SECURE OR OPERATE WITHOUT ERROR, AND
+\n\t\t\t3. AS TO THE ACCURACY OR RELIABILITY OF ANY INFORMATION OBTAINED FROM THE SERVICE OR THE CAREERGUIDE PROPERTY.
+
+\n\nCAREERGUIDE MAY PAUSE OR INTERRUPT THE SERVICE AT ANY TIME, AND LICENSEES SHOULD EXPECT PERIODIC DOWNTIME FOR UPDATES TO THE SERVICE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM CAREERGUIDE OR THROUGH THE SERVICE WILL CREATE WARRANTY NOT EXPRESSLY STATED HEREIN. UNDER NO CIRCUMSTANCES WILL YOU BE ENTITLED TO RECOVER FROM CAREERGUIDE ANY INCIDENTAL, CONSEQUENTIAL, INDIRECT, PUNITIVE OR SPECIAL DAMAGES (INCLUDING DAMAGES FOR LOSS OF BUSINESS, LOSS OF PROFITS OR LOSS OF USE), WHETHER BASED ON CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE ARISING FROM OR RELATING TO THE SERVICE OR THE CAREERGUIDE PROPERTY, EVEN IF CAREERGUIDE HAS BEEN INFORMED OR SHOULD HAVE KNOWN OF THE POSSIBILITY OF SUCH DAMAGES.
+
+\n\nCAREERGUIDE'S MAXIMUM LIABILITY TO YOU FOR ANY DAMAGES OR LIABILITY ARISING IN CONNECTION WITH THE SERVICE, WHETHER ARISING IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, SHALL BE A REFUND OF THE AMOUNTS PAID BY YOU TO CAREERGUIDE IN THE THREE (3) MONTHS BEFORE THE CLAIM IS MADE.
+
+\n\nIF CAREERGUIDE HAS MADE THE APPLICABLE SERVICE AVAILABLE TO YOU AT NO CHARGE, THE MAXIMUM AGGREGATE LIABILITY OF CAREERGUIDE FOR ANY AND ALL DAMAGES ARISING FROM THE SERVICE OR THE CAREERGUIDE PROPERTY SHALL BE THE AMOUNT OF INR 100, WHETHER THE CLAIM AROSE IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE.
+"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="13. Disclaimer with Respect to Cloud Services"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="Without limitation of the disclaimers and limitations of liability set forth in Section 12, you acknowledge and agree as follows:
+
+\n\n\t\t\t1. CareerGuide provides the Service using cloud computing services of a third party cloud provider, currently Amazon Web Services, Inc. (the “Service Provider“);
+\n\t\t\t2. the price at which CareerGuide could afford to offer the Service would vary if CareerGuide provided the Service other than using such cloud services; and
+\n\t\t\t3. CareerGuide shall not be responsible or liable to you for any act, omission or failure of the Service Provider.
+\n\t\t\t4. CareerGuide is not a storage service. You agree that we have no obligation to store, maintain or provide you a copy of any content or information that you or others provide. We may change, suspend or end any Service, or change and modify prices as per our discretion, without prior notice.
+"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="14. Indemnity"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="Licensee shall defend, indemnify and hold harmless CareerGuide against any and all claims, actions, proceedings, suits, liabilities, losses, damages, costs, expenses and attorneys' fees arising in connection with Licensee's use of the Service, provision of User Data, or Licensee's breach of any provision of this Agreement.
+
+\n\nCareerGuide reserves the right to assume the sole control of the defense and settlement of any claim, action, suit or proceeding for which you are obliged to provide indemnification hereunder. You will cooperate with CareerGuide with respect to such defense and settlement.
+"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="15. Privacy Policy"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide is concerned about personal information privacy and operates the Service under the PRIVACY POLICY. Each party shall comply with all provisions of the Privacy Policy. We urge you to read this policy now and, because the policy is updated from time to time, later at your convenience."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="16. Copyright Infringement"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide's policy is to comply with all Intellectual Property Laws and to act expeditiously upon receiving any notice of claimed infringement. If you have any complaints or objections to material posted on the Service you may send a notification to our Legal Division at legal@careerguide.com and mail a copy of the same to the following address:
+
+\n\n\t\t\tCatalog Educational Services Pvt. Ltd.
+\n\t\t\tCabin No. 1B, 3rd Floor 2A/3,
+\n\t\t\tFront Portion, Kundan Mansion,
+\n\t\t\tAsaf Ali Road, New Delhi - 110002 (IN)
+
+\n\n\t\t\tTelephone: (+91)-11-66487704
+
+\n\n\t\t\tAny notice alleging that materials hosted by or distributed through the Service infringe intellectual property rights must include the following information:
+
+\n\n\t\t\t1. an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright or other right being infringed;
+\n\t\t\t2. a description of the copyrighted work or other intellectual property that you claim has been infringed;
+\n\t\t\t3. a description of the material that you claim is infringing and where it is located on the Service;
+\n\t\t\t4. your address, telephone number, and email address;
+\n\t\t\t5. a statement by you that you have a good faith belief that the use of the materials on the Service of which you are complaining is not authorized by the copyright owner, its agent, or the law; and
+\n\t\t\t6. a statement by you that the above information in your notice is accurate and that, under penalty of perjury, you are the copyright or intellectual property owner or authorized to act on the copyright or intellectual property owner's behalf.
+"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="17. Counter Notices"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="If material that you have posted to the Service has been removed or disabled, you may file a counter notice. To be effective, the counter notice must be a written communication sent to the address listed above that includes the following:
+
+\n\n\t\t\t1 a physical or electronic signature of the subscriber;
+\n\t\t\t2 identification of the material that has been removed or to which access has been disabled and the location at which the material appeared before it was removed or access to it was disabled;
+\n\t\t\t3 a statement under penalty of perjury that you have a good faith belief that the material was removed or disabled as a result of mistake or misidentification of the material to be removed or disabled; and
+\n\t\t\t4 your name, address, and telephone number, and a statement that you consent to the jurisdiction of Court in which the address is located or, if your address is outside of India, for any court in which CareerGuide may be found, and that you will accept service of process from the person who provided notification, or an agent of such person.
+"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="18. Applicable Law and Jurisdiction; Compliance"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="You and CareerGuide agree that all matters arising from or relating to the use and operation of the Service will be governed by the Laws of India. The Courts of Law at New Delhi, India shall have exclusive jurisdiction over any disputes arising under this agreement. You agree that all claims you may have arising from or relating to the operation, use or other exploitation of the Service will be heard and resolved in the courts located in New Delhi. You consent to the personal jurisdiction of such courts over you, stipulate to the fairness and convenience of proceeding in such courts, and covenant not to assert any object to proceeding in such courts."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="19. Suspension; Modifications and Termination"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide reserves the right to suspend your password and/or access to the Service at any time if it believes you are in breach of this Agreement. CareerGuide reserves the right to terminate or modify this Agreement, terminate the Service or modify any features or aspects of the Service, or modify its policies at any time, with or without notice to you. If you use the Service, you shall be bound by the version of the Agreement in effect at the time of your use. You are under an obligation to review the current version of this Agreement and other published CareerGuide policies before using the Service. Sections 3, 5, 6, 7, and 11-20, any accrued rights and remedies, and any other provisions that by their nature require survival in order to be effective, shall survive the termination or expiration of this Agreement."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="Force Majeure"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="In no event shall CareerGuide be liable for any failure to comply with this Agreement to the extent that such failure arises from factors outside CareerGuide's reasonable control."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="21. Miscellaneous Provisions"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="No delay or omission by CareerGuide in exercising any of its rights occurring upon any noncompliance or default by you with respect to any of the terms and conditions of this Agreement will impair any such right or be construed to be a waiver thereof, and a waiver by CareerGuide of any of the covenants, conditions or agreements to be performed by you will not be construed to be a waiver of any succeeding breach thereof or of any other covenant, condition or agreement hereof contained. As used in this Agreement, “including“ means “including but not limited to“ and the term “partner“ is used solely to denote another entity with which CareerGuide has a sponsorship or similar contractual arrangement. If any provision of this Agreement is found by a court of competent jurisdiction to be invalid or unenforceable, then this Agreement will remain in full force and effect and will be reformed to be valid and enforceable while reflecting the intent of the parties to the greatest extent permitted by law. Except as otherwise expressly provided herein, this Agreement sets forth the entire agreement between you and CareerGuide regarding its subject matter, and supersedes all prior promises, agreements or representations, whether written or oral, regarding such subject matter. Your registration, this Agreement and your rights and obligations hereunder are not assignable or transferable by you to any third party without the prior written consent of CareerGuide. We may assign this Agreement to any purchaser of the CareerGuide business. This Agreement may be executed electronically, and your electronic assent or use of the Service shall constitute execution of this Agreement. You agree that the electronic text of this Agreement constitutes a writing and your assent to the terms and conditions hereof constitutes a “signing“ for all purposes."/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="30dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#d81b60"
+                    android:textStyle="bold"
+                    android:text="PRIVACY POLICY"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:text="(Last Updated: 16, May 2018)"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:textColor="#000"
+                    android:text="At CareerGuide, we recognize the importance of your privacy. Nevertheless, you may, be concerned about the information you provide to us or that is collected by us and how we use and disclose it. This Privacy Policy explains CareerGuide’s privacy practices for visitors to the various web and mobile application properties owned and operated by CareerGuide (the “Sites“). By accessing or using any of the Sites, you consent to the collection, use and disclosure of your personal information as described in this Privacy Policy. This Privacy Policy is incorporated into and subject to the terms of the CareerGuide TERMS OF SERVICE. We reserve the right to change this Privacy Policy at any time. If we make any changes to our Privacy Policy, we will post a new policy on the Sites and update the “last updated“ date set forth above. Therefore, we encourage you to check our Privacy Policy whenever you visit any of the Sites to see if it has been updated since your last visit. Your continued use of the Sites following our notice of any such changes constitutes your acceptance of those changes. If you have any questions about our Privacy Policy, you can contact us at legal@careerguide.com." />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="1. Types of Information We Collect"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="Personal Information: Personal information is information that you provide when you set up your CareerGuide account individually or on behalf of an organization and the team members within the organization using the Service such as your business name, team members names, email addresses, telephone numbers, credit card information, other account number, and information about your activities.
+
+\n\nAggregate Information: Personal information does not include “aggregate“ information. Aggregate information is data we collect about a group or category of products, services or customers, from which individual customer identities have been removed. In other words, information about how you or how your organization use a service might be collected and combined with information about how other individuals and organizations use the same service, but no information relating to specific individuals or organizations will be included in the resulting data. Likewise, information about the products you purchase might be collected and combined with information about the products purchased by other individuals or organizations. Aggregate data helps us understand trends and customer needs so that we can better consider new products and services, and tailor existing products and services to customer desires. We might share aggregate information about our users with third parties for various purposes, such as helping us better understand and improve our services, and for advertising and marketing purposes."/>
+
+&lt;!&ndash;“&ndash;&gt;
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="2. How We Collect and Use Personal Information"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="CareerGuide collects personal information from you at several different points on our Sites, as set forth below. In general, we use personal information for the purpose for which it was collected (such as to provide services or complete transactions you have requested, for billing purposes, and to anticipate and resolve problems with our Sites and our products and services), for our own internal business operations, to respond to customer support inquiries and for other purposes as described below."/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="3. Intellectual Property"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 The data and information contained on the CareerGuide.com service, the software used to operate it and the trade marks, logos and other intellectual property used in connection with it are the property of CareerGuide.com No licence of any such intellectual property rights is granted to you as a result of your use of the CareerGuide.com service."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="4. The Rights of CareerGuide.com"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Send you e-mails relating to your registration, purchase and account, including site upgrades. Keep a log file of all searches, which can be made available to data subjects and/or the law enforcement authorities."/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="5. Cookies"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 By accessing our Site, you permit us to put our cookies on your hard disc subject. You may, if you please, refuse cookies sent by us."/>
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="6. Hyper Text Links to Third Party Sites"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 CareerGuide.com may provide, through this Site, links to Web sites operated by others. If you decide to visit any linked site, you will be doing so at your sole risk and it is your responsibility to take all protective measures to guard against viruses or other destructive elements. CareerGuide.com makes no warranty or representation regarding, and does not endorse, any linked Web sites or the information appearing thereon or any of the products or services described thereon. Links do not imply that CareerGuide.com or this Site sponsors, endorses, is affiliated or associated with, or is legally authorized to use any trademark, trade name, logo or copyright symbol displayed in or accessible through the links, or that any linked site is authorized to use any trademark, trade name, logo or copyright symbol of CareerGuide.com."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="7. Information Provided By Users"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 You agree that any material, information, and ideas that you transmit to this site shall become the property of CareerGuide.com No Transmissions shall be treated as confidential and proprietary and CareerGuide.com shall be under no obligation with regard to such information and shall be free to use, disclose, reproduce or distribute it to others without restriction. CareerGuide.com shall also be free to use any ideas, concepts, know-how, or techniques contained in such information for any purpose whatsoever. You further agree that CareerGuide.com may use information about your demographics and use of this site in any manner. You agree, and are hereby put on notice, that you are prohibited from posting or transmitting to or from this Site any unlawful, threatening, libelous, defamatory, inflammatory, pornographic, or profane material or any other material that could give rise to any civil or criminal liability under law. You are solely responsible for the content of any comments you make. CareerGuide.com does not solicit information from you for hosting on the website. Any information you send is sent so by you voluntarily and so CareerGuide.com is not liable to pay you any consideration for hosting the information sent."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="8. Indemnity"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 In consideration of posting the information sent by users on our website or obtained through the means of a cookie or sent by users; Users undertake to indemnify CareerGuide.com and keep it indemnified against all proceedings, claims, expenses and liabilities whatsoever which may be taken or made against or incurred by CareerGuide.com or by reasons of the premises."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="9. Endorsements"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 All Product and Services marks contained herein that are not CareerGuide.com or CareerGuide.com marks are the trademarks of their respective owners. References that we make to any names, marks, products or services of third parties or information do not, unless otherwise indicated, constitute or imply our endorsement, sponsorship or recommendation of the third party, information, product or service."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="10. Jurisdiction as per Indian Laws"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 These conditions shall be governed by and construed in accordance with Indian laws. All disputes are subject to jurisdiction of the courts of New Delhi, India. This website can be accessed from any place around the world. However, by accessing this website you agree that the laws of India, without regard to rules relating to conflict of laws, will apply to all matters relating to your use of this website. Users of this website accessing it from places outside of India acknowledge that they do so voluntarily and are responsible for complying with local laws. CareerGuide.com reserves the right at all times to disclose any information as necessary to satisfy any applicable law, regulation, legal process or governmental request, or to edit, refuse to post or to remove any information or materials, in whole or in part, at the sole discretion of CareerGuide.com"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 These Site Terms and conditions constitute the entire agreement between the parties with respect to the subject matter hereof and this supersedes and replaces all previous or coexisting understandings/agreements, written/oral, with respect to the subject matter. If any of these conditions is determined by a court of competent jurisdiction to be illegal, invalid or otherwise unenforceable, that provision shall be severed from these conditions and the remaining provisions shall continue in full force and effect."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="11. For any issue or query"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 In case customer have any issue/query he/she will contact on 011 66487704 number Or send mail on email id customercare@careerguide.com and will be resolved on basis of severability of the complaint"/>
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="12. Refund cancellation policy"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 You will be charged as set forth on the payment page. If you are not satisfied with your experience with the Service for any reason, then as your sole remedy and within ten (10) days of when you paid, you may request a refund by emailing us at customercare@careerguide.com. We want you to be satisfied and will make refunds in appropriate circumstances in our sole discretion."/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="30dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#d81b60"
+                    android:textStyle="bold"
+                    android:text="Terms and Conditions"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:textColor="#000"
+                    android:text="By accessing any part of this website you agree to be bound by the following terms and conditions which you should read carefully.\n\nCareerGuide.com may change these conditions at any time without any prior notice. By your continued access and use of this website, you agree to be bound by the latest version of the site terms and conditions. Please check these periodically for any changes that may have been made. " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="1. Disclamer"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 We use our reasonable endeavors to ensure the accuracy of the information provided on the CareerGuide.com service. "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 We do not warrant or guarantee the accuracy, reliability or legality of any of the information contained in the CareerGuide.com,"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 We makes no warranty that the contents of this site are free from infection by viruses or anything else which has contaminating or destructive properties."/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Reserves the right, at its discretion, from time to time to make changes to the information provided on the CareerGuide.com service, or to alter the nature of the CareerGuide.com service. "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Will not be liable to you under any circumstances whatsoever for any direct, indirect, consequential, punitive or special damages arising from your use of the CareerGuide.com service."/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Will not guarantee the availability of the CareerGuide.com service during maintenance of the website. Will not be responsible for the site content provided by advertisers including product/service performance claims, advertisement and/or sales promotions is the sole responsibility of such advertisers and they alone shall be liable for all disputes and liabilities arising therefrom and CareerGuide.com will in no way be responsible for it. CareerGuide.com and its affiliates, associates, agents or employees shall not be liable, at any time for any damages (including, damages for loss of profits or loss of business) arising in contract, or otherwise from the use of or inability to use the Site, or any of its contents, or from any act(s) or omission(s) a result of using the Site or any such contents or for any failure of performance, error, omission, interruption, deletion, defect, delay in operation or transmission, computer virus, communications line failure, theft or destruction or unauthorised access to, alteration of, or use of information contained on the site."/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Has compiled data from a variety of sources on this website and reserves the right, in its sole discretion, to correct any errors or omissions in any portion of the site. CareerGuide.com may make any other changes to the site, the materials and the products, programs, services or prices (if any) described in the site at any time without notice."/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 You are therefore advised to check the information provided to you through the CareerGuide.com service as any reliance that you place on the accuracy of that information is at your own risk. While users are offered free access to CareerGuide.com service, CareerGuide.com reserves the right to discontinue these free promotions at any time and with no notice given."/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="2. Restriction on Use of the CareerGuide.com Service"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Users are permitted to read, print or download text, data and/or graphics from the site, for their personal and non-commercial use only. Any copies of these pages saved to disk or to any other storage medium be only used for subsequent viewing purposes or to print extracts for personal use. "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 You may not integrate the CareerGuide.com service into another internet/extranet except through our permission in writing from our customer relations department. Unauthorised access, redistribution, transmission and/or dealing with any information contained in this site, re- production in any other manner, either in whole or in part, is strictly prohibited, failing which strict legal action will be initiated against such users. You may not use automated scripts, software, spiders or any other automated means to perform searches on CareerGuide.com. Any attempt to extract or download significant amounts of data from CareerGuide.com or to compile a database from data obtained from CareerGuide.com is strictly forbidden. Please call our customer relations department on 011 66487704 or e-mail: info@careerguide.com for more information about such access. You are only entitled to use the information provided on the CareerGuide.com service in responsible ways and this information may not be used in any malicious, illegal or anti-social activity. We reserve the right to suspend any accounts where a user has supplied CareerGuide.com with a false information."/>
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="3. Intellectual Property"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 The data and information contained on the CareerGuide.com service, the software used to operate it and the trade marks, logos and other intellectual property used in connection with it are the property of CareerGuide.com No licence of any such intellectual property rights is granted to you as a result of your use of the CareerGuide.com service."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="4. The Rights of CareerGuide.com"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 Send you e-mails relating to your registration, purchase and account, including site upgrades. Keep a log file of all searches, which can be made available to data subjects and/or the law enforcement authorities."/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="5. Cookies"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 By accessing our Site, you permit us to put our cookies on your hard disc subject. You may, if you please, refuse cookies sent by us."/>
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="6. Hyper Text Links to Third Party Sites"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 CareerGuide.com may provide, through this Site, links to Web sites operated by others. If you decide to visit any linked site, you will be doing so at your sole risk and it is your responsibility to take all protective measures to guard against viruses or other destructive elements. CareerGuide.com makes no warranty or representation regarding, and does not endorse, any linked Web sites or the information appearing thereon or any of the products or services described thereon. Links do not imply that CareerGuide.com or this Site sponsors, endorses, is affiliated or associated with, or is legally authorized to use any trademark, trade name, logo or copyright symbol displayed in or accessible through the links, or that any linked site is authorized to use any trademark, trade name, logo or copyright symbol of CareerGuide.com."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="7. Information Provided By Users"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 You agree that any material, information, and ideas that you transmit to this site shall become the property of CareerGuide.com No Transmissions shall be treated as confidential and proprietary and CareerGuide.com shall be under no obligation with regard to such information and shall be free to use, disclose, reproduce or distribute it to others without restriction. CareerGuide.com shall also be free to use any ideas, concepts, know-how, or techniques contained in such information for any purpose whatsoever. You further agree that CareerGuide.com may use information about your demographics and use of this site in any manner. You agree, and are hereby put on notice, that you are prohibited from posting or transmitting to or from this Site any unlawful, threatening, libelous, defamatory, inflammatory, pornographic, or profane material or any other material that could give rise to any civil or criminal liability under law. You are solely responsible for the content of any comments you make. CareerGuide.com does not solicit information from you for hosting on the website. Any information you send is sent so by you voluntarily and so CareerGuide.com is not liable to pay you any consideration for hosting the information sent."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="8. Indemnity"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 In consideration of posting the information sent by users on our website or obtained through the means of a cookie or sent by users; Users undertake to indemnify CareerGuide.com and keep it indemnified against all proceedings, claims, expenses and liabilities whatsoever which may be taken or made against or incurred by CareerGuide.com or by reasons of the premises."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="9. Endorsements"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 All Product and Services marks contained herein that are not CareerGuide.com or CareerGuide.com marks are the trademarks of their respective owners. References that we make to any names, marks, products or services of third parties or information do not, unless otherwise indicated, constitute or imply our endorsement, sponsorship or recommendation of the third party, information, product or service."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="10. Jurisdiction as per Indian Laws"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 These conditions shall be governed by and construed in accordance with Indian laws. All disputes are subject to jurisdiction of the courts of New Delhi, India. This website can be accessed from any place around the world. However, by accessing this website you agree that the laws of India, without regard to rules relating to conflict of laws, will apply to all matters relating to your use of this website. Users of this website accessing it from places outside of India acknowledge that they do so voluntarily and are responsible for complying with local laws. CareerGuide.com reserves the right at all times to disclose any information as necessary to satisfy any applicable law, regulation, legal process or governmental request, or to edit, refuse to post or to remove any information or materials, in whole or in part, at the sole discretion of CareerGuide.com"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 These Site Terms and conditions constitute the entire agreement between the parties with respect to the subject matter hereof and this supersedes and replaces all previous or coexisting understandings/agreements, written/oral, with respect to the subject matter. If any of these conditions is determined by a court of competent jurisdiction to be illegal, invalid or otherwise unenforceable, that provision shall be severed from these conditions and the remaining provisions shall continue in full force and effect."/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="11. For any issue or query"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 In case customer have any issue/query he/she will contact on 011 66487704 number Or send mail on email id customercare@careerguide.com and will be resolved on basis of severability of the complaint"/>
+
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:text="12. Refund cancellation policy"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:text="\u2022 You will be charged as set forth on the payment page. If you are not satisfied with your experience with the Service for any reason, then as your sole remedy and within ten (10) days of when you paid, you may request a refund by emailing us at customercare@careerguide.com. We want you to be satisfied and will make refunds in appropriate circumstances in our sole discretion."/>
+            </LinearLayout>-->
+        </LinearLayout>
+
+
+    </ScrollView>
+    <!---->
+</LinearLayout>

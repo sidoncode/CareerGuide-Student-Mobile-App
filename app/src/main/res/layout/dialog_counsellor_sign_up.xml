@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please fill the form"
+        android:textStyle="bold"
+        android:textColor="@color/app_blue"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:hint="Name"/>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/nameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="Please enter name"
+        android:textColor="#f00"/>
+
+    <EditText
+        android:id="@+id/mobileNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:maxLength="10"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:imeOptions="actionNext"
+        android:inputType="phone"
+        android:hint="Mobile Number"/>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/mobileNumberError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="Please enter valid mobile number"
+        android:textColor="#f00"/>
+
+    <EditText
+        android:id="@+id/emailId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:hint="Email"/>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/emailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="Please enter email id"
+        android:textColor="#f00"/>
+
+    <EditText
+        android:id="@+id/linkedInLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:imeOptions="actionNext"
+        android:inputType="textUri"
+        android:hint="LinkedIn Profile link"/>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/linkedInLinkError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="Please enter linkedIn profile link"
+        android:textColor="#f00"/>
+
+    <EditText
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Anything you want to mention?"
+        android:textSize="13sp"
+        android:gravity="top"
+        android:layout_marginTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"/>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/detailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="Please enter description."
+        android:textColor="#f00"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:background="@color/app_pink"
+        android:textSize="12sp"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:text="Submit"/>
+
+
+</LinearLayout>

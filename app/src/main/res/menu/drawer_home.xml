@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/home_fragment"
+            android:title="Home"
+            android:icon="@drawable/ic_nav_home"/><!--android:icon="@drawable/ic_one"-->
+        <item
+            android:id="@+id/tests"
+            android:title="Psychometric Career Tests"
+            android:icon="@drawable/ic_nav_psyc_test"/>
+        <item
+            android:id="@+id/report_url"
+            android:icon="@drawable/ic_mgmt_team_selected"
+            android:title="View Psychometric Report" />
+        <!--<item-->
+            <!--android:id="@+id/counsellorChat"-->
+            <!--android:icon="@drawable/cc_ic_chat_setting"-->
+            <!--android:title="Talk to a Counsellor" />-->
+        <item
+            android:id="@+id/counsellorSignUp"
+            android:title="Sign up as a Counsellor"
+            android:icon="@drawable/ic_nav_sign_couns"/>
+        <item
+            android:id="@+id/careerbooks"
+            android:icon="@drawable/ic_career_ebook"
+            android:title="Career E-Books"
+            />
+        <item
+            android:id="@+id/livecounsellor"
+            android:icon="@drawable/ic_chng_profile_pic"
+            android:visible="false"
+            android:title="Live Counsellors"/>
+
+
+        <item
+            android:id="@+id/videocallcounsellor"
+            android:icon="@drawable/couns_sign_up_intl"
+            android:visible="false"
+            android:title="Video Call with Counsellors"/>
+        <item
+            android:id="@+id/livesessions"
+            android:icon="@drawable/exo_notification_small_icon"
+            android:title="Live sessions" />
+
+        <item
+            android:id="@+id/about_fragment"
+            android:icon="@drawable/ic_nav_about"
+            android:title="About Us" />
+        <item
+            android:id="@+id/contact_us"
+            android:title="Contact Us"
+            android:icon="@drawable/ic_nav_contact"/>
+
+        <item
+            android:id="@+id/refer_a_friend"
+            android:title="Refer a Friend"
+            android:icon="@drawable/ic_share_black_24dp"/>
+
+
+        <item
+            android:id="@+id/rate_us"
+            android:title="Rate Us"
+            android:icon="@drawable/ic_star_border_black_24dp"/>
+
+
+        <item
+            android:visible="false"
+            android:id="@+id/counsellorCorner"
+            android:title="Counsellors"/>
+
+
+        <!--<item
+            android:id="@+id/terms_fragment"
+            android:title="Terms &amp; Condition" />-->
+
+        <!--<item android:title="Sub items">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:title="Sub item 1" />
+                    <item
+                        android:title="Sub item 2" />
+                </group
+            </menu>
+        </item>-->
+    </group>
+    <!--<item android:title="Sub items outer">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:title="Sub item outer 1" />
+                <item
+                    android:title="Sub item outer 2" />
+            </group>
+        </menu>
+    </item>-->
+
+</menu>

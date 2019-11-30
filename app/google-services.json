@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "490137497119",
+    "firebase_url": "https://careerguide-android.firebaseio.com",
+    "project_id": "careerguide-android",
+    "storage_bucket": "careerguide-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490137497119:android:f1b8debd68e92e9c",
+        "android_client_info": {
+          "package_name": "com.careerguide"
+        }
+      },
+        "oauth_client": [
+          {
+            "client_id": "490137497119-qtia710sh755cea43gdnte29mlbiubvq.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbGvXgS6O7OPFzHyL7QoprmEOutqjIya0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

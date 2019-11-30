@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/app_blue</color>
+    <color name="colorPrimaryDark">#14307d</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="grey">#d3d3d3</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="app_blue">#4e59ad</color>
+    <color name="app_yellow">#ff9f17</color>
+    <color name="white">#fff</color>
+    <color name="buttonColor">#54B7C8</color>
+    <color name="app_pink">#e91e63</color>
+    <color name="black_30">#4c000000</color>
+    <color name="white_ru">#D2E9FF</color>
+    <color name="blue">#32c5f3</color>
+    <color name="darkGray">#aaa</color>
+    <color name="lightGray">#ddd</color>
+    <color name="lightBlack">#333333</color>
+    <color name="darkBlue">#4D4DCA</color>
+    <color name="lightBlue">#6E8FE6</color>
+    <color name="green_light">#ff99cc00</color>
+    <color name="black">#000000</color>
+    <color name="red_light">#ffff4444</color>
+    <color name="localBackground">#827b92</color>
+    <color name="remoteBackground">#484258</color>
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
+    <color name="blackTransparent">#07DDDDDD</color>
+    <color name="gray_lightest">#DEDEDE</color>
+    <color name="toolbarTransparent">#95000000</color>
+    <color name="profileBackground">#fff</color>
+</resources>

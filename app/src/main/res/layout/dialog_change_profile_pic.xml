@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="30dp"
+    android:gravity="center">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dialogProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/default_profile"/>
+        <TextView
+            android:id="@+id/imageInitial"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textColor="#fff"
+            android:textSize="21sp"
+            android:gravity="center"
+            android:text=""/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/changePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textColor="#000"
+        android:drawableLeft="@drawable/ic_chng_profile_pic"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Change Profile Picture"/>
+    <TextView
+        android:id="@+id/removePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:drawableLeft="@drawable/ic_rem_profile_pic"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="Remove Profile Picture"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@color/app_pink"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:text="Done"/>
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="10dp"
+            android:background="#d3d3d3"
+            android:textAllCaps="false"
+            android:textColor="#000"
+            android:text="Cancel"/>
+    </LinearLayout>
+</LinearLayout>

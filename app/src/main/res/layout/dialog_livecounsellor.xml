@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:layout_gravity="center_vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:text="There Is No Counsellor is live Now Mean While Watch Our Previous Live Session"
+        android:textColor="@color/app_blue"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="60dp">
+
+        <Button
+            android:id="@+id/start_test"
+            android:layout_width="95dp"
+            android:layout_height="27dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="13dp"
+            android:background="@color/app_pink"
+            android:text="Watch Now"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</RelativeLayout>

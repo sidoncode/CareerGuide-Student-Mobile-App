@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:fitsSystemWindows="false">
+
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:id="@+id/animation_like"-->
+<!--        android:background="@drawable/bg_circle_a3000000"-->
+<!--        android:layout_width="56.0dip"-->
+<!--        android:layout_height="56.0dip"-->
+<!--        app:lottie_fileName="like_animation.json"-->
+<!--        app:lottie_loop="true"-->
+<!--        app:lottie_autoPlay="true"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/txt_like_count"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginStart="4.0dip"-->
+<!--        android:gravity="center"-->
+<!--        android:shadowColor="#ff000000"-->
+<!--        android:shadowRadius="4.0"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textStyle="bold"-->
+<!--        android:visibility="visible"-->
+<!--        android:layout_height="wrap_content" />-->
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/img_share"
+        android:background="@drawable/bg_circle_a3000000"
+        android:padding="14.0dip"
+        android:layout_width="56.0dip"
+        android:layout_height="56.0dip"
+        android:layout_marginTop="10.0dip"
+        android:src="@drawable/ic_whatsapp" />
+
+    <TextView
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/txt_share_count"
+        android:visibility="visible"
+        android:layout_marginTop="6.0dip"
+        android:shadowColor="#ff000000"
+        android:shadowRadius="4.0"
+        android:layout_marginStart="4.0dip"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+</LinearLayout>

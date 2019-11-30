@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.careerguide.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:paddingTop="50dp"
+        android:orientation="vertical">
+        <TextView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textSize="26sp"
+            android:text="login"
+            android:id="@+id/Login"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="Welcome to"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="40dp"
+            android:text="CareerGuide"/>
+        <TextView
+            android:id="@+id/studentButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_background_app_color"
+            android:text="I am a Student"/>
+        <TextView
+            android:id="@+id/parentButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_background_app_color"
+            android:text="I am a Parent"/>
+        <TextView
+            android:id="@+id/counsellorButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_background_app_color"
+            android:text="I am a Counsellor"/>
+    </LinearLayout>
+
+</RelativeLayout>

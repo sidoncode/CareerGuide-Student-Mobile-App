@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="3dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:text="CareerGuide is India's one stop destination for all career related queries.\n\nEveryday tens of thousands of students use CareerGuide to find their ideal career path and embark on a successful and fulfilling career."/>
+    </android.support.v7.widget.CardView>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:background="#bf360c"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
+                    android:text="8 Psychometric\nAssessment Tests"/>
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="110dp"
+                    android:background="#f5511e"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:text="Our scientific approach helps students find their ideal career choice in which they have the maximum potential to excel based on their personality."/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:background="#6a1b9a"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
+                    android:text="1100+\nCareer Counsellors"/>
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="110dp"
+                    android:background="#8e24aa"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:text="Our expert counsellors from over thirty cities from across India help students as well as parents personalise their CareerGuide experience."/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:background="#c2175b"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
+                    android:text="800+\nCareer Topics Listed"/>
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="110dp"
+                    android:background="#ea1e63"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:text="CareerGuide has an unrivaled knowledge base of close to a thousand career topics which help students find the most suitable career choice."/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:background="#0579c4"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
+                    android:text="530000+\nStudents Impacted"/>
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="110dp"
+                    android:background="#438afe"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:text="The unwavering trust of lakhs of students from across India has made CareerGuide India's largest and most successful career advise platform."/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:background="#465a65"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
+                    android:text="110000+\nQuestions Answered"/>
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="110dp"
+                    android:background="#607d8b"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:text="CareerGuide's repository of over hundred thousand queries maintained by industry experts &amp; career counsellors help students self-navigate."/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:background="#2f7d32"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
+                    android:text="AI Powered\nRecommendation Engine"/>
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="110dp"
+                    android:background="#43a047"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#fff"
+                    android:text="CareerGuide's state-of-art technology is powered by over a million interactions, historic cases studies, progress charts and course combinations."/>
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+    <!--<android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="8dp">
+
+    </android.support.v7.widget.CardView>-->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="3dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:text="Do you have a question regarding education or career"/>
+
+            <Button
+                android:id="@+id/askUs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@color/app_pink"
+                android:text="Ask Us"
+                android:textAllCaps="false"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

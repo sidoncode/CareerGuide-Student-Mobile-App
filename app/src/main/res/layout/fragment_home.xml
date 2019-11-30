@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".CounsellorProfile">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_goal_static_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/careerguide_banner" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="15dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_wifi" />
+
+                    <TextView
+                        android:id="@+id/tv_sessions_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:text="3,500K Students Helped"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="15dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_about_selected" />
+
+                    <TextView
+                        android:id="@+id/tv_languages"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:text="100K Psychometric Done"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="15dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_black_back" />
+
+                    <TextView
+                        android:id="@+id/tv_educators"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:text="1,500 Top Career Counsellors"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="15dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_attach" />
+
+                    <TextView
+                        android:id="@+id/tv_star"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:text="13,400 Geographic Reach"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="30dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_chat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/following_post_bg"
+                            android:paddingStart="40dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="40dp"
+                            android:paddingBottom="10dp"
+                            android:text="Chat with us"
+                            android:textColor="@color/app_blue"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/save_post_bg"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="30dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_subscribe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Get Subscription"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="250dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/home_banner_background" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_centerInParent="true"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/bannerTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Find out what career choice best suit your personality"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/bannerDesc"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="11sp"-->
+<!--                        android:text="Take our Psychometric Career Test to find out"/>-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/tests"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="#43a047"-->
+<!--                        android:text="Take Test Now"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:paddingLeft="10dp"/>-->
+<!--                </LinearLayout>-->
+<!--            </RelativeLayout>-->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:paddingStart="10dp"
+                    android:text="Classes"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_see_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="See all"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:paddingStart="10dp"
+                    android:text="Our Test"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="See all"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/tests"
+                                android:layout_width="match_parent"
+                                android:layout_height="250dp"
+                                android:background="@drawable/round_background_ideal_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ideal_test" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Ideal Career Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="Provides you 12 pages of Psychometric report."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/stream_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@drawable/round_background_professional_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/professional_test" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Professional\n Skill Index Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="Know your Professional Skill Index!\n And train your way to a brighter career."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/round_background_professional_button"
+                                    android:gravity="center"
+                                    android:text="Coming Soon"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp"/>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/ideal_career2"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@drawable/round_background_humanities_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/humanities_test" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Humanities Career Selector Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="Know your Humanities best career option\n And train your way to a brighter career."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/round_background_humanites_button"
+                                    android:gravity="center"
+                                    android:text="Coming Soon"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp"/>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/ideal_career3"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@drawable/round_background_stream_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/stream_selector" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Stream Selector Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="Provides you 4 pages of Psychometric report."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/round_background_stream_button"
+                                    android:gravity="center"
+                                    android:text="Coming Soon"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/ideal_career4"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@drawable/round_background_commerce_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/commerce_test" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Commerce Career Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="Know your Commerce Best Career Option!\n And train your way to a brighter career."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/round_background_commerce_button"
+                                    android:gravity="center"
+                                    android:text="Coming Soon"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp"/>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/ideal_career5"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@drawable/round_background_engineering_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/engineering_test" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Engineering Bracnch Selector Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="The best way to select your engineering\n branch. Discover it today."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/round_background_engineering_button"
+                                    android:gravity="center"
+                                    android:text="Coming Soon"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp"/>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/skill_career"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@drawable/round_background_skillbased_up"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/skill_based_test" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginRight="25dp"
+                                    android:text="Skill Based Career Test"
+                                    android:textColor="#000"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="45dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:text="The best way to select your engineering\n branch. Discover it today."
+                                    android:textColor="#000"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/round_background_skillbased_button"
+                                    android:gravity="center"
+                                    android:text="Coming Soon"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp"/>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/topic_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Topics"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingStart="10dp"
+                    android:layout_weight="8"/>
+
+                <TextView
+                    android:id="@+id/topic_see_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="See all"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/counsellor_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Counsellors"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingStart="10dp"
+                    android:layout_weight="8"/>
+
+                <TextView
+                    android:id="@+id/counsellor_see_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="See all"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_counsellor"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/main_content"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@android:color/white"-->
+<!--    android:fitsSystemWindows="true">-->
+
+<!--    <android.support.design.widget.AppBarLayout-->
+<!--        android:id="@+id/appbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/detail_backdrop_height"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+
+<!--        <android.support.design.widget.CollapsingToolbarLayout-->
+<!--            android:id="@+id/collapsing_toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fitsSystemWindows="true"-->
+<!--            app:contentScrim="?attr/colorPrimary"-->
+<!--            app:expandedTitleTextAppearance="@android:color/transparent"-->
+<!--            app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/home_banner_background"-->
+<!--                    android:scaleType="centerCrop"/>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_centerInParent="true"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/bannerTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Find out what career choice best suit your personality"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/bannerDesc"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="11sp"-->
+<!--                        android:text="Take our Psychometric Career Test to find out"/>-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/tests"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="#43a047"-->
+<!--                        android:text="Take Test Now"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:paddingLeft="10dp"/>-->
+<!--                </LinearLayout>-->
+<!--            </RelativeLayout>-->
+
+
+<!--        </android.support.design.widget.CollapsingToolbarLayout>-->
+
+
+<!--    </android.support.design.widget.AppBarLayout>-->
+
+
+<!--    <include layout="@layout/content_main" />-->
+
+
+<!--</android.support.design.widget.CoordinatorLayout>-->
+
+
+
+
+
+    <!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:background="@drawable/background">-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        tools:context="com.careerguide.HomeFragment">-->
+
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="215dp"-->
+<!--            android:layout_marginBottom="5dp">-->
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@drawable/home_banner_background"-->
+<!--                android:scaleType="centerCrop"/>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="20dp">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/bannerTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="25dp"-->
+<!--                    android:layout_marginLeft="25dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Find out what career choice best suit your personality"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/bannerDesc"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:textSize="11sp"-->
+<!--                    android:text="Take our Psychometric Career Test to find out"/>-->
+<!--                <Button-->
+<!--                    android:id="@+id/tests"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="#43a047"-->
+<!--                    android:text="Take Test Now"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:paddingLeft="10dp"/>-->
+<!--            </LinearLayout>-->
+
+<!--        </FrameLayout>-->
+
+<!--        <android.support.v7.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:background="#2673b0"-->
+<!--            android:padding="15dp"-->
+<!--            android:layout_margin="6dp">-->
+<!--            <RelativeLayout-->
+<!--                android:visibility="gone"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="#fff">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/static3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:text="Recommended Psychometric Tests"/>-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/test"-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_below="@+id/static3"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:gravity="center"-->
+<!--                    android:background="#f4f4f4"-->
+<!--                    android:layout_marginBottom="14dp">-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:src="@drawable/ideal_test"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:text="Ideal Career Test"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        />-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="11sp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:text="Identifying your career starts here"/>-->
+<!--                </LinearLayout>-->
+<!--                <View-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="4dp"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:background="#ff8f00"/>-->
+<!--            </RelativeLayout>-->
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/counsellorSignUp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_margin="5dp">-->
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/home_banner_couns_back"-->
+<!--                    android:scaleType="centerCrop"/>-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:text="Join our network of 1100+ Career Counsellors at CareerGuide"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:textSize="20sp"/>-->
+<!--            </RelativeLayout>-->
+<!--        </android.support.v7.widget.CardView>-->
+<!--        <android.support.v7.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#fff"-->
+<!--            android:padding="15dp"-->
+<!--            android:layout_margin="6dp">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:orientation="vertical">-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/educationalLL"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal">-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:src="@drawable/ic_home_edu_pref"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:text="Educational Preferences"-->
+<!--                        android:textColor="@color/app_blue"-->
+<!--                        android:textSize="18sp"/>-->
+<!--                </LinearLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/educationDetails"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginStart="55dp"-->
+<!--                        android:text="Highest Educational Qualification"-->
+<!--                        android:textColor="@color/app_blue"/>-->
+<!--                    <RadioGroup-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginStart="55dp">-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/class1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:text="Class 1st - Class 9th"/>-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/class10"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:text="Class 10th"/>-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/class12"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:text="Class 12th"/>-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/graduate"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:text="Graduate"/>-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/postGraduate"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:text="Post Graduate"/>-->
+<!--                    </RadioGroup>-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+<!--        </android.support.v7.widget.CardView>-->
+<!--        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--            android:id="@+id/main_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/background"-->
+<!--            android:fitsSystemWindows="true">-->
+<!--            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--                xmlns:tools="http://schemas.android.com/tools"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--                tools:context="com.careerguide.MainActivity_live_counsellor"-->
+<!--                tools:showIn="@layout/activity_main">-->
+
+<!--                <android.support.v7.widget.RecyclerView-->
+<!--                    android:id="@+id/recycler_view"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:clipToPadding="false"-->
+<!--                    android:scrollbars="vertical" />-->
+
+<!--            </RelativeLayout>-->
+
+
+<!--        </android.support.design.widget.CoordinatorLayout>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/see_more"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@drawable/start_broadcast_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingStart="45dp"-->
+<!--            android:paddingLeft="45dp"-->
+<!--            android:paddingEnd="45dp"-->
+<!--            android:paddingRight="45dp"-->
+<!--            android:text="See More >"-->
+<!--            android:textAlignment="gravity"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="#989898"-->
+<!--            android:textSize="18sp" />-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="3dp"-->
+<!--            android:layout_marginBottom="3dp"-->
+<!--            android:textColor="#797979"-->
+<!--            android:textSize="11sp"-->
+<!--            android:text="Copyright \u00A9 CareerGuide 2009 - 2018 | All rights reserved"/>-->
+
+
+<!--    </LinearLayout>-->
+
+<!--</ScrollView>-->

@@ -1,0 +1,99 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="bottom_bar_height">64dp</dimen>
+    <dimen name="bottom_bar_icon_margin">8dp</dimen>
+    <dimen name="top_menu_height">24dp</dimen>
+    <dimen name="top_menu_margin">24dp</dimen>
+    <dimen name="top_btn_height">48dp</dimen>
+    <dimen name="top_btn_bg_selected_stroke">3dp</dimen>
+    <dimen name="content_padding">8dp</dimen>
+    <dimen name="real_live_margin">8dp</dimen>
+    <dimen name="bose_layout_height">248dp</dimen>
+    <dimen name="bose_bottom_bar_height">54dp</dimen>
+    <dimen name="bose_title_text_size">20dp</dimen>
+
+    <!-- Live Room -->
+    <dimen name="live_top_bar_height">60dp</dimen>
+    <dimen name="live_back_btn_size">32dp</dimen>
+    <dimen name="live_follow_btn_image_size">24dp</dimen>
+    <dimen name="live_top_bar_margin">18dp</dimen>
+    <dimen name="live_bottom_bar_margin">28dp</dimen>
+    <dimen name="live_bottom_edit_margin">12dp</dimen>
+    <dimen name="live_bottom_edit_padding_vertical">4dp</dimen>
+    <dimen name="live_bottom_edit_padding_horizontal">10dp</dimen>
+    <dimen name="live_chat_layout_height">240dp</dimen>
+    <dimen name="live_chat_message_list_height">150dp</dimen>
+
+    <dimen name="live_product_layout_width">340dp</dimen>
+    <dimen name="live_product_layout_height">120dp</dimen>
+    <dimen name="live_product_layout_padding">8dp</dimen>
+    <dimen name="live_product_icon_width">75dp</dimen>
+    <dimen name="live_product_icon_height">104dp</dimen>
+    <dimen name="live_product_small_text">10dp</dimen>
+    <dimen name="live_product_big_view_margin">36dp</dimen>
+
+    <dimen name="quiz_layout_margin_horizontal">8dp</dimen>
+    <dimen name="quiz_layout_margin_bottom">10dp</dimen>
+    <dimen name="quiz_layout_padding">30dp</dimen>
+    <dimen name="quiz_close_size">24dp</dimen>
+    <dimen name="quiz_close_margin">20dp</dimen>
+    <dimen name="quiz_content_margin">12dp</dimen>
+    <dimen name="quiz_option_width">280dp</dimen>
+    <dimen name="quiz_option_height">44dp</dimen>
+    <dimen name="quiz_option_margin">8dp</dimen>
+    <dimen name="quiz_option_name_size">18dp</dimen>
+    <dimen name="quiz_option_chosen_size">12dp</dimen>
+    <dimen name="quiz_option_chosen_margin_right">15dp</dimen>
+    <dimen name="local_preview_margin_top">28dp</dimen>
+    <dimen name="local_preview_margin_right">24dp</dimen>
+    <!-- buttons -->
+    <dimen name="call_button_size">60dp</dimen>
+    <dimen name="other_button_size">54dp</dimen>
+    <dimen name="local_preview_width">150dp</dimen>
+    <dimen name="local_preview_height">170dp</dimen>
+    <dimen name="local_back_icon_size">48dp</dimen>
+    <dimen name="remote_back_icon_size">80dp</dimen>
+    <dimen name="remote_back_icon_margin_bottom">100dp</dimen>
+
+    <!-- buttons -->
+    <dimen name="control_bottom_margin">40dp</dimen>
+    <dimen name="control_bottom_horizontal_margin">24dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_offset">10dp</dimen>
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="backdrop_title">30dp</dimen>
+    <dimen name="backdrop_subtitle">18dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_album_radius">0dp</dimen>
+    <dimen name="album_cover_height">160dp</dimen>
+    <dimen name="album_title_padding">10dp</dimen>
+    <dimen name="album_title">15dp</dimen>
+    <dimen name="songs_count_padding_bottom">5dp</dimen>
+    <dimen name="songs_count">12dp</dimen>
+    <dimen name="ic_album_overflow_width">20dp</dimen>
+    <dimen name="ic_album_overflow_height">30dp</dimen>
+    <dimen name="ic_album_overflow_margin_top">10dp</dimen>
+    <dimen name="global_padding_x_small">4dp</dimen>
+    <dimen name="global_padding_small">6dp</dimen>
+    <dimen name="global_padding">8dp</dimen>
+    <dimen name="global_padding_middle">12dp</dimen>
+    <dimen name="global_padding_extra">18dp</dimen>
+    <dimen name="global_padding_x_extra">24dp</dimen>
+    <dimen name="global_padding_2x_extra">30dp</dimen>
+    <dimen name="global_padding_3x_extra">34dp</dimen>
+    <dimen name="global_padding_4x_extra">48dp</dimen>
+    <dimen name="global_margin_x_small">4dp</dimen>
+    <dimen name="global_margin">8dp</dimen>
+    <dimen name="global_margin_middle">12dp</dimen>
+    <dimen name="global_margin_extra">18dp</dimen>
+    <dimen name="global_margin_x_extra">24dp</dimen>
+    <dimen name="player_base_height">220dp</dimen>
+    <dimen name="player_controller_base_height">40dp</dimen>
+
+
+</resources>

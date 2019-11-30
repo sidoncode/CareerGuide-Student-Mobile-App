@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".All_done">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="18sp"
+            android:textColor="@color/app_blue"
+            android:text="All Done!"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/couns_sign_tick"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="fill_horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:textColor="#ee000000"
+            android:textSize="15sp"
+            android:text="Your request is in our wait list, and we are eager to include you in the hub of career counsellors."/>
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:gravity="fill_horizontal"
+            android:textColor="#ee000000"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are expected to complete the ‘CareerGuide Certification Course for Guiding Students’, post which you will gain a 6 character access code (UAC) to help you log in the cousellor app."
+            android:autoLink="web"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="fill_horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:textColor="#ee000000"
+            android:textSize="15sp"
+            android:text="\nFor more, reach out at:- counsellor@careerguide.com"/>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:text="Back to home"
+            android:background="#e91e63"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"/>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

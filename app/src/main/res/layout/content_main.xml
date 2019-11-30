@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewBg"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.careerguide.MainActivity_live_counsellor">
+
+
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_marginTop="20dp"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/see_more"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:background="@drawable/start_broadcast_bg"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingStart="45dp"-->
+<!--                android:paddingLeft="45dp"-->
+<!--                android:paddingEnd="45dp"-->
+<!--                android:paddingRight="45dp"-->
+<!--                android:text="See More >"-->
+<!--                android:textAlignment="gravity"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#989898"-->
+<!--                android:textSize="18sp" />-->
+
+
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity="center"-->
+    <!--            android:layout_marginTop="3dp"-->
+    <!--            android:layout_marginBottom="3dp"-->
+    <!--            android:textColor="#797979"-->
+    <!--            android:textSize="11sp"-->
+    <!--            android:text="Copyright \u00A9 CareerGuide 2009 - 2018 | All rights reserved"/>-->
+
+
+</RelativeLayout>

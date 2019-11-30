@@ -1,0 +1,207 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="5dp"
+    android:layout_margin="20dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@android:drawable/dialog_holo_light_frame">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/counsellorImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/default_profile" />
+    <TextView
+        android:id="@+id/Counsellor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="13dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/colorPrimary"
+        android:text=""/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="23dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+<!--        <ImageView-->
+<!--            android:id="@+id/call"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:src="@drawable/ic_phone_contact_us"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/callText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="13sp"-->
+<!--            android:textColor="#000"-->
+<!--            android:text=" +91-8800442358"/>-->
+
+        <!--<ImageView
+            android:id="@+id/messanger"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/ic_messenger_contact_us"/>
+        <TextView
+            android:id="@+id/messangerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:text="  CareerGuide"/>-->
+    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/email"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:layout_marginTop="25dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp">-->
+    <!--<ImageView-->
+    <!--android:layout_width="20dp"-->
+    <!--android:layout_height="20dp"-->
+    <!--android:src="@drawable/ic_mail_contact_us"/>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="13sp"-->
+    <!--android:textColor="#000"-->
+    <!--android:text="  customercare@careerguide.com"/>-->
+    <!--</LinearLayout>-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d3d3d3"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textColor="#e91e63"-->
+    <!--android:text="Want to say something?"/>-->
+
+    <Button
+        android:id="@+id/Joinlive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Join Live Session"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:background="#e91e63"/>
+
+</LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+    <!--<LinearLayout-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<include layout="@layout/layout_page_title"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="@dimen/horizontal_padding">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:onClick="toWatchLive"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/room_cover_1"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:onClick="toWatchLive"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/room_cover_2"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:onClick="toWatchLive"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/room_cover_3"/>-->
+
+                <!--<View-->
+                    <!--android:layout_width="8dp"-->
+                    <!--android:layout_height="1px"/>-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:onClick="toWatchLive"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/room_cover_4"/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:onClick="toWatchLive"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/room_cover_5"/>-->
+
+                <!--<View-->
+                    <!--android:layout_width="8dp"-->
+                    <!--android:layout_height="1px"/>-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:onClick="toWatchLive"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/room_cover_6"/>-->
+
+            <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+<!--</ScrollView>-->

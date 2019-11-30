@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#fff"
+            android:padding="10dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/pranav"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Pranav Bhatia"/>
+            <TextView
+                android:id="@+id/prnvInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:textColor="#000"
+                android:text="Pranav Bhatia is a seasoned entrepreneur and investor and has been involved with startups for more than a decade.\n\nPreviously, Pranav worked with a few educational test prep startups and took the plunge to start his own venture ZIGEDU Learning Solutions to leverage technology in educational methods used in colleges across the globe. Later, ZIGEDU acquired the Indian operation of a UK- based group, and Pranav founded Lemon Interactive Inc, which provided tech solutions and developed internal proprietary products.\n\nWith over seven years of experience in educational ventures and guiding more than 20,000 students across classrooms, Pranav strongly felt the lack of platforms which help grow and nurture early entrepreneurial minds, creatives and freelancers, and launched Stirring Minds - a co-working space-cum-incubator for startups in Delhi (NCR).\n\nAs an investor and advisor, Pranav brings to CareerGuide his years of experience and differential thinking coupled with a 'do-now' mantra that has helped CareerGuide scale fast with minimal risk."/>
+            <TextView
+                android:id="@+id/prnvMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/app_pink"
+                android:text="Read More"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>-->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#fff"
+            android:padding="10dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/surabhi"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Surabhi Dewra"/>
+            <TextView
+                android:id="@+id/surbhiInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:textColor="#000"
+                android:text="Surabhi is an entrepreneur cum educationist with 8+ years of experience and is utilizing creativity,
+leadership and teamwork to design and execute India’s biggest online career exploration platform
+for students by the name CareerGuide.Com.\n\nSurabhi brings in good insight into education sector
+with her long association with educational NGOs. Since her initial days, Surabhi has been clear on
+the importance of good education and she has excelled in it. She has taken every opportunity on her
+way to contribute to the existing knowledge system and matters allied.\n\nShe has done her graduation in Electrical &amp; Electronics from India’s most prestigious engineering
+college – BITS-Pilani and a management fellow from ISB-Goldman Sachs.\n\nHer engineering degree
+brings in a strong tech understanding, where as her passion for education and counselling brings her
+close to the venture: CareerGuide.Com."/>
+            <TextView
+                android:id="@+id/surbhiMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/app_pink"
+                android:text="Read More"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
