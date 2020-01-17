@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.careerguide.Album;
-import com.careerguide.R;
 import com.careerguide.activity.feedDetailActivity;
 
 import java.util.List;
@@ -34,17 +30,18 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     LinearLayout ll_story;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
+        public TextView title, count , tv_topic_group_name;
         public ImageView thumbnail, overflow;
         RecyclerView rv_items;
 
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+            title = view.findViewById(R.id.title);
+            count =  view.findViewById(R.id.count);
+            thumbnail =  view.findViewById(R.id.thumbnail);
+            overflow =  view.findViewById(R.id.overflow);
             ll_story = itemView.findViewById(R.id.ll_story);
+            tv_topic_group_name = view.findViewById(R.id.tv_topic_group_name);
             rv_items = itemView.findViewById(R.id.recycler_view);
             DisplayMetrics displayMetrics = new DisplayMetrics();
             ((Activity)mContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -75,20 +72,19 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             Album album = albumList.get(position);
             holder.title.setText(album.getName());
             holder.count.setText(album.getlive_caption());
+            holder.tv_topic_group_name.setText(album.getClass_cat());
             // loading album cover using Glide library
             Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
-            holder.thumbnail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
-                    Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
-                    intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
-                    intent.putExtra("title" , album.getlive_caption());
-                    intent.putExtra("Fullname" , album.getName());
-                    intent.putExtra("imgurl" , album.getThumbnail());
-                    intent.putExtra("host_email" , album.gethost_email());
-                    view.getContext().startActivity(intent);
-                }
+            holder.thumbnail.setOnClickListener(view -> {
+                Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
+                Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
+                intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
+                intent.putExtra("title" , album.getlive_caption());
+                intent.putExtra("class_cat",album.getClass_cat());
+                intent.putExtra("Fullname" , album.getName());
+                intent.putExtra("imgurl" , album.getThumbnail());
+                intent.putExtra("host_email" , album.gethost_email());
+                view.getContext().startActivity(intent);
             });
     }
 

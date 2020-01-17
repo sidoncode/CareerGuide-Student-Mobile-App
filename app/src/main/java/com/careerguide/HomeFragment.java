@@ -1,5 +1,4 @@
 package com.careerguide;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,24 +12,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.careerguide.activity.AllCounsellor;
 import com.careerguide.adapters.AllTopicsItemAdapter;
 import com.careerguide.adapters.CounsellorAdapter;
 import com.careerguide.models.Counsellor;
 import com.careerguide.models.topics_model;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,24 +54,18 @@ public class HomeFragment extends Fragment
     private String mParam1;
     private String mParam2;
 
-
-
     private RecyclerView recycler_topic;
     private List<topics_model> topiclist;
     private ArrayList<topics_model> topics = new ArrayList<>();
     private int topicSize;
     private AllTopicsItemAdapter topic_adapter;
-
     private RecyclerView recycler_counsellor;
     private List<Counsellor> counsellorlist;
     private ArrayList<Counsellor> Counsellors_profile = new ArrayList<>();
     private CounsellorAdapter counsellor_adapter;
     private int Counsellors_profile_size;
-
-
     private RecyclerView recyclerView;
     private AlbumsAdapter adapter;
-
     private List<Album> albumList;
     private RadioButton class1RadioButton, class10RadioButton, class12RadioButton, graduateRadioButton, postGraduateRadioButton;
     private String eduLevel = "";
@@ -87,6 +78,7 @@ public class HomeFragment extends Fragment
     LinearLayoutManager mLayoutManager;
     LinearLayout ideal_career;
     NestedScrollView nsv_items;
+    ImageView iv_banner;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -123,9 +115,33 @@ public class HomeFragment extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        Log.e("inside","-->edu" +Utility.getUserEducation(getActivity()));
+        iv_banner = view.findViewById(R.id.iv_banner);
+        if(Utility.getUserEducation(getActivity()).contentEquals("Class 9th")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/9th-class-banner.png").into(iv_banner);
+        }
+        if(Utility.getUserEducation(getActivity()).contentEquals("Class 10th")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/10th-class-banner.png").into(iv_banner);
+        }
+        if(Utility.getUserEducation(getActivity()).contentEquals("Class 11th")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/11th-class-banner.png").into(iv_banner);
+        }
 
+        if(Utility.getUserEducation(getActivity()).contentEquals("Class 12th")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/12th-class-banner.png").into(iv_banner);
+        }
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        if(Utility.getUserEducation(getActivity()).contentEquals("Graduates")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/graduates.png").into(iv_banner);
+        }
+        if(Utility.getUserEducation(getActivity()).contentEquals("Post Graduates")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/postgraduates.png").into(iv_banner);
+        }
+        if(Utility.getUserEducation(getActivity()).contentEquals( "Working Professional")){
+            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/working-professional-banner.png").into(iv_banner);
+        }
+
+        recyclerView = view.findViewById(R.id.recycler_view);
         albumList = new ArrayList<>();
         adapter = new AlbumsAdapter(getContext(), albumList);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -134,7 +150,7 @@ public class HomeFragment extends Fragment
         recyclerView.setNestedScrollingEnabled(true);
 
 
-        recycler_topic = (RecyclerView) view.findViewById(R.id.recycler_topic);
+        recycler_topic = view.findViewById(R.id.recycler_topic);
         topiclist = new ArrayList<>();
         topic_adapter = new AllTopicsItemAdapter(getContext(), topiclist);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -142,13 +158,12 @@ public class HomeFragment extends Fragment
         recycler_topic.setAdapter(topic_adapter);
 
 
-        recycler_counsellor = (RecyclerView) view.findViewById(R.id.recycler_counsellor);
+        recycler_counsellor = view.findViewById(R.id.recycler_counsellor);
         counsellorlist = new ArrayList<>();
         counsellor_adapter = new CounsellorAdapter(getContext(), counsellorlist);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recycler_counsellor.setLayoutManager(mLayoutManager);
         recycler_counsellor.setAdapter(counsellor_adapter);
-
 
         getLiveSession();
 
@@ -156,9 +171,12 @@ public class HomeFragment extends Fragment
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
             //startActivity(new Intent(getActivity(),PaymentGateway.class));
         });
-        view.findViewById(R.id.tv_chat).setOnClickListener(v -> {
-            //ZohoSalesIQ.Chat.open();
+        view.findViewById(R.id.tv_subscribe).setOnClickListener(v -> {
+          //  startActivity(new Intent(getActivity(), PlanActivity.class));
+        });
 
+        view.findViewById(R.id.counsellor_see_all).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), AllCounsellor.class));
         });
 
 
@@ -216,7 +234,7 @@ public class HomeFragment extends Fragment
         for(int i = 0; i<size;i++){
             String imgurl = "";
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId());
+            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()));
             albumList.add(a);
 
         }
@@ -238,53 +256,38 @@ public class HomeFragment extends Fragment
     }
 
     private void initGroup() {
-        class1RadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    updateEducation("Class 1 - 9");
-                }
+        class1RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                updateEducation("Class 1 - 9");
             }
         });
 
-        class10RadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    updateEducation("Class 10");
-                }
+        class10RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                updateEducation("Class 10");
             }
         });
 
-        class12RadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    updateEducation("Class 12");
-                }
+        class12RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                updateEducation("Class 12");
             }
         });
 
-        graduateRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    updateEducation("Graduate");
-                }
+        graduateRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                updateEducation("Graduate");
             }
         });
 
-        postGraduateRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    updateEducation("Post Graduate");
-                }
+        postGraduateRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                updateEducation("Post Graduate");
             }
         });
     }
@@ -293,36 +296,27 @@ public class HomeFragment extends Fragment
         Log.e("onCreate","updateEdu " + eduFetched);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "profile_update", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("update_pro_response", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        String msg = jsonObject.optString("msg");
-                        if (status) {
-                        } else {
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "profile_update", response -> {
+            if (isAdded()) {
+                progressDialog.dismiss();
+                Log.e("update_pro_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    String msg = jsonObject.optString("msg");
+                    if (status) {
+                    } else {
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("update_pro_error","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("update_pro_error","error");
         })
         {
             @Override
@@ -338,81 +332,81 @@ public class HomeFragment extends Fragment
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
-    private void fetchEducationLevel()
-    {
-        Log.e("onCreate","fetchEdu " + eduFetched);
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_education_level", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                progressDialog.dismiss();
-                Log.e("get_edu_res",response);
-                try
-                {
-                    eduFetched = true;
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status",false);
-                    if(status)
-                    {
-                        eduLevel = jsonObject.optString("education_level");
-                        switch (eduLevel)
-                        {
-                            case "Class 1 - 9":
-                                class1RadioButton.setOnCheckedChangeListener(null);
-                                class1RadioButton.setChecked(true);
-                                break;
-                            case "Class 10":
-                                class10RadioButton.setOnCheckedChangeListener(null);
-                                class10RadioButton.setChecked(true);
-                                break;
-                            case "Class 12":
-                                class12RadioButton.setOnCheckedChangeListener(null);
-                                class12RadioButton.setChecked(true);
-                                break;
-                            case "Graduate":
-                                graduateRadioButton.setOnCheckedChangeListener(null);
-                                graduateRadioButton.setChecked(true);
-                                break;
-                            case "Post Graduate":
-                                postGraduateRadioButton.setOnCheckedChangeListener(null);
-                                postGraduateRadioButton.setChecked(true);
-                                break;
-                        }
-                        initGroup();
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(), "Something went wrong",Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getActivity(), VoleyErrorHelper.getMessage(error, getActivity()), Toast.LENGTH_LONG).show();
-                }
-                Log.e("get_edu_error","error");
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("user_id",Utility.getUserId(getActivity()));
-                Log.e("get_edu_req",params.toString());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
+//    private void fetchEducationLevel()
+//    {
+//        Log.e("onCreate","fetchEdu " + eduFetched);
+//        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+//        progressDialog.show();
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_education_level", new Response.Listener<String>()
+//        {
+//            @Override
+//            public void onResponse(String response)
+//            {
+//                progressDialog.dismiss();
+//                Log.e("get_edu_res",response);
+//                try
+//                {
+//                    eduFetched = true;
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    boolean status = jsonObject.optBoolean("status",false);
+//                    if(status)
+//                    {
+//                        eduLevel = jsonObject.optString("education_level");
+//                        switch (eduLevel)
+//                        {
+//                            case "Class 1 - 9":
+//                                class1RadioButton.setOnCheckedChangeListener(null);
+//                                class1RadioButton.setChecked(true);
+//                                break;
+//                            case "Class 10":
+//                                class10RadioButton.setOnCheckedChangeListener(null);
+//                                class10RadioButton.setChecked(true);
+//                                break;
+//                            case "Class 12":
+//                                class12RadioButton.setOnCheckedChangeListener(null);
+//                                class12RadioButton.setChecked(true);
+//                                break;
+//                            case "Graduate":
+//                                graduateRadioButton.setOnCheckedChangeListener(null);
+//                                graduateRadioButton.setChecked(true);
+//                                break;
+//                            case "Post Graduate":
+//                                postGraduateRadioButton.setOnCheckedChangeListener(null);
+//                                postGraduateRadioButton.setChecked(true);
+//                                break;
+//                        }
+//                        initGroup();
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(getActivity(), "Something went wrong",Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener()
+//        {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                if (isAdded()) {
+//                    progressDialog.dismiss();
+//                    Toast.makeText(getActivity(), VoleyErrorHelper.getMessage(error, getActivity()), Toast.LENGTH_LONG).show();
+//                }
+//                Log.e("get_edu_error","error");
+//            }
+//        })
+//        {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                HashMap<String,String> params = new HashMap<>();
+//                params.put("user_id",Utility.getUserId(getActivity()));
+//                Log.e("get_edu_req",params.toString());
+//                return params;
+//            }
+//        };
+//        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -464,7 +458,7 @@ public class HomeFragment extends Fragment
             {
                 progressDialog.dismiss();
                 if (isAdded()) {
-                    Log.e("all_coun_res", response);
+                    Log.e("all_coun_res_video", response);
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         boolean status = jsonObject.optBoolean("status", false);
@@ -510,7 +504,7 @@ public class HomeFragment extends Fragment
                     {
                         progressDialog.dismiss();
                         if (isAdded()) {
-                            Log.e("all_coun_res", response);
+                            Log.e("all_coun_res_topic", response);
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean status = jsonObject.optBoolean("status", false);
@@ -536,7 +530,7 @@ public class HomeFragment extends Fragment
                                 }
                                 else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(),"Something went wrong. topics",Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -545,48 +539,44 @@ public class HomeFragment extends Fragment
                     }
 
                     private void getcounsellor() {
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.e("all_coun_res", response);
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    boolean status = jsonObject.optBoolean("status", false);
-                                    if (status) {
-                                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                                        for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
-                                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                                            String id = counselorJsonObject.optString("co_id");
-                                            String firstName = counselorJsonObject.optString("first_name");
-                                            String lastName = counselorJsonObject.optString("last_name");
-                                            String picUrl = counselorJsonObject.optString("profile_pic");
-                                            String email = counselorJsonObject.optString("email");
-                                            Counsellors_profile.add(new Counsellor(id, email , firstName, lastName, picUrl,27));
-                                        }
-                                        Counsellors_profile_size = Counsellors_profile.size();
-                                        prepareAlbums();
-                                        Log.e("size ", "==> " + size);
-                                        Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
-                                    } else {
-                                        Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_LONG).show();
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
+                            Log.e("all_coun_res_counsellor", response);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean status = jsonObject.optBoolean("status", false);
+                                if (status) {
+                                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
+                                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                                        String id = counselorJsonObject.optString("co_id");
+                                        String firstName = counselorJsonObject.optString("first_name");
+                                        String lastName = counselorJsonObject.optString("last_name");
+                                        String picUrl = counselorJsonObject.optString("profile_pic");
+                                        String email = counselorJsonObject.optString("email");
+                                        Counsellors_profile.add(new Counsellor(id, email , firstName, lastName, picUrl,27));
                                     }
-                                    progressDialog.dismiss();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                    Counsellors_profile_size = Counsellors_profile.size();
+                                    prepareAlbums();
+                                    Log.e("size ", "==> " + size);
+                                    Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
+                                } else {
+
+
+                                    Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_LONG).show();
                                 }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
                                 progressDialog.dismiss();
-                                Toast.makeText(getActivity(), VoleyErrorHelper.getMessage(error, getActivity()), Toast.LENGTH_LONG).show();
-                                Log.e("all_coun_rerror", "error");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+                        }, error -> {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), VoleyErrorHelper.getMessage(error, getActivity()), Toast.LENGTH_LONG).show();
+                            Log.e("all_coun_rerror", "error");
                         }) {
                             @Override
                             protected Map<String, String> getParams() {
                                 HashMap<String, String> params = new HashMap<>();
-                                //params.put("user_id", Utility.getUserId(getActivity()));
+                                //params.put("user_education", Utility.getUserEducationUid(getActivity()));
                                 Log.e("all_coun_req", params.toString());
                                 return params;
                             }
@@ -595,20 +585,17 @@ public class HomeFragment extends Fragment
                     }
 
 
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                }, error -> {
+                    progressDialog.dismiss();
 //                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                        Log.e("all_coun_rerror","error");
-                    }
+                    Log.e("all_coun_rerror","error");
                 })
                 {
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                    protected Map<String, String> getParams() {
                         HashMap<String,String> params = new HashMap<>();
-                        params.put("email" ,Utility.getUserEmail(getActivity()));
+                      //  params.put("email" ,Utility.getUserEmail(getActivity()));
+                        params.put("user_education", Utility.getUserEducationUid(getActivity()));
                         Log.e("#line_status_request",params.toString());
                         return params;
                     }
@@ -618,18 +605,14 @@ public class HomeFragment extends Fragment
             }
 
 
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+        }, error -> {
+            progressDialog.dismiss();
 //                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror","error");
-            }
+            Log.e("all_coun_rerror","error");
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("email" ,Utility.getUserEmail(getActivity()));
                 Log.e("#line_status_request",params.toString());
@@ -639,8 +622,6 @@ public class HomeFragment extends Fragment
 
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-
-
 
 
 

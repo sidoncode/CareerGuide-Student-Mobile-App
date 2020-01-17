@@ -144,7 +144,7 @@ public class CounsellorCornerFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             View counselorView = layoutInflater.inflate(R.layout.counselor_list_item,null);
             final Counsellor counsellor = counsellors.get(position);
-            Log.e("#position" , "position " +counsellor.getvideochannel());
+           // Log.e("#position" , "position " +counsellor.getvideochannel());
             TextView name = counselorView.findViewById(R.id.name);
             TextView title = counselorView.findViewById(R.id.title);
             ImageView profilePic = counselorView.findViewById(R.id.profilePic);
@@ -163,7 +163,7 @@ public class CounsellorCornerFragment extends Fragment {
 //                    intent.putExtra("counsellor",counsellor);
 //                    startActivity(intent);
                     Intent intent = new Intent(getActivity(), VideoChatViewActivity.class);
-                    intent.putExtra("video_channel_name",counsellor.getvideochannel());
+                    //intent.putExtra("video_channel_name",counsellor.getvideochannel());
                     startActivity(intent);
                 }
             });

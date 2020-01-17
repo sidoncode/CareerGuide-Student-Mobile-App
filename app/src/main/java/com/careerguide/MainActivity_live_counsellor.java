@@ -38,23 +38,21 @@ public class MainActivity_live_counsellor extends AgoraBaseActivity {
     private AlbumsAdapter_live_counsellor adapter;
     private List<Album_live_counsellor> albumList;
     Activity activity = this;
-    private String Firstname;
-    private String Lastname;
-    private String City;
-    private String counsellorpic;
-    private String Education_level;
     private String Channel_name;
     private ArrayList<Counsellor> counsellors = new ArrayList<>();
     private int size;
+
+    public MainActivity_live_counsellor() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_counsellor);
-        Firstname = getIntent().getStringExtra("Firstname");
-        Lastname = getIntent().getStringExtra("Lastname");
+        String firstname = getIntent().getStringExtra("Firstname");
+        String lastname = getIntent().getStringExtra("Lastname");
         Channel_name = getIntent().getStringExtra("channel_name");
-        counsellorpic = getIntent().getStringExtra("counsellorpic");
+        String counsellorpic = getIntent().getStringExtra("counsellorpic");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Live Counsellors");
 

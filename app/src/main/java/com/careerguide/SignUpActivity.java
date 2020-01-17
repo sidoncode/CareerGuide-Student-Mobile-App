@@ -172,12 +172,9 @@ public class SignUpActivity extends AppCompatActivity
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         final View googleSignIn = findViewById(R.id.sign_in_button);
-        googleSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            }
+        googleSignIn.setOnClickListener(v -> {
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
         });
 
 
@@ -188,111 +185,49 @@ public class SignUpActivity extends AppCompatActivity
         forgotPasswordLayout = findViewById(R.id.forgotPassword_layout);
         forgotPasswordMessageLayout = findViewById(R.id.forgotPasswordMessage_layout);
         resetPasswordLayout = findViewById(R.id.reset_password_layout);
-        findViewById(R.id.coustom_sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpLayout.setVisibility(View.GONE);
-                customSignUpLayout.setVisibility(View.VISIBLE);
-                loginLayout.setVisibility(View.GONE);
-                forgotPasswordLayout.setVisibility(View.GONE);
-                forgotPasswordMessageLayout.setVisibility(View.GONE);
-                resetPasswordLayout.setVisibility(View.GONE);
-                stack.push(screenType.COUSTOM);
-            }
+        findViewById(R.id.coustom_sign_in_button).setOnClickListener(v -> {
+            signUpLayout.setVisibility(View.GONE);
+            customSignUpLayout.setVisibility(View.VISIBLE);
+            loginLayout.setVisibility(View.GONE);
+            forgotPasswordLayout.setVisibility(View.GONE);
+            forgotPasswordMessageLayout.setVisibility(View.GONE);
+            resetPasswordLayout.setVisibility(View.GONE);
+            stack.push(screenType.COUSTOM);
         });
-        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpLayout.setVisibility(View.GONE);
-                customSignUpLayout.setVisibility(View.GONE);
-                loginLayout.setVisibility(View.VISIBLE);
-                forgotPasswordLayout.setVisibility(View.GONE);
-                forgotPasswordMessageLayout.setVisibility(View.GONE);
-                resetPasswordLayout.setVisibility(View.GONE);
-                stack.push(screenType.LOGIN);
-            }
+        findViewById(R.id.loginButton).setOnClickListener(v -> {
+            signUpLayout.setVisibility(View.GONE);
+            customSignUpLayout.setVisibility(View.GONE);
+            loginLayout.setVisibility(View.VISIBLE);
+            forgotPasswordLayout.setVisibility(View.GONE);
+            forgotPasswordMessageLayout.setVisibility(View.GONE);
+            resetPasswordLayout.setVisibility(View.GONE);
+            stack.push(screenType.LOGIN);
         });
 
-        findViewById(R.id.forgotPasswordLink).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpLayout.setVisibility(View.GONE);
-                customSignUpLayout.setVisibility(View.GONE);
-                loginLayout.setVisibility(View.GONE);
-                forgotPasswordLayout.setVisibility(View.VISIBLE);
-                forgotPasswordMessageLayout.setVisibility(View.GONE);
-                resetPasswordLayout.setVisibility(View.GONE);
-                stack.push(screenType.FORGOT_PASSWORD);
+        findViewById(R.id.forgotPasswordLink).setOnClickListener(v -> {
+            signUpLayout.setVisibility(View.GONE);
+            customSignUpLayout.setVisibility(View.GONE);
+            loginLayout.setVisibility(View.GONE);
+            forgotPasswordLayout.setVisibility(View.VISIBLE);
+            forgotPasswordMessageLayout.setVisibility(View.GONE);
+            resetPasswordLayout.setVisibility(View.GONE);
+            stack.push(screenType.FORGOT_PASSWORD);
 
-            }
         });
 
-        findViewById(R.id.fbIcon1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginButton.performClick();
-
-            }
-        });
-        findViewById(R.id.fbIcon2).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                loginButton.performClick();
-            }
-        });
-        findViewById(R.id.fbIcon3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                loginButton.performClick();
-            }
-        });
-        findViewById(R.id.fbIcon4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginButton.performClick();
-            }
-        });
-        findViewById(R.id.fbSignInBig).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginButton.performClick();
-            }
-        });
+        findViewById(R.id.fbIcon1).setOnClickListener(v -> loginButton.performClick());
+        findViewById(R.id.fbIcon2).setOnClickListener(v -> loginButton.performClick());
+        findViewById(R.id.fbIcon3).setOnClickListener(v -> loginButton.performClick());
+        findViewById(R.id.fbIcon4).setOnClickListener(v -> loginButton.performClick());
+        findViewById(R.id.fbSignInBig).setOnClickListener(v -> loginButton.performClick());
 
 
-        findViewById(R.id.googleIcon1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                googleSignIn.performClick();
-            }
-        });
+        findViewById(R.id.googleIcon1).setOnClickListener(v -> googleSignIn.performClick());
 
-        findViewById(R.id.googleIcon2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                googleSignIn.performClick();
-            }
-        });
-        findViewById(R.id.googleIcon3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                googleSignIn.performClick();
-            }
-        });
-        findViewById(R.id.googleIcon4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                googleSignIn.performClick();
-            }
-        });
-        findViewById(R.id.gSignInBig).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                googleSignIn.performClick();
-            }
-        });
+        findViewById(R.id.googleIcon2).setOnClickListener(v -> googleSignIn.performClick());
+        findViewById(R.id.googleIcon3).setOnClickListener(v -> googleSignIn.performClick());
+        findViewById(R.id.googleIcon4).setOnClickListener(v -> googleSignIn.performClick());
+        findViewById(R.id.gSignInBig).setOnClickListener(v -> googleSignIn.performClick());
 
         initializeCustomSignUp();
         initializeLogIn();
@@ -358,20 +293,16 @@ public class SignUpActivity extends AppCompatActivity
                     OTPEditText.setEnabled(false);
                     OTPEditText.setTextColor(Color.parseColor("#e9397b"));
                     resetPassword.setVisibility(View.VISIBLE);
-                    resetPassword.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v)
-                        {
-                            stack.pop();
-                            signUpLayout.setVisibility(View.GONE);
-                            customSignUpLayout.setVisibility(View.GONE);
-                            loginLayout.setVisibility(View.GONE);
-                            forgotPasswordLayout.setVisibility(View.GONE);
-                            forgotPasswordMessageLayout.setVisibility(View.GONE);
-                            resetPasswordLayout.setVisibility(View.VISIBLE);
-                            stack.push(screenType.RESET_PASSWORD);
-                            initializeResetPassword();
-                        }
+                    resetPassword.setOnClickListener(v -> {
+                        stack.pop();
+                        signUpLayout.setVisibility(View.GONE);
+                        customSignUpLayout.setVisibility(View.GONE);
+                        loginLayout.setVisibility(View.GONE);
+                        forgotPasswordLayout.setVisibility(View.GONE);
+                        forgotPasswordMessageLayout.setVisibility(View.GONE);
+                        resetPasswordLayout.setVisibility(View.VISIBLE);
+                        stack.push(screenType.RESET_PASSWORD);
+                        initializeResetPassword();
                     });
                 }
             }
@@ -472,103 +403,99 @@ public class SignUpActivity extends AppCompatActivity
 
             }
         });
-        continueButtonReset.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                //final String email = createPassword.getText().toString().trim();
-                final String password = createPassword.getText().toString().trim();
-                final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-                progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "change_password", new Response.Listener<String>()
+        continueButtonReset.setOnClickListener(v -> {
+            //final String email = createPassword.getText().toString().trim();
+            final String password = createPassword.getText().toString().trim();
+            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "change_password", new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
                 {
-                    @Override
-                    public void onResponse(String response)
+                    progressDialog.dismiss();
+                    Log.e("reset_response",response);
+                    try
                     {
-                        progressDialog.dismiss();
-                        Log.e("reset_response",response);
-                        try
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean status = jsonObject.optBoolean("status",false);
+                        String msg = jsonObject.optString("msg");
+                        if(status && msg.equals("password updated successfully"))
                         {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean status = jsonObject.optBoolean("status",false);
-                            String msg = jsonObject.optString("msg");
-                            if(status && msg.equals("password updated successfully"))
-                            {
-                                SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.remove("otp");
-                                editor.remove("resetEmail");
-                                editor.apply();
-                                JSONObject userJsonObject = jsonObject.optJSONObject("user_detail");
-                                String id = userJsonObject.optString("id");
-                                String email = userJsonObject.optString("email");
-                                String firstName = userJsonObject.optString("first_name");
-                                String lastName = userJsonObject.optString("last_name");
-                                String profilePic = userJsonObject.optString("profile_pic");
-                                String dob = userJsonObject.optString("dob");
-                                String gender = userJsonObject.optString("gender");
-                                String city = userJsonObject.optString("city");
-                                String mobile = userJsonObject.optString("mobile_number");
-                                String educationLevel = userJsonObject.optString("education_level");
-                                boolean activated = userJsonObject.optString("activated").equals("1");
-                                Utility.setUserId(activity,id);
-                                Utility.setUserFirstName(activity,firstName);
-                                Utility.setUserLasstName(activity,lastName);
-                                Utility.setUserPic(activity,profilePic);
-                                Utility.setUserCity(activity,city);
-                                Utility.setUserDOB(activity,dob);
-                                Utility.setUserEmail(activity, email);
-                                Utility.setUserGender(activity,gender);
-                                Utility.setUserMobile(activity,mobile);
-                                Utility.setUserEducation(activity,educationLevel);
-                                Utility.setUserActivated(activity,activated);
-                                Intent intent = new Intent(activity,HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else
-                            {
-                                switch (msg)
-                                {
-                                    case "user does not exist":
-                                        ((TextView) findViewById(R.id.emailErrorLogin)).setText("Email doesn't exist");
-                                        findViewById(R.id.emailErrorLogin).setVisibility(View.VISIBLE);
-                                        break;
-                                    case "Incorrect password":
-                                        ((TextView) findViewById(R.id.passwordErrorLogin)).setText("Incorrect password");
-                                        findViewById(R.id.passwordErrorLogin).setVisibility(View.VISIBLE);
-                                        break;
-                                    default:
-                                        Toast.makeText(activity, "Something went wrong.", Toast.LENGTH_LONG).show();
-                                        break;
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.remove("otp");
+                            editor.remove("resetEmail");
+                            editor.apply();
+                            JSONObject userJsonObject = jsonObject.optJSONObject("user_detail");
+                            String id = userJsonObject.optString("id");
+                            String email = userJsonObject.optString("email");
+                            String firstName = userJsonObject.optString("first_name");
+                            String lastName = userJsonObject.optString("last_name");
+                            String profilePic = userJsonObject.optString("profile_pic");
+                            String dob = userJsonObject.optString("dob");
+                            String gender = userJsonObject.optString("gender");
+                            String city = userJsonObject.optString("city");
+                            String mobile = userJsonObject.optString("mobile_number");
+                            String educationLevel = userJsonObject.optString("education_level");
+                            boolean activated = userJsonObject.optString("activated").equals("1");
+                            Utility.setUserId(activity,id);
+                            Utility.setUserFirstName(activity,firstName);
+                            Utility.setUserLasstName(activity,lastName);
+                            Utility.setUserPic(activity,profilePic);
+                            Utility.setUserCity(activity,city);
+                            Utility.setUserDOB(activity,dob);
+                            Utility.setUserEmail(activity, email);
+                            Utility.setUserGender(activity,gender);
+                            Utility.setUserMobile(activity,mobile);
+                            Utility.setUserEducation(activity,educationLevel);
+                            Utility.setUserActivated(activity,activated);
+                            Intent intent = new Intent(activity,HomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
+                        else
+                        {
+                            switch (msg)
+                            {
+                                case "user does not exist":
+                                    ((TextView) findViewById(R.id.emailErrorLogin)).setText("Email doesn't exist");
+                                    findViewById(R.id.emailErrorLogin).setVisibility(View.VISIBLE);
+                                    break;
+                                case "Incorrect password":
+                                    ((TextView) findViewById(R.id.passwordErrorLogin)).setText("Incorrect password");
+                                    findViewById(R.id.passwordErrorLogin).setVisibility(View.VISIBLE);
+                                    break;
+                                default:
+                                    Toast.makeText(activity, "Something went wrong.", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                        Log.e("login_error123","error" +error.getMessage());
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("email",resetEmail);
-                        params.put("password",password);
-                        Log.e("request",params.toString());
-                        return params;
-                    }
-                };
-                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-            }
+                }
+            }, new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
+                    Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                    Log.e("login_error123","error" +error.getMessage());
+                }
+            })
+            {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("email",resetEmail);
+                    params.put("password",password);
+                    Log.e("request",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
     }
 

@@ -47,109 +47,104 @@ public class AssessmentActivity extends AppCompatActivity {
         {
             final JSONObject jsonBody = new JSONObject("{\"api_key\": \"D7DC21B2-2G71-4CEE-950F-0019675AB74B\", \"test_type\": \"ideal\",\"user_auth\": \"" + auth + /*m0bESYfssIk%3d-NDVkZGRhM2QtY2QzZS00ZDQ0LWIzNDctODRiODY1Y2E4NzI1*/"\"}");
             Log.e("json body", jsonBody.toString());
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>()
-            {
-                @Override
-                public void onResponse(JSONObject response)
-                {
-                    progressDialog.dismiss();
-                    try {
-                        ((TextView) findViewById(R.id.textView)).setText(response.getJSONArray("passages").toString());
-                        JSONArray questionJsonArray = response.getJSONArray("questions");
-                        JSONArray pessageJsonArray = response.getJSONArray("passages");
-                        for (int i = 0; i< questionJsonArray.length();i++)
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, response -> {
+                progressDialog.dismiss();
+                try {
+                    ((TextView) findViewById(R.id.textView)).setText(response.getJSONArray("passages").toString());
+                    JSONArray questionJsonArray = response.getJSONArray("questions");
+                    JSONArray pessageJsonArray = response.getJSONArray("passages");
+                    for (int i = 0; i< questionJsonArray.length();i++)
+                    {
+                        JSONObject questionJsonObject = questionJsonArray.getJSONObject(i);
+                        //Log.e("Question", questionJsonObject.toString());
+                        String title = questionJsonObject.getString("title");
+                        title = title.replace("â\u0080\u0099","'");
+                        title = title.replace("Ã·","\u00F7");
+                        title = title.replace("â\u0080¦",".");
+                        title = title.replace("â\u0080","-");
+                        String section = questionJsonObject.getString("section");
+                        int srNo = questionJsonObject.getInt("sno");
+                        String type = questionJsonObject.optString("type");
+                        String passageRef = questionJsonObject.optString("passage_ref");
+                        JSONArray optionsJsonArray = questionJsonObject.getJSONArray("options");
+
+                        if(!Utility.sectionSet.contains(section)) {
+                            Utility.sectionSet.add(section);
+                        }
+                        ArrayList<Option> options = new ArrayList<>();
+                        for (int j = 0; j<optionsJsonArray.length(); j++)
                         {
-                            JSONObject questionJsonObject = questionJsonArray.getJSONObject(i);
-                            //Log.e("Question", questionJsonObject.toString());
-                            String title = questionJsonObject.getString("title");
-                            title = title.replace("â\u0080\u0099","'");
-                            title = title.replace("Ã·","\u00F7");
-                            title = title.replace("â\u0080¦",".");
-                            title = title.replace("â\u0080","-");
-                            String section = questionJsonObject.getString("section");
-                            int srNo = questionJsonObject.getInt("sno");
-                            String type = questionJsonObject.optString("type");
-                            String passageRef = questionJsonObject.optString("passage_ref");
-                            JSONArray optionsJsonArray = questionJsonObject.getJSONArray("options");
-
-                            if(!Utility.sectionSet.contains(section)) {
-                                Utility.sectionSet.add(section);
-                            }
-                            ArrayList<Option> options = new ArrayList<>();
-                            for (int j = 0; j<optionsJsonArray.length(); j++)
+                            JSONObject optionJsonObject = optionsJsonArray.getJSONObject(j);
+                            String key = optionJsonObject.getString("key");
+                            String value = optionJsonObject.getString("value");
+                            key = key.replace("â\u0080\u0099", "'");
+                            int sno = optionJsonObject.getInt("sno");
+                            Option option;
+                            if(value.contains("<img src="))
                             {
-                                JSONObject optionJsonObject = optionsJsonArray.getJSONObject(j);
-                                String key = optionJsonObject.getString("key");
-                                String value = optionJsonObject.getString("value");
-                                key = key.replace("â\u0080\u0099", "'");
-                                int sno = optionJsonObject.getInt("sno");
-                                Option option;
-                                if(value.contains("<img src="))
-                                {
-                                    option = new OptionImageBased(sno,key,value);
-                                }
-                                else
-                                {
-                                    option = new OptionTextBased(sno,key,value);
-                                }
-                                options.add(option);
-
-                                if (i == 91)
-                                {
-                                    String s = "e of  376Ã·100";
-                                    //title = title.replace("You ", "").replace(" find difficult to talk about your feeling","");
-                                    Log.e("question",value);
-
-                                }
-                            }
-                            Question question;
-                            if (i == 97)
-                            {
-                                String s = "e of  376Ã·100";
-                                //title = title.replace("You ", "").replace(" find difficult to talk about your feeling","");
-                                Log.e("question",title + " vs \n" + title.replace("â\u0080\u0099","'"));
-
-                            }
-                            if(title.contains("<img src="))
-                            {
-                                question = new QuestionImageBased(section,srNo,type,passageRef,title,null);
+                                option = new OptionImageBased(sno,key,value);
                             }
                             else
                             {
-                                question = new QuestionTextBased(section,srNo,type,passageRef,title);
+                                option = new OptionTextBased(sno,key,value);
                             }
-                            Utility.questionAndOptionses.add(new QuestionAndOptions(question,options));
-                        }
-                        for (int i = 0; i<pessageJsonArray.length(); i++)
-                        {
-                            JSONObject passageJsonObject = pessageJsonArray.getJSONObject(i);
-                            JSONArray paragraphJsonArray = passageJsonObject.getJSONArray("paragraphs");
-                            for(int j = 0; j< paragraphJsonArray.length(); j++)
+                            options.add(option);
+
+                            if (i == 91)
                             {
-                                JSONObject paragraphJsonObject = paragraphJsonArray.getJSONObject(j);
-                                String paragraph = paragraphJsonObject.getString("paragraph");
-                                Utility.paragraphs.add(paragraph);
-                                //Log.e("paragraph",paragraph);
+                                String s = "e of  376Ã·100";
+                                //title = title.replace("You ", "").replace(" find difficult to talk about your feeling","");
+                                Log.e("question",value);
+
                             }
                         }
-                        /*String sections = "";
-                        for(String string :Utility.sectionSet)
+                        Question question;
+                        if (i == 97)
                         {
-                            sections += string + "\n";
+                            String s = "e of  376Ã·100";
+                            //title = title.replace("You ", "").replace(" find difficult to talk about your feeling","");
+                            Log.e("question",title + " vs \n" + title.replace("â\u0080\u0099","'"));
+
                         }
-                        Log.e("total section", sections);*/
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        finish();
+                        if(title.contains("<img src="))
+                        {
+                            question = new QuestionImageBased(section,srNo,type,passageRef,title,null);
+                        }
+                        else
+                        {
+                            question = new QuestionTextBased(section,srNo,type,passageRef,title);
+                        }
+                        Utility.questionAndOptionses.add(new QuestionAndOptions(question,options));
                     }
-                    if(Utility.questionAndOptionses.size() > 0)
+                    for (int i = 0; i<pessageJsonArray.length(); i++)
                     {
-                        Utility.setSavedAnswer(activity);
-                        Intent intent = new Intent(activity,QuestionActivity.class);
-                        intent.putExtra("auth",auth);
-                        startActivity(intent);
-                        finish();
+                        JSONObject passageJsonObject = pessageJsonArray.getJSONObject(i);
+                        JSONArray paragraphJsonArray = passageJsonObject.getJSONArray("paragraphs");
+                        for(int j = 0; j< paragraphJsonArray.length(); j++)
+                        {
+                            JSONObject paragraphJsonObject = paragraphJsonArray.getJSONObject(j);
+                            String paragraph = paragraphJsonObject.getString("paragraph");
+                            Utility.paragraphs.add(paragraph);
+                            //Log.e("paragraph",paragraph);
+                        }
                     }
+                    /*String sections = "";
+                    for(String string :Utility.sectionSet)
+                    {
+                        sections += string + "\n";
+                    }
+                    Log.e("total section", sections);*/
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    finish();
+                }
+                if(Utility.questionAndOptionses.size() > 0)
+                {
+                    Utility.setSavedAnswer(activity);
+                    Intent intent = new Intent(activity,QuestionActivity.class);
+                    intent.putExtra("auth",auth);
+                    startActivity(intent);
+                    finish();
                 }
             }, new Response.ErrorListener() {
                 @Override

@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.careerguide.*;
 import com.careerguide.adapters.GoalAdapter;
 import com.careerguide.VolleySingleton;
@@ -44,6 +48,7 @@ public class GoalsActivity extends AppCompatActivity {
     GoalAdapter goalAdapter;
     Activity activity = this;
     TextView tv_title;
+    MenuItem classimg;
     RecyclerView rv_goals;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,8 @@ public class GoalsActivity extends AppCompatActivity {
 
         tv_title = findViewById(R.id.tv_title);
         rv_goals=findViewById(R.id.rv_goals);
-
+//        iv_banner = findViewById(R.id.iv_banner);
+//        Glide.with(this).load("https://ik.imagekit.io/careerguide/Artboard___39__1__hkEZKuebu5.png").into(iv_banner);
         llm=new LinearLayoutManager(this);
         rv_goals.setLayoutManager(llm);
         rv_goals.setAdapter(goalAdapter);
@@ -99,13 +105,9 @@ public class GoalsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror","error");
-            }
+        }, error -> {
+            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror","error");
         });
 
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
@@ -114,4 +116,5 @@ public class GoalsActivity extends AppCompatActivity {
     public void cancel(View v){
         finish();
     }
+
 }

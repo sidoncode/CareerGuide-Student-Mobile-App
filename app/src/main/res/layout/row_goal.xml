@@ -68,4 +68,5 @@
         android:layout_height="1dp"
         android:alpha="0.6"
         android:background="@android:color/darker_gray"/>
+
 </LinearLayout>

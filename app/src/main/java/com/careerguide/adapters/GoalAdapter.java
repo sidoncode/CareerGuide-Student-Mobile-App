@@ -58,15 +58,13 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
         holder.tv_name.setText(goal.getName());
         holder.tv_sub_name.setText(goal.getCat_placeholder());
-        holder.ll_goal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent bIntent = new Intent(context, SubcategoryActivity.class);
-                bIntent.putExtra("type","updatecat");
-                bIntent.putExtra("cat_uid",goal.getUid());
-                bIntent.putExtra("cat_title",goal.getName());
-                v.getContext().startActivity(bIntent);
-            }
+        holder.ll_goal.setOnClickListener(v -> {
+            Intent bIntent = new Intent(context, SubcategoryActivity.class);
+            bIntent.putExtra("type","updatecat");
+            bIntent.putExtra("cat_uid",goal.getUid());
+            bIntent.putExtra("cat_title",goal.getName());
+            bIntent.putExtra("icon_url" , goal.getIcon_url());
+            v.getContext().startActivity(bIntent);
         });
         Glide.with(context).load(goal.getIcon_url()).into(holder.iv_icon);
 

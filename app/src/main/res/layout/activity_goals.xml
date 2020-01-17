@@ -34,6 +34,7 @@
             android:layout_marginRight="15dp"/>
     </LinearLayout>
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -46,10 +47,10 @@
             <ImageView
                     android:id="@+id/iv_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                android:src="@drawable/careerguide_banner"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/careerguide_banner"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_goals"

@@ -44,9 +44,9 @@ public class CounsellorAdapter extends RecyclerView.Adapter<CounsellorAdapter.Co
             ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/2.5), RecyclerView.LayoutParams.WRAP_CONTENT);
-            params.setMargins(15, 5, 15, 10);
-            ll_container.setLayoutParams(params);
+//            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/2.5), RecyclerView.LayoutParams.WRAP_CONTENT);
+//            params.setMargins(15, 5, 15, 10);
+//            ll_container.setLayoutParams(params);
 
             // Set the ViewHolder width to be a third of the screen size, and height to wrap content
 //            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/2.5), RecyclerView.LayoutParams.WRAP_CONTENT);

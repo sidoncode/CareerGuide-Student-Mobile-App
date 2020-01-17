@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="bottom"
     android:background="#CC000000"
     android:orientation="horizontal">
@@ -74,6 +75,17 @@
             android:layout_toRightOf="@id/exo_position" />
 
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/icon_share"
+        android:orientation="vertical"
+        android:onClick="video_share"
+        tools:context=".Video_player" />
 
 <!--    <FrameLayout-->
 <!--        android:id="@+id/container_fullscreen"-->

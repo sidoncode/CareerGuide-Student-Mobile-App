@@ -70,27 +70,21 @@ public class Onboarding extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Onboarding.this, SignUpActivity.class));
-                finish();
-            }
+        btnSkip.setOnClickListener(v -> {
+            startActivity(new Intent(Onboarding.this, SignUpActivity.class));
+            finish();
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
-                    startActivity(new Intent(Onboarding.this, SignUpActivity.class));
-                    finish();
-                }
+        btnNext.setOnClickListener(v -> {
+            // checking for last page
+            // if last page home screen will be launched
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                // move to next screen
+                viewPager.setCurrentItem(current);
+            } else {
+                startActivity(new Intent(Onboarding.this, SignUpActivity.class));
+                finish();
             }
         });
 
@@ -176,18 +170,18 @@ public class Onboarding extends AppCompatActivity {
         private static final String PREF_NAME = "androidhive-welcome";
         private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
-        public PrefManager(Context context) {
+        PrefManager(Context context) {
             this._context = context;
             pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
             editor = pref.edit();
         }
 
-        public void setFirstTimeLaunch(boolean isFirstTime) {
+        void setFirstTimeLaunch(boolean isFirstTime) {
             editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
             editor.commit();
         }
 
-        public boolean isFirstTimeLaunch() {
+        boolean isFirstTimeLaunch() {
             return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
         }
 

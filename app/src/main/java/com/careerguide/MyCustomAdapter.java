@@ -2,7 +2,6 @@ package com.careerguide;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,26 +20,24 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     private List<DataModels> listDataModels;
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtRestaurantName , txtdesc;
-        public ImageView img;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView txtRestaurantName , txtdesc;
+        ImageView img;
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
-            img = (ImageView) view.findViewById(R.id.imgRestaurant);
-            txtRestaurantName = (TextView) view.findViewById(R.id.txtRestaurantName);
-            txtdesc = (TextView) view.findViewById(R.id.txtDesc);
-
+            img = view.findViewById(R.id.imgRestaurant);
+            txtRestaurantName = view.findViewById(R.id.txtRestaurantName);
+            txtdesc = view.findViewById(R.id.txtDesc);
         }
     }
 
 
-    public MyCustomAdapter( Context mContext , List<DataModels> listDataModels) {
+    MyCustomAdapter(Context mContext, List<DataModels> listDataModels) {
         this.mContext = mContext;
         Log.e("#adapter" , "-->" +listDataModels);
         this.listDataModels = listDataModels;
     }
-
 
 
     @Override
@@ -56,17 +53,14 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         DataModels objDataModels = listDataModels.get(position);
         holder.txtRestaurantName.setText(objDataModels.getRestaurantName());
         holder.txtdesc.setText("Live Now");
-
         Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.img);
-        holder.img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext() , ViewerLiveActivity.class);
-                intent.putExtra("Channel_name" , objDataModels.getchannelname());
-                intent.putExtra("name" , objDataModels.getRestaurantName());
-                view.getContext().startActivity(intent);
+        holder.img.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext() , ViewerLiveActivity.class);
+            Log.e("name-->","" +objDataModels.getchannelname());
+            intent.putExtra("Channel_name" , objDataModels.getchannelname());
+            intent.putExtra("name" , objDataModels.getRestaurantName());
+            view.getContext().startActivity(intent);
 
-            }
         });
     }
 
@@ -75,7 +69,6 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
         Log.e("#adapterdd" , "-->" +listDataModels.size());
         return listDataModels.size();
     }
-
 //    public class MyViewHolder extends RecyclerView.ViewHolder {
 //
 //        TextView txtRestaurantName, txtDesc;
@@ -85,7 +78,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
 //            super(view);
 //            img = (ImageView) view.findViewById(R.id.imgRestaurant);
 //            txtRestaurantName = (TextView) view.findViewById(R.id.txtRestaurantName);
-//            txtDesc = (TextView) view.findViewById(R.id.txtDesc);
+//            txtDesc = (TextView) view.findViewById(R.id.txk[j[]tDesc);
 //
 //        }
 //    }

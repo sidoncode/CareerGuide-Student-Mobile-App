@@ -20,21 +20,15 @@ public class All_done extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_done);
 
-        Button button=(Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i= new Intent(All_done.this, HomeActivity.class);
-                startActivity(i);
-            }
+        Button button= findViewById(R.id.button);
+        button.setOnClickListener(v -> {
+            Intent i= new Intent(All_done.this, HomeActivity.class);
+            startActivity(i);
         });
 
-        TextView tv=(TextView)findViewById(R.id.tv);
+        TextView tv= findViewById(R.id.tv);
         String text= "You are expected to complete the ‘CareerGuide Certification Course for Guiding Students’, post which you will gain a 6 character access code (UAC) to help you log in the cousellor app.";
-
-
         SpannableString ss = new SpannableString(text);
-
         ClickableSpan clickableSpan1= new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
@@ -46,9 +40,5 @@ public class All_done extends AppCompatActivity {
         ss.setSpan(clickableSpan1, 34, 87, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv.setText(ss);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
-
-
-
-
     }
 }

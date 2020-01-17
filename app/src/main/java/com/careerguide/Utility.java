@@ -49,13 +49,12 @@ import java.util.TimerTask;
 
 public class Utility extends Application
 {
-    public static final String PRIVATE_SERVER = "http://app.careerguide.com/api/main/";
+    public static final String PRIVATE_SERVER = "https://app.careerguide.com/api/main/";
 
 
     public static ArrayList<QuestionAndOptions> questionAndOptionses = new ArrayList<>();
     public static ArrayList<String> paragraphs = new ArrayList<>();
     public static ArrayList<String> sectionSet = new ArrayList<>();
-
     public static String backgroundColors[] = {"#F44336","#E91E63","#9C27B0","#673AB7","#009688"};
 
 
@@ -220,6 +219,26 @@ public class Utility extends Application
         editor.putString("education", education).apply();
     }
 
+    public static void setEducationUid(Activity activity, String educationUid)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("educationUid", educationUid).apply();
+    }
+
+    public static void setIcon_url(Activity activity, String icon_url)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("icon_url", icon_url).apply();
+    }
+
+    public static String  getIcon_url(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("icon_url","");
+    }
+
     public static String getUserId(Activity activity)
     {
         SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
@@ -311,6 +330,12 @@ public class Utility extends Application
     {
         SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
         return sharedPreferences.getString("education","");
+    }
+
+    public static String getUserEducationUid(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("educationUid","");
     }
 
     public static boolean logOut(Activity activity)

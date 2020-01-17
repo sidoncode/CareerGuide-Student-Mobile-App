@@ -69,7 +69,7 @@ public class CounsellorProfile extends AppCompatActivity {
         for(int i = 0; i<size;i++){
             String imgurl = "";
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId());
+            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(activity));
             albumList.add(a);
         }
         adapter.notifyDataSetChanged();
@@ -161,4 +161,5 @@ public class CounsellorProfile extends AppCompatActivity {
 
 
     }
+
 }

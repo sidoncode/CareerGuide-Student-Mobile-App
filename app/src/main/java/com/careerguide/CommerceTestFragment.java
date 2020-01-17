@@ -30,10 +30,6 @@ public class CommerceTestFragment extends TestSuperFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_commerce_test, container, false);
-
-        final Activity activity = getActivity();
-
-
         return view;
     }
 

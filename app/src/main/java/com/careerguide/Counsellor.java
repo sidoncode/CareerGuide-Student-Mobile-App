@@ -8,7 +8,7 @@ public class Counsellor implements Serializable{
     String firstName;
     String lastName;
     String picUrl;
-    String videocall_channel;
+    String channel_name;
     String title;
     float rating;
     ArrayList<String> expertise = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Counsellor implements Serializable{
     String videourl;
 
 
-    public Counsellor(String id, String firstName, String lastName, String picUrl,String videocall_channel_name, String title, float rating, ArrayList<String> expertise) {
+    public Counsellor(String id, String firstName, String lastName, String picUrl,String channel_name, String title, float rating, ArrayList<String> expertise) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,7 +25,7 @@ public class Counsellor implements Serializable{
         this.title = title;
         this.rating = rating;
         this.expertise = expertise;
-        this.videocall_channel = videocall_channel_name;
+        this.channel_name = channel_name;
     }
 
 
@@ -49,8 +49,8 @@ public class Counsellor implements Serializable{
         return title;
     }
 
-    public String getvideochannel() {
-        return videocall_channel;
+    public String getchannel() {
+        return channel_name;
     }
 
     public float getRating() {

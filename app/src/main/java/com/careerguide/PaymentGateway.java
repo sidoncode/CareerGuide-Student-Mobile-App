@@ -4,25 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
-//import com.android.volley.Request;
-//import com.android.volley.Response;
-//import com.android.volley.VolleyError;
-//import com.android.volley.toolbox.StringRequest;
-//import com.payumoney.core.PayUmoneySdkInitializer;
-//import com.payumoney.core.entity.TransactionResponse;
-//import com.payumoney.sdkui.ui.utils.PayUmoneyFlowManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 public class PaymentGateway extends AppCompatActivity {
 
@@ -42,7 +25,6 @@ public class PaymentGateway extends AppCompatActivity {
         String firstname =  Utility.getUserFirstName(activity).trim();
         String email =  Utility.getUserEmail(activity);
         phone = Utility.getUserMobile(activity);
-
         getHash(amount,productinfo,firstname,email);
 
         /*String hashSequence = key + "|" + txnid + "|" + amount + "|" + productinfo + "|" + firstname + "|" + email + "|||||||||||" + salt;

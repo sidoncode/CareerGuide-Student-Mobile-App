@@ -1,55 +1,347 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/parentRL"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp">
-    <android.support.v7.widget.CardView
+    android:id="@+id/question_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/round_background_ideal_up"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_weight="1"
+        android:showDividers="middle">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <RelativeLayout
+                android:id="@+id/askfor_layout"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp">
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ideal_test" />
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:gravity="start"
+                    android:text="asking_for"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="25dp"
-            android:text="Ideal Career Test"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+<!--                <com.practo.fabric.p341ui.tokenautocomplete.ChipAutoComplete-->
+<!--                    android:textSize="@dimen/editage_text_size"-->
+<!--                    android:textColor="@color/grey_charcoal"-->
+<!--                    android:textColorHint="@color/gray_lightest"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:id="@+id/txt_ask_for"-->
+<!--                    android:background="@null"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:hint="@string/select_profile"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:lines="1"-->
+<!--                    android:scrollHorizontally="true"-->
+<!--                    android:singleLine="true" android:maxLength="10"-->
+<!--                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"-->
+<!--                    android:popupBackground="@null"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:inputType="none|text|textCapWords|textEmailAddress|textShortMessage|textPersonName"-->
+<!--                    android:dropDownWidth="match_parent"-->
+<!--                    android:dropDownHeight="wrap_content"-->
+<!--                    android:dropDownVerticalOffset="2"-->
+<!--                    android:layout_marginStart="56"-->
+<!--                    />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="45dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="Provides you 12 pages of Psychometric report."
-            android:textColor="#000"
-            android:textSize="10sp" />
+                <ImageView
+                    android:id="@+id/ic_profile_dropdown"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_keyboard_arrow_right_black" />
 
+            </RelativeLayout>
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/consult_rl_content_progress"
+                android:background="@color/white"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+<!--                <com.practo.fabric.core.p257ui.widgets.MaterialProgressBar-->
+<!--                    android:id="@+id/progress_bar"-->
+<!--                    android:color="@color/blue_dark_primary"-->
+<!--                    style="@style/FabricProgressBar"/>-->
+            </RelativeLayout>
+
+        </FrameLayout>
+        <RelativeLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:id="@+id/choose_speciality"
+            android:background="@color/lightGray"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:textColor="@color/gray_lightest"
+                android:textColorHint="@color/grey"
+                android:gravity="center_vertical"
+                android:id="@+id/edit_text_search"
+                android:clickable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="enter "
+                android:singleLine="true"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageView
+                android:id="@+id/toggle_view"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:background="@android:drawable/arrow_down_float"
+                android:padding="6dp"/>
+
+        </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/subject_box_container"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <LinearLayout
+                android:layout_gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp">
+
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/red_light"
+                    android:id="@+id/min_subject"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="minbn"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="10dp"
+                    />
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/lightBlack"
+                    android:id="@+id/subject_char_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="count"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+            <EditText
+                android:textSize="16sp"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/gray_lightest"
+                android:id="@+id/subjectbox"
+                android:background="@null"
+                android:paddingLeft="16dp"
+                android:paddingTop="12dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="40dp"
+                android:hint="subject"
+                android:lines="1"
+                android:maxLength="40"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionDone"
+                >
+                <requestFocus/>
+            </EditText>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_gravity="end"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp">
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/red_light"
+                        android:id="@+id/min_text"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="min_text"
+                        android:layout_weight="1"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="10dp"
+                        />
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_lightest"
+                        android:id="@+id/question_char_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="question_char_count"
+                        />
+                </LinearLayout>
+
+                <EditText
+                    android:scrollbarStyle="outsideOverlay"
+                    android:textSize="16sp"
+                    android:textColor="@color/grey"
+                    android:textColorHint="@color/gray_lightest"
+                    android:gravity="top|left|center_vertical|center_horizontal|center|start"
+                    android:id="@+id/askbox"
+                    android:background="@null"
+                    android:paddingLeft="16sp"
+                    android:paddingRight="16sp"
+                    android:paddingBottom="16sp"
+                    android:scrollbars="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="question_hint"
+                    android:minLines="200"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:maxLength="1000"
+                    android:inputType="none|text|textCapSentences|textMultiLine"
+                    android:imeOptions="actionDone"
+                    android:nestedScrollingEnabled="true"
+                    />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
-    </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/attachment_container"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/gray_lightest"
+                android:gravity="end"
+                android:id="@+id/attachment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="attachment_count"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentEnd="true"
+                />
+            
+            <android.support.v7.widget.RecyclerView
+                android:scrollbarStyle="outsideOverlay"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/attchment_recycler_view"
+                android:paddingLeft="16dp"
+                android:paddingTop="10dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="10dp"
+                android:clipToPadding="true"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_below="@+id/attachment_count"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
+
+
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    xmlns:android="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/parentRL"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    android:paddingTop="20dp"-->
+<!--    android:paddingBottom="20dp">-->
+<!--    <android.support.v7.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:cardCornerRadius="10dp"-->
+<!--        android:cardElevation="0dp">-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:background="@drawable/round_background_ideal_up"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:src="@drawable/ideal_test" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:text="Ideal Career Test"-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="45dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginRight="45dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Provides you 12 pages of Psychometric report."-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="10sp" />-->
+
+<!--    </LinearLayout>-->
+<!--    </android.support.v7.widget.CardView>-->
+
+<!--</RelativeLayout>-->

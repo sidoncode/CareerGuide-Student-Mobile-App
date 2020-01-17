@@ -13,18 +13,20 @@ public class Album {
     private String thumbnail;
     private String channel_name;
     private String host_email;
+    private String class_cat;
     private String[] strArray;
     ArrayList<live_counsellor_session> videourls = new ArrayList<>();
     public Album() {
     }
 
-    public Album(String name, String live_caption, String thumbnail , String channel_name , ArrayList<live_counsellor_session> videourls , String host_email) {
+    public Album(String name, String live_caption, String thumbnail , String channel_name , ArrayList<live_counsellor_session> videourls , String host_email , String class_cat) {
         this.name = name;
         this.host_email = host_email;
         this.live_caption = live_caption;
         this.thumbnail = thumbnail;
         this.channel_name = channel_name;
         this.videourls = videourls;
+        this.class_cat = class_cat;
     }
 
     public String getName() {
@@ -65,6 +67,10 @@ public class Album {
 
     public String getchannelName() {
         return channel_name;
+    }
+
+    public String getClass_cat(){
+        return class_cat;
     }
 
     public void setChannelName(String name) {

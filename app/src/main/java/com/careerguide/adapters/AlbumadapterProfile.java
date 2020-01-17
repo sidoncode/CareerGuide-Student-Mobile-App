@@ -1,21 +1,17 @@
 package com.careerguide.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.careerguide.Album;
 import com.careerguide.R;
@@ -36,10 +32,10 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
         public ImageView thumbnail, overflow;
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+            title = view.findViewById(R.id.title);
+            count =  view.findViewById(R.id.count);
+            thumbnail =  view.findViewById(R.id.thumbnail);
+            overflow = view.findViewById(R.id.overflow);
 
         }
     }
@@ -64,17 +60,14 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
         holder.count.setText(album.getlive_caption());
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
-        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
-                Intent intent = new Intent(view.getContext() , Video_player.class);
-                intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
-                intent.putExtra("Fullname" , album.getName());
-                intent.putExtra("imgurl" , album.getThumbnail());
-                intent.putExtra("host_email" , album.gethost_email());
-                view.getContext().startActivity(intent);
-            }
+        holder.thumbnail.setOnClickListener(view -> {
+            Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
+            Intent intent = new Intent(view.getContext() , Video_player.class);
+            intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
+            intent.putExtra("Fullname" , album.getName());
+            intent.putExtra("imgurl" , album.getThumbnail());
+            intent.putExtra("host_email" , album.gethost_email());
+            view.getContext().startActivity(intent);
         });
     }
 

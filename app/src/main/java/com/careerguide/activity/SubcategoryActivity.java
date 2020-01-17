@@ -1,23 +1,20 @@
 package com.careerguide.activity;
+
 import android.app.Activity;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.careerguide.MainActivity_live_counsellor;
+import com.careerguide.HomeActivity;
 import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
@@ -34,7 +31,6 @@ import java.util.Map;
 import static com.rd.utils.DensityUtils.dpToPx;
 
 public class SubcategoryActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private List<Subcategories> submodel;
     private com.careerguide.adapters.subcategoryAdapter adapter;
     Activity activity = this;
@@ -48,10 +44,10 @@ public class SubcategoryActivity extends AppCompatActivity {
         pb_loading = findViewById(R.id.pb_loading);
         tv_title = findViewById(R.id.tv_title);
         tv_title.setText(getIntent().getStringExtra("cat_title"));
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         submodel = new ArrayList<>();
         adapter = new com.careerguide.adapters.subcategoryAdapter(this, submodel);
+        Utility.setIcon_url(activity , getIntent().getStringExtra("icon_url"));
 //        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
 //        recyclerView.setLayoutManager(mLayoutManager);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -64,51 +60,43 @@ public class SubcategoryActivity extends AppCompatActivity {
 
     public void fetchContent(){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_sub_category", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                Log.e("all_coun_res", response);
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status", false);
-                    pb_loading.setVisibility(View.GONE);
-                    if (status)
-                    {
-                        JSONArray category = jsonObject.optJSONArray("category");
-                        Log.e("lengthname--> " , "==> " +category.length() );
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_sub_category", response -> {
+            Log.e("all_coun_res", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status", false);
+                pb_loading.setVisibility(View.GONE);
+                if (status)
+                {
+                    JSONArray category = jsonObject.optJSONArray("category");
+                    Log.e("lengthname--> " , "==> " +category.length() );
 
-                        for (int i = 0; category != null && i<category.length(); i++)
-                        {
-                            Log.e("#lengthname--> " , "==> " +category );
-                            JSONObject categoryJsonObject = category.optJSONObject(i);
-                            String uid = categoryJsonObject.getString("uid");
-                            Log.e("#uid" , "==> "+uid);
-                            String name = categoryJsonObject.getString("category");
-                            Log.e("#name" , "==> "+name);
-                            submodel.add(new Subcategories(uid, name , getIntent().getStringExtra("cat_title")));
-                            adapter.notifyDataSetChanged();
-                        }
-                        Log.e("#name" , "==> ");
-                        //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                    } else {
-                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                    for (int i = 0; category != null && i<category.length(); i++)
+                    {
+                        Log.e("#lengthname--> " , "==> " +category );
+                        JSONObject categoryJsonObject = category.optJSONObject(i);
+                        String uid = categoryJsonObject.getString("uid");
+                        Log.e("#uid" , "==> "+uid);
+                        String name = categoryJsonObject.getString("category");
+                        String video_count = categoryJsonObject.getString("video_count");
+                        Log.e("#categoryJsonObject" , "==> "+categoryJsonObject);
+                        submodel.add(new Subcategories(uid, name , getIntent().getStringExtra("cat_title") , video_count , getIntent().getStringExtra("icon_url")));
+                        adapter.notifyDataSetChanged();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("#name" , "==> ");
+                    //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                } else {
+                    Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity, VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror","error");
-            }
+        }, error -> {
+            Toast.makeText(activity, VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror","error");
         }){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 Log.e("#cat-title" , "-->" +getIntent().getStringExtra("cat_title"));
                 params.put("cat_uid" ,getIntent().getStringExtra("cat_uid"));
@@ -135,7 +123,7 @@ public class SubcategoryActivity extends AppCompatActivity {
         private int spacing;
         private boolean includeEdge;
 
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+        GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
             this.spanCount = spanCount;
             this.spacing = spacing;
             this.includeEdge = includeEdge;

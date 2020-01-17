@@ -44,6 +44,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 
+import com.careerguide.activity.Activity_class;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -530,7 +531,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                         Utility.setUserMobile(activity,"");
                         Utility.setUserEducation(activity,"");
                         Utility.setUserActivated(activity,activated);
-                        Intent intent = new Intent(activity, HomeActivity.class);
+                        Intent intent = new Intent(activity, Activity_class.class);
                         startActivity(intent);
                         finish();
                     }

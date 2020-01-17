@@ -1,18 +1,13 @@
 package com.careerguide;
-
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -120,28 +115,21 @@ public class AboutUsFragment extends Fragment {
         },50);
 
         final TextView surbhiTextView = mgmtLayout.findViewById(R.id.surbhiInfo);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //final int surbhiLineCount = surbhiTextView.getLineCount();
-                surbhiTextView.setMaxLines(3);
-                final TextView surbhiMore = mgmtLayout.findViewById(R.id.surbhiMore);
-                surbhiMore.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(surbhiTextView.getMaxLines() == 3)
-                        {
-                            surbhiTextView.setMaxLines(Integer.MAX_VALUE);
-                            surbhiMore.setText("Show Less");
-                        }
-                        else
-                        {
-                            surbhiMore.setText("Read More");
-                            surbhiTextView.setMaxLines(3);
-                        }
-                    }
-                });
-            }
+        new Handler().postDelayed(() -> {
+            surbhiTextView.setMaxLines(3);
+            final TextView surbhiMore = mgmtLayout.findViewById(R.id.surbhiMore);
+            surbhiMore.setOnClickListener(v -> {
+                if(surbhiTextView.getMaxLines() == 3)
+                {
+                    surbhiTextView.setMaxLines(Integer.MAX_VALUE);
+                    surbhiMore.setText("Show Less");
+                }
+                else
+                {
+                    surbhiMore.setText("Read More");
+                    surbhiTextView.setMaxLines(3);
+                }
+            });
         },50);
         return view;
     }

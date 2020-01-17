@@ -29,10 +29,10 @@
                 <ImageView
                     android:id="@+id/iv_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/careerguide_banner" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/nine_class_banner" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,7 +192,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
 
 
 
@@ -363,6 +362,7 @@
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
                                     android:text="Ideal Career Test"
+                                    android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -375,7 +375,7 @@
                                     android:layout_marginRight="45dp"
                                     android:layout_marginBottom="20dp"
                                     android:gravity="center"
-                                    android:text="Provides you 12 pages of Psychometric report."
+                                    android:text="Provides you 12 pages of Psychometric \n report."
                                     android:textColor="#000"
                                     android:textSize="10sp" />
 
@@ -401,7 +401,7 @@
                             <LinearLayout
                                 android:id="@+id/stream_selector"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="250dp"
                                 android:background="@drawable/round_background_professional_up"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -418,7 +418,8 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Professional\n Skill Index Test"
+                                    android:text="Professional \nSkill Index Test"
+                                    android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -429,21 +430,20 @@
                                     android:layout_marginLeft="45dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginRight="45dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="40dp"
                                     android:gravity="center"
                                     android:text="Know your Professional Skill Index!\n And train your way to a brighter career."
                                     android:textColor="#000"
                                     android:textSize="10sp" />
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="30dp"
                                     android:background="@drawable/round_background_professional_button"
                                     android:gravity="center"
                                     android:text="Coming Soon"
-                                    android:paddingBottom="5dp"
                                     android:textColor="#fff"
                                     android:textSize="12sp"/>
-
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
@@ -451,7 +451,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:orientation="vertical">
                         <android.support.v7.widget.CardView
                             android:layout_width="wrap_content"
@@ -463,7 +463,7 @@
                             <LinearLayout
                                 android:id="@+id/ideal_career2"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="250dp"
                                 android:background="@drawable/round_background_humanities_up"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -480,7 +480,8 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Humanities Career Selector Test"
+                                    android:text="Humanities\n Career Selector Test"
+                                    android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -491,7 +492,7 @@
                                     android:layout_marginLeft="45dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginRight="45dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="40dp"
                                     android:gravity="center"
                                     android:text="Know your Humanities best career option\n And train your way to a brighter career."
                                     android:textColor="#000"
@@ -502,7 +503,6 @@
                                     android:background="@drawable/round_background_humanites_button"
                                     android:gravity="center"
                                     android:text="Coming Soon"
-                                    android:paddingBottom="5dp"
                                     android:textColor="#fff"
                                     android:textSize="12sp"/>
 
@@ -526,7 +526,7 @@
                             <LinearLayout
                                 android:id="@+id/ideal_career3"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="250dp"
                                 android:background="@drawable/round_background_stream_up"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -543,7 +543,8 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Stream Selector Test"
+                                    android:text="Stream Selector\n Test"
+                                    android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -554,7 +555,7 @@
                                     android:layout_marginLeft="45dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="45dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="40dp"
                                     android:gravity="center"
                                     android:text="Provides you 4 pages of Psychometric report."
                                     android:textColor="#000"
@@ -587,7 +588,7 @@
                             <LinearLayout
                                 android:id="@+id/ideal_career4"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="250dp"
                                 android:background="@drawable/round_background_commerce_up"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -603,8 +604,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
+                                    android:gravity="center"
                                     android:layout_marginRight="25dp"
-                                    android:text="Commerce Career Test"
+                                    android:text="Commerce Career\n Test"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -615,7 +617,7 @@
                                     android:layout_marginLeft="45dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginRight="45dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="40dp"
                                     android:gravity="center"
                                     android:text="Know your Commerce Best Career Option!\n And train your way to a brighter career."
                                     android:textColor="#000"
@@ -650,7 +652,7 @@
                             <LinearLayout
                                 android:id="@+id/ideal_career5"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="250dp"
                                 android:background="@drawable/round_background_engineering_up"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -667,7 +669,8 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Engineering Bracnch Selector Test"
+                                    android:text="Engineering \nBracnch Selector Test"
+                                    android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -678,7 +681,7 @@
                                     android:layout_marginLeft="45dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginRight="45dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="40dp"
                                     android:gravity="center"
                                     android:text="The best way to select your engineering\n branch. Discover it today."
                                     android:textColor="#000"
@@ -714,7 +717,7 @@
                             <LinearLayout
                                 android:id="@+id/skill_career"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
+                                android:layout_height="250dp"
                                 android:background="@drawable/round_background_skillbased_up"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -731,7 +734,8 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Skill Based Career Test"
+                                    android:text="Skill \nBased Career Test"
+                                    android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -742,7 +746,7 @@
                                     android:layout_marginLeft="45dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginRight="45dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="40dp"
                                     android:gravity="center"
                                     android:text="The best way to select your engineering\n branch. Discover it today."
                                     android:textColor="#000"
@@ -1049,7 +1053,7 @@
 
 <!--        <android.support.v7.widget.CardView-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="200dp"-->
+<!--            android:layout_height="250dp"-->
 <!--            android:background="#2673b0"-->
 <!--            android:padding="15dp"-->
 <!--            android:layout_margin="6dp">-->
@@ -1069,7 +1073,7 @@
 <!--                    android:text="Recommended Psychometric Tests"/>-->
 <!--                <LinearLayout-->
 <!--                    android:id="@+id/test"-->
-<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_width="250dp"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:layout_alignParentBottom="true"-->
 <!--                    android:orientation="vertical"-->
@@ -1097,7 +1101,7 @@
 <!--                        android:text="Identifying your career starts here"/>-->
 <!--                </LinearLayout>-->
 <!--                <View-->
-<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_width="250dp"-->
 <!--                    android:layout_height="4dp"-->
 <!--                    android:layout_centerHorizontal="true"-->
 <!--                    android:layout_alignParentBottom="true"-->

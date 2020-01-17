@@ -55,6 +55,7 @@
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:text="Our Most Popular\nCareer Plan"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +66,9 @@
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:text="\u20b94999"/>
+
         </LinearLayout>
+
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -80,6 +83,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_below="@id/planHeading">
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -94,7 +98,6 @@
                         android:gravity="center"
                         android:textSize="12sp"
                         android:text="2 Psychometric career reports"/>
-
                 </LinearLayout>
             </ScrollView>
             <TextView

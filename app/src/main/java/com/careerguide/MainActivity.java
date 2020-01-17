@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.careerguide.activity.Activity_class;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -27,16 +28,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Uri uri = getIntent().getData();
         if(uri != null){
+            Log.e("uri" , "--> "+uri);
+            String new_uri = uri.getQuery();
+            Log.e("#uri" , "--> "+new_uri);
             List<String> param  = uri.getPathSegments();
-            String vurl = param.get(param.size()-1);
-            Toast.makeText(activity,vurl,Toast.LENGTH_LONG).show();
+            Log.e("uri_size" , "--> "+param.size());
+            for(int i=0 ; i<param.size() ; i++){
+                String id = param.get(i);
+                Log.e("###id" , "--> "+id);
+            }
+
         }
-
-
-
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
                 .debuggable(true)  // Enables Crashlytics debugger
@@ -52,19 +56,16 @@ public class MainActivity extends AppCompatActivity {
         {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
-
         FirebaseApp.initializeApp(activity);
         FirebaseMessaging.getInstance().subscribeToTopic("notification");
         Log.d("AndroidBash", "Subscribed");
         //Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
         //https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf
-
         /*String url  = "https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf";
         Intent intent = new Intent(activity,WebViewActivity.class);
         intent.putExtra("url",url);
         startActivity(intent);
         finish();*/
-
         /*Intent intent = new Intent(activity,SplashActivity.class);
         startActivity(intent);
         finish();*/
@@ -77,21 +78,16 @@ public class MainActivity extends AppCompatActivity {
         Log.e("interval",interval + "");
 
 
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run() {
-                if(Utility.getUserId(activity).equals(""))
-                {
-                    startActivity(new Intent(activity, Onboarding.class));
+        new Handler().postDelayed(() -> {
+            if(Utility.getUserId(activity).equals(""))
+            {
+                startActivity(new Intent(activity, Onboarding.class));
+                finish();
+            }
+            else
+            {
+                    startActivity(new Intent(activity, HomeActivity.class));
                     finish();
-                }
-                else
-                {
-                    startActivity(new Intent(activity,HomeActivity.class));
-                    finish();
-                    //startActivity(new Intent(activity,TokBoxVideoCall.class));
-                }
             }
         },interval);
     }

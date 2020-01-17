@@ -8,7 +8,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -24,14 +23,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -43,11 +39,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.activity.GoalsActivity;
-import com.careerguide.adapters.GoalAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,15 +112,12 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         ((TextView) findViewById(R.id.version)).setText(version.equals("")?"":"Version " + version);
 
 
-        findViewById(R.id.leagal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new TermsAndConditionFragment()).addToBackStack("Legal").commit();
-                setTitle("Legal");
-                mDrawer.closeDrawers();
-            }
+        findViewById(R.id.leagal).setOnClickListener(v -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.popBackStack();
+            fragmentManager.beginTransaction().replace(R.id.flContent, new TermsAndConditionFragment()).addToBackStack("Legal").commit();
+            setTitle("Legal");
+            mDrawer.closeDrawers();
         });
 
         String picUrl = Utility.getUserPic(activity);
@@ -152,58 +143,50 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         else{
 
             tv_name.setText(getIntent().getStringExtra("parent_cat_title"));
+            Utility.setEducationUid(activity , getIntent().getStringExtra("subcat_uid"));
             updateProfile("education_level",getIntent().getStringExtra("parent_cat_title"),null,null,null);
 
         }
+        if(getIntent().getStringExtra("icon_url") == null){
+            Glide.with(this).load(Utility.getIcon_url(activity)).into(classimg);
+            Log.e("edu" , "" +Utility.getUserEducation(this));
+        }
+        else{
+            Glide.with(this).load(getIntent().getStringExtra("icon_url")).into(classimg);
+        }
 
-        Glide.with(this).load("http://omr.careerguide.com/Images-MCG/class-10th.png").into(classimg);
-
-        headerLayout.findViewById(R.id.class_cat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(activity,GoalsActivity.class));
-            }
-        });
+        headerLayout.findViewById(R.id.class_cat).setOnClickListener(v -> startActivity(new Intent(activity,GoalsActivity.class)));
 
         nameTextView.setText(Utility.getUserFirstName(activity) + " " + Utility.getUserLastName(activity) /*+ "   >"*/);
-        locationTextView = ((TextView)headerLayout.findViewById(R.id.locationTextView));
+        locationTextView = headerLayout.findViewById(R.id.locationTextView);
         locationTextView.setText(Utility.getUserCity(activity));
+        headerLayout.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.popBackStack();
+            fragmentManager.beginTransaction().replace(R.id.flContent, new ProfileFragment()).addToBackStack("Profile").commit();
+            setTitle("Profile");
+            mDrawer.closeDrawers();
 
-        headerLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new ProfileFragment()).addToBackStack("Profile").commit();
-                setTitle("Profile");
-                mDrawer.closeDrawers();
-
-            }
         });
 
 //        FragmentManager fragmentManager = getSupportFragmentManager();
 //        fragmentManager.beginTransaction().replace(R.id.flContent, new CounsellorCornerFragment()).commit();
 //        setTitle("Home");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
-        setTitle("Home");
-        mDrawer.closeDrawers();
+        if(getIntent().getStringExtra("parent_cat_title") == null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+            Log.e("Education Level" , "-->" +Utility.getUserEducation(activity));
+            setTitle(Utility.getUserEducation(activity));
+            mDrawer.closeDrawers();
+        }
 
-        findViewById(R.id.notification).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction().replace(R.id.flContent, new NotificationFragment()).addToBackStack("Notifications").commit();
-                setTitle("Notifications");
-            }
+        findViewById(R.id.notification).setOnClickListener(v -> {
+            FragmentManager fragmentManager1 = getSupportFragmentManager();
+            fragmentManager1.popBackStack();
+            fragmentManager1.beginTransaction().replace(R.id.flContent, new NotificationFragment()).addToBackStack("Notifications").commit();
+            setTitle("Notifications");
         });
-        findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(activity, SettingActivity.class));
-            }
-        });
+        findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
 
     }
 
@@ -215,14 +198,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        Log.e("#talk" , "menuitem:"+menuItem.getItemId());
-                        selectDrawerItem(menuItem);
-                        return true;
+                menuItem -> {
+                    Log.e("#talk" , "menuitem:"+menuItem.getItemId());
+                    selectDrawerItem(menuItem);
+                    return true;
 
-                    }
                 });
 
     }
@@ -259,63 +239,48 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
         else if(menuItem.getItemId()==R.id.livecounsellor)
         {
-
             final ProgressDialog progressDialog = new ProgressDialog(activity);
             progressDialog.setMessage("Fetching Counsellors..");
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             String PRIVATE_SERVER = "http://app.careerguide.com/api/counsellor/";
-            StringRequest stringRequests = new StringRequest(Request.Method.POST, PRIVATE_SERVER + "get_live_counsellor", new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response)
-                {
-                    Log.e("live_counsellor", response);
-                    JSONObject jobj = null;
-                    try {
-                        jobj = new JSONObject(response);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    String Channel_name = jobj.optString("channel_name");
-                    String Firstname = jobj.optString("first_name");
-                    String Lastname = jobj.optString("last_name");
-                    String counsellorpic = jobj.optString("profile_pic");
-                    if (Channel_name == "null"){
-                        Log.e("inside" , "inekme");
-                        final android.support.v7.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
-                        final View dialog = getLayoutInflater().inflate(R.layout.dialog_livecounsellor, null);
-                        alertDialog.setView(dialog);
-                        alertDialog.show();
-                        dialog.findViewById(R.id.start_test).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                startActivity(new Intent(activity,exoplayerActivity.class));
-                                //  alertDialog.dismiss();
-                            }
-                        });
-                    }
-                    else{
-                        progressDialog.dismiss();
-                        Intent intent = new Intent(activity , exoplayerActivity.class);
-                        intent.putExtra("channel_name" , Channel_name);
-                        intent.putExtra("Firstname" , Firstname);
-                        intent.putExtra("Lastname" , Lastname);
-                        intent.putExtra("counsellorpic" , counsellorpic);
-                        Log.e("###channel" , "name "+Channel_name);
-                        startActivity(intent);
-                    }
+            StringRequest stringRequests = new StringRequest(Request.Method.POST, PRIVATE_SERVER + "get_live_counsellor", response -> {
+                Log.e("live_counsellor", response);
+                JSONObject jobj = null;
+                try {
+                    jobj = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener()
-            {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("live_counsellor_error","error");
+                String Channel_name = jobj.optString("channel_name");
+                String Firstname = jobj.optString("first_name");
+                String Lastname = jobj.optString("last_name");
+                String counsellorpic = jobj.optString("profile_pic");
+                if (Channel_name == "null"){
+                    Log.e("inside" , "inekme");
+                    final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                    final View dialog = getLayoutInflater().inflate(R.layout.dialog_livecounsellor, null);
+                    alertDialog.setView(dialog);
+                    alertDialog.show();
+                    dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
+                        startActivity(new Intent(activity,exoplayerActivity.class));
+                        //  alertDialog.dismiss();
+                    });
                 }
-            })
+                else{
+                    progressDialog.dismiss();
+                    Intent intent = new Intent(activity , exoplayerActivity.class);
+                    intent.putExtra("channel_name" , Channel_name);
+                    intent.putExtra("Firstname" , Firstname);
+                    intent.putExtra("Lastname" , Lastname);
+                    intent.putExtra("counsellorpic" , counsellorpic);
+                    Log.e("###channel" , "name "+Channel_name);
+                    startActivity(intent);
+                }
+            }, error -> Log.e("live_counsellor_error","error"))
             {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() {
                     HashMap<String,String> params = new HashMap<>();
                     params.put("email" , Utility.getUserEmail(activity));
                     Log.e("#nline_status_request",params.toString());
@@ -323,7 +288,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 }
             };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequests);
-
             mDrawer.closeDrawers();
             return;
         }
@@ -358,60 +322,46 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 progressDialog2.setMessage("Fetching Counsellors..");
                 progressDialog2.setCancelable(false);
                 progressDialog2.setCanceledOnTouchOutside(false);
-                StringRequest stringRequest_new = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        JSONObject jobj = null;
-                        try {
-                            jobj = new JSONObject(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Log.e("222save_report_url", response);
+                StringRequest stringRequest_new = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", response -> {
+                    JSONObject jobj = null;
+                    try {
+                        jobj = new JSONObject(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("222save_report_url", response);
 //                        String test = "";
-                        String reporturl = jobj.optString("Report_url");
-                        Log.e("#homeurl","report " +reporturl.length());
+                    String reporturl = jobj.optString("Report_url");
+                    Log.e("#homeurl","report " +reporturl.length());
 
-                        if(reporturl.length() > 4) {
-                            setTitle("Home");
-                            Log.e("Urltrst", "myurl" + reporturl);
-                            progressDialog2.dismiss();
-                            Intent intent = new Intent(activity, WebViewActivity.class);
-                            intent.putExtra("url", reporturl);
-                            intent.putExtra("filename", "Report");
-                            Log.e("HomeResponse", reporturl);
-                            startActivity(intent);
-                        }
-                        else {
-                            setTitle("Home");
-                            Log.e("insdieif","dialouge");
-                            final android.support.v7.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
-                            final View dialog = getLayoutInflater().inflate(R.layout.dialouge_test_report, null);
-                            alertDialog.setView(dialog);
-                            alertDialog.show();
-                            //setTitle("Home");
-
-                            dialog.findViewById(R.id.start_test).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    startActivity(new Intent(activity,PsychometricTestsActivity.class));
-                                    //  alertDialog.dismiss();
-                                }
-                            });
-                        }
+                    if(reporturl.length() > 4) {
+                        setTitle("Home");
+                        Log.e("Urltrst", "myurl" + reporturl);
+                        progressDialog2.dismiss();
+                        Intent intent = new Intent(activity, WebViewActivity.class);
+                        intent.putExtra("url", reporturl);
+                        intent.putExtra("filename", "Report");
+                        Log.e("HomeResponse", reporturl);
+                        startActivity(intent);
                     }
-                }, new Response.ErrorListener()
+                    else {
+                        setTitle("Home");
+                        Log.e("insdieif","dialouge");
+                        final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                        final View dialog = getLayoutInflater().inflate(R.layout.dialouge_test_report, null);
+                        alertDialog.setView(dialog);
+                        alertDialog.show();
+                        //setTitle("Home");
+
+                        dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
+                            startActivity(new Intent(activity,PsychometricTestsActivity.class));
+                            //  alertDialog.dismiss();
+                        });
+                    }
+                }, error -> Log.e("save_report_url_error","error"))
                 {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("save_report_url_error","error");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                    protected Map<String, String> getParams() {
                         HashMap<String,String> params = new HashMap<>();
                         params.put("email" , Utility.getUserEmail(activity));
                         Log.e("#line_status_request",params.toString());
@@ -637,18 +587,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     final View dialog = getLayoutInflater().inflate(R.layout.dialog_exit, null);
                     //setTitle("Home");
 
-                    dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
-                        }
-                    });
-                    dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            HomeActivity.super.onBackPressed();
-                        }
-                    });
+                    dialog.findViewById(R.id.no).setOnClickListener(v -> alertDialog.dismiss());
+                    dialog.findViewById(R.id.yes).setOnClickListener(v -> HomeActivity.super.onBackPressed());
                     alertDialog.setView(dialog);
                     alertDialog.show();
                 default:
@@ -678,52 +618,50 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         final ProgressDialog progressDialog = new ProgressDialogCustom(activity,"Saving...");
         progressDialog.show();
         final String finalValue = value;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "profile_update", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response){
-                progressDialog.dismiss();
-                Log.e("prfl_updt_res",response);
-                try
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "profile_update", response -> {
+            progressDialog.dismiss();
+            Log.e("prfl_updt_res",response);
+            try
+            {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status",false);
+                String msg = jsonObject.optString("msg");
+                if(status)
                 {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status",false);
-                    String msg = jsonObject.optString("msg");
-                    if(status)
+                    switch (key)
                     {
-                        switch (key)
-                        {
-                            case "education_level":
-                                Utility.setUserEducation(activity, finalValue);
-                                break;
-                        }
-                        if (edit != null)
-                            edit.setVisibility(View.VISIBLE);
-                        if (done != null)
-                            done.setVisibility(View.GONE);
-                        if (cancel != null)
-                            cancel.setVisibility(View.GONE);
+                        case "education_level":
+                            Utility.setUserEducation(activity, finalValue);
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+                            Log.e("Education Level" , "-->" +Utility.getUserEducation(activity));
+                            setTitle(Utility.getUserEducation(activity));
+                            mDrawer.closeDrawers();
+                            break;
+                    }
+                    if (edit != null)
+                        edit.setVisibility(View.VISIBLE);
+                    if (done != null)
+                        done.setVisibility(View.GONE);
+                    if (cancel != null)
+                        cancel.setVisibility(View.GONE);
 
-                    }
-                    else
-                    {
-                        Toast.makeText(activity, "Something went wrong.",Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
+                else
+                {
+                    Toast.makeText(activity, "Something went wrong.",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("prfl_updt_error","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("prfl_updt_error","error");
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("user_id",Utility.getUserId(activity));
                 params.put(key, finalValue);

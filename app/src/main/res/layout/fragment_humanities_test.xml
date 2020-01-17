@@ -18,17 +18,18 @@
             android:layout_height="120dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/humanities_test"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Humanities Career Selector Test"
-            android:gravity="center"
-            android:layout_marginRight="45dp"
             android:layout_marginLeft="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="45dp"
+            android:gravity="center"
+            android:text="Humanities career Selector Test"
             android:textColor="#000"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -39,7 +39,7 @@ public class PsychometricTestsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        FixedTransformerViewPager pager = (FixedTransformerViewPager)findViewById(R.id.viewPager);
+        FixedTransformerViewPager pager = findViewById(R.id.viewPager);
         pager.setClipToPadding(false);
         pager.setPadding(Utility.getPx(40),0,Utility.getPx(40),0);
         pager.setPageMargin(Utility.getPx(10));
@@ -75,46 +75,34 @@ public class PsychometricTestsActivity extends AppCompatActivity {
 
             }
         });
-        circleIndicator = (PageIndicatorView) findViewById(R.id.indicator);
+        circleIndicator = findViewById(R.id.indicator);
         circleIndicator.setUnselectedColor(Color.parseColor("#a5a5a5"));
         circleIndicator.setSelectedColor(getResources().getColor(R.color.buttonColor));
         circleIndicator.setRadius(7);
         circleIndicator.setAnimationType(AnimationType.SCALE);
         circleIndicator.setViewPager(pager);
-        pager.setPageTransformer(true, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-                //page.setRotationY(position * -30);
-                final float normalizedposition = Math.abs(Math.abs(position) - 1);
-                /*page.setScaleX(normalizedposition / 2 + 0.5f);*/
-                {
-                    page.setScaleY(normalizedposition/10 + 0.9f /*/ 2f + 0.5f*/);
-                }
+        pager.setPageTransformer(true, (page, position) -> {
+            //page.setRotationY(position * -30);
+            final float normalizedposition = Math.abs(Math.abs(position) - 1);
+            /*page.setScaleX(normalizedposition / 2 + 0.5f);*/
+            {
+                page.setScaleY(normalizedposition/10 + 0.9f /*/ 2f + 0.5f*/);
             }
         });
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run() {
-                manageHeight(0);
-            }
-        }, 60);
+        new Handler().postDelayed(() -> manageHeight(0), 60);
     }
 
     private void invalidatePageTransformer(final ViewPager pager)
     {
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                //no need to invalidate if we have no adapter or no items
-                if (pager.getAdapter() != null && pager.getAdapter().getCount() > 0)
+        new Handler().post(() -> {
+            //no need to invalidate if we have no adapter or no items
+            if (pager.getAdapter() != null && pager.getAdapter().getCount() > 0)
+            {
+                //import check here, only fakeDrag if "beginFakeDrag()" returns true
+                if (pager.beginFakeDrag())
                 {
-                    //import check here, only fakeDrag if "beginFakeDrag()" returns true
-                    if (pager.beginFakeDrag())
-                    {
-                        pager.fakeDragBy(0f);
-                        pager.endFakeDrag();
-                    }
+                    pager.fakeDragBy(0f);
+                    pager.endFakeDrag();
                 }
             }
         });

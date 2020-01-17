@@ -517,115 +517,92 @@ public class ProfileFragment extends Fragment {
 
 
 
-        editFName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firstNameEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-                firstNameEditText.setBackground(edittextDrawable);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(firstNameEditText, InputMethodManager.SHOW_IMPLICIT);
+        editFName.setOnClickListener(v -> {
+            firstNameEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+            firstNameEditText.setBackground(edittextDrawable);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(firstNameEditText, InputMethodManager.SHOW_IMPLICIT);
 
-                final View doneFName = view.findViewById(R.id.doneFName);
-                final View cancelFname = view.findViewById(R.id.cancelFName);
+            final View doneFName = view.findViewById(R.id.doneFName);
+            final View cancelFname = view.findViewById(R.id.cancelFName);
 
-                editFName.setVisibility(View.GONE);
-                doneFName.setVisibility(View.VISIBLE);
-                cancelFname.setVisibility(View.VISIBLE);
+            editFName.setVisibility(View.GONE);
+            doneFName.setVisibility(View.VISIBLE);
+            cancelFname.setVisibility(View.VISIBLE);
 
-                cancelFname.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        disableEditText(firstNameEditText);
-                        firstNameEditText.setText(Utility.getUserFirstName(getActivity()));
-                        editFName.setVisibility(View.VISIBLE);
-                        doneFName.setVisibility(View.GONE);
-                        cancelFname.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(firstNameEditText.getWindowToken(), 0);
-                    }
-                });
+            cancelFname.setOnClickListener(v1 -> {
+                disableEditText(firstNameEditText);
+                firstNameEditText.setText(Utility.getUserFirstName(getActivity()));
+                editFName.setVisibility(View.VISIBLE);
+                doneFName.setVisibility(View.GONE);
+                cancelFname.setVisibility(View.GONE);InputMethodManager imm1 = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm1.hideSoftInputFromWindow(firstNameEditText.getWindowToken(), 0);
+            });
+            doneFName.setOnClickListener(v12 -> updateProfile("first_name", firstNameEditText,editFName,doneFName,cancelFname));
 
-                doneFName.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateProfile("first_name", firstNameEditText,editFName,doneFName,cancelFname);
-                    }
-                });
-
-            }
         });
 
-        editLName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lastNameEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-                lastNameEditText.setBackground(edittextDrawable);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(lastNameEditText, InputMethodManager.SHOW_IMPLICIT);
+        editLName.setOnClickListener(v -> {
+            lastNameEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+            lastNameEditText.setBackground(edittextDrawable);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(lastNameEditText, InputMethodManager.SHOW_IMPLICIT);
 
-                final View doneLName = view.findViewById(R.id.doneLName);
-                final View cancelLname = view.findViewById(R.id.cancelLName);
+            final View doneLName = view.findViewById(R.id.doneLName);
+            final View cancelLname = view.findViewById(R.id.cancelLName);
 
-                editLName.setVisibility(View.GONE);
-                doneLName.setVisibility(View.VISIBLE);
-                cancelLname.setVisibility(View.VISIBLE);
+            editLName.setVisibility(View.GONE);
+            doneLName.setVisibility(View.VISIBLE);
+            cancelLname.setVisibility(View.VISIBLE);
 
-                cancelLname.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        disableEditText(lastNameEditText);
-                        lastNameEditText.setText(Utility.getUserLastName(getActivity()));
-                        editLName.setVisibility(View.VISIBLE);
-                        doneLName.setVisibility(View.GONE);
-                        cancelLname.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(lastNameEditText.getWindowToken(), 0);
-                    }
-                });
+            cancelLname.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    disableEditText(lastNameEditText);
+                    lastNameEditText.setText(Utility.getUserLastName(getActivity()));
+                    editLName.setVisibility(View.VISIBLE);
+                    doneLName.setVisibility(View.GONE);
+                    cancelLname.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(lastNameEditText.getWindowToken(), 0);
+                }
+            });
 
-                doneLName.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateProfile("last_name", lastNameEditText,editLName,doneLName,cancelLname);
-                    }
-                });
+            doneLName.setOnClickListener(v13 -> updateProfile("last_name", lastNameEditText,editLName,doneLName,cancelLname));
 
-            }
         });
 
-        editLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                locationEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-                locationEditText.setBackground(edittextDrawable);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(locationEditText, InputMethodManager.SHOW_IMPLICIT);
+        editLocation.setOnClickListener(v -> {
+            locationEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+            locationEditText.setBackground(edittextDrawable);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(locationEditText, InputMethodManager.SHOW_IMPLICIT);
 
-                final View doneLoc = view.findViewById(R.id.doneLoc);
-                final View cancelLoc = view.findViewById(R.id.cancelLoc);
+            final View doneLoc = view.findViewById(R.id.doneLoc);
+            final View cancelLoc = view.findViewById(R.id.cancelLoc);
 
-                editLocation.setVisibility(View.GONE);
-                doneLoc.setVisibility(View.VISIBLE);
-                cancelLoc.setVisibility(View.VISIBLE);
+            editLocation.setVisibility(View.GONE);
+            doneLoc.setVisibility(View.VISIBLE);
+            cancelLoc.setVisibility(View.VISIBLE);
 
-                cancelLoc.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        disableEditText(locationEditText);
-                        locationEditText.setText(Utility.getUserCity(getActivity()));
-                        editLocation.setVisibility(View.VISIBLE);
-                        doneLoc.setVisibility(View.GONE);
-                        cancelLoc.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(locationEditText.getWindowToken(), 0);
-                    }
-                });
+            cancelLoc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    disableEditText(locationEditText);
+                    locationEditText.setText(Utility.getUserCity(getActivity()));
+                    editLocation.setVisibility(View.VISIBLE);
+                    doneLoc.setVisibility(View.GONE);
+                    cancelLoc.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(locationEditText.getWindowToken(), 0);
+                }
+            });
 
-                doneLoc.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateProfile("city", locationEditText,editLocation,doneLoc,cancelLoc);
-                    }
-                });
+            doneLoc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile("city", locationEditText,editLocation,doneLoc,cancelLoc);
+                }
+            });
 
-            }
         });
 
         editMobile.setOnClickListener(new View.OnClickListener() {
