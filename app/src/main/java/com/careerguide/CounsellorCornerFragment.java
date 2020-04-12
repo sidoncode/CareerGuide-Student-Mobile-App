@@ -11,13 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
@@ -59,49 +55,40 @@ public class CounsellorCornerFragment extends Fragment {
     private void getCounsellors() {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("all_coun_res", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        if (status)
-                        {
-                            JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                            for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
-                            {
-                                JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                                String id = counselorJsonObject.optString("co_id");
-                                String firstName = counselorJsonObject.optString("first_name");
-                                String lastName = counselorJsonObject.optString("last_name");
-                                String picUrl = counselorJsonObject.optString("profile_pic");
-                                String Videocall_channel_name = counselorJsonObject.optString("videocall_channel_name");
-                                counsellors.add(new Counsellor(id,firstName,lastName,picUrl,Videocall_channel_name,"",4.5f,new ArrayList<String>()));
-                            }
-                            counselorAdapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
+            if (isAdded()) {
                 progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror","error");
+                Log.e("all_coun_res", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
+                        {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String Videocall_channel_name = counselorJsonObject.optString("videocall_channel_name");
+                            counsellors.add(new Counsellor(id,firstName,lastName,picUrl,Videocall_channel_name,"",4.5f,new ArrayList<String>()));
+                        }
+                        counselorAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror","error");
         })
         {
             @Override
@@ -156,16 +143,13 @@ public class CounsellorCornerFragment extends Fragment {
             {
                 Glide.with(getActivity()).load(counsellor.picUrl).into(profilePic);
             }
-            counselorView/*.findViewById(R.id.chat)*/.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), ChatActivity.class);
-//                    intent.putExtra("counsellor",counsellor);
-//                    startActivity(intent);
-                    Intent intent = new Intent(getActivity(), VideoChatViewActivity.class);
-                    //intent.putExtra("video_channel_name",counsellor.getvideochannel());
-                    startActivity(intent);
-                }
+            counselorView/*.findViewById(R.id.chat)*/.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("counsellor",counsellor);
+                startActivity(intent);
+                //Intent intent = new Intent(getActivity(), VideoChatViewActivity.class);
+                //intent.putExtra("video_channel_name",counsellor.getvideochannel());
+               // startActivity(intent);
             });
             return counselorView;
         }

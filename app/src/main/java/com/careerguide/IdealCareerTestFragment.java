@@ -1,54 +1,27 @@
 package com.careerguide;
 
-
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,13 +64,10 @@ public class IdealCareerTestFragment extends TestSuperFragment {
 
 
 
-        view.findViewById(R.id.startButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //showEducation();
-                checkActivationStatus();
-                //proceedTest();
-            }
+        view.findViewById(R.id.startButton).setOnClickListener(v -> {
+            //showEducation();
+            checkActivationStatus();
+            //proceedTest();
         });
 
         Bundle bundle = getArguments();
@@ -117,168 +87,130 @@ public class IdealCareerTestFragment extends TestSuperFragment {
 
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_inventry", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("user_invantory_response", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        String msg = jsonObject.optString("msg");
-                        if (status)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_inventry", response -> {
+            if (isAdded()) {
+                progressDialog.dismiss();
+                Log.e("user_invantory_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    String msg = jsonObject.optString("msg");
+                    if (status)
+                    {
+                        JSONArray dataJsonArray = jsonObject.optJSONArray("data");
+                        for (int i = 0; i<dataJsonArray.length(); i++)
                         {
-                            JSONArray dataJsonArray = jsonObject.optJSONArray("data");
-                            for (int i = 0; i<dataJsonArray.length(); i++)
-                            {
-                                JSONObject serviceJsonObject = dataJsonArray.getJSONObject(i);
-                                int serviceId = serviceJsonObject.optInt("service_id");
-                                try {
-                                    int quantity = Integer.parseInt(serviceJsonObject.optString("quantity"));
-                                    if (serviceId == 1 && quantity > 0)
-                                    {
-                                        testAvailable = true;
-                                        break;
-                                    }
-                                }
-                                catch (NumberFormatException ex)
+                            JSONObject serviceJsonObject = dataJsonArray.getJSONObject(i);
+                            int serviceId = serviceJsonObject.optInt("service_id");
+                            try {
+                                int quantity = Integer.parseInt(serviceJsonObject.optString("quantity"));
+                                if (serviceId == 1 && quantity > 0)
                                 {
-
+                                    testAvailable = true;
+                                    break;
                                 }
                             }
-                            final AlertDialog ad = new AlertDialog.Builder(activity).create();
-                            LayoutInflater layoutInflater = activity.getLayoutInflater();
-                            alertDialogView = layoutInflater.inflate(R.layout.test_information_dialog, null);
-                            ad.setView(alertDialogView);
-                            Log.e("test Available",testAvailable + "");
-                            testAvailable = true;
-                            if (testAvailable)
+                            catch (NumberFormatException ex)
                             {
-                                alertDialogView.findViewById(R.id.start).setVisibility(View.VISIBLE);
-                                alertDialogView.findViewById(R.id.payNow).setVisibility(View.GONE);
-                                alertDialogView.findViewById(R.id.proceed).setVisibility(View.GONE);
-                                if (Utility.isAnswerAvailable(activity))
-                                {
-                                    alertDialogView.findViewById(R.id.resume).setVisibility(View.VISIBLE);
-                                }
-                                else
-                                {
-                                    alertDialogView.findViewById(R.id.resume).setVisibility(View.GONE);
-                                }
+
+                            }
+                        }
+                        final AlertDialog ad = new AlertDialog.Builder(activity).create();
+                        LayoutInflater layoutInflater = activity.getLayoutInflater();
+                        alertDialogView = layoutInflater.inflate(R.layout.test_information_dialog, null);
+                        ad.setView(alertDialogView);
+                        Log.e("test Available",testAvailable + "");
+                        testAvailable = true;
+                        if (testAvailable)
+                        {
+                            alertDialogView.findViewById(R.id.start).setVisibility(View.VISIBLE);
+                            alertDialogView.findViewById(R.id.payNow).setVisibility(View.GONE);
+                            alertDialogView.findViewById(R.id.proceed).setVisibility(View.GONE);
+                            if (Utility.isAnswerAvailable(activity))
+                            {
+                                alertDialogView.findViewById(R.id.resume).setVisibility(View.VISIBLE);
                             }
                             else
                             {
-                                alertDialogView.findViewById(R.id.start).setVisibility(View.GONE);
                                 alertDialogView.findViewById(R.id.resume).setVisibility(View.GONE);
-                                alertDialogView.findViewById(R.id.payNow).setVisibility(View.VISIBLE);
-                                alertDialogView.findViewById(R.id.proceed).setVisibility(View.VISIBLE);
                             }
-
-                            alertDialogView.findViewById(R.id.proceed).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    ad.dismiss();
-                                    if (Utility.isAnswerAvailable(activity)) {
-                                        android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(activity);
-                                        adb.setMessage("One test is in progress. Do you want to resume?");
-                                        adb.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Intent intent = new Intent(activity, AssessmentActivity.class);
-                                                intent.putExtra("auth", authKeyAtServer);
-                                                startActivityForResult(intent,ASSESMENT_REQ_CODE);
-                                            }
-                                        });
-                                        adb.setNegativeButton("Restart", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Utility.clearAnswer(activity);
-                                                Intent intent = new Intent(activity, AssessmentActivity.class);
-                                                intent.putExtra("auth", authKeyAtServer);
-                                                startActivityForResult(intent,ASSESMENT_REQ_CODE);
-                                            }
-                                        });
-                                        adb.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        });
-                                        adb.show();
-                                    } else {
-                                        Intent intent = new Intent(activity, AssessmentActivity.class);
-                                        intent.putExtra("auth", authKeyAtServer);
-                                        startActivityForResult(intent,ASSESMENT_REQ_CODE);
-                                    }
-                                }
-                            });
-                            alertDialogView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    ad.dismiss();
-                                }
-                            });
-                            alertDialogView.findViewById(R.id.payNow).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Toast.makeText(activity, "Feature not yet supported", Toast.LENGTH_LONG).show();
-                                    //startActivity(new Intent(activity,PlanActivity.class));
-                                }
-                            });
-                            alertDialogView.findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Utility.clearAnswer(activity);
-                                    /*new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-
-                                        }
-                                    },1000);
-                                    alertDialogView.findViewById(R.id.resume).setVisibility(View.GONE);*/
-                                    Intent intent = new Intent(activity, AssessmentActivity.class);
-                                    intent.putExtra("auth", authKeyAtServer);
-                                    startActivityForResult(intent,ASSESMENT_REQ_CODE);
-                                }
-                            });
-                            alertDialogView.findViewById(R.id.resume).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(activity, AssessmentActivity.class);
-                                    intent.putExtra("auth", authKeyAtServer);
-                                    startActivityForResult(intent,ASSESMENT_REQ_CODE);
-                                }
-                            });
-
-                            alertDialogView.findViewById(R.id.sampleReport).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                                    intent.putExtra("url","https://www.careerguide.com/sample-report/ideal-career-report-sample-report-new.pdf");
-                                    intent.putExtra("filename", "Report");
-                                    startActivity(intent);
-                                }
-                            });
-                            ad.show();
-                        } else {
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        else
+                        {
+                            alertDialogView.findViewById(R.id.start).setVisibility(View.GONE);
+                            alertDialogView.findViewById(R.id.resume).setVisibility(View.GONE);
+                            alertDialogView.findViewById(R.id.payNow).setVisibility(View.VISIBLE);
+                            alertDialogView.findViewById(R.id.proceed).setVisibility(View.VISIBLE);
+                        }
+
+                        alertDialogView.findViewById(R.id.proceed).setOnClickListener(v -> {
+                            ad.dismiss();
+                            if (Utility.isAnswerAvailable(activity)) {
+                                android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(activity);
+                                adb.setMessage("One test is in progress. Do you want to resume?");
+                                adb.setPositiveButton("Resume", (dialog, which) -> {
+                                    Intent intent = new Intent(activity, AssessmentActivity.class);
+                                    intent.putExtra("auth", authKeyAtServer);
+                                    startActivityForResult(intent,ASSESMENT_REQ_CODE);
+                                });
+                                adb.setNegativeButton("Restart", (dialog, which) -> {
+                                    Utility.clearAnswer(activity);
+                                    Intent intent = new Intent(activity, AssessmentActivity.class);
+                                    intent.putExtra("auth", authKeyAtServer);
+                                    startActivityForResult(intent,ASSESMENT_REQ_CODE);
+                                });
+                                adb.setNeutralButton("Cancel", (dialog, which) -> {
+                                });
+                                adb.show();
+                            } else {
+                                Intent intent = new Intent(activity, AssessmentActivity.class);
+                                intent.putExtra("auth", authKeyAtServer);
+                                startActivityForResult(intent,ASSESMENT_REQ_CODE);
+                            }
+                        });
+                        alertDialogView.findViewById(R.id.close).setOnClickListener(v -> ad.dismiss());
+                        alertDialogView.findViewById(R.id.payNow).setOnClickListener(v -> {
+                            Toast.makeText(activity, "Feature not yet supported", Toast.LENGTH_LONG).show();
+                            //startActivity(new Intent(activity,PlanActivity.class));
+                        });
+                        alertDialogView.findViewById(R.id.start).setOnClickListener(v -> {
+                            Utility.clearAnswer(activity);
+                            /*new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            },1000);
+                            alertDialogView.findViewById(R.id.resume).setVisibility(View.GONE);*/
+                            Intent intent = new Intent(activity, AssessmentActivity.class);
+                            intent.putExtra("auth", authKeyAtServer);
+                            startActivityForResult(intent,ASSESMENT_REQ_CODE);
+                        });
+                        alertDialogView.findViewById(R.id.resume).setOnClickListener(v -> {
+                            Intent intent = new Intent(activity, AssessmentActivity.class);
+                            intent.putExtra("auth", authKeyAtServer);
+                            startActivityForResult(intent,ASSESMENT_REQ_CODE);
+                        });
+
+                        alertDialogView.findViewById(R.id.sampleReport).setOnClickListener(v -> {
+                            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                            intent.putExtra("url","https://www.careerguide.com/sample-report/ideal-career-report-sample-report-new.pdf");
+                            intent.putExtra("filename", "Report");
+                            startActivity(intent);
+                        });
+                        ad.show();
+                    } else {
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("user_invantory_error","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("user_invantory_error","error");
         })
         {
             @Override
@@ -328,131 +260,112 @@ public class IdealCareerTestFragment extends TestSuperFragment {
     private void checkActivationStatus() {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_activation_status", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("activation_response", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        String msg = jsonObject.optString("msg");
-                        if (status)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_activation_status", response -> {
+            if (isAdded()) {
+                progressDialog.dismiss();
+                Log.e("activation_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    String msg = jsonObject.optString("msg");
+                    if (status)
+                    {
+                        boolean activated = jsonObject.optString("activated").equals("1");
+                        mobileAtServer = jsonObject.optString("mobile_number");
+                        educationAtServer = jsonObject.optString("education_level");
+                        authKeyAtServer = jsonObject.optString("user_auth");
+                        if (activated)
                         {
-                            boolean activated = jsonObject.optString("activated").equals("1");
-                            mobileAtServer = jsonObject.optString("mobile_number");
-                            educationAtServer = jsonObject.optString("education_level");
-                            authKeyAtServer = jsonObject.optString("user_auth");
-                            if (activated)
+                            if (mobileAtServer.length() == 0)
                             {
-                                if (mobileAtServer.length() == 0)
-                                {
-                                    final AlertDialog ad = new AlertDialog.Builder(getActivity()).create();
-                                    View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_enter_mobile_number, null);
-                                    Spinner spinner = view.findViewById(R.id.countriesSpinner);
-                                    final ArrayList<Country> countries = new ArrayList<>();
-                                    JSONArray countriesJsonArray = jsonObject.optJSONArray("flags");
-                                    for (int i = 0; i<countriesJsonArray.length(); i++)
-                                    {
-                                        JSONObject countryJsonObject = countriesJsonArray.optJSONObject(i);
-                                        boolean current = countryJsonObject.optBoolean("selected");
-                                        if (current)
-                                        {
-                                            Log.e("selected ", countryJsonObject.optString("name"));
-                                        }
-                                        countries.add(new Country(countryJsonObject.optString("name"), countryJsonObject.optString("flag"),"" + countryJsonObject.optInt("code"),current));
-                                    }
-
-                                    spinner.setAdapter(new CustomAdapter(getActivity(),R.layout.country_spinner_item,countries));
-                                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                            Country country = countries.get(position);
-                                            Log.e("CODE",country.getCountryCode() + " " + country.getCountryName());
-                                            enteredCode = country.getCountryCode();
-                                            enteredCountryFlag = country.getImage();
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-
-                                        }
-                                    });
-                                    for (int i = 0; i< countries.size(); i++)
-                                    {
-                                        if (countries.get(i).isCurrent())
-                                        {
-                                            spinner.setSelection(i);
-                                        }
-                                    }
-                                    final EditText editText = view.findViewById(R.id.phoneNumberEdit);
-
-                                    view.findViewById(R.id.continueButton).setOnClickListener(new View.OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(View v) {
-                                            phoneNumberEntered = editText.getText().toString().trim();
-                                            if (phoneNumberEntered.length() > 0)
-                                            {
-                                                updateMobile(phoneNumberEntered);
-                                                //uncomment below method to activate OTP functionalty.
-                                                //checkSMSPermission();
-                                                ad.dismiss();
-                                            } else {
-                                                Toast.makeText(getActivity(), "Insert phone number", Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
-                                    ad.setView(view);
-                                    ad.show();
-                                }
-                                else if (educationAtServer.length() == 0)
-                                {
-                                    showEducation();
-                                }
-                                else if (authKeyAtServer.length() == 0)
-                                {
-                                    createAuthKey();
-                                }
-                                else
-                                {
-                                    proceedTest();
-                                }
-                            } else {
                                 final AlertDialog ad = new AlertDialog.Builder(getActivity()).create();
-                                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_email_not_verified,null);
-                                view.findViewById(R.id.gotIt).setOnClickListener(new View.OnClickListener() {
+                                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_enter_mobile_number, null);
+                                Spinner spinner = view.findViewById(R.id.countriesSpinner);
+                                final ArrayList<Country> countries = new ArrayList<>();
+                                JSONArray countriesJsonArray = jsonObject.optJSONArray("flags");
+                                for (int i = 0; i<countriesJsonArray.length(); i++)
+                                {
+                                    JSONObject countryJsonObject = countriesJsonArray.optJSONObject(i);
+                                    boolean current = countryJsonObject.optBoolean("selected");
+                                    if (current)
+                                    {
+                                        Log.e("selected ", countryJsonObject.optString("name"));
+                                    }
+                                    countries.add(new Country(countryJsonObject.optString("name"), countryJsonObject.optString("flag"),"" + countryJsonObject.optInt("code"),current));
+                                }
+
+                                spinner.setAdapter(new CustomAdapter(getActivity(),R.layout.country_spinner_item,countries));
+                                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
-                                    public void onClick(View v) {
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        Country country = countries.get(position);
+                                        Log.e("CODE",country.getCountryCode() + " " + country.getCountryName());
+                                        enteredCode = country.getCountryCode();
+                                        enteredCountryFlag = country.getImage();
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
+                                for (int i = 0; i< countries.size(); i++)
+                                {
+                                    if (countries.get(i).isCurrent())
+                                    {
+                                        spinner.setSelection(i);
+                                    }
+                                }
+                                final EditText editText = view.findViewById(R.id.phoneNumberEdit);
+
+                                view.findViewById(R.id.continueButton).setOnClickListener(v -> {
+                                    phoneNumberEntered = editText.getText().toString().trim();
+                                    if (phoneNumberEntered.length() > 0)
+                                    {
+                                        updateMobile(phoneNumberEntered);
+                                        //uncomment below method to activate OTP functionalty.
+                                        //checkSMSPermission();
                                         ad.dismiss();
+                                    } else {
+                                        Toast.makeText(getActivity(), "Insert phone number", Toast.LENGTH_LONG).show();
                                     }
                                 });
                                 ad.setView(view);
                                 ad.show();
                             }
+                            else if (educationAtServer.length() == 0)
+                            {
+                                showEducation();
+                            }
+                            else if (authKeyAtServer.length() == 0)
+                            {
+                                createAuthKey();
+                            }
+                            else
+                            {
+                                proceedTest();
+                            }
                         } else {
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                            final AlertDialog ad = new AlertDialog.Builder(getActivity()).create();
+                            View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_email_not_verified,null);
+                            view.findViewById(R.id.gotIt).setOnClickListener(v -> ad.dismiss());
+                            ad.setView(view);
+                            ad.show();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity(),"Invalid response.\nSomething went wrong.",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(),"Invalid response.\nSomething went wrong.",Toast.LENGTH_LONG).show();
                 }
+            }
 
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("activation_error","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("activation_error","error");
         })
         {
             @Override
@@ -775,47 +688,38 @@ public class IdealCareerTestFragment extends TestSuperFragment {
     private void updateMobile(final String phoneNumber) {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "update_mobile", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("update_mobile_response", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        String msg = jsonObject.optString("msg");
-                        if (status) {
-                            mobileAtServer = phoneNumber;
-                            if (educationAtServer.length() == 0)
-                            {
-                                showEducation();
-                            }
-
-                        } else {
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "update_mobile", response -> {
+            if (isAdded()) {
                 progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("update_mobile_error","error");
+                Log.e("update_mobile_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    String msg = jsonObject.optString("msg");
+                    if (status) {
+                        mobileAtServer = phoneNumber;
+                        if (educationAtServer.length() == 0)
+                        {
+                            showEducation();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("update_mobile_error","error");
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("user_id",Utility.getUserId(getActivity()));
                 params.put("mobile",phoneNumber);
@@ -840,68 +744,50 @@ public class IdealCareerTestFragment extends TestSuperFragment {
 
         final String[] selectedEducation = {""};
 
-        class1RadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    selectedEducation[0] = "Class 1 - 9";
-                }
+        class1RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                selectedEducation[0] = "Class 1 - 9";
             }
         });
 
-        class10RadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    selectedEducation[0] = "Class 10";
-                }
+        class10RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                selectedEducation[0] = "Class 10";
             }
         });
 
-        class12RadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    selectedEducation[0] = "Class 12";
-                }
+        class12RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                selectedEducation[0] = "Class 12";
             }
         });
 
-        graduateRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    selectedEducation[0] = "Graduate";
-                }
+        graduateRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                selectedEducation[0] = "Graduate";
             }
         });
 
-        postGraduateRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    selectedEducation[0] = "Post Graduate";
-                }
+        postGraduateRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+            {
+                selectedEducation[0] = "Post Graduate";
             }
         });
 
-        view.findViewById(R.id.confirmButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (selectedEducation[0])
-                {
-                    case "":
-                        Toast.makeText(getActivity(),"Please select your highest education",Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        updateEducation(selectedEducation[0]);
-                        ad.dismiss();
-                }
+        view.findViewById(R.id.confirmButton).setOnClickListener(v -> {
+            switch (selectedEducation[0])
+            {
+                case "":
+                    Toast.makeText(getActivity(),"Please select your highest education",Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    updateEducation(selectedEducation[0]);
+                    ad.dismiss();
             }
         });
         ad.setView(view);
@@ -911,50 +797,41 @@ public class IdealCareerTestFragment extends TestSuperFragment {
     private void updateEducation(final String education) {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "update_education_level", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("update_edu_response", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        String msg = jsonObject.optString("msg");
-                        if (status) {
-                            educationAtServer = education;
-                            if (authKeyAtServer.length()==0)
-                            {
-                                createAuthKey();
-                            }
-                            else
-                            {
-                                proceedTest();
-                            }
-                        } else {
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "update_education_level", response -> {
+            if (isAdded()) {
                 progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("update_edu_error","error");
+                Log.e("update_edu_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    String msg = jsonObject.optString("msg");
+                    if (status) {
+                        educationAtServer = education;
+                        if (authKeyAtServer.length()==0)
+                        {
+                            createAuthKey();
+                        }
+                        else
+                        {
+                            proceedTest();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("update_edu_error","error");
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("user_id",Utility.getUserId(getActivity()));
                 params.put("education_level",education);
@@ -970,44 +847,35 @@ public class IdealCareerTestFragment extends TestSuperFragment {
         Log.e("pos","createauthkey");
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "creat_auth_key", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if (isAdded()) {
-                    progressDialog.dismiss();
-                    Log.e("create_auth_response", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        String msg = jsonObject.optString("msg");
-                        if (status)
-                        {
-                            proceedTest();
-                        } else {
-                            //Log.e("false message", msg);
-                            Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "creat_auth_key", response -> {
+            if (isAdded()) {
                 progressDialog.dismiss();
-                if (isAdded())
-                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("create_auth_error","error");
+                Log.e("create_auth_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    String msg = jsonObject.optString("msg");
+                    if (status)
+                    {
+                        proceedTest();
+                    } else {
+                        //Log.e("false message", msg);
+                        Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+        }, error -> {
+            progressDialog.dismiss();
+            if (isAdded())
+                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("create_auth_error","error");
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("user_id",Utility.getUserId(getActivity()));
                 Log.e("request_create_auth",params.toString());
@@ -1110,8 +978,8 @@ public class IdealCareerTestFragment extends TestSuperFragment {
             tempValues = null;
             tempValues = (Country) data.get(position);
 
-            TextView label        = (TextView)row.findViewById(R.id.countryCode);
-            ImageView flagLogo = (ImageView)row.findViewById(R.id.flagImage);
+            TextView label        = row.findViewById(R.id.countryCode);
+            ImageView flagLogo = row.findViewById(R.id.flagImage);
 
             /*if(position==0){
                 // Default selected Spinner item

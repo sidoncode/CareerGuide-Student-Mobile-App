@@ -22,46 +22,34 @@ public class ebookpdf extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_ebook, container, false);
-        view.findViewById(R.id.newage1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+        view.findViewById(R.id.newage1).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
 
-                intent.putExtra("filename", "self-career-counselling-ebook.pdf");
-                intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf");
-                startActivity(intent);
-            }
+            intent.putExtra("filename", "self-career-counselling-ebook.pdf");
+            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf");
+            startActivity(intent);
         });
-        view.findViewById(R.id.age_careerr).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+        view.findViewById(R.id.age_careerr).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
 
-                intent.putExtra("filename", "self-career-counselling-ebook.pdf");
-                intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf");
+            intent.putExtra("filename", "self-career-counselling-ebook.pdf");
+            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf");
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
-        view.findViewById(R.id.newage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("filename", "new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
-                intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
+        view.findViewById(R.id.newage).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra("filename", "new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
+            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
-        view.findViewById(R.id.age_career).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("filename", "new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
-                intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
-                startActivity(intent);
-            }
+        view.findViewById(R.id.age_career).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra("filename", "new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
+            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
+            startActivity(intent);
         });
         return view;
     }

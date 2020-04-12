@@ -2,8 +2,6 @@ package com.careerguide;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -69,12 +67,7 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     public void onUserJoined(int uid, int elapsed) {
         super.onUserJoined(uid, elapsed);
         if (ANCHOR_UID == uid) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    tvNoSurfaceNotice.setText(R.string.living_no_surfaceview);
-                }
-            });
+            runOnUiThread(() -> tvNoSurfaceNotice.setText(R.string.living_no_surfaceview));
         }
     }
 
@@ -82,22 +75,18 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     public void onUserOffline(int uid, int reason) {
         super.onUserOffline(uid, reason);
         if (ANCHOR_UID == uid) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    findViewById(R.id.live_surfaceview).setVisibility(TextView.GONE);
-                    tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
-                    tvNoSurfaceNotice.setText(R.string.living_anchor_offline);
-                    if (mRtcEngine != null) {
-                        mRtcEngine.leaveChannel();
-                    }
-                    mRtcEngine.setupRemoteVideo(null);
-                    RtcEngine.destroy();
-                    mRtcEngine = null;
-                    Intent intent = new Intent(activity , HomeActivity.class);
-                    startActivity(intent);
+            runOnUiThread(() -> {
+                findViewById(R.id.live_surfaceview).setVisibility(TextView.GONE);
+                tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
+                tvNoSurfaceNotice.setText(R.string.living_anchor_offline);
+                if (mRtcEngine != null) {
+                    mRtcEngine.leaveChannel();
                 }
-
+                mRtcEngine.setupRemoteVideo(null);
+                RtcEngine.destroy();
+                mRtcEngine = null;
+                Intent intent = new Intent(activity , HomeActivity.class);
+                startActivity(intent);
             });
         }
     }
@@ -105,13 +94,10 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     @Override
     public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
         super.onFirstRemoteVideoDecoded(uid, width, height, elapsed);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (ANCHOR_UID == uid) {
-                    findViewById(R.id.live_surfaceview).setVisibility(TextView.VISIBLE);
-                    findViewById(R.id.live_no_surfaceview_notice).setVisibility(TextView.GONE);
-                }
+        runOnUiThread(() -> {
+            if (ANCHOR_UID == uid) {
+                findViewById(R.id.live_surfaceview).setVisibility(TextView.VISIBLE);
+                findViewById(R.id.live_no_surfaceview_notice).setVisibility(TextView.GONE);
             }
         });
     }
@@ -129,18 +115,8 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     private void handleReceiveQuestion(String questionInfo) {
         Builder builder = new Builder(this);
         builder.setMessage(questionInfo);
-        builder.setNegativeButton(getString(R.string.no), new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                sendMsg(MSG_PREFIX_QUESTION_RESULT + RESULT_NO);
-            }
-        });
-        builder.setPositiveButton(getString(R.string.yes), new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                sendMsg(MSG_PREFIX_QUESTION_RESULT + RESULT_YES);
-            }
-        });
+        builder.setNegativeButton(getString(R.string.no), (dialog, which) -> sendMsg(MSG_PREFIX_QUESTION_RESULT + RESULT_NO));
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> sendMsg(MSG_PREFIX_QUESTION_RESULT + RESULT_YES));
         builder.show();
     }
 

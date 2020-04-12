@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.careerguide.CounsellorProfile;
 import com.careerguide.R;
 import com.careerguide.models.Counsellor;
-import com.careerguide.models.topics_model;
 
 import java.util.List;
 
@@ -76,15 +75,12 @@ public class CounsellorAdapter extends RecyclerView.Adapter<CounsellorAdapter.Co
        // Glide.with(context).load(Counsellor.getAvatar()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(holder.iv_avatar);
         Glide.with(context).load(Counsellor.getAvatar()).into(holder.iv_avatar);
 
-        holder.ll_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CounsellorProfile.class);
-                intent.putExtra("host_name" , Counsellor.getFirst_name()+" "+Counsellor.getLast_name());
-                intent.putExtra("host_img" , Counsellor.getAvatar());
-                intent.putExtra("host_email" , Counsellor.getUsername());
-                context.startActivity(intent);
-            }
+        holder.ll_container.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CounsellorProfile.class);
+            intent.putExtra("host_name" , Counsellor.getFirst_name()+" "+Counsellor.getLast_name());
+            intent.putExtra("host_img" , Counsellor.getAvatar());
+            intent.putExtra("host_email" , Counsellor.getUsername());
+            context.startActivity(intent);
         });
     }
 

@@ -24,13 +24,26 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
+
+        <activity android:name=".youtubeVideo.youtubeFeedDetail"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor"
+            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity
+            android:name=".Book_Appoinment.BookingTime"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Book_Appoinment.BookCounsellor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AllCounsellor"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SubcategoryActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".video_chat_counsellor" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".video_chat_counsellor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Live_counsellor" />
         <activity
             android:name=".activity.GoalsActivity"
@@ -156,7 +169,8 @@
         <activity
             android:name=".PaymentGateway"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CheckOutActivity"
             android:configChanges="orientation"
@@ -164,7 +178,8 @@
         <activity
             android:name=".PlanActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".VideoChatViewActivity"
             android:configChanges="orientation"
@@ -187,8 +202,17 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".Refer_a_friend" />
         <activity android:name=".exoplayerActivity" />
+        <activity
+            android:name=".youtubeVideo.CM_youtubePlaylist"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ebookpdf" />
         <activity android:name=".payment.PaymentActivity" />
+        <activity
+            android:name=".blog.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".blog.BlogActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.Activity_class"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -236,7 +260,7 @@
         -->
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_oqrQcQtSgVFNP1" />
+            android:value="rzp_test_ZdLWHqNUefQJV6" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -247,7 +271,7 @@
         <service
             android:name=".MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -255,7 +279,7 @@
         <service
             android:name=".MyFirebaseInstanceIdService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

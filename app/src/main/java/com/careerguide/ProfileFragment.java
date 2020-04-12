@@ -107,133 +107,109 @@ public class ProfileFragment extends Fragment {
             ((TextView) view.findViewById(R.id.imageInitial)).setText("");
         }
 
-        profilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                final View dialogView = getLayoutInflater().inflate(R.layout.dialog_change_profile_pic,null);
-                View removePic = dialogView.findViewById(R.id.removePicture);
-                View changePic = dialogView.findViewById(R.id.changePicture);
-                final Button cancelButton = dialogView.findViewById(R.id.cancelButton);
-                Button doneButton = dialogView.findViewById(R.id.doneButton);
-                dialogProfilePic = dialogView.findViewById(R.id.dialogProfilePic);
-                dialogImageInitial = dialogView.findViewById(R.id.imageInitial);
-                if (Utility.getUserPic(getActivity()).isEmpty())
+        profilePic.setOnClickListener(v -> {
+            final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            final View dialogView = getLayoutInflater().inflate(R.layout.dialog_change_profile_pic,null);
+            View removePic = dialogView.findViewById(R.id.removePicture);
+            View changePic = dialogView.findViewById(R.id.changePicture);
+            final Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+            Button doneButton = dialogView.findViewById(R.id.doneButton);
+            dialogProfilePic = dialogView.findViewById(R.id.dialogProfilePic);
+            dialogImageInitial = dialogView.findViewById(R.id.imageInitial);
+            if (Utility.getUserPic(getActivity()).isEmpty())
+            {
+                removePic.setVisibility(View.GONE);
+                ((TextView) changePic).setText("Add Profile Picture");
+                dialogProfilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
+                String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
+                dialogImageInitial.setText(initial.toUpperCase());
+            }
+            else
+            {
+                Glide.with(ProfileFragment.this).load(Utility.getUserPic(getActivity())).into(dialogProfilePic);
+                ((TextView) dialogView.findViewById(R.id.imageInitial)).setText("");
+            }
+
+            changePic.setOnClickListener(v14 -> CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1,1)
+                    .setFixAspectRatio(true)
+                    .start(getContext(), ProfileFragment.this));
+            removePic.setOnClickListener(v13 -> {
+                dialogProfilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
+                String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
+                ((TextView) dialogView.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
+                newImage = "";
+            });
+
+            cancelButton.setOnClickListener(v12 -> {
+                newImage = null;
+                alertDialog.dismiss();
+            });
+
+            doneButton.setOnClickListener(v1 -> {
+                if (newImage != null)
                 {
-                    removePic.setVisibility(View.GONE);
-                    ((TextView) changePic).setText("Add Profile Picture");
-                    dialogProfilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
-                    String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
-                    dialogImageInitial.setText(initial.toUpperCase());
+                    final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity(),"Saving...");
+                    progressDialog.show();
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "update_profile_pic", response -> {
+                        progressDialog.dismiss();
+                        Log.e("updt_prfl_pic_res",response);
+                        try
+                        {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean status = jsonObject.optBoolean("status",false);
+                            String msg = jsonObject.optString("msg");
+                            if(status)
+                            {
+                                String profilePic = jsonObject.optString("profile_pic");
+                                Utility.setUserPic(getActivity(),profilePic);
+                                alertDialog.dismiss();
+                                if (!profilePic.isEmpty()){
+                                    Glide.with(ProfileFragment.this).load(profilePic).into(ProfileFragment.this.profilePic);
+                                    ((TextView) view.findViewById(R.id.imageInitial)).setText("");
+                                }
+                                else
+                                {
+                                    ProfileFragment.this.profilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
+                                    String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
+                                    ((TextView) view.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
+                                }
+                                HomeActivity.updatePic(profilePic,getActivity());
+                                newImage = null;
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "Something went wrong.",Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }, error -> {
+                        progressDialog.dismiss();
+                        Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+                        Log.e("updt_prfl_pic_error","error");
+                    })
+                    {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            HashMap<String,String> params = new HashMap<>();
+                            params.put("user_id",Utility.getUserId(getActivity()));
+                            params.put("profile_pic", newImage);
+                            Log.e("updt_prfl_pic_req",params.toString());
+                            return params;
+                        }
+                    };
+
+                    VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
                 }
                 else
                 {
-                    Glide.with(ProfileFragment.this).load(Utility.getUserPic(getActivity())).into(dialogProfilePic);
-                    ((TextView) dialogView.findViewById(R.id.imageInitial)).setText("");
+                    cancelButton.performClick();
                 }
-
-                changePic.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        CropImage.activity()
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setAspectRatio(1,1)
-                                .setFixAspectRatio(true)
-                                .start(getContext(), ProfileFragment.this);
-                    }
-                });
-                removePic.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogProfilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
-                        String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
-                        ((TextView) dialogView.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
-                        newImage = "";
-                    }
-                });
-
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        newImage = null;
-                        alertDialog.dismiss();
-                    }
-                });
-
-                doneButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                        if (newImage != null)
-                        {
-                            final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity(),"Saving...");
-                            progressDialog.show();
-                            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "update_profile_pic", new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response){
-                                    progressDialog.dismiss();
-                                    Log.e("updt_prfl_pic_res",response);
-                                    try
-                                    {
-                                        JSONObject jsonObject = new JSONObject(response);
-                                        boolean status = jsonObject.optBoolean("status",false);
-                                        String msg = jsonObject.optString("msg");
-                                        if(status)
-                                        {
-                                            String profilePic = jsonObject.optString("profile_pic");
-                                            Utility.setUserPic(getActivity(),profilePic);
-                                            alertDialog.dismiss();
-                                            if (!profilePic.isEmpty()){
-                                                Glide.with(ProfileFragment.this).load(profilePic).into(ProfileFragment.this.profilePic);
-                                                ((TextView) view.findViewById(R.id.imageInitial)).setText("");
-                                            }
-                                            else
-                                            {
-                                                ProfileFragment.this.profilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
-                                                String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
-                                                ((TextView) view.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
-                                            }
-                                            HomeActivity.updatePic(profilePic,getActivity());
-                                            newImage = null;
-                                        }
-                                        else
-                                        {
-                                            Toast.makeText(getActivity(), "Something went wrong.",Toast.LENGTH_LONG).show();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }, new Response.ErrorListener()
-                            {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                                    Log.e("updt_prfl_pic_error","error");
-                                }
-                            })
-                            {
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
-                                    HashMap<String,String> params = new HashMap<>();
-                                    params.put("user_id",Utility.getUserId(getActivity()));
-                                    params.put("profile_pic", newImage);
-                                    Log.e("updt_prfl_pic_req",params.toString());
-                                    return params;
-                                }
-                            };
-
-                            VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-                        }
-                        else
-                        {
-                            cancelButton.performClick();
-                        }
-                    }
-                });
-                alertDialog.setView(dialogView);
-                alertDialog.show();
-            }
+            });
+            alertDialog.setView(dialogView);
+            alertDialog.show();
         });
 
         setUpCardView();
@@ -254,64 +230,55 @@ public class ProfileFragment extends Fragment {
         final ImageView arrowEduImageView = view.findViewById(R.id.arrowEducational);
         final ImageView arrowAccountImageView = view.findViewById(R.id.arrowAccount);
 
-        personalRL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (personalDetails.getVisibility() == View.VISIBLE)
-                {
-                    personalDetails.setVisibility(View.GONE);
-                    arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
-                }
-                else
-                {
-                    personalDetails.setVisibility(View.VISIBLE);
-                    arrowPersonalImageView.setImageResource(R.drawable.ic_collapse);
-                }
-                eduDetails.setVisibility(View.GONE);
-                accDetails.setVisibility(View.GONE);
-                arrowEduImageView.setImageResource(R.drawable.ic_expand);
-                arrowAccountImageView.setImageResource(R.drawable.ic_expand);
-            }
-        });
-
-        eduRL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (eduDetails.getVisibility() == View.VISIBLE)
-                {
-                    eduDetails.setVisibility(View.GONE);
-                    arrowEduImageView.setImageResource(R.drawable.ic_expand);
-                }
-                else
-                {
-                    eduDetails.setVisibility(View.VISIBLE);
-                    arrowEduImageView.setImageResource(R.drawable.ic_collapse);
-                }
+        personalRL.setOnClickListener(v -> {
+            if (personalDetails.getVisibility() == View.VISIBLE)
+            {
                 personalDetails.setVisibility(View.GONE);
-                accDetails.setVisibility(View.GONE);
-                arrowAccountImageView.setImageResource(R.drawable.ic_expand);
                 arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
             }
+            else
+            {
+                personalDetails.setVisibility(View.VISIBLE);
+                arrowPersonalImageView.setImageResource(R.drawable.ic_collapse);
+            }
+            eduDetails.setVisibility(View.GONE);
+            accDetails.setVisibility(View.GONE);
+            arrowEduImageView.setImageResource(R.drawable.ic_expand);
+            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
         });
 
-        accountRL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (accDetails.getVisibility() == View.VISIBLE)
-                {
-                    accDetails.setVisibility(View.GONE);
-                    arrowAccountImageView.setImageResource(R.drawable.ic_expand);
-                }
-                else
-                {
-                    accDetails.setVisibility(View.VISIBLE);
-                    arrowAccountImageView.setImageResource(R.drawable.ic_collapse);
-                }
+        eduRL.setOnClickListener(v -> {
+            if (eduDetails.getVisibility() == View.VISIBLE)
+            {
                 eduDetails.setVisibility(View.GONE);
-                personalDetails.setVisibility(View.GONE);
                 arrowEduImageView.setImageResource(R.drawable.ic_expand);
-                arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
             }
+            else
+            {
+                eduDetails.setVisibility(View.VISIBLE);
+                arrowEduImageView.setImageResource(R.drawable.ic_collapse);
+            }
+            personalDetails.setVisibility(View.GONE);
+            accDetails.setVisibility(View.GONE);
+            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
+            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+        });
+
+        accountRL.setOnClickListener(v -> {
+            if (accDetails.getVisibility() == View.VISIBLE)
+            {
+                accDetails.setVisibility(View.GONE);
+                arrowAccountImageView.setImageResource(R.drawable.ic_expand);
+            }
+            else
+            {
+                accDetails.setVisibility(View.VISIBLE);
+                arrowAccountImageView.setImageResource(R.drawable.ic_collapse);
+            }
+            eduDetails.setVisibility(View.GONE);
+            personalDetails.setVisibility(View.GONE);
+            arrowEduImageView.setImageResource(R.drawable.ic_expand);
+            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
         });
 
         final EditText firstNameEditText = view.findViewById(R.id.firstNameEditText);
@@ -555,16 +522,13 @@ public class ProfileFragment extends Fragment {
             doneLName.setVisibility(View.VISIBLE);
             cancelLname.setVisibility(View.VISIBLE);
 
-            cancelLname.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    disableEditText(lastNameEditText);
-                    lastNameEditText.setText(Utility.getUserLastName(getActivity()));
-                    editLName.setVisibility(View.VISIBLE);
-                    doneLName.setVisibility(View.GONE);
-                    cancelLname.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(lastNameEditText.getWindowToken(), 0);
-                }
+            cancelLname.setOnClickListener(v110 -> {
+                disableEditText(lastNameEditText);
+                lastNameEditText.setText(Utility.getUserLastName(getActivity()));
+                editLName.setVisibility(View.VISIBLE);
+                doneLName.setVisibility(View.GONE);
+                cancelLname.setVisibility(View.GONE);InputMethodManager imm15 = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm15.hideSoftInputFromWindow(lastNameEditText.getWindowToken(), 0);
             });
 
             doneLName.setOnClickListener(v13 -> updateProfile("last_name", lastNameEditText,editLName,doneLName,cancelLname));
@@ -584,98 +548,68 @@ public class ProfileFragment extends Fragment {
             doneLoc.setVisibility(View.VISIBLE);
             cancelLoc.setVisibility(View.VISIBLE);
 
-            cancelLoc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    disableEditText(locationEditText);
-                    locationEditText.setText(Utility.getUserCity(getActivity()));
-                    editLocation.setVisibility(View.VISIBLE);
-                    doneLoc.setVisibility(View.GONE);
-                    cancelLoc.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(locationEditText.getWindowToken(), 0);
-                }
+            cancelLoc.setOnClickListener(v14 -> {
+                disableEditText(locationEditText);
+                locationEditText.setText(Utility.getUserCity(getActivity()));
+                editLocation.setVisibility(View.VISIBLE);
+                doneLoc.setVisibility(View.GONE);
+                cancelLoc.setVisibility(View.GONE);InputMethodManager imm12 = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm12.hideSoftInputFromWindow(locationEditText.getWindowToken(), 0);
             });
 
-            doneLoc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateProfile("city", locationEditText,editLocation,doneLoc,cancelLoc);
-                }
-            });
+            doneLoc.setOnClickListener(v15 -> updateProfile("city", locationEditText,editLocation,doneLoc,cancelLoc));
 
         });
 
-        editMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mobileEditText.setInputType(InputType.TYPE_CLASS_PHONE);
-                mobileEditText.setBackground(edittextDrawable);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(mobileEditText, InputMethodManager.SHOW_IMPLICIT);
+        editMobile.setOnClickListener(v -> {
+            mobileEditText.setInputType(InputType.TYPE_CLASS_PHONE);
+            mobileEditText.setBackground(edittextDrawable);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mobileEditText, InputMethodManager.SHOW_IMPLICIT);
 
-                final View doneMobile = view.findViewById(R.id.doneMobile);
-                final View cancelMobile = view.findViewById(R.id.cancelMobile);
+            final View doneMobile = view.findViewById(R.id.doneMobile);
+            final View cancelMobile = view.findViewById(R.id.cancelMobile);
 
-                editMobile.setVisibility(View.GONE);
-                doneMobile.setVisibility(View.VISIBLE);
-                cancelMobile.setVisibility(View.VISIBLE);
+            editMobile.setVisibility(View.GONE);
+            doneMobile.setVisibility(View.VISIBLE);
+            cancelMobile.setVisibility(View.VISIBLE);
 
-                cancelMobile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        disableEditText(mobileEditText);
-                        mobileEditText.setText(Utility.getUserFirstName(getActivity()));
-                        editMobile.setVisibility(View.VISIBLE);
-                        doneMobile.setVisibility(View.GONE);
-                        cancelMobile.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(mobileEditText.getWindowToken(), 0);
-                    }
-                });
+            cancelMobile.setOnClickListener(v18 -> {
+                disableEditText(mobileEditText);
+                mobileEditText.setText(Utility.getUserFirstName(getActivity()));
+                editMobile.setVisibility(View.VISIBLE);
+                doneMobile.setVisibility(View.GONE);
+                cancelMobile.setVisibility(View.GONE);InputMethodManager imm14 = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm14.hideSoftInputFromWindow(mobileEditText.getWindowToken(), 0);
+            });
 
-                doneMobile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateProfile("mobile_number", mobileEditText,editMobile,doneMobile,cancelMobile);
-                    }
-                });
+            doneMobile.setOnClickListener(v19 -> updateProfile("mobile_number", mobileEditText,editMobile,doneMobile,cancelMobile));
 
-            }
         });
 
-        editDOB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dobEditText.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
-                dobEditText.setBackground(edittextDrawable);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(dobEditText, InputMethodManager.SHOW_IMPLICIT);
+        editDOB.setOnClickListener(v -> {
+            dobEditText.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+            dobEditText.setBackground(edittextDrawable);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(dobEditText, InputMethodManager.SHOW_IMPLICIT);
 
-                final View doneDOB = view.findViewById(R.id.doneDob);
-                final View cancelDOB = view.findViewById(R.id.cancelDob);
+            final View doneDOB = view.findViewById(R.id.doneDob);
+            final View cancelDOB = view.findViewById(R.id.cancelDob);
 
-                editDOB.setVisibility(View.GONE);
-                doneDOB.setVisibility(View.VISIBLE);
-                cancelDOB.setVisibility(View.VISIBLE);
+            editDOB.setVisibility(View.GONE);
+            doneDOB.setVisibility(View.VISIBLE);
+            cancelDOB.setVisibility(View.VISIBLE);
 
-                cancelDOB.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        disableEditText(dobEditText);
-                        dobEditText.setText(Utility.getUserDOB(getActivity()));
-                        editDOB.setVisibility(View.VISIBLE);
-                        doneDOB.setVisibility(View.GONE);
-                        cancelDOB.setVisibility(View.GONE);InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(dobEditText.getWindowToken(), 0);
-                    }
-                });
+            cancelDOB.setOnClickListener(v16 -> {
+                disableEditText(dobEditText);
+                dobEditText.setText(Utility.getUserDOB(getActivity()));
+                editDOB.setVisibility(View.VISIBLE);
+                doneDOB.setVisibility(View.GONE);
+                cancelDOB.setVisibility(View.GONE);InputMethodManager imm13 = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm13.hideSoftInputFromWindow(dobEditText.getWindowToken(), 0);
+            });
 
-                doneDOB.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateProfile("dob", dobEditText,editDOB,doneDOB,cancelDOB);
-                    }
-                });
-            }
+            doneDOB.setOnClickListener(v17 -> updateProfile("dob", dobEditText,editDOB,doneDOB,cancelDOB));
         });
 
 
@@ -794,22 +728,18 @@ public class ProfileFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                Log.e("prfl_updt_error","error");
-                if (key.equals("dob"))
-                {
-                    editText.setText(Utility.getUserDOB(getActivity()));
-                }
+        }, error -> {
+            progressDialog.dismiss();
+            Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("prfl_updt_error","error");
+            if (key.equals("dob"))
+            {
+                editText.setText(Utility.getUserDOB(getActivity()));
             }
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("user_id",Utility.getUserId(getActivity()));
                 params.put(key, finalValue);

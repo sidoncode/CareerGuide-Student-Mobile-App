@@ -31,15 +31,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.activity.GoalsActivity;
-
+import com.careerguide.blog.BlogActivity;
+import com.careerguide.youtubeVideo.CGPlaylist;
+import com.careerguide.youtubeVideo.CM_youtubePlaylist;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -133,17 +131,17 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             ((TextView) headerLayout.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
         }
 
-        nameTextView = ((TextView)headerLayout.findViewById(R.id.headerTextView));
-        classimg = ((ImageView)headerLayout.findViewById(R.id.iv_icon));
-        tv_name = ((TextView)headerLayout.findViewById(R.id.tv_name));
+        nameTextView = headerLayout.findViewById(R.id.headerTextView);
+        classimg = headerLayout.findViewById(R.id.iv_icon);
+        tv_name = headerLayout.findViewById(R.id.tv_name);
         Log.e("###tv_name","-->" +getIntent().getStringExtra("subcat_title"));
         if(getIntent().getStringExtra("parent_cat_title") == null){
             tv_name.setText(Utility.getUserEducation(activity));
         }
         else{
-
             tv_name.setText(getIntent().getStringExtra("parent_cat_title"));
             Utility.setEducationUid(activity , getIntent().getStringExtra("subcat_uid"));
+            Log.e("uidis" , " " + getIntent().getStringExtra("subcat_uid"));
             updateProfile("education_level",getIntent().getStringExtra("parent_cat_title"),null,null,null);
 
         }
@@ -174,9 +172,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 //        setTitle("Home");
         if(getIntent().getStringExtra("parent_cat_title") == null){
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
-            Log.e("Education Level" , "-->" +Utility.getUserEducation(activity));
-            setTitle(Utility.getUserEducation(activity));
+            fragmentManager.beginTransaction().replace(R.id.flContent, new CGPlaylist()).commit();
+            Log.e("Education_Level" , "-->" +Utility.getUserEducation(activity));
+            setTitle("Home");
             mDrawer.closeDrawers();
         }
 
@@ -187,31 +185,29 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             setTitle("Notifications");
         });
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
-
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,   R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
-                    Log.e("#talk" , "menuitem:"+menuItem.getItemId());
+                    Log.e("#talk", "menuitem:" + menuItem.getItemId());
                     selectDrawerItem(menuItem);
                     return true;
-
                 });
-
     }
+
+
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         if (menuItem.getItemId() == R.id.tests)
         {
-
             startActivity(new Intent(activity,PsychometricTestsActivity.class));
             // Close the navigation drawer
             mDrawer.closeDrawers();
@@ -237,13 +233,22 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
+        else if(menuItem.getItemId()==R.id.Blog)
+        {
+            Intent intent= new Intent(activity , BlogActivity.class);
+            startActivity(intent);
+            mDrawer.closeDrawers();
+            return;
+        }
+
+
         else if(menuItem.getItemId()==R.id.livecounsellor)
         {
             final ProgressDialog progressDialog = new ProgressDialog(activity);
             progressDialog.setMessage("Fetching Counsellors..");
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
-            String PRIVATE_SERVER = "http://app.careerguide.com/api/counsellor/";
+            String PRIVATE_SERVER = "https://app.careerguide.com/api/counsellor/";
             StringRequest stringRequests = new StringRequest(Request.Method.POST, PRIVATE_SERVER + "get_live_counsellor", response -> {
                 Log.e("live_counsellor", response);
                 JSONObject jobj = null;
@@ -296,7 +301,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Class fragmentClass = HomeFragment.class;
         switch(menuItem.getItemId()) {
             case R.id.home_fragment:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = CGPlaylist.class;
                 break;
             case R.id.about_fragment:
                 fragmentClass = AboutUsFragment.class;
@@ -374,11 +379,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             case R.id.videocallcounsellor:
 //                    openchat();
                 Log.e("#talkinswitch" , "menuitem:"+menuItem.getItemId());
-                Intent intent = new Intent(activity , GoalsActivity.class);
+                Intent intent = new Intent(activity , video_chat_counsellor.class);
                 startActivity(intent);
                 break;
             default:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = CGPlaylist.class;
         }
 
         try {
@@ -399,7 +404,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         // Close the navigation drawer
         mDrawer.closeDrawers();
 
-
     }
 
 
@@ -411,7 +415,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         MenuItem item = menu.findItem(R.id.notification);
         return super.onCreateOptionsMenu(menu);
     }*/
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -504,8 +507,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-  //  @Override
-    //public void onBackPressed(){
+//  @Override
+// public void onBackPressed(){
 //        try{
 //
 //            AlertDialog.Builder builder=new AlertDialog.Builder(this);

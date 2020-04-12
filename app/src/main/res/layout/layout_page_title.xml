@@ -7,7 +7,6 @@
     android:background="@android:color/transparent"
     android:fitsSystemWindows="false">
 
-
     <LinearLayout
         android:id="@+id/Live_click"
         android:layout_width="wrap_content"

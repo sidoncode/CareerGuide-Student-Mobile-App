@@ -34,40 +34,34 @@ public class TermsAndConditionFragment extends Fragment {
 
         final ImageView tAndCArrow =  view.findViewById(R.id.arrowTAndC);
         final ImageView privacyPolicyArrow = view.findViewById(R.id.arrowPrivacyPolicy);
-        view.findViewById(R.id.TandCRelativeL).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tAndCWebView.getVisibility() == View.VISIBLE)
-                {
-                    tAndCWebView.setVisibility(View.GONE);
-                    tAndCArrow.setImageResource(R.drawable.ic_expand);
-                }
-                else
-                {
-                    tAndCWebView.setVisibility(View.VISIBLE);
-                    tAndCArrow.setImageResource(R.drawable.ic_collapse);
-                }
-                privacyPolicyWebView.setVisibility(View.GONE);
-                privacyPolicyArrow.setImageResource(R.drawable.ic_expand);
-            }
-        });
-
-        view.findViewById(R.id.PrivacyPolicyRelativeL).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (privacyPolicyWebView.getVisibility() == View.VISIBLE)
-                {
-                    privacyPolicyWebView.setVisibility(View.GONE);
-                    privacyPolicyArrow.setImageResource(R.drawable.ic_expand);
-                }
-                else
-                {
-                    privacyPolicyWebView.setVisibility(View.VISIBLE);
-                    privacyPolicyArrow.setImageResource(R.drawable.ic_collapse);
-                }
+        view.findViewById(R.id.TandCRelativeL).setOnClickListener(v -> {
+            if (tAndCWebView.getVisibility() == View.VISIBLE)
+            {
                 tAndCWebView.setVisibility(View.GONE);
                 tAndCArrow.setImageResource(R.drawable.ic_expand);
             }
+            else
+            {
+                tAndCWebView.setVisibility(View.VISIBLE);
+                tAndCArrow.setImageResource(R.drawable.ic_collapse);
+            }
+            privacyPolicyWebView.setVisibility(View.GONE);
+            privacyPolicyArrow.setImageResource(R.drawable.ic_expand);
+        });
+
+        view.findViewById(R.id.PrivacyPolicyRelativeL).setOnClickListener(v -> {
+            if (privacyPolicyWebView.getVisibility() == View.VISIBLE)
+            {
+                privacyPolicyWebView.setVisibility(View.GONE);
+                privacyPolicyArrow.setImageResource(R.drawable.ic_expand);
+            }
+            else
+            {
+                privacyPolicyWebView.setVisibility(View.VISIBLE);
+                privacyPolicyArrow.setImageResource(R.drawable.ic_collapse);
+            }
+            tAndCWebView.setVisibility(View.GONE);
+            tAndCArrow.setImageResource(R.drawable.ic_expand);
         });
 
         return view;

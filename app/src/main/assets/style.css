@@ -1,0 +1,262 @@
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {line-height: 1;}
+/* -------------------------- */
+
+body {
+	box-sizing : border-box;
+    font-family: Roboto-Regular;
+    font-size : 13pt;
+    line-height : 22pt;
+    color : #222222;
+    margin : 0pt;
+    padding-bottom : 0pt;
+    text-shadow: 0pt 1.22pt 1.40pt #3d000000;
+    background: #fff;
+    word-break: break-word;
+}
+
+del {
+    text-decoration: none;
+}
+
+strong > a {
+    font-weight: bold;
+    margin : 0;
+    padding : 0;
+}
+
+p > em,p > i {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+
+embed,object,img{display: block; max-width:100%; max-height: 100%;}
+.frame {width: 100%}
+#templates{display:none}
+.subs-loading {width: 90%; margin: 2em auto; font-size: 1.5em; }
+#subscriptions {
+	position: relative;
+}
+
+#container {
+    padding: 16px;
+}
+
+p {
+	margin: 0pt 12pt 20pt 12pt;
+}
+
+span {
+    color : #222222;
+}
+
+h1 {
+	font-family: Roboto-Bold;
+    font-size : 17pt;
+    line-height : 22pt;
+    color : #222222;
+    margin : 8pt 12pt 8pt 12pt;
+}
+
+h2,h3 {
+    font-family: Roboto-Bold;
+    font-size : 16pt;
+    line-height : 22pt;
+    color : #222222;
+    margin : 8pt 12pt 8pt 12pt;
+}
+
+h2 > a {
+    font-family: Roboto-Bold;
+    font-size : 16pt;
+    line-height : 22pt;
+    color : #222222;
+}
+
+figcaption {
+    font-family: Roboto-Regular;
+    font-size : 10pt;
+    font-style: italic;
+    line-height : 20pt;
+    margin-top: -18pt;
+    text-align: center;
+    margin-bottom: 10pt;
+}
+
+ol,ul {
+    margin : 10pt 10pt 10pt 0pt;
+}
+
+li {
+	margin : 10pt 10pt 10pt 0pt;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+em, i {
+	font-style: normal;
+	word-wrap: break-word;
+}
+
+code {
+	font-family: Monaco, monospace;
+	background: #eee;
+	padding: 1px 2px;
+	word-break: break-word;
+}
+
+a {
+	font-size : 13pt;
+    line-height : 23pt;
+    color: #222222;
+    word-wrap: break-word;
+}
+
+a:active {
+	font-size : 13pt;
+    line-height : 23pt;
+    color: #222222;
+    word-wrap: break-word;
+}
+
+blockquote {
+	font-family: Roboto-Regular;
+	font-size: 1.1em;
+	line-height: 1.2em;
+	padding: 0 0 0 20px;
+}
+
+ul, ol, blockquote{
+	margin : 10pt 10pt 10pt 0pt;
+}
+
+img {
+    display : block;
+    box-shadow: 0 0 10px 0 rgba(#000, 0.1);
+	box-sizing:border-box;
+	margin : auto;
+	margin-top : 24pt;
+	margin-bottom : 24pt;
+	width: inherit;
+    height: inherit;
+    min-height: 56.25vw;
+}
+
+iframe.youtube {
+    display : block;
+    box-sizing:border-box;
+    background:#eeeeee;
+    margin : auto;
+    margin-top : 24pt;
+    margin-bottom : 24pt;
+	width: 100vw;
+    height: 56.25vw;
+    background: url("file:///android_asset/drawable/image_background.png") center no-repeat scroll 0 0;
+}
+
+.parent{
+    position:relative;
+}
+
+.multipleImage{
+    position:relative;
+    float: right;
+    height: 32pt;
+    width: 32pt;
+    margin-bottom: 0;
+    min-height: 32pt;
+}
+
+.imageCount{
+    position:relative;
+    font-size: 14pt;
+    color: white;
+    float: right;
+    font-family: roboto;
+    margin-top: 32pt;
+    margin-right: 12pt;
+    font-weight: bold;
+}
+
+.overlay{
+    display: inline-block;
+    position:absolute;
+    z-index:1;
+    bottom:0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: linear-gradient(180deg,rgba(238, 238, 238, 0),rgba(00, 00, 00, 0.5));
+    background-size: cover;
+}
+
+table.tablepress tbody tr.odd {
+    background: #c6c6c6;
+}
+
+table.tablepress tbody tr td {
+    padding: 6pt 8pt;
+    min-width: 60pt;
+}
+
+table.tablepress {
+    display: block;
+    margin: 8pt 12pt;
+    max-width: 100%;
+    font-size: small;
+}
+
+
+
+/*
+ * CSS to enable WebViews to use PT_Sans font assets, ex:
+ * <link href='file:///android_asset/pt_sans.css' rel='stylesheet' type='text/css'>
+ */
+
+/* roboto normal */
+@font-face {
+  font-family: 'Roboto-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src:url(file:///android_asset/fonts/Roboto-Regular.ttf);
+}
+
+/* roboto bold */
+@font-face {
+  font-family: 'Roboto-Bold';
+  font-style: bold;
+  font-weight: 700;
+  src:url(file:///android_asset/fonts/Roboto-Bold.ttf);
+}
+
+/* montserrat Regular */
+@font-face {
+  font-family: 'Montserrat-Regular';
+  font-style: normal;
+  src:url(file:///android_asset/fonts/Montserrat-Regular.ttf);
+}
+
+/* montserrat bold */
+@font-face {
+  font-family: 'Montserrat-Bold';
+  font-style: bold;
+  src:url(file:///android_asset/fonts/Montserrat-Bold.ttf);
+}
+
+/* montserrat semibold */
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  font-style:semibold;
+  src:url(file:///android_asset/fonts/Montserrat-SemiBold.ttf);
+}

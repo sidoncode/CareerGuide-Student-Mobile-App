@@ -35,7 +35,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             iv_icon = itemView.findViewById(R.id.iv_icon);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_sub_name = itemView.findViewById(R.id.tv_sub_name);
-
            // tv_name.setTypeface(tfUtil.getTypefaceRegular());
         }
     }

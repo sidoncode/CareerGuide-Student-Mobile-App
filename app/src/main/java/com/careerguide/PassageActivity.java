@@ -2,7 +2,6 @@ package com.careerguide;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 public class PassageActivity extends AppCompatActivity {
@@ -19,12 +18,7 @@ public class PassageActivity extends AppCompatActivity {
         }
         textView.setText(paragraph);
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        findViewById(R.id.button).setOnClickListener(v -> onBackPressed());
 
     }
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f1f0f5"
     tools:context=".CounsellorCornerFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -23,9 +24,28 @@
         android:background="@drawable/background"
         android:divider="@null"
         android:padding="3dp">
-
     </ListView>
 
 
+    <RelativeLayout
+        android:id="@+id/senderArea2"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#14bef1"
+            android:text="Start a new chat"
+            android:textColor="@color/white"
+            android:textStyle="bold"></Button>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

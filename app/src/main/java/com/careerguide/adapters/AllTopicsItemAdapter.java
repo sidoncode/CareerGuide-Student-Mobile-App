@@ -17,8 +17,8 @@ import com.careerguide.models.topics_model;
 import java.util.List;
 
 public class AllTopicsItemAdapter extends RecyclerView.Adapter<AllTopicsItemAdapter.AllTopicsItemViewHolder> {
-    Context context;
-    List<topics_model> allTopicsItemList;
+    private Context context;
+    private List<topics_model> allTopicsItemList;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -57,14 +57,11 @@ public class AllTopicsItemAdapter extends RecyclerView.Adapter<AllTopicsItemAdap
         Log.e("#insdie adapter ","--> ");
         holder.tv_name.setText(allTopicsItem.getName());
         holder.tv_courses.setText(allTopicsItem.getCount()+" Classes");
-        holder.ll_all_topic_item_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.ll_all_topic_item_container.setOnClickListener(v -> {
 //                Intent intent = new Intent(context, TopicActivity.class);
 //                intent.putExtra("title", allTopicsItem.getName());
 //                intent.putExtra("topic_group_id", allTopicsItem.getUid());
 //                context.startActivity(intent);
-            }
         });
     }
 

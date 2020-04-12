@@ -152,28 +152,21 @@ public class PauseActivity extends AppCompatActivity {
             jsonBody.remove("questions");
             jsonBody.put("questions",jsonArray);
             Log.e("json query", jsonBody.toString());
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>()
-            {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, response -> new Handler().postDelayed(new Runnable() {
                 @Override
-                public void onResponse(final JSONObject response)
-                {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            String url  = response.optString("pdf_url");
+                public void run() {
+                    String url1 = response.optString("pdf_url");
 
-                          //  report_url = url;
-                        //    Log.e("#globalreport_url", "urlis " +report_url);
-                            Log.e("#usermail", "mail:" +Utility.getUserEmail(activity));
-                            progressDialog.dismiss();
-                            finish();
-                            save_report_url(url);
-                            get_report_url();
+                  //  report_url = url;
+                //    Log.e("#globalreport_url", "urlis " +report_url);
+                    Log.e("#usermail", "mail:" +Utility.getUserEmail(activity));
+                    progressDialog.dismiss();
+                    finish();
+                    save_report_url(url1);
+                    get_report_url();
 
-                        }
-                    },1500);
                 }
-            }, new Response.ErrorListener() {
+            },1500), new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();

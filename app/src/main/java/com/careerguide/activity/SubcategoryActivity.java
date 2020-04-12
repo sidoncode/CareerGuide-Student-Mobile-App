@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.careerguide.HomeActivity;
 import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
@@ -59,7 +58,6 @@ public class SubcategoryActivity extends AppCompatActivity {
     }
 
     public void fetchContent(){
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_sub_category", response -> {
             Log.e("all_coun_res", response);
             try {
@@ -107,7 +105,6 @@ public class SubcategoryActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
-
 
     public void backpress(View view){
         finish();

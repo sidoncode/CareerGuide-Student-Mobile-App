@@ -29,4 +29,5 @@
     <color name="gray_lightest">#DEDEDE</color>
     <color name="toolbarTransparent">#95000000</color>
     <color name="profileBackground">#fff</color>
+    <color name="post_details">#747474</color>
 </resources>

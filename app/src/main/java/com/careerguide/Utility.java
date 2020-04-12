@@ -403,34 +403,19 @@ public class Utility extends Application
         TimerTask doAsynchronousTask = new TimerTask() {
             @Override
             public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "online_status", new Response.Listener<String>()
-                        {
-                            @Override
-                            public void onResponse(String response)
-                            {
-                                Log.e("online_status_response", response);
-                            }
-                        }, new Response.ErrorListener()
-                        {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e("online_status_error","error");
-                            }
-                        })
-                        {
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                HashMap<String,String> params = new HashMap<>();
-                                params.put("user_id",getUserId(activity));
-                                params.put("status",status);
-                                Log.e("online_status_request",params.toString());
-                                return params;
-                            }
-                        };
-                        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-                    }
+                handler.post(() -> {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "online_status", response -> Log.e("online_status_response", response), error -> Log.e("online_status_error","error"))
+                    {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            HashMap<String,String> params = new HashMap<>();
+                            params.put("user_id",getUserId(activity));
+                            params.put("status",status);
+                            Log.e("online_status_request",params.toString());
+                            return params;
+                        }
+                    };
+                    VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
                 });
             }
         };

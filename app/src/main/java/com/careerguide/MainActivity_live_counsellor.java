@@ -2,7 +2,6 @@ package com.careerguide;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -195,49 +194,40 @@ public class MainActivity_live_counsellor extends AgoraBaseActivity {
     private void getCounsellors() {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                    Log.e("all_coun_res", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        if (status)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
+                Log.e("all_coun_res", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
                         {
-                            JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                            for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
-                            {
-                                JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                                String id = counselorJsonObject.optString("co_id");
-                                String firstName = counselorJsonObject.optString("first_name");
-                                String lastName = counselorJsonObject.optString("last_name");
-                                String picUrl = counselorJsonObject.optString("profile_pic");
-                                String Videocall_channel_name = counselorJsonObject.optString("videocall_channel_name");
-                                counsellors.add(new Counsellor(id,firstName,lastName,picUrl,Videocall_channel_name,"",4.5f,new ArrayList<String>()));
-                            }
-                            size = counsellors.size();
-                            prepareAlbums();
-                            Log.e("size " , "==> " +size );
-                            Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                        } else {
-                            Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String Videocall_channel_name = counselorJsonObject.optString("videocall_channel_name");
+                            counsellors.add(new Counsellor(id,firstName,lastName,picUrl,Videocall_channel_name,"",4.5f,new ArrayList<String>()));
                         }
-                        progressDialog.dismiss();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        size = counsellors.size();
+                        prepareAlbums();
+                        Log.e("size " , "==> " +size );
+                        Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
                     }
+                    progressDialog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                    Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror","error");
         })
         {
             @Override

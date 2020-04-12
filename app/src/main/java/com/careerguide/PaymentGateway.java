@@ -4,8 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PaymentGateway extends AppCompatActivity {
 
@@ -84,58 +97,49 @@ public class PaymentGateway extends AppCompatActivity {
 
     public void getHash(final double amount, final String productinfo, final String firstname, final String email)
     {
-//        final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
-//        progressDialog.show();
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "payUhash", new Response.Listener<String>()
-//        {
-//            @Override
-//            public void onResponse(String response)
-//            {
-//                progressDialog.dismiss();
-//                Log.e("payuhash_res", response);
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    boolean status = jsonObject.optBoolean("status", false);
-//                    String msg = jsonObject.optString("msg");
-//                    if (status) {
-//                        String txnId = jsonObject.optString("txnId");
-//                        String hash = jsonObject.optString("hash");
-//                        initiatePayment(amount,productinfo,firstname,email,txnId,hash);
-//                    } else {
-//                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener()
-//        {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                progressDialog.dismiss();
-//                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-//                Log.e("payuhash_error","error");
-//            }
-//        })
-//        {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                HashMap<String,String> params = new HashMap<>();
-//                params.put("productInfo",productinfo);
-//                params.put("amount",amount + "");
-//                params.put("firstName",firstname);
-//                params.put("email",email);
-//                params.put("user_id",Utility.getUserId(activity));
-//                params.put("udf1","");
-//                params.put("udf2","");
-//                params.put("udf3","");
-//                params.put("udf4","");
-//                params.put("udf5","");
-//                Log.e("payuhash_req",params.toString());
-//                return params;
-//            }
-//        };
-//        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+        final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "payUhash", response -> {
+            progressDialog.dismiss();
+            Log.e("payuhash_res", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status", false);
+                String msg = jsonObject.optString("msg");
+                if (status) {
+                    String txnId = jsonObject.optString("txnId");
+                    String hash = jsonObject.optString("hash");
+                    initiatePayment(amount,productinfo,firstname,email,txnId,hash);
+                } else {
+                    Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            progressDialog.dismiss();
+            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("payuhash_error","error");
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("productInfo",productinfo);
+                params.put("amount",amount + "");
+                params.put("firstName",firstname);
+                params.put("email",email);
+                params.put("user_id",Utility.getUserId(activity));
+                params.put("udf1","");
+                params.put("udf2","");
+                params.put("udf3","");
+                params.put("udf4","");
+                params.put("udf5","");
+                Log.e("payuhash_req",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
 
     private void initiatePayment(double amount, String productinfo, String firstname, String email, String txnId, String hash) {

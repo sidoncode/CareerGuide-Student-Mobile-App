@@ -25,7 +25,7 @@
             android:layout_marginLeft="10dp"
             android:hint="@string/hint_anchor_nickname"
             android:lines="1"
-            android:singleLine="true" />
+            android:singleLine="true"/>
     </LinearLayout>
 
     <View style="@style/prepare_splitline" />
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/holo_red_dark"
-            app:srcCompat="@drawable/ic_heart"></ImageView>
+            app:srcCompat="@drawable/ic_heart" />
     </LinearLayout>
 
     <View style="@style/prepare_splitline" />

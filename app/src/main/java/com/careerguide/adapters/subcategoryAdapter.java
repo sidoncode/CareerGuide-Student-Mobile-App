@@ -63,7 +63,6 @@ public class subcategoryAdapter extends RecyclerView.Adapter<subcategoryAdapter.
             Log.e("##uidis " ,"--> " +submodel.getUid());
             bIntent.putExtra("subcat_uid",submodel.getUid());
             bIntent.putExtra("subcat_title",submodel.getName());
-            bIntent.putExtra("subcat_title",submodel.getName());
             bIntent.putExtra("parent_cat_title",submodel.getparent_cat());
             bIntent.putExtra("icon_url",submodel.getIcon_url());
             v.getContext().startActivity(bIntent);

@@ -69,11 +69,7 @@ public class WebViewActivity extends AppCompatActivity {
         progressDialog.show ( );
         webView.loadUrl ( "https://docs.google.com/gview?embedded=true&url=" + pdfurl );
         Handler handler = new Handler ( );
-        boolean b = handler.postDelayed ( new Runnable ( ) {
-            public void run() {
-                progressDialog.dismiss ( );
-            }
-        }, 10000 );
+        boolean b = handler.postDelayed (() -> progressDialog.dismiss ( ), 10000 );
 
 
 

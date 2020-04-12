@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -64,11 +62,11 @@ public class exoplayerActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         albumList = new ArrayList<>();
         adapter = new com.careerguide.adapters.LivesessionAdapter(this, albumList);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
         final ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -101,7 +99,7 @@ public class exoplayerActivity extends AppCompatActivity {
     private void prepareAlbums() {
         for(int i = 0; i<size;i++){
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId(),Utility.getUserEducation(activity));
+            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId(),Utility.getUserEducation(activity), counsellors.get(i).getPicUrl());
             albumList.add(a);
 
         }

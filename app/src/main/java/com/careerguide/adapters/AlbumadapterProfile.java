@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -29,13 +30,16 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
-        public ImageView thumbnail, overflow;
+        public ImageView thumbnail, overflow,civ_user;
+        public LinearLayout ll_whatsapp_share;
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
             count =  view.findViewById(R.id.count);
             thumbnail =  view.findViewById(R.id.thumbnail);
             overflow = view.findViewById(R.id.overflow);
+            civ_user = view.findViewById(R.id.civ_user);
+            ll_whatsapp_share = view.findViewById(R.id.ll_whatsapp_share);
 
         }
     }
@@ -58,8 +62,10 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
         Album album = albumList.get(position);
         holder.title.setText(album.getName());
         holder.count.setText(album.getlive_caption());
+
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
+        Glide.with(mContext).load(album.getCounsellor_Avatar()).into(holder.civ_user);
         holder.thumbnail.setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , Video_player.class);
@@ -68,6 +74,10 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
             intent.putExtra("imgurl" , album.getThumbnail());
             intent.putExtra("host_email" , album.gethost_email());
             view.getContext().startActivity(intent);
+        });
+
+        holder.ll_whatsapp_share.setOnClickListener(v -> {
+
         });
     }
 

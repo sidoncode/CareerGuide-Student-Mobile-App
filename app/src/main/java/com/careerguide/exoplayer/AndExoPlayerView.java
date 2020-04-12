@@ -222,15 +222,12 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 //       imageViewExitFullScreen.setOnClickListener(this);
         buttonRetry.setOnClickListener(this);
 
-        findViewById(R.id.Live_click).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(mContext, CounsellorProfile.class);
-                myIntent.putExtra("host_name" , Host_name);
-                myIntent.putExtra("host_img" , Host_img);
-                myIntent.putExtra("host_email" , host_email);
-                mContext.startActivity(myIntent);
-            }
+        findViewById(R.id.Live_click).setOnClickListener(v -> {
+            Intent myIntent = new Intent(mContext, CounsellorProfile.class);
+            myIntent.putExtra("host_name" , Host_name);
+            myIntent.putExtra("host_img" , Host_img);
+            myIntent.putExtra("host_email" , host_email);
+            mContext.startActivity(myIntent);
         });
 
         if (typedArray != null) {

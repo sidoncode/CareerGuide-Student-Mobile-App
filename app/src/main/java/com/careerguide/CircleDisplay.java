@@ -771,7 +771,7 @@ public class CircleDisplay extends View implements GestureDetector.OnGestureList
         public void onValueSelected(float val, float maxval);
     }
 
-    public static abstract class Utils {
+    static abstract class Utils {
 
         /**
          * This method converts dp unit to equivalent pixels, depending on
@@ -782,7 +782,7 @@ public class CircleDisplay extends View implements GestureDetector.OnGestureList
          * @return A float value to represent px equivalent to dp depending on
          *         device density
          */
-        public static float convertDpToPixel(Resources r, float dp) {
+        static float convertDpToPixel(Resources r, float dp) {
             DisplayMetrics metrics = r.getDisplayMetrics();
             float px = dp * (metrics.densityDpi / 160f);
             return px;

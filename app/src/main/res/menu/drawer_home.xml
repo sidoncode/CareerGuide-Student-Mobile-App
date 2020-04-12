@@ -36,12 +36,16 @@
         <item
             android:id="@+id/videocallcounsellor"
             android:icon="@drawable/couns_sign_up_intl"
-            android:visible="false"
-            android:title="Video Call with Counsellors"/>
+            android:title="Counselling"/>
         <item
             android:id="@+id/livesessions"
             android:icon="@drawable/exo_notification_small_icon"
             android:title="Live sessions" />
+
+        <item
+            android:id="@+id/Blog"
+            android:icon="@drawable/ic_nav_psyc_test"
+            android:title="Blogs" />
 
         <item
             android:id="@+id/about_fragment"

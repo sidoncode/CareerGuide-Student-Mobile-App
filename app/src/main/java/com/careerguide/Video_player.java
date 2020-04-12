@@ -22,6 +22,7 @@ import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import com.careerguide.exoplayer.utils.PublicFunctions;
 import java.util.HashMap;
 public class Video_player extends AppCompatActivity {
     private AndExoPlayerView andExoPlayerView;
@@ -30,15 +31,11 @@ public class Video_player extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
+        if (PublicFunctions.checkAccessStoragePermission ( this )) {
+        }
+
         setContentView ( R.layout.video_player );
         andExoPlayerView = findViewById ( R.id.andExoPlayerView );
-        String img_url= getIntent().getStringExtra("imgurl");
-        Log.e("img",img_url);
-        String name= getIntent().getStringExtra("Fullname");
-        Log.e("name",name);
-        String title= getIntent().getStringExtra("title");
-        Log.e("title","--> "+ title);
-        new DownloadFile( ).execute (img_url, title);
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, pendingDynamicLinkData -> {
@@ -49,10 +46,23 @@ public class Video_player extends AppCompatActivity {
                         load_url( deepLink.toString());
                         Log.e("deeplink --> " , "" +deepLink);
                     }
-                    else
+                    else{
+                        String img_url= getIntent().getStringExtra("imgurl");
+                        Log.e("img","" +img_url);
+                        String name= getIntent().getStringExtra("Fullname");
+                        Log.e("name", "" +name);
+                        String title= getIntent().getStringExtra("title");
+                        Log.e("title","--> "+ title);
+                        // String url = getIntent().getStringExtra("live_video_  url");
+                        andExoPlayerView.setName(getIntent().getStringExtra("Fullname"));
+                        andExoPlayerView.setImg(getIntent().getStringExtra("imgurl"));
+                        andExoPlayerView.sethost_email(getIntent().getStringExtra("host_email"));
+                        new DownloadFile( ).execute (img_url, title);
                         load_url( getIntent().getStringExtra("live_video_url"));
+                    }
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
+
     }
     private void load_url(String s_url) {
         Log.e ( "url1", "-->" + s_url );
@@ -181,8 +191,9 @@ public class Video_player extends AppCompatActivity {
                         Log.e("main","short Link" + flowchartLink);
                         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                         StrictMode.setVmPolicy(builder.build());
-                        File imgFile = new File ( Environment.getExternalStorageDirectory ( ) + "/WhatsApp/Media/WhatsApp Images/Sent/" + fileName );
+                        File imgFile = new File ( Environment.getExternalStorageDirectory ( ) + "/com.careerguide/" + fileName );
                         Uri path = Uri.fromFile ( imgFile );
+                        Log.e("#path",":" + path);
                         Intent shareIntent = new Intent();
                         shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
                         shareIntent.setType ( "image/*" );
@@ -206,17 +217,21 @@ public class Video_player extends AppCompatActivity {
         protected Void doInBackground(String... strings) {
             String img_url = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
 
-            Log.e("img_url",img_url);
+            Log.e("img_url","" +img_url);
             String fileName = img_url.substring(img_url.lastIndexOf('/') + 1);
-            Log.e("fileName",fileName);
+            Log.e("fileName","" +fileName);
             String title = strings[1];  // -> maven.pdf
             String extStorageDirectory = Environment.getExternalStorageDirectory ( ).toString ();
             Log.e("storage",extStorageDirectory);
-            File folder = new File ( extStorageDirectory, "/WhatsApp/Media/WhatsApp Images/Sent" );
+           // File folder = new File ( extStorageDirectory, "/WhatsApp Business/Media/WhatsApp Business Images/Sent" );
+            File folder = new File ( extStorageDirectory, "/com.careerguide" );
+
             folder.mkdir ( );
             File imgFile = new File ( folder, fileName );
+
             try
             {
+                Log.e("File","Downloaded");
                 imgFile.createNewFile ( );
             } catch (IOException e)
             {
@@ -225,6 +240,19 @@ public class Video_player extends AppCompatActivity {
             FileDownloader.downloadFile ( img_url, imgFile);
             return null;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        andExoPlayerView.pausePlayer();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        andExoPlayerView.setPlayWhenReady(true);
     }
 }
 

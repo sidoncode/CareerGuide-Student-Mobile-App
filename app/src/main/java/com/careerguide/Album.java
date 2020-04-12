@@ -1,6 +1,5 @@
 package com.careerguide;
 
-import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
@@ -14,12 +13,13 @@ public class Album {
     private String channel_name;
     private String host_email;
     private String class_cat;
+    private String Counsellor_Avatar;
     private String[] strArray;
     ArrayList<live_counsellor_session> videourls = new ArrayList<>();
     public Album() {
     }
 
-    public Album(String name, String live_caption, String thumbnail , String channel_name , ArrayList<live_counsellor_session> videourls , String host_email , String class_cat) {
+    Album(String name, String live_caption, String thumbnail, String channel_name, ArrayList<live_counsellor_session> videourls, String host_email, String class_cat, String Counsellor_Avatar) {
         this.name = name;
         this.host_email = host_email;
         this.live_caption = live_caption;
@@ -27,6 +27,7 @@ public class Album {
         this.channel_name = channel_name;
         this.videourls = videourls;
         this.class_cat = class_cat;
+        this.Counsellor_Avatar = Counsellor_Avatar;
     }
 
     public String getName() {
@@ -71,6 +72,10 @@ public class Album {
 
     public String getClass_cat(){
         return class_cat;
+    }
+
+    public String getCounsellor_Avatar(){
+        return Counsellor_Avatar;
     }
 
     public void setChannelName(String name) {

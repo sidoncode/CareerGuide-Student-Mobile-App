@@ -15,9 +15,9 @@ android {
         applicationId "com.careerguide"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 81
+        versionCode 93
         //versionName "10.8.18-beta"
-        versionName "1.0.81"
+        versionName "1.0.93"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -125,8 +125,9 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.9.6'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.9.6'
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.9.6'
-    implementation 'com.razorpay:checkout:1.5.12'
+    implementation 'com.razorpay:checkout:1.5.13'
     implementation 'com.google.firebase:firebase-dynamic-links:15.0.0'
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
     // implementation 'com.zoho.salesiq:mobilisten:1.2.3'
 
 }

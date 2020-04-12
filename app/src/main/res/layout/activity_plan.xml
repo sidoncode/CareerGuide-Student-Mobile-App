@@ -1,116 +1,626 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PlanActivity"
-    android:orientation="vertical"
-    android:background="@drawable/background"
-    android:padding="15dp"
-    android:gravity="center_horizontal">
+    android:orientation="vertical">
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#80ff0000">
-        <TextView
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:text="Bronze"/>
-        <TextView
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:text="Silver"/>
-        <TextView
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:text="Gold"/>
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="220dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
-        <LinearLayout
-            android:id="@+id/planHeading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:padding="15dp"
-            android:background="#df6a43"
-            android:gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:text="Our Most Popular\nCareer Plan"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:text="\u20b94999"/>
-
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:background="@color/white">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:visibility="gone"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_indian_flag"/>
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_arrow_black_back"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="back_onClick"
+            android:contentDescription="TODO" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:text="Certified Counsellor Online Now"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/surabhi"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pranav"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/surabhi"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pranav"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_marginStart="10dp"
+                android:text="+150"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:text="One of them will speak to you shortly."/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/default_profile"
+                app:srcCompat="@drawable/couns_sign_tick">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:text="93% of Users Found online counselling helpful"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:alpha="0.4"
+            android:background="@android:color/darker_gray" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#fff"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_below="@id/planHeading">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:text="2 Psychometric career reports"/>
-                </LinearLayout>
-            </ScrollView>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Single online counselling"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="#de23ff"
-                android:padding="5dp"
-                android:textSize="13sp"
-                android:textColor="#fff"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Get Started"/>
+                android:layout_weight="2"
+                android:text="\u20b91999/-"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </LinearLayout>
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:textColor="@color/black"
+                android:text="Chat, Audio for 45 mins."
+                />
+        </LinearLayout>
+
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:alpha="0.4"
+            android:background="@android:color/darker_gray" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#14bef1"
+                android:textColor="@color/white"
+                android:text="Continue to Paymennt"
+                android:textStyle="bold">
+            </Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".PlanActivity"-->
+<!--    android:orientation="vertical"-->
+<!--    android:background="@drawable/background"-->
+<!--    android:gravity="center_horizontal">-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:background="@android:color/white"-->
+<!--        android:elevation="4dp">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="25dp"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:src="@drawable/ic_arrow_black_back"-->
+<!--            android:onClick="backpress"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginEnd="20dp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            android:text="Career Plans"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--    </LinearLayout>-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/bronze"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:foreground="@drawable/following_post_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Bronze"-->
+<!--            android:textSize="12sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/silver"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Silver"-->
+<!--            android:textSize="12sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/gold"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Gold"-->
+<!--            android:textSize="12sp" />-->
+<!--    </LinearLayout>-->
+
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/silver_layout"-->
+<!--        android:visibility="visible"-->
+<!--        android:padding="10dp">-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/planHeading"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:padding="15dp"-->
+<!--            android:background="@color/app_blue"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical">-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="Our Most Popular\nCareer Plan"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="\u20b91999"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold" />-->
+
+
+<!--        </LinearLayout>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_indian_flag"-->
+<!--            android:visibility="gone" />-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="#fff"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:layout_below="@id/planHeading">-->
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="2 Psychometric career reports"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="45 MINS CAREER COUNSELLING SESSION"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="E-BOOK SELF CAREER COUNSELLING"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="EDUCATION PLAN SUGGESTION"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="FOR 1 YEAR"/>-->
+<!--                </LinearLayout>-->
+<!--            </ScrollView>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/getStart"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:background="@drawable/save_post_bg"-->
+<!--                android:paddingLeft="30dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingRight="30dp"-->
+<!--                android:paddingBottom="10dp"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textColor="#fff"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:text="Get Started"/>-->
+<!--        </LinearLayout>-->
+<!--    </RelativeLayout>-->
+
+
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        android:padding="10dp">-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/planHeadingGold"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:padding="15dp"-->
+<!--            android:background="@color/app_blue"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical">-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="Our Most Popular\nCareer Plan"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="\u20b914999"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold" />-->
+
+
+<!--        </LinearLayout>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_indian_flag"-->
+<!--            android:visibility="gone" />-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="#fff"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:layout_below="@id/planHeadingGold">-->
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="2 Psychometric career reports"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="45 MINS CAREER COUNSELLING SESSION"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="E-BOOK SELF CAREER COUNSELLING"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="EDUCATION PLAN SUGGESTION"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="FOR 1 YEAR"/>-->
+<!--                </LinearLayout>-->
+<!--            </ScrollView>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/getStartBronze"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:background="@drawable/save_post_bg"-->
+<!--                android:paddingLeft="30dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingRight="30dp"-->
+<!--                android:paddingBottom="10dp"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textColor="#fff"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:text="Get Started"/>-->
+<!--        </LinearLayout>-->
+<!--    </RelativeLayout>-->
+
+
+
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/gold_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        android:padding="10dp">-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/planHeadingGold1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:padding="15dp"-->
+<!--            android:background="@color/app_blue"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical">-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="Our Most Popular\nCareer Plan"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="\u20b91999"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold" />-->
+
+
+<!--        </LinearLayout>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_indian_flag"-->
+<!--            android:visibility="gone" />-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="#fff"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:layout_below="@id/planHeadingGold1">-->
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="2 Psychometric career reports"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="45 MINS CAREER COUNSELLING SESSION"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="E-BOOK SELF CAREER COUNSELLING"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="EDUCATION PLAN SUGGESTION"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:text="FOR 1 YEAR"/>-->
+<!--                </LinearLayout>-->
+<!--            </ScrollView>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/getStartGold"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:background="@drawable/save_post_bg"-->
+<!--                android:paddingLeft="30dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingRight="30dp"-->
+<!--                android:paddingBottom="10dp"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textColor="#fff"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:text="Get Started"/>-->
+<!--        </LinearLayout>-->
+<!--    </RelativeLayout>-->
+<!--</LinearLayout>-->

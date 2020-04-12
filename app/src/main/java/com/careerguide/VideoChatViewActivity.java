@@ -17,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.careerguide.R;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
@@ -41,12 +40,10 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private RtcEngine mRtcEngine;
     private boolean mCallEnd;
     private boolean mMuted;
-
     private FrameLayout mLocalContainer;
     private RelativeLayout mRemoteContainer;
     private SurfaceView mLocalView;
     private SurfaceView mRemoteView;
-
     private ImageView mCallBtn;
     private ImageView mMuteBtn;
     private ImageView mSwitchCameraBtn;
@@ -63,33 +60,24 @@ public class VideoChatViewActivity extends AppCompatActivity {
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         @Override
         public void onJoinChannelSuccess(String channel, final int uid, int elapsed) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // mLogView.logI("Join channel success, uid: " + (uid & 0xFFFFFFFFL));
-                }
+            runOnUiThread(() -> {
+                // mLogView.logI("Join channel success, uid: " + (uid & 0xFFFFFFFFL));
             });
         }
 
         @Override
         public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //    mLogView.logI("First remote video decoded, uid: " + (uid & 0xFFFFFFFFL));
-                    setupRemoteVideo(uid);
-                }
+            runOnUiThread(() -> {
+                //    mLogView.logI("First remote video decoded, uid: " + (uid & 0xFFFFFFFFL));
+                setupRemoteVideo(uid);
             });
         }
 
         @Override
         public void onUserOffline(final int uid, int reason) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //     mLogView.logI("User offline, uid: " + (uid & 0xFFFFFFFFL));
-                    onRemoteUserLeft();
-                }
+            runOnUiThread(() -> {
+                //     mLogView.logI("User offline, uid: " + (uid & 0xFFFFFFFFL));
+                onRemoteUserLeft();
             });
         }
     };
@@ -110,6 +98,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
         if (view != null) {
             return;
         }
+
 
         mRemoteView = RtcEngine.CreateRendererView(getBaseContext());
         mRemoteContainer.addView(mRemoteView);
@@ -195,12 +184,7 @@ public class VideoChatViewActivity extends AppCompatActivity {
     }
 
     private void showLongToast(final String msg) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-            }
-        });
+        this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show());
     }
 
     private void initEngineAndJoinChannel() {
@@ -259,7 +243,6 @@ public class VideoChatViewActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
             token = null; // default, no token
         }
-
 
         mRtcEngine.joinChannel(token, getIntent().getStringExtra("channel_video_name"), "Extra Optional Data", 0);
     }

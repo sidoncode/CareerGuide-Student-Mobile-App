@@ -146,14 +146,11 @@ public class AssessmentActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(activity, VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                    finish();
+            }, error -> {
+                progressDialog.dismiss();
+                Toast.makeText(activity, VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                finish();
 
-                }
             })
             {
                 @Override

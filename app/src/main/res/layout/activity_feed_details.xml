@@ -15,20 +15,24 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="2dp"
-            android:onClick="back_onClick"
-            android:src="@drawable/ic_arrow_black_back" />
+            android:src="@drawable/ic_arrow_black_back"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="back_onClick"/>
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_forward"
+                android:layout_marginEnd="20dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -44,7 +48,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -56,18 +60,17 @@
                     <ImageView
                         android:id="@+id/thumbnail"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/round_card"
+                        android:layout_height="wrap_content"
                         android:scaleType="fitXY"
-                        android:src="@drawable/placeholder" />
+                        android:src="@drawable/iv_banner"/>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="150dp"
-                        android:alpha="0.8"
-                        android:src="@drawable/live_icon" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_gravity="start"-->
+<!--                        android:layout_marginTop="150dp"-->
+<!--                        android:alpha="0.8"-->
+<!--                        android:src="@drawable/live_icon" />-->
                 </android.support.v7.widget.CardView>
 
             </FrameLayout>
@@ -138,16 +141,15 @@
                 android:textColor="@android:color/black"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
                 <TableRow
                     android:padding="5dp">
-
                     <TextView
                         android:layout_column="1"
                         android:text="•"
@@ -190,7 +192,6 @@
 
                 <TableRow
                     android:padding="5dp">
-
                     <TextView
                         android:layout_column="1"
                         android:text="•"

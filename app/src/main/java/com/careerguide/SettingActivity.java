@@ -3,7 +3,6 @@ package com.careerguide;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,140 +40,108 @@ public class SettingActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        findViewById(R.id.logOut).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
-                final View dialog = getLayoutInflater().inflate(R.layout.dialog_log_out,null);
+        findViewById(R.id.logOut).setOnClickListener(v -> {
+            final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+            final View dialog = getLayoutInflater().inflate(R.layout.dialog_log_out,null);
 
-                dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (Utility.logOut(activity))
-                        {
-                            Intent i = getBaseContext().getPackageManager()
-                                    .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            i.putExtra("hideSplash",true);
-                            alertDialog.dismiss();
-                            finish();
-                            startActivity(i);
-                        }
-                        else {
-                            Toast.makeText(activity, "Something went wrong. Please Retry", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                alertDialog.setView(dialog);
-                alertDialog.show();
-            }
+            dialog.findViewById(R.id.no).setOnClickListener(v1 -> alertDialog.dismiss());
+            dialog.findViewById(R.id.yes).setOnClickListener(v12 -> {
+                if (Utility.logOut(activity))
+                {
+                    Intent i = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.putExtra("hideSplash",true);
+                    alertDialog.dismiss();
+                    finish();
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(activity, "Something went wrong. Please Retry", Toast.LENGTH_LONG).show();
+                }
+            });
+            alertDialog.setView(dialog);
+            alertDialog.show();
         });
 
-        findViewById(R.id.notiPref).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        findViewById(R.id.notiPref).setOnClickListener(v -> {
 
-                final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-                progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_noti_pre", new Response.Listener<String>()
+            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_noti_pre", new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
                 {
-                    @Override
-                    public void onResponse(String response)
+                    progressDialog.dismiss();
+                    Log.e("get_pref_res",response);
+                    try
                     {
-                        progressDialog.dismiss();
-                        Log.e("get_pref_res",response);
-                        try
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean status = jsonObject.optBoolean("status",false);
+                        if(status)
                         {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean status = jsonObject.optBoolean("status",false);
-                            if(status)
-                            {
-                                JSONObject notiPreJsonObject = jsonObject.optJSONObject("noti_pre");
-                                boolean email = notiPreJsonObject.optInt("email",1) == 1;
-                                boolean message = notiPreJsonObject.optInt("message",1) == 1;
-                                boolean call = notiPreJsonObject.optInt("call",1) == 1;
-                                showNotiPrefDialog(email, message, call);
-                            }
-                            else
-                            {
-                                Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            JSONObject notiPreJsonObject = jsonObject.optJSONObject("noti_pre");
+                            boolean email = notiPreJsonObject.optInt("email",1) == 1;
+                            boolean message = notiPreJsonObject.optInt("message",1) == 1;
+                            boolean call = notiPreJsonObject.optInt("call",1) == 1;
+                            showNotiPrefDialog(email, message, call);
                         }
+                        else
+                        {
+                            Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                        Log.e("get_pref_error","error");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("user_id",Utility.getUserId(activity));
-                        Log.e("get_pref_req",params.toString());
-                        return params;
-                    }
-                };
-                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-            }
+                }
+            }, error -> {
+                progressDialog.dismiss();
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("get_pref_error","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    Log.e("get_pref_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
 
-        findViewById(R.id.changePass).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkLogin();
-            }
-        });
+        findViewById(R.id.changePass).setOnClickListener(v -> checkLogin());
     }
 
     private void checkLogin() {
         final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_register_status", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_register_status", response -> {
+            progressDialog.dismiss();
+            Log.e("reg_stat_res",response);
+            try
             {
-                progressDialog.dismiss();
-                Log.e("reg_stat_res",response);
-                try
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status",false);
+                if(status) //custom login
                 {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status",false);
-                    if(status) //custom login
-                    {
-                        showResetPass();
-                    }
-                    else //social login
-                    {
-                        showCreatePass();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    showResetPass();
                 }
+                else //social login
+                {
+                    showCreatePass();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("reg_stat_error","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("reg_stat_error","error");
         })
         {
             @Override
@@ -300,12 +266,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        continueButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkOldPassword(oldPassEditText.getText().toString().trim(),oldPassTextView, createPassEditText.getText().toString().trim(),alertDialog);
-            }
-        });
+        continueButtonReset.setOnClickListener(v -> checkOldPassword(oldPassEditText.getText().toString().trim(),oldPassTextView, createPassEditText.getText().toString().trim(),alertDialog));
         alertDialog.setView(dialog);
         alertDialog.show();
     }
@@ -321,39 +282,30 @@ public class SettingActivity extends AppCompatActivity {
         {
             final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
             progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "check_password ", new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response)
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "check_password ", response -> {
+                progressDialog.dismiss();
+                Log.e("check_pass_res",response);
+                try
                 {
-                    progressDialog.dismiss();
-                    Log.e("check_pass_res",response);
-                    try
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status",false);
+                    if(status)
                     {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status",false);
-                        if(status)
-                        {
-                            resetPass(newPass,alertDialog);
-                        }
-                        else
-                        {
-                            oldPassTextView.setVisibility(View.VISIBLE);
-                            oldPassTextView.setText("Incorrect Password");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        resetPass(newPass,alertDialog);
                     }
+                    else
+                    {
+                        oldPassTextView.setVisibility(View.VISIBLE);
+                        oldPassTextView.setText("Incorrect Password");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                }
-            }, new Response.ErrorListener()
-            {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                    Log.e("check_pass_error","error");
-                }
+            }, error -> {
+                progressDialog.dismiss();
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("check_pass_error","error");
             })
             {
                 @Override
@@ -372,39 +324,30 @@ public class SettingActivity extends AppCompatActivity {
     private void resetPass(final String newPass, final AlertDialog alertDialog) {
         final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "reset_password ", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "reset_password ", response -> {
+            progressDialog.dismiss();
+            Log.e("reset_pass_res",response);
+            try
             {
-                progressDialog.dismiss();
-                Log.e("reset_pass_res",response);
-                try
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status",false);
+                if(status)
                 {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status",false);
-                    if(status)
-                    {
-                        Toast.makeText(activity, "Password changed successfully.",Toast.LENGTH_LONG).show();
-                        alertDialog.dismiss();
-                    }
-                    else
-                    {
-                        Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(activity, "Password changed successfully.",Toast.LENGTH_LONG).show();
+                    alertDialog.dismiss();
                 }
+                else
+                {
+                    Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("reset_pass_error","error");
-            }
+        }, error -> {
+            progressDialog.dismiss();
+            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("reset_pass_error","error");
         })
         {
             @Override
@@ -511,58 +454,46 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        continueButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        continueButtonReset.setOnClickListener(v -> {
 
-                final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-                progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "creat_password ", new Response.Listener<String>()
+            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "creat_password ", response -> {
+                progressDialog.dismiss();
+                Log.e("cre_pass_res",response);
+                try
                 {
-                    @Override
-                    public void onResponse(String response)
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status",false);
+                    if(status)
                     {
-                        progressDialog.dismiss();
-                        Log.e("cre_pass_res",response);
-                        try
-                        {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean status = jsonObject.optBoolean("status",false);
-                            if(status)
-                            {
-                                Toast.makeText(activity, "Password created successfully.",Toast.LENGTH_LONG).show();
-                                alertDialog.dismiss();
-                            }
-                            else
-                            {
-                                Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        Toast.makeText(activity, "Password created successfully.",Toast.LENGTH_LONG).show();
+                        alertDialog.dismiss();
+                    }
+                    else
+                    {
+                        Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                        Log.e("cre_pass_error","error");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("user_id",Utility.getUserId(activity));
-                        params.put("password",createPassEditText.getText().toString().trim());
-                        Log.e("cre_pass_req",params.toString());
-                        return params;
-                    }
-                };
-                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-            }
+            }, error -> {
+                progressDialog.dismiss();
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("cre_pass_error","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    params.put("password",createPassEditText.getText().toString().trim());
+                    Log.e("cre_pass_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
         alertDialog.setView(dialog);
         alertDialog.show();
@@ -581,59 +512,56 @@ public class SettingActivity extends AppCompatActivity {
         callCheckBox.setChecked(call);
 
 
-        dialog.findViewById(R.id.confirmButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-                progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "noti_pre", new Response.Listener<String>()
+        dialog.findViewById(R.id.confirmButton).setOnClickListener(v -> {
+            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "noti_pre", new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
                 {
-                    @Override
-                    public void onResponse(String response)
+                    progressDialog.dismiss();
+                    Log.e("noti_pre_res",response);
+                    try
                     {
-                        progressDialog.dismiss();
-                        Log.e("noti_pre_res",response);
-                        try
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean status = jsonObject.optBoolean("status",false);
+                        if(status)
                         {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean status = jsonObject.optBoolean("status",false);
-                            if(status)
-                            {
-                                Toast.makeText(activity, "Preferences saved successfully.",Toast.LENGTH_LONG).show();
-                                alertDialog.dismiss();
-                            }
-                            else
-                            {
-                                Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(activity, "Preferences saved successfully.",Toast.LENGTH_LONG).show();
+                            alertDialog.dismiss();
                         }
+                        else
+                        {
+                            Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                        Log.e("noti_pre_error","error");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("user_id",Utility.getUserId(activity));
-                        params.put("email",emailCheckBox.isChecked()?"1":"0");
-                        params.put("message",messageCheckBox.isChecked()?"1":"0");
-                        params.put("call",callCheckBox.isChecked()?"1":"0");
-                        Log.e("noti_pre_req",params.toString());
-                        return params;
-                    }
-                };
-                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-            }
+                }
+            }, new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
+                    Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                    Log.e("noti_pre_error","error");
+                }
+            })
+            {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    params.put("email",emailCheckBox.isChecked()?"1":"0");
+                    params.put("message",messageCheckBox.isChecked()?"1":"0");
+                    params.put("call",callCheckBox.isChecked()?"1":"0");
+                    Log.e("noti_pre_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
         alertDialog.setView(dialog);
         alertDialog.show();

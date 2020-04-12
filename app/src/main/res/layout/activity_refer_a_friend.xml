@@ -30,7 +30,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp"
-        android:src="@drawable/share1"/>
+        android:src="@drawable/share_whatsapp"/>
 
 
 

@@ -2,18 +2,13 @@ package com.careerguide;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.careerguide.RtmEnventCallback.OnRtmMessageListener;
 import org.json.JSONException;
@@ -60,14 +55,9 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     }
 
     protected void initView() {
-        mMsgContainer = new MessageContainer((RecyclerView) findViewById(R.id.live_msg_recycler_view));
+        mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
         etChatMsg = findViewById(R.id.live_msg_et);
-        findViewById(R.id.live_msg_send_btn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                doSendMsg();
-            }
-        });
+        findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
     }
     protected abstract int getRtcUid();
     protected abstract String getchannelid();
@@ -88,7 +78,6 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             mRtcEngine.enableLocalAudio(false);
             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
         }
-
         Log.e("#cmm engine","ewkjbewjkfb" +getchannelid());
         mRtcEngine.joinChannel("", getchannelid(), "", getRtcUid());
     }
@@ -199,64 +188,46 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
     @Override
     public void onUserJoined(final int uid, final int elapsed) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //getUserName(Integer.parseInt(uid));
+        runOnUiThread(() -> {
+            //getUserName(Integer.parseInt(uid));
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://app.careerguide.com/api/main/" + "get_user_name", new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        JSONObject jobj = null;
-                        try {
-                            jobj = new JSONObject(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Log.e("user_name","-->" +response);
-                        Fname = jobj.optString("first_name");
-                        Lname= jobj.optString("last_name");
-                        Log.e("user_name","-->" +Fname+" "+Lname);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Random rand = new Random();
-                                user_count++;
-                                findViewById(R.id.live_msg).setVisibility(TextView.VISIBLE);
-                                TextView textView2 = findViewById(R.id.live_user);
-                                textView2.setText(String.valueOf(user_count) );
-                                Log.e("uid on join","-->"+uid);
-                                // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " +"Joined"));
-                            }
-                        });
-                    }
-
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("ussr_name_error","error");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("id" ,String.valueOf(uid));
-                        Log.e("#line_status_request",params.toString());
-                        return params;
-                    }
-                };
-                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/" + "get_user_name", response -> {
+                JSONObject jobj = null;
                 try {
-                    Thread.sleep(1000); //1000 milliseconds is one second.
-                }
-                catch (InterruptedException e)
-                {
+                    jobj = new JSONObject(response);
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Log.e("user_name","-->" +response);
+                Fname = jobj.optString("first_name");
+                Lname= jobj.optString("last_name");
+                Log.e("user_name","-->" +Fname+" "+Lname);
+                runOnUiThread(() -> {
+                    Random rand = new Random();
+                    user_count++;
+                    findViewById(R.id.live_msg).setVisibility(TextView.VISIBLE);
+                    TextView textView2 = findViewById(R.id.live_user);
+                    textView2.setText(String.valueOf(user_count) );
+                    Log.e("uid on join","-->"+uid);
+                    // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " +"Joined"));
+                });
+            }, error -> Log.e("ussr_name_error","error"))
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("id" ,String.valueOf(uid));
+                    Log.e("#line_status_request",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+            try {
+                Thread.sleep(1000); //1000 milliseconds is one second.
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
             }
         });
     }
@@ -265,14 +236,11 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
     @Override
     public void onUserOffline(final int uid, int reason) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                user_count = user_count-1;
-                TextView textView2 = findViewById(R.id.live_user);
-                textView2.setText(String.valueOf(user_count) );
-               // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " + "Left"));
-            }
+        runOnUiThread(() -> {
+            user_count = user_count-1;
+            TextView textView2 = findViewById(R.id.live_user);
+            textView2.setText(String.valueOf(user_count) );
+           // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " + "Left"));
         });
     }
 
@@ -284,64 +252,48 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             return;
         }
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //getUserName(Integer.parseInt(uid));
+        runOnUiThread(() -> {
+            //getUserName(Integer.parseInt(uid));
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://app.careerguide.com/api/main/" + "get_user_name", new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        JSONObject jobj = null;
-                        try {
-                            jobj = new JSONObject(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Log.e("user_name","-->" +response);
-                        Fname = jobj.optString("first_name");
-                        Lname= jobj.optString("last_name");
-                        Log.e("user_name","-->" +Fname+" "+Lname);
-                        handleMessageReceived(isChannelMsg, uid, message);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/" + "get_user_name", response -> {
+                JSONObject jobj = null;
+                try {
+                    jobj = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("user_name","-->" +response);
+                Fname = jobj.optString("first_name");
+                Lname= jobj.optString("last_name");
+                Log.e("user_name","-->" +Fname+" "+Lname);
+                handleMessageReceived(isChannelMsg, uid, message);
 //                        runOnUiThread(new Runnable() {
 //                            @Override
 //                            public void run() {
 //                                handleMessageReceived(isChannelMsg, uid, message);
 //                            }
 //                        });
-                    }
-
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("ussr_name_error","error");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("id" ,uid);
-                        Log.e("#line_status_request",params.toString());
-                        return params;
-                    }
-                };
-                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-                try {
-                    Thread.sleep(1000); //1000 milliseconds is one second.
+            }, error -> Log.e("ussr_name_error","error"))
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("id" ,uid);
+                    Log.e("#line_status_request",params.toString());
+                    return params;
                 }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+            try {
+                Thread.sleep(1000); //1000 milliseconds is one second.
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
             }
         });
 
     }
-
 
     protected void handleMessageReceived(boolean isChannelMsg, String uid, String message) {
         if (message.startsWith(MSG_PREFIX_QUESTION_RESULT)) {

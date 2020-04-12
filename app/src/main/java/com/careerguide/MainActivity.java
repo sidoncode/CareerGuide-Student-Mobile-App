@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.careerguide.activity.Activity_class;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -39,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 String id = param.get(i);
                 Log.e("###id" , "--> "+id);
             }
-
         }
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
@@ -57,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
         FirebaseApp.initializeApp(activity);
-        FirebaseMessaging.getInstance().subscribeToTopic("notification");
+        FirebaseMessaging.getInstance().subscribeToTopic("mytest");
         Log.d("AndroidBash", "Subscribed");
         //Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
         //https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf
@@ -77,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.e("interval",interval + "");
 
-
         new Handler().postDelayed(() -> {
             if(Utility.getUserId(activity).equals(""))
             {
@@ -90,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     finish();
             }
         },interval);
+
     }
 
     @Override

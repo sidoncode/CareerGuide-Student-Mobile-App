@@ -20,7 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.careerguide.activity.AllCounsellor;
+import com.careerguide.Book_Appoinment.BookCounsellor;
 import com.careerguide.adapters.AllTopicsItemAdapter;
 import com.careerguide.adapters.CounsellorAdapter;
 import com.careerguide.models.Counsellor;
@@ -71,8 +71,6 @@ public class HomeFragment extends Fragment
     private String eduLevel = "";
     private static boolean eduFetched = false;
     private ArrayList<live_counsellor_session> counsellors = new ArrayList<>();
-
-
     private OnFragmentInteractionListener mListener;
     private int size;
     LinearLayoutManager mLayoutManager;
@@ -82,7 +80,6 @@ public class HomeFragment extends Fragment
     public HomeFragment() {
         // Required empty public constructor
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -118,27 +115,28 @@ public class HomeFragment extends Fragment
         Log.e("inside","-->edu" +Utility.getUserEducation(getActivity()));
         iv_banner = view.findViewById(R.id.iv_banner);
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 9th")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/9th-class-banner.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class9th___5_uLynqGh4v.png").into(iv_banner);
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 10th")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/10th-class-banner.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class10th___8_hHDBZxDZ2.png").into(iv_banner);
+
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 11th")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/11th-class-banner.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class11th___5_jcQGsViNJr.png").into(iv_banner);
         }
 
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 12th")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/12th-class-banner.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner_12TH___3_MkTzKle5v.png").into(iv_banner);
         }
 
         if(Utility.getUserEducation(getActivity()).contentEquals("Graduates")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/graduates.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Working___2_bs5hJSTVAr.png").into(iv_banner);
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Post Graduates")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/postgraduates.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Masters___1_HdkuGWnJST.png").into(iv_banner);
         }
         if(Utility.getUserEducation(getActivity()).contentEquals( "Working Professional")){
-            Glide.with(getContext()).load("https://www.careerguide.com/student-profile/assets/img/banner_img/working-professional-banner.png").into(iv_banner);
+            Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Working___3_iw4be1oq1.png").into(iv_banner);
         }
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -171,14 +169,18 @@ public class HomeFragment extends Fragment
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
             //startActivity(new Intent(getActivity(),PaymentGateway.class));
         });
-        view.findViewById(R.id.tv_subscribe).setOnClickListener(v -> {
-          //  startActivity(new Intent(getActivity(), PlanActivity.class));
+        View.OnClickListener onClick = v -> {
+            startActivity(new Intent(getActivity(), PlanActivity.class));
+        };
+        view.findViewById(R.id.tv_subscribe).setOnClickListener(onClick);
+
+        view.findViewById(R.id.counsellor_see_all).setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), BookCounsellor.class));
         });
 
-        view.findViewById(R.id.counsellor_see_all).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), AllCounsellor.class));
+        view.findViewById(R.id.tv_see_all).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), exoplayerActivity.class));
         });
-
 
 //        view.findViewById(R.id.counsellorSignUp).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -231,13 +233,7 @@ public class HomeFragment extends Fragment
     }
 
     private void prepareAlbums() {
-        for(int i = 0; i<size;i++){
-            String imgurl = "";
-            Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()));
-            albumList.add(a);
 
-        }
 
         for (int i =0 ; i<topicSize ; i++){
             Log.e("name in prepare" , "-->" +topics.get(i).getName());
@@ -247,8 +243,17 @@ public class HomeFragment extends Fragment
 
         for (int i =0 ; i<Counsellors_profile_size ; i++){
             Log.e("name in prepare" , "-->" +Counsellors_profile.get(i).getUsername());
+
             Counsellor counsellor_model = new Counsellor(Counsellors_profile.get(i).getUid() , Counsellors_profile.get(i).getUsername() , Counsellors_profile.get(i).getFirst_name(),Counsellors_profile.get(i).getLast_name(),Counsellors_profile.get(i).getAvatar(),23);
             counsellorlist.add(counsellor_model);
+        }
+
+        for(int i = 0; i<size;i++){
+            //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
+            Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
+            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl());
+            albumList.add(a);
+
         }
         adapter.notifyDataSetChanged();
         topic_adapter.notifyDataSetChanged();
@@ -447,10 +452,12 @@ public class HomeFragment extends Fragment
         void onFragmentInteraction(Uri uri);
     }
 
-
     private void getLiveSession() {
         final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity());
         progressDialog.show();
+        if(Utility.getUserEducationUid(getActivity())==null){
+
+        }
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Facebook_Live_video", new Response.Listener<String>()
         {
             @Override
@@ -494,43 +501,38 @@ public class HomeFragment extends Fragment
                 }
             }
 
-            private void gettopic(){
+            private void gettopic() {
                 final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity());
                 progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_Topics", new Response.Listener<String>()
-                {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_Topics", new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response)
-                    {
+                    public void onResponse(String response) {
                         progressDialog.dismiss();
                         if (isAdded()) {
                             Log.e("all_coun_res_topic", response);
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean status = jsonObject.optBoolean("status", false);
-                                if (status)
-                                {
+                                if (status) {
                                     JSONArray counsellorsJsonArray = jsonObject.optJSONArray("topics");
-                                    Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
-                                    Log.e("TOPICS--> " , "==> " +counsellorsJsonArray );
-                                    for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
-                                    {
+                                    Log.e("lengthname--> ", "==> " + counsellorsJsonArray.length());
+                                    Log.e("TOPICS--> ", "==> " + counsellorsJsonArray);
+                                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
                                         JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
                                         String name = counselorJsonObject.optString("name");
-                                        Log.e("name--> " , "==> " +name );
+                                        Log.e("name--> ", "==> " + name);
                                         String uid = counselorJsonObject.optString("uid");
                                         String parent_uid = counselorJsonObject.optString("parent_uid");
                                         String parent_name = counselorJsonObject.optString("parent_name");
-                                        topics.add(new topics_model(uid,name,27));
+                                        topics.add(new topics_model(uid, name, 27));
                                     }
                                     topicSize = topics.size();
                                     getcounsellor();
-                                    Log.e("size " , "==> " +topics );
+                                    Log.e("size ", "==> " + topics);
                                     //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                                }
-                                else {
+                                } else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getActivity(),"Something went wrong. topics",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Something went wrong. topics", Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -553,12 +555,12 @@ public class HomeFragment extends Fragment
                                         String lastName = counselorJsonObject.optString("last_name");
                                         String picUrl = counselorJsonObject.optString("profile_pic");
                                         String email = counselorJsonObject.optString("email");
-                                        Counsellors_profile.add(new Counsellor(id, email , firstName, lastName, picUrl,27));
+                                        Counsellors_profile.add(new Counsellor(id, email, firstName, lastName, picUrl, 27));
                                     }
                                     Counsellors_profile_size = Counsellors_profile.size();
                                     prepareAlbums();
                                     Log.e("size ", "==> " + size);
-                                    Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
+                                   // Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
                                 } else {
 
 
@@ -588,22 +590,20 @@ public class HomeFragment extends Fragment
                 }, error -> {
                     progressDialog.dismiss();
 //                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                    Log.e("all_coun_rerror","error");
-                })
-                {
+                    Log.e("all_coun_rerror", "error");
+                }) {
                     @Override
                     protected Map<String, String> getParams() {
-                        HashMap<String,String> params = new HashMap<>();
-                      //  params.put("email" ,Utility.getUserEmail(getActivity()));
+                        HashMap<String, String> params = new HashMap<>();
+                        //  params.put("email" ,Utility.getUserEmail(getActivity()));
                         params.put("user_education", Utility.getUserEducationUid(getActivity()));
-                        Log.e("#line_status_request",params.toString());
+                        Log.e("#line_status_request", params.toString());
                         return params;
                     }
                 };
 
                 VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
             }
-
 
         }, error -> {
             progressDialog.dismiss();
@@ -614,6 +614,7 @@ public class HomeFragment extends Fragment
             @Override
             protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
+                params.put("uid" ,Utility.getUserEducationUid(getActivity()));
                 params.put("email" ,Utility.getUserEmail(getActivity()));
                 Log.e("#line_status_request",params.toString());
                 return params;
@@ -622,7 +623,5 @@ public class HomeFragment extends Fragment
 
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-
-
 
 }

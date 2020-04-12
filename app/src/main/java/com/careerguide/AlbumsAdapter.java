@@ -27,14 +27,14 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
     private Context mContext;
     private List<Album> albumList;
-    LinearLayout ll_story;
+    private LinearLayout ll_story;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count , tv_topic_group_name;
-        public ImageView thumbnail, overflow;
+        TextView title, count , tv_topic_group_name;
+        ImageView thumbnail, overflow;
         RecyclerView rv_items;
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
             count =  view.findViewById(R.id.count);
@@ -53,7 +53,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         }
     }
 
-    public AlbumsAdapter(Context mContext, List<Album> albumList) {
+    AlbumsAdapter(Context mContext, List<Album> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
         Log.e("#albumadapter" , "-->" +albumList);
@@ -85,6 +85,14 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 intent.putExtra("imgurl" , album.getThumbnail());
                 intent.putExtra("host_email" , album.gethost_email());
                 view.getContext().startActivity(intent);
+            });
+
+            holder.title.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), CounsellorProfile.class);
+                intent.putExtra("host_name" ,album.getName() );
+                intent.putExtra("host_img" , album.getCounsellor_Avatar());
+                intent.putExtra("host_email" , album.gethost_email());
+                v.getContext().startActivity(intent);
             });
     }
 

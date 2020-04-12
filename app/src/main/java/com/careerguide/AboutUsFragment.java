@@ -38,80 +38,65 @@ public class AboutUsFragment extends Fragment {
 
         final LinearLayout detailLinearLayout = view.findViewById(R.id.detailLayout);
 
-        infoIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentTabTextView.setText("About CareerGuide");
-                infoIcon.setImageResource(R.drawable.ic_about_selected);
-                mgmtIcon.setImageResource(R.drawable.ic_mgmt_unselected);
-                try {
-                    detailLinearLayout.removeView(mgmtLayout);
-                    detailLinearLayout.addView(aboutLayout);
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
+        infoIcon.setOnClickListener(v -> {
+            currentTabTextView.setText("About CareerGuide");
+            infoIcon.setImageResource(R.drawable.ic_about_selected);
+            mgmtIcon.setImageResource(R.drawable.ic_mgmt_unselected);
+            try {
+                detailLinearLayout.removeView(mgmtLayout);
+                detailLinearLayout.addView(aboutLayout);
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
             }
         });
 
-        mgmtIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentTabTextView.setText("Managemant Team");
-                infoIcon.setImageResource(R.drawable.ic_about_unselected);
-                mgmtIcon.setImageResource(R.drawable.ic_mgmt_team_selected);
-                try {
-                    detailLinearLayout.removeView(aboutLayout);
-                    detailLinearLayout.addView(mgmtLayout);
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
+        mgmtIcon.setOnClickListener(v -> {
+            currentTabTextView.setText("Managemant Team");
+            infoIcon.setImageResource(R.drawable.ic_about_unselected);
+            mgmtIcon.setImageResource(R.drawable.ic_mgmt_team_selected);
+            try {
+                detailLinearLayout.removeView(aboutLayout);
+                detailLinearLayout.addView(mgmtLayout);
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
             }
         });
 
         mgmtIcon.performClick();
         infoIcon.performClick();
 
-        aboutLayout.findViewById(R.id.askUs).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    MenuItem menuItem = ((HomeActivity) getActivity()).nvDrawer.getMenu().getItem(4);
-                    ((HomeActivity) getActivity()).selectDrawerItem(menuItem);
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
+        aboutLayout.findViewById(R.id.askUs).setOnClickListener(v -> {
+            try {
+                MenuItem menuItem = ((HomeActivity) getActivity()).nvDrawer.getMenu().getItem(4);
+                ((HomeActivity) getActivity()).selectDrawerItem(menuItem);
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
             }
         });
 
         final TextView prnvTextView = mgmtLayout.findViewById(R.id.prnvInfo);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //final int prnvLineCount = prnvTextView.getMaxLines();
-                prnvTextView.setMaxLines(3);
-                final TextView prnvMore = mgmtLayout.findViewById(R.id.prnvMore);
-                prnvMore.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(prnvTextView.getMaxLines() == 3)
-                        {
-                            prnvTextView.setMaxLines(Integer.MAX_VALUE);
-                            prnvMore.setText("Show Less");
-                        }
-                        else
-                        {
-                            prnvMore.setText("Read More");
-                            prnvTextView.setMaxLines(3);
-                        }
-                    }
-                });
-            }
+        new Handler().postDelayed(() -> {
+            //final int prnvLineCount = prnvTextView.getMaxLines();
+            prnvTextView.setMaxLines(3);
+            final TextView prnvMore = mgmtLayout.findViewById(R.id.prnvMore);
+            prnvMore.setOnClickListener(v -> {
+                if(prnvTextView.getMaxLines() == 3)
+                {
+                    prnvTextView.setMaxLines(Integer.MAX_VALUE);
+                    prnvMore.setText("Show Less");
+                }
+                else
+                {
+                    prnvMore.setText("Read More");
+                    prnvTextView.setMaxLines(3);
+                }
+            });
         },50);
 
         final TextView surbhiTextView = mgmtLayout.findViewById(R.id.surbhiInfo);

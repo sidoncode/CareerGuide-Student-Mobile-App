@@ -72,14 +72,14 @@ public class ChatMessage implements Serializable{
 
     }
 
-    public String getDateString()
+    String getDateString()
     {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date.getTime());
         return ((calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.YEAR));
     }
 
-    public boolean isOnSameDate(ChatMessage chatMessage)
+    boolean isOnSameDate(ChatMessage chatMessage)
     {
         Calendar calendarCurr = Calendar.getInstance();
         calendarCurr.setTimeInMillis(date.getTime());
