@@ -3,8 +3,8 @@ package com.careerguide.youtubeVideo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,8 +99,11 @@ public class YT_recycler_adapter_two extends RecyclerView.Adapter<YT_recycler_ad
                 .dontTransform();
         Glide.with(activity).load(video.getThumbnailUrl() ).apply(options).into(holder.imageView);
         holder.imageView.setOnClickListener(v -> {
-            Intent videoIntent = YouTubeStandalonePlayer.createVideoIntent(activity, key, video.getVideoID(), 0, true, false);
-            activity.startActivityForResult(videoIntent, REQ_PLAYER_CODE);
+            Intent intent = new Intent(v.getContext() , youtubeFeedDetail.class);
+            intent.putExtra("data_id" , video.getVideoID());
+            v.getContext().startActivity(intent);
+            //Intent videoIntent = YouTubeStandalonePlayer.createVideoIntent(activity, key, video.getVideoID(), 0, true, false);
+            // activity.startActivityForResult(videoIntent, REQ_PLAYER_CODE);
         });
 
 

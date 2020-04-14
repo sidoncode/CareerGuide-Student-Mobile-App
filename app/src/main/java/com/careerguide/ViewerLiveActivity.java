@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;

@@ -3,8 +3,8 @@ package com.careerguide;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -68,34 +68,29 @@ public class SettingActivity extends AppCompatActivity {
 
             final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
             progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_noti_pre", new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response)
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_noti_pre", response -> {
+                progressDialog.dismiss();
+                Log.e("get_pref_res",response);
+                try
                 {
-                    progressDialog.dismiss();
-                    Log.e("get_pref_res",response);
-                    try
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status",false);
+                    if(status)
                     {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status",false);
-                        if(status)
-                        {
-                            JSONObject notiPreJsonObject = jsonObject.optJSONObject("noti_pre");
-                            boolean email = notiPreJsonObject.optInt("email",1) == 1;
-                            boolean message = notiPreJsonObject.optInt("message",1) == 1;
-                            boolean call = notiPreJsonObject.optInt("call",1) == 1;
-                            showNotiPrefDialog(email, message, call);
-                        }
-                        else
-                        {
-                            Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        JSONObject notiPreJsonObject = jsonObject.optJSONObject("noti_pre");
+                        boolean email = notiPreJsonObject.optInt("email",1) == 1;
+                        boolean message = notiPreJsonObject.optInt("message",1) == 1;
+                        boolean call = notiPreJsonObject.optInt("call",1) == 1;
+                        showNotiPrefDialog(email, message, call);
                     }
-
+                    else
+                    {
+                        Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
             }, error -> {
                 progressDialog.dismiss();
                 Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
@@ -515,43 +510,34 @@ public class SettingActivity extends AppCompatActivity {
         dialog.findViewById(R.id.confirmButton).setOnClickListener(v -> {
             final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
             progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "noti_pre", new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response)
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "noti_pre", response -> {
+                progressDialog.dismiss();
+                Log.e("noti_pre_res",response);
+                try
                 {
-                    progressDialog.dismiss();
-                    Log.e("noti_pre_res",response);
-                    try
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status",false);
+                    if(status)
                     {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status",false);
-                        if(status)
-                        {
-                            Toast.makeText(activity, "Preferences saved successfully.",Toast.LENGTH_LONG).show();
-                            alertDialog.dismiss();
-                        }
-                        else
-                        {
-                            Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        Toast.makeText(activity, "Preferences saved successfully.",Toast.LENGTH_LONG).show();
+                        alertDialog.dismiss();
                     }
+                    else
+                    {
+                        Toast.makeText(activity, "Something went wrong",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                }
-            }, new Response.ErrorListener()
-            {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                    Log.e("noti_pre_error","error");
-                }
+            }, error -> {
+                progressDialog.dismiss();
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("noti_pre_error","error");
             })
             {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() {
                     HashMap<String,String> params = new HashMap<>();
                     params.put("user_id",Utility.getUserId(activity));
                     params.put("email",emailCheckBox.isChecked()?"1":"0");

@@ -24,11 +24,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-
-        <activity android:name=".youtubeVideo.youtubeFeedDetail"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity android:name=".blog.activity.MainBlog"></activity>
+        <activity
+            android:name=".youtubeVideo.youtubeFeedDetail"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="nosensor"
-            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Book_Appoinment.BookingTime"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -216,6 +217,19 @@
         <activity
             android:name=".activity.Activity_class"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".blog.activity.CatListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".blog.activity.CatDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".blog.activity.CategoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".blog.activity.CatDetailWoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Video_player"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"

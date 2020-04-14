@@ -2,7 +2,7 @@ package com.careerguide.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.careerguide.HomeActivity;
 import com.careerguide.R;
-import com.careerguide.Utility;
 import com.careerguide.models.Subcategories;
 
 import java.util.List;

@@ -36,6 +36,7 @@
         <item
             android:id="@+id/videocallcounsellor"
             android:icon="@drawable/couns_sign_up_intl"
+            android:visible="false"
             android:title="Counselling"/>
         <item
             android:id="@+id/livesessions"

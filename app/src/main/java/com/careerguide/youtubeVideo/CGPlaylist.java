@@ -6,9 +6,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -194,11 +194,9 @@ public class CGPlaylist extends Fragment {
         mVideoAdapter_Blog = new RecyclerAdapter(getActivity() , displaylistArray_Blog);
         mVideoRecyclerView_Blog.setAdapter(mVideoAdapter_Blog);
 
-
         new TheTask().execute();
         return thisScreensView;
     }
-
 
     private class TheTask extends AsyncTask<Void, Void, Void>
     {
@@ -235,17 +233,17 @@ public class CGPlaylist extends Fragment {
                 String response = getUrlString(url);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray = json.getJSONArray("items");
-                for (int i = jsonArray.length()-1; i >= 0; i--) {
+                for (int i = jsonArray.length()-1; i >= jsonArray.length()-6; i--) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
                     String title = jsonObject.getJSONObject("snippet").getString("title");
                     String Desc = jsonObject.getJSONObject("snippet").getString("description");
                     String id = video.getString("videoId");
-                    Log.e("inside","-->" +id);
                     String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
                     displaylist = new Videos(title, thumbUrl ,id , Desc);
                     displaylistArray.add(displaylist);
                 }
+                    Log.e("#First","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -257,7 +255,7 @@ public class CGPlaylist extends Fragment {
                     String response_two = getUrlString(url_two);
                     JSONObject json_two = new JSONObject(response_two);
                     JSONArray jsonArray_two = json_two.getJSONArray("items");
-                    for (int i = 0; i < jsonArray_two.length(); i++) {
+                    for (int i = jsonArray_two.length()-1; i >=0; i--) {
                         JSONObject jsonObject_two = jsonArray_two.getJSONObject(i);
                         JSONObject video_two = jsonObject_two.getJSONObject("snippet").getJSONObject("resourceId");
                         String title_two = jsonObject_two.getJSONObject("snippet").getString("title");
@@ -268,28 +266,30 @@ public class CGPlaylist extends Fragment {
                         displaylist_two = new Videos_two(title_two, thumbUrl_two ,id_two , Desc_two);
                         displaylistArray_two.add(displaylist_two);
                     }
+                    Log.e("#Second","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
                 }
 
-//                String url_Blog = "https://careerguide.com/career/wp-json/wp/v2/posts";
-//                String response_Blog = getUrlString(url_Blog);
-//                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
-//                Log.e("Jsonresult" , "--> " +response_Blog);
-//                for (int i = 0; i < 10; i++) {
-//                    JSONObject jsonObject;
-//                    jsonObject = (JSONObject) jsonArray_Blog.get(i);
-//                    JSONObject jsonObject1;
-//                    jsonObject1 = (JSONObject) jsonObject.get("title");
-//                    JSONObject jsonObject2;
-//                    jsonObject2 = (JSONObject) jsonObject.get("content");
-//                    JSONObject jsonObject3;
-//                    jsonObject3 = (JSONObject) jsonObject.get("excerpt");
-//                    String imgUrl = getFetaureImageUrl(jsonObject2.getString("rendered"));
-//                    displaylist_Blog = new DataMembers(jsonObject.getInt("id"), jsonObject1.getString("rendered") , jsonObject2.getString("rendered") ,imgUrl , jsonObject.getString("link"), jsonObject3.getString("rendered"));
-//                    displaylistArray_Blog.add(displaylist_Blog);
-//                }
+                String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
+                String response_Blog = getUrlString(url_Blog);
+                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
+                Log.e("Jsonresult" , "--> " +response_Blog);
+                for (int i = 0; i < jsonArray_Blog.length(); i++) {
+                    JSONObject jsonObject;
+                    jsonObject = (JSONObject) jsonArray_Blog.get(i);
+                    JSONObject jsonObject1;
+                    jsonObject1 = (JSONObject) jsonObject.get("title");
+                    JSONObject jsonObject2;
+                    jsonObject2 = (JSONObject) jsonObject.get("content");
+                    JSONObject jsonObject3;
+                    jsonObject3 = (JSONObject) jsonObject.get("excerpt");
+                    String imgUrl = getFetaureImageUrl(jsonObject2.getString("rendered"));
+                    displaylist_Blog = new DataMembers(jsonObject.getInt("id"), jsonObject1.getString("rendered") , jsonObject2.getString("rendered") ,imgUrl , jsonObject.getString("link"), jsonObject3.getString("rendered"));
+                    displaylistArray_Blog.add(displaylist_Blog);
+                }
+                Log.e("#Blog","-->");
 
                 try {
 
@@ -297,17 +297,17 @@ public class CGPlaylist extends Fragment {
                     String response_three = getUrlString(url_three);
                     JSONObject json_three = new JSONObject(response_three);
                     JSONArray jsonArray_three = json_three.getJSONArray("items");
-                    for (int i = 0; i < jsonArray_three.length(); i++) {
+                    for (int i = jsonArray_three.length()-1; i >= jsonArray_three.length()-6; i--) {
                         JSONObject jsonObject_three = jsonArray_three.getJSONObject(i);
                         JSONObject video_three = jsonObject_three.getJSONObject("snippet").getJSONObject("resourceId");
                         String title_three = jsonObject_three.getJSONObject("snippet").getString("title");
                         String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
                         String id_three = video_three.getString("videoId");
-                        Log.e("inside", "-->" + id_three);
                         String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
                         displaylist_three = new Videos_three(title_three, thumbUrl_three, id_three, Desc_three);
                         displaylistArray_three.add(displaylist_three);
                     }
+                    Log.e("#Three","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -328,6 +328,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_NINE = new Videos_NINE(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "");
                         displaylistArray_NINE.add(displaylist_NINE);
                     }
+                    Log.e("#Nine","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -341,7 +342,6 @@ public class CGPlaylist extends Fragment {
                     Log.e("jsonArray_TEN", "-->" + jsonArray_TEN.length());
                     for (int i = 0; i < jsonArray_TEN.length(); i++) {
                         JSONObject JsonObject_TEN = jsonArray_TEN.optJSONObject(i);
-                        Log.e("JsonObject_TEN", "-->" + jsonArray_TEN);
                         String email_TEN = JsonObject_TEN.optString("email");
                         String name_TEN = JsonObject_TEN.optString("Name");
                         String img_url_TEN = JsonObject_TEN.optString("img_url");
@@ -350,6 +350,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_TEN = new Videos_TEN(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "");
                         displaylistArray_TEN.add(displaylist_TEN);
                     }
+                    Log.e("#Ten","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -370,6 +371,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_ELEVEN = new Videos_ELEVEN(email, name, img_url, video_url, title, "");
                         displaylistArray_ELEVEN.add(displaylist_ELEVEN);
                     }
+                    Log.e("#Eleven","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -390,6 +392,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_TWELVE = new Videos_TWELVE(email, name, img_url, video_url, title, "");
                         displaylistArray_TWELVE.add(displaylist_TWELVE);
                     }
+                    Log.e("#Twelve","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -410,6 +413,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_GRADUATE = new Videos_GRADUATE(email, name, img_url, video_url, title, "");
                         displaylistArray_GRADUATE.add(displaylist_GRADUATE);
                     }
+                    Log.e("#Graduate","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -430,6 +434,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_POSTGRA = new Videos_POSTGRA(email, name, img_url, video_url, title, "");
                         displaylistArray_POSTGRA.add(displaylist_POSTGRA);
                     }
+                    Log.e("#PostGra","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -450,6 +455,7 @@ public class CGPlaylist extends Fragment {
                         displaylist_WORKING = new Videos_WORKING(email, name, img_url, video_url, title, "");
                         displaylistArray_WORKING.add(displaylist_WORKING);
                     }
+                    Log.e("#Working","-->");
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -478,8 +484,6 @@ public class CGPlaylist extends Fragment {
             mVideoAdapter_POSTGRA.notifyDataSetChanged();
             mVideoAdapter_WORKING.notifyDataSetChanged();
             mVideoAdapter_Blog.notifyDataSetChanged();
-
-
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }

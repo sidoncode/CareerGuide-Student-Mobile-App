@@ -2,8 +2,8 @@ package com.careerguide.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -66,7 +66,7 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
         Glide.with(mContext).load(album.getCounsellor_Avatar()).into(holder.civ_user);
-        holder.thumbnail.setOnClickListener(view -> {
+        holder.itemView.setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , Video_player.class);
             intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());

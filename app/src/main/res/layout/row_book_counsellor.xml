@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -240,5 +240,5 @@
                 android:alpha="1"
                 android:background="#2dc0d7f9" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

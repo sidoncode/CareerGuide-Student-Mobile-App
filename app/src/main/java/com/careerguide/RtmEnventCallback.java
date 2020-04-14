@@ -1,23 +1,7 @@
 package com.careerguide;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import io.agora.rtm.RtmChannelListener;
 import io.agora.rtm.RtmChannelMember;

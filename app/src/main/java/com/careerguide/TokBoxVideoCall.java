@@ -1,20 +1,14 @@
 package com.careerguide;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
 /*import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
 import com.opentok.android.Subscriber;
 import com.opentok.android.OpentokError;*/
-import android.support.annotation.NonNull;
-import android.Manifest;
 import android.widget.FrameLayout;
-
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class TokBoxVideoCall extends AppCompatActivity /*implements  Session.SessionListener, PublisherKit.PublisherListener*/{
 

@@ -273,7 +273,7 @@
                 android:layout_alignParentEnd="true"
                 />
             
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:scrollbarStyle="outsideOverlay"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/attchment_recycler_view"

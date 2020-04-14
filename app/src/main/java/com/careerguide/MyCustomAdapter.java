@@ -2,7 +2,7 @@ package com.careerguide;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,11 +50,12 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
+
         DataModels objDataModels = listDataModels.get(position);
         holder.txtRestaurantName.setText(objDataModels.getRestaurantName());
         holder.txtdesc.setText("Live Now");
         Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.img);
-        holder.img.setOnClickListener(view -> {
+        holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext() , ViewerLiveActivity.class);
             Log.e("name-->","" +objDataModels.getchannelname());
             intent.putExtra("Channel_name" , objDataModels.getchannelname());

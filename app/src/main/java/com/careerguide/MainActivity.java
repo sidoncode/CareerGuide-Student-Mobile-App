@@ -4,16 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.careerguide.blog.activity.CatNotifiActivity;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -86,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             }
         },interval);
 
+
+
     }
 
     @Override
@@ -97,4 +105,7 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
     }
+
+
+
 }

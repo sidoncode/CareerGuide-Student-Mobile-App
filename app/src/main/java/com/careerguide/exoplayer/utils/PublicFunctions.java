@@ -5,14 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.DisplayMetrics;
 
-
-import com.google.android.exoplayer2.Timeline;
 
 import java.util.ArrayList;
 import java.util.List;

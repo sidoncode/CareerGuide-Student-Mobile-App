@@ -9,14 +9,19 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import com.careerguide.blog.activity.CatDetailActivity;
+import com.careerguide.blog.activity.CatDetailWoActivity;
+import com.careerguide.blog.activity.CatListActivity;
+import com.careerguide.blog.activity.MainBlog;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -29,7 +34,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -37,7 +42,7 @@ import com.bumptech.glide.Glide;
 import com.careerguide.activity.GoalsActivity;
 import com.careerguide.blog.BlogActivity;
 import com.careerguide.youtubeVideo.CGPlaylist;
-import com.careerguide.youtubeVideo.CM_youtubePlaylist;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -60,7 +65,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     public NavigationView nvDrawer;
-
 
     private ActionBarDrawerToggle drawerToggle;
     private String mActivityTitle;
@@ -99,6 +103,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         headerLayout = nvDrawer.getHeaderView(0);
         profilePic = headerLayout.findViewById(R.id.profilePic);
+
+
 
         String version = "";
         try {
@@ -187,6 +193,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
     }
 
+
+
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
@@ -235,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
         else if(menuItem.getItemId()==R.id.Blog)
         {
-            Intent intent= new Intent(activity , BlogActivity.class);
+            Intent intent= new Intent(activity , CatDetailActivity.class);
             startActivity(intent);
             mDrawer.closeDrawers();
             return;
@@ -586,7 +594,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             switch (getSupportFragmentManager().getBackStackEntryCount()){
                 case 0:
 
-                    final android.support.v7.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                    final androidx.appcompat.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
                     final View dialog = getLayoutInflater().inflate(R.layout.dialog_exit, null);
                     //setTitle("Home");
 

@@ -1,10 +1,9 @@
 package com.careerguide;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 public class Refer_a_friend extends AppCompatActivity {

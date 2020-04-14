@@ -9,7 +9,7 @@
     tools:context="com.careerguide.MainActivity_live_counsellor">
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
 
         android:layout_marginTop="20dp"
         android:id="@+id/recycler_view"

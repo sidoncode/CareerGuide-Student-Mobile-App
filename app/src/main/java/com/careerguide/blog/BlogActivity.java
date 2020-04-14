@@ -1,10 +1,10 @@
 package com.careerguide.blog;
 
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.careerguide.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class BlogActivity extends AppCompatActivity {
     NestedScrollView nsv_items;
     static String[] temp=new String[10];
 
-    public static final String url ="https://www.careerguide.com/career/wp-json/wp/v2/posts";
+    public static final String url ="https://institute.careerguide.com/wp-json/wp/v2/posts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class BlogActivity extends AppCompatActivity {
                 Log.i("Imported: ", jsonObject.getString("link"));
                 data.add(dataMembers);
             }
-            rview.setAdapter(new RecyclerAdapter(this,data));
+            rview.setAdapter(new RecyclerAdapter_Nav(this,data));
         }
         catch (Exception e) {
             e.printStackTrace();

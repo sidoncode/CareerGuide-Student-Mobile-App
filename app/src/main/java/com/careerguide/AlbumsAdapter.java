@@ -3,8 +3,8 @@ package com.careerguide;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,7 +75,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             holder.tv_topic_group_name.setText(album.getClass_cat());
             // loading album cover using Glide library
             Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
-            holder.thumbnail.setOnClickListener(view -> {
+           /*holder.thumbnail.setOnClickListener(view -> {
                 Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
                 Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
                 intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
@@ -86,14 +86,24 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 intent.putExtra("host_email" , album.gethost_email());
                 view.getContext().startActivity(intent);
             });
-
             holder.title.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), CounsellorProfile.class);
                 intent.putExtra("host_name" ,album.getName() );
                 intent.putExtra("host_img" , album.getCounsellor_Avatar());
                 intent.putExtra("host_email" , album.gethost_email());
                 v.getContext().startActivity(intent);
-            });
+            });*/
+        holder.itemView.setOnClickListener(view -> {
+            Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
+            Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
+            intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
+            intent.putExtra("title" , album.getlive_caption());
+            intent.putExtra("class_cat",album.getClass_cat());
+            intent.putExtra("Fullname" , album.getName());
+            intent.putExtra("imgurl" , album.getThumbnail());
+            intent.putExtra("host_email" , album.gethost_email());
+            view.getContext().startActivity(intent);
+        });
     }
 
 

@@ -102,6 +102,22 @@
         <item name="android:textColor">#fff</item>
     </style>
 
+    <style name="m_toolbar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="titleTextAppearance">@style/m_toolbar_title</item>
+        <item name="subtitleTextAppearance">@style/m_toolbar_subtitle</item>
+    </style>
+
+    <style name="m_toolbar_title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="m_toolbar_subtitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">17sp</item>
+    </style>
+
 
 
 </resources>
