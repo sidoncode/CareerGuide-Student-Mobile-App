@@ -33,7 +33,7 @@
             android:textSize="12sp"
             android:textColor="#fff"
             android:textAllCaps="false"/>
-        <Buttonyes
+        <Button
             android:id="@+id/yes"
             android:layout_width="95dp"
             android:layout_height="27dp"
