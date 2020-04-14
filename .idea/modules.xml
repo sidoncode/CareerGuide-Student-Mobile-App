@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CareerGuideapp.iml" filepath="$PROJECT_DIR$/.idea/CareerGuideapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CareerGuide-Student-Mobile-App.iml" filepath="$PROJECT_DIR$/CareerGuide-Student-Mobile-App.iml" group="CareerGuide-Student-Mobile-App" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="CareerGuide-Student-Mobile-App/app" />
     </modules>
   </component>
 </project>
