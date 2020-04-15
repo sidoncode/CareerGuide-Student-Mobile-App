@@ -38,6 +38,8 @@ import android.os.Looper;
 
 public class CGPlaylist extends Fragment {
 
+    //todo make changes
+
     List<Videos> displaylistArray = new ArrayList<>();
     List<Videos_two> displaylistArray_two = new ArrayList<>();
     List<Videos_three> displaylistArray_three = new ArrayList<>();
