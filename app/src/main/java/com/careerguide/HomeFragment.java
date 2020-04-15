@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment
     private static boolean eduFetched = false;
     private ArrayList<live_counsellor_session> counsellors = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
+    private ProgressDialog progressDialog;
     private int size;
     LinearLayoutManager mLayoutManager;
     LinearLayout ideal_career;
@@ -101,6 +102,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new ProgressDialog(getActivity());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -163,7 +165,11 @@ public class HomeFragment extends Fragment
         recycler_counsellor.setLayoutManager(mLayoutManager);
         recycler_counsellor.setAdapter(counsellor_adapter);
 
+        Log.e("LoadingStatus","JustStarted");
+        //progressDialog.show();
         getLiveSession();
+        gettopic();
+        getcounsellor();
 
         view.findViewById(R.id.tests).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
@@ -231,7 +237,7 @@ public class HomeFragment extends Fragment
 
         return view;
     }
-
+/*
     private void prepareAlbums() {
 
 
@@ -240,6 +246,7 @@ public class HomeFragment extends Fragment
             topics_model topicModel = new topics_model(topics.get(i).getUid() , topics.get(i).getName() , 27);
             topiclist.add(topicModel);
         }
+        topic_adapter.notifyDataSetChanged();
 
         for (int i =0 ; i<Counsellors_profile_size ; i++){
             Log.e("name in prepare" , "-->" +Counsellors_profile.get(i).getUsername());
@@ -247,6 +254,7 @@ public class HomeFragment extends Fragment
             Counsellor counsellor_model = new Counsellor(Counsellors_profile.get(i).getUid() , Counsellors_profile.get(i).getUsername() , Counsellors_profile.get(i).getFirst_name(),Counsellors_profile.get(i).getLast_name(),Counsellors_profile.get(i).getAvatar(),23);
             counsellorlist.add(counsellor_model);
         }
+        counsellor_adapter.notifyDataSetChanged();
 
         for(int i = 0; i<size;i++){
             //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
@@ -256,9 +264,14 @@ public class HomeFragment extends Fragment
 
         }
         adapter.notifyDataSetChanged();
-        topic_adapter.notifyDataSetChanged();
-        counsellor_adapter.notifyDataSetChanged();
+
+
+        Log.e("LoadingStatus","Done");
+        progressDialog.dismiss();
     }
+*/
+//I have shifted all the fucntionality in the respective response. and notify the datasetchanged there itself
+
 
     private void initGroup() {
         class1RadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -300,10 +313,10 @@ public class HomeFragment extends Fragment
     public void updateEducation(final String education) {
         Log.e("onCreate","updateEdu " + eduFetched);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.show();
+        //progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "profile_update", response -> {
             if (isAdded()) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 Log.e("update_pro_response", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -318,7 +331,7 @@ public class HomeFragment extends Fragment
                 }
             }
         }, error -> {
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
             if (isAdded())
                 Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
             Log.e("update_pro_error","error");
@@ -454,7 +467,7 @@ public class HomeFragment extends Fragment
 
     private void getLiveSession() {
         final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity());
-        progressDialog.show();
+        //progressDialog.show();
         if(Utility.getUserEducationUid(getActivity())==null){
 
         }
@@ -463,7 +476,7 @@ public class HomeFragment extends Fragment
             @Override
             public void onResponse(String response)
             {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 if (isAdded()) {
                     Log.e("all_coun_res_video", response);
                     try {
@@ -485,14 +498,24 @@ public class HomeFragment extends Fragment
                                 counsellors.add(new live_counsellor_session(email,name,img_url,video_url,title,""));
                             }
                             size = counsellors.size();
-                            gettopic();
+                            //gettopic();
+
+                            for(int i = 0; i<size;i++){
+                                //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
+                                Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
+                                Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl());
+                                albumList.add(a);
+
+                            }
+                            adapter.notifyDataSetChanged();
+
                             Log.e("size " , "==> " +counsellors );
                             //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                         }
 
 
                         else {
-                            progressDialog.dismiss();
+                            //progressDialog.dismiss();
                             Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
@@ -501,112 +524,8 @@ public class HomeFragment extends Fragment
                 }
             }
 
-            private void gettopic() {
-                final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity());
-                progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_Topics", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        if (isAdded()) {
-                            Log.e("all_coun_res_topic", response);
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                boolean status = jsonObject.optBoolean("status", false);
-                                if (status) {
-                                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("topics");
-                                    Log.e("lengthname--> ", "==> " + counsellorsJsonArray.length());
-                                    Log.e("TOPICS--> ", "==> " + counsellorsJsonArray);
-                                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
-                                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                                        String name = counselorJsonObject.optString("name");
-                                        Log.e("name--> ", "==> " + name);
-                                        String uid = counselorJsonObject.optString("uid");
-                                        String parent_uid = counselorJsonObject.optString("parent_uid");
-                                        String parent_name = counselorJsonObject.optString("parent_name");
-                                        topics.add(new topics_model(uid, name, 27));
-                                    }
-                                    topicSize = topics.size();
-                                    getcounsellor();
-                                    Log.e("size ", "==> " + topics);
-                                    //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                                } else {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getActivity(), "Something went wrong. topics", Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    private void getcounsellor() {
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
-                            Log.e("all_coun_res_counsellor", response);
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                boolean status = jsonObject.optBoolean("status", false);
-                                if (status) {
-                                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
-                                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                                        String id = counselorJsonObject.optString("co_id");
-                                        String firstName = counselorJsonObject.optString("first_name");
-                                        String lastName = counselorJsonObject.optString("last_name");
-                                        String picUrl = counselorJsonObject.optString("profile_pic");
-                                        String email = counselorJsonObject.optString("email");
-                                        Counsellors_profile.add(new Counsellor(id, email, firstName, lastName, picUrl, 27));
-                                    }
-                                    Counsellors_profile_size = Counsellors_profile.size();
-                                    prepareAlbums();
-                                    Log.e("size ", "==> " + size);
-                                   // Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
-                                } else {
-
-
-                                    Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_LONG).show();
-                                }
-                                progressDialog.dismiss();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }, error -> {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), VoleyErrorHelper.getMessage(error, getActivity()), Toast.LENGTH_LONG).show();
-                            Log.e("all_coun_rerror", "error");
-                        }) {
-                            @Override
-                            protected Map<String, String> getParams() {
-                                HashMap<String, String> params = new HashMap<>();
-                                //params.put("user_education", Utility.getUserEducationUid(getActivity()));
-                                Log.e("all_coun_req", params.toString());
-                                return params;
-                            }
-                        };
-                        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-                    }
-
-
-                }, error -> {
-                    progressDialog.dismiss();
-//                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
-                    Log.e("all_coun_rerror", "error");
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        HashMap<String, String> params = new HashMap<>();
-                        //  params.put("email" ,Utility.getUserEmail(getActivity()));
-                        params.put("user_education", Utility.getUserEducationUid(getActivity()));
-                        Log.e("#line_status_request", params.toString());
-                        return params;
-                    }
-                };
-
-                VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-            }
-
         }, error -> {
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
 //                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
             Log.e("all_coun_rerror","error");
         })
@@ -621,6 +540,141 @@ public class HomeFragment extends Fragment
             }
         };
 
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+
+
+
+
+
+    private void gettopic() {
+        final ProgressDialog progressDialog = new ProgressDialogCustom(getActivity());
+        //progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Fetch_Topics", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progressDialog.dismiss();
+                if (isAdded()) {
+                    Log.e("all_coun_res_topic", response);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean status = jsonObject.optBoolean("status", false);
+                        if (status) {
+                            JSONArray counsellorsJsonArray = jsonObject.optJSONArray("topics");
+                            Log.e("lengthname--> ", "==> " + counsellorsJsonArray.length());
+                            Log.e("TOPICS--> ", "==> " + counsellorsJsonArray);
+                            for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
+                                JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                                String name = counselorJsonObject.optString("name");
+                                Log.e("name--> ", "==> " + name);
+                                String uid = counselorJsonObject.optString("uid");
+                                String parent_uid = counselorJsonObject.optString("parent_uid");
+                                String parent_name = counselorJsonObject.optString("parent_name");
+                                topics.add(new topics_model(uid, name, 27));
+                            }
+                            topicSize = topics.size();
+                            //getcounsellor();
+
+                            for (int i =0 ; i<topicSize ; i++){
+                                Log.e("name in prepare" , "-->" +topics.get(i).getName());
+                                topics_model topicModel = new topics_model(topics.get(i).getUid() , topics.get(i).getName() , 27);
+                                topiclist.add(topicModel);
+                            }
+                            topic_adapter.notifyDataSetChanged();
+
+                            Log.e("size ", "==> " + topics);
+                            //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                        } else {
+                            //progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Something went wrong. topics", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+
+
+        }, error -> {
+            //progressDialog.dismiss();
+//                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror", "error");
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<>();
+                //  params.put("email" ,Utility.getUserEmail(getActivity()));
+                params.put("user_education", Utility.getUserEducationUid(getActivity()));
+                Log.e("#line_status_request", params.toString());
+                return params;
+            }
+        };
+
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+
+
+
+
+
+
+    private void getcounsellor() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
+            Log.e("all_coun_res_counsellor", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status", false);
+                if (status) {
+                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
+                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                        String id = counselorJsonObject.optString("co_id");
+                        String firstName = counselorJsonObject.optString("first_name");
+                        String lastName = counselorJsonObject.optString("last_name");
+                        String picUrl = counselorJsonObject.optString("profile_pic");
+                        String email = counselorJsonObject.optString("email");
+                        Counsellors_profile.add(new Counsellor(id, email, firstName, lastName, picUrl, 27));
+                    }
+                    Counsellors_profile_size = Counsellors_profile.size();
+                    //prepareAlbums();
+
+                    for (int i =0 ; i<Counsellors_profile_size ; i++){
+                        Log.e("name in prepare" , "-->" +Counsellors_profile.get(i).getUsername());
+
+                        Counsellor counsellor_model = new Counsellor(Counsellors_profile.get(i).getUid() , Counsellors_profile.get(i).getUsername() , Counsellors_profile.get(i).getFirst_name(),Counsellors_profile.get(i).getLast_name(),Counsellors_profile.get(i).getAvatar(),23);
+                        counsellorlist.add(counsellor_model);
+                    }
+                    counsellor_adapter.notifyDataSetChanged();
+
+
+                    Log.e("size ", "==> " + size);
+                    // Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
+                } else {
+
+
+                    Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_LONG).show();
+                }
+                //progressDialog.dismiss();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            //progressDialog.dismiss();
+            Toast.makeText(getActivity(), VoleyErrorHelper.getMessage(error, getActivity()), Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror", "error");
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<>();
+                //params.put("user_education", Utility.getUserEducationUid(getActivity()));
+                Log.e("all_coun_req", params.toString());
+                return params;
+            }
+        };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
