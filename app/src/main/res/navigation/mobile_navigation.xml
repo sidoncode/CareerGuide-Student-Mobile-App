@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/home_fragment">
+
+
+
+
+    <fragment
+        android:id="@id/contact_us"
+        android:name="com.careerguide.ContactUsFragment"
+        android:label="Contact Us"
+        tools:layout="@layout/fragment_contact_us" />
+    <activity
+        android:id="@id/tests"
+        android:name="com.careerguide.PsychometricTestsActivity"
+        android:label="Psychometric Career Tests"
+        tools:layout="@layout/activity_psychometric_tests" />
+
+    <fragment
+        android:id="@id/about_fragment"
+        android:name="com.careerguide.AboutUsFragment"
+        android:label="About Us" />
+
+    <fragment
+        android:id="@id/careerbooks"
+        android:name="com.careerguide.ebookpdf"
+        android:label="Career E-Books" />
+
+    <fragment
+        android:id="@id/counsellorSignUp"
+        android:name="com.careerguide.CounsellorSignUpFragment"
+        android:label="Sign up as a Counsellor" />
+    <fragment
+        android:id="@id/counsellorCorner"
+        android:name="com.careerguide.CounsellorCornerFragment"
+        android:label="Counsellors"
+        tools:layout="@layout/fragment_counsellor_corner" />
+    <activity
+        android:id="@id/videocallcounsellor"
+        android:name="com.careerguide.video_chat_counsellor"
+        android:label="Counselling" />
+    <activity
+        android:id="@id/refer_a_friend"
+        android:name="com.careerguide.Refer_a_friend"
+        android:label="Refer a Friend"
+        tools:layout="@layout/activity_refer_a_friend" />
+    <activity
+        android:id="@id/Blog"
+        android:name="com.careerguide.blog.activity.CatDetailActivity"
+        android:label="Blogs" />
+    <fragment
+        android:id="@+id/terms_conditions"
+        android:name="com.careerguide.TermsAndConditionFragment"
+        android:label="Terms and Conditions"
+        tools:layout="@layout/fragment_terms_and_condition" />
+
+
+    <fragment
+        android:id="@id/class_cat"
+        android:name="com.careerguide.ProfileFragment"
+        android:label="Profile" />
+
+    <fragment
+        android:id="@id/notification"
+        android:name="com.careerguide.NotificationFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notification" />
+
+
+
+    <action
+        android:id="@+id/nav_to_profileFragment"
+        app:destination="@id/class_cat" />
+
+
+    <fragment
+        android:id="@id/home_fragment"
+        android:name="com.careerguide.youtubeVideo.CGPlaylist"
+        android:label="Home"
+        tools:layout="@layout/fragment_cgplaylist" />
+
+<!--
+
+    <action
+        android:id="@+id/action_nav_home_to_contactUsFragment"
+        app:destination="@id/contact_us" />
+    <action
+        android:id="@+id/action_home_fragment_to_psychometricTestsActivity"
+        app:destination="@id/tests" />
+    <action
+        android:id="@+id/action_home_fragment_to_aboutUsFragment3"
+        app:destination="@id/about_fragment" />
+    <action
+        android:id="@+id/action_home_fragment_to_ebookpdf"
+        app:destination="@id/careerbooks" />
+    <action
+        android:id="@+id/action_home_fragment_to_counsellorSignUpFragment"
+        app:destination="@id/counsellorSignUp" />
+    <action
+        android:id="@+id/action_home_fragment_to_counsellorCornerFragment"
+        app:destination="@id/counsellorCorner" />
+    <action
+        android:id="@+id/action_home_fragment_to_video_chat_counsellor"
+        app:destination="@id/videocallcounsellor" />
+    <action
+        android:id="@+id/action_home_fragment_to_refer_a_friend2"
+        app:destination="@id/refer_a_friend" />
+    <action
+        android:id="@+id/action_home_fragment_to_catDetailActivity"
+        app:destination="@id/Blog" />
+    <action
+        android:id="@+id/action_home_fragment_to_termsAndConditionFragment"
+        app:destination="@id/termsAndConditionFragment" />
+    <action
+        android:id="@+id/action_home_fragment_to_profileFragment"
+        app:destination="@id/class_cat" />
+
+-->
+
+    <action
+        android:id="@+id/action_home_fragment_to_termsAndConditionFragment"
+        app:destination="@id/terms_conditions" />
+
+
+    <fragment
+        android:id="@id/nav_to_CategoryHome"
+        android:name="com.careerguide.HomeFragment"
+        android:label="Category">
+    </fragment>
+
+
+
+</navigation>

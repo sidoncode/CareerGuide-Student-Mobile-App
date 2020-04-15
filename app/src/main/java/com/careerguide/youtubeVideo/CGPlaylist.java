@@ -6,7 +6,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.careerguide.CGPlayListViewModel;
 import com.careerguide.R;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
@@ -35,10 +42,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 public class CGPlaylist extends Fragment {
-
-    
 
     List<Videos> displaylistArray = new ArrayList<>();
     List<Videos_two> displaylistArray_two = new ArrayList<>();
@@ -249,10 +255,145 @@ public class CGPlaylist extends Fragment {
         mVideoAdapter_Blog = new RecyclerAdapter(getActivity() , displaylistArray_Blog);
         mVideoRecyclerView_Blog.setAdapter(mVideoAdapter_Blog);
 
-        new TheTask().execute();
         return thisScreensView;
     }
 
+    CGPlayListViewModel channelLiveModel;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        channelLiveModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(CGPlayListViewModel.class);
+
+        channelLiveModel.getDisplaylistArray().observe(getActivity(), updatedList -> {
+            displaylistArray.clear();
+            displaylistArray.addAll(updatedList);
+            if(displaylistArray.size()>0)
+            {
+                mVideoAdapter.notifyDataSetChanged();
+                shimmer_view_container_cat_1.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_two().observe(getActivity(), updatedList -> {
+            displaylistArray_two.clear();
+            displaylistArray_two.addAll(updatedList);
+            if(displaylistArray_two.size()>0)
+            {
+                mVideoAdapter_two.notifyDataSetChanged();
+                shimmer_view_container_cat_2.setVisibility(View.INVISIBLE);
+            }
+
+
+        });
+
+        channelLiveModel.getDisplaylistArray_three().observe(getActivity(), updatedList -> {
+            displaylistArray_three.clear();
+            displaylistArray_three.addAll(updatedList);
+            if(displaylistArray_three.size()>0) {
+                mVideoAdapter_three.notifyDataSetChanged();
+                shimmer_view_container_cat_10.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_NINE().observe(getActivity(), updatedList -> {
+
+            displaylistArray_NINE.clear();
+            displaylistArray_NINE.addAll(updatedList);
+            if(displaylistArray_NINE.size()>0) {
+                mVideoAdapter_NINE.notifyDataSetChanged();
+                shimmer_view_container_cat_3.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_TEN().observe(getActivity(), updatedList -> {
+            displaylistArray_TEN.clear();
+            displaylistArray_TEN.addAll(updatedList);
+            if(displaylistArray_TEN.size()>0) {
+                mVideoAdapter_TEN.notifyDataSetChanged();
+                shimmer_view_container_cat_4.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_ELEVEN().observe(getActivity(), updatedList -> {
+
+            displaylistArray_ELEVEN.clear();
+            displaylistArray_ELEVEN.addAll(updatedList);
+            if(displaylistArray_ELEVEN.size()>0) {
+                mVideoAdapter_ELEVEN.notifyDataSetChanged();
+                shimmer_view_container_cat_5.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_TWELVE().observe(getActivity(), updatedList -> {
+
+            displaylistArray_TWELVE.clear();
+            displaylistArray_TWELVE.addAll(updatedList);
+            if(displaylistArray_TWELVE.size()>0) {
+                mVideoAdapter_TWELVE.notifyDataSetChanged();
+                shimmer_view_container_cat_6.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_GRADUATE().observe(getActivity(), updatedList -> {
+
+            displaylistArray_GRADUATE.clear();
+            displaylistArray_GRADUATE.addAll(updatedList);
+            if(displaylistArray_GRADUATE.size()>0) {
+                mVideoAdapter_GRADUATE.notifyDataSetChanged();
+                shimmer_view_container_cat_7.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        channelLiveModel.getDisplaylistArray_POSTGRA().observe(getActivity(), updatedList -> {
+
+            displaylistArray_POSTGRA.clear();
+            displaylistArray_POSTGRA.addAll(updatedList);
+            if(displaylistArray_POSTGRA.size()>0) {
+                mVideoAdapter_POSTGRA.notifyDataSetChanged();
+                shimmer_view_container_cat_8.setVisibility(View.INVISIBLE);
+            }
+
+
+        });
+
+        channelLiveModel.getDisplaylistArray_WORKING().observe(getActivity(), updatedList -> {
+
+            displaylistArray_WORKING.clear();
+            displaylistArray_WORKING.addAll(updatedList);
+            if(displaylistArray_WORKING.size()>0) {
+                mVideoAdapter_WORKING.notifyDataSetChanged();
+                shimmer_view_container_cat_9.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        channelLiveModel.getDisplaylistArray_Blog().observe(getActivity(), updatedList -> {
+
+            displaylistArray_Blog.clear();
+            displaylistArray_Blog.addAll(updatedList);
+            if(displaylistArray_Blog.size()>0) {
+                mVideoAdapter_Blog.notifyDataSetChanged();
+                shimmer_view_container_cat_Blog.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+
+
+
+    }
+
+
+
+    /***
     private class TheTask extends AsyncTask<Void, Void, Void>
     {
         Videos displaylist ;
@@ -685,7 +826,7 @@ public class CGPlaylist extends Fragment {
             mVideoAdapter_WORKING.notifyDataSetChanged();
             mVideoAdapter_Blog.notifyDataSetChanged();
 
-             */
+             8//
             if (progressDialog.isShowing()) {
                 Log.i("LoadingStatus","Started");
                 progressDialog.dismiss();
@@ -737,4 +878,6 @@ public class CGPlaylist extends Fragment {
 
         return imgurl;
     }
+
+    ***/
 }

@@ -14,9 +14,9 @@
             android:icon="@drawable/ic_mgmt_team_selected"
             android:title="View Psychometric Report" />
         <!--<item-->
-            <!--android:id="@+id/counsellorChat"-->
-            <!--android:icon="@drawable/cc_ic_chat_setting"-->
-            <!--android:title="Talk to a Counsellor" />-->
+        <!--android:id="@+id/counsellorChat"-->
+        <!--android:icon="@drawable/cc_ic_chat_setting"-->
+        <!--android:title="Talk to a Counsellor" />-->
         <item
             android:id="@+id/counsellorSignUp"
             android:title="Sign up as a Counsellor"
@@ -73,6 +73,29 @@
             android:visible="false"
             android:id="@+id/counsellorCorner"
             android:title="Counsellors"/>
+
+
+
+
+
+
+        <item
+            android:visible="false"
+            android:id="@+id/CGPlaylist"
+            android:title="Home"/>
+
+        <item
+            android:visible="false"
+            android:id="@+id/notification"
+            android:title="Notifications"/>
+
+
+        <item
+            android:visible="false"
+            android:id="@+id/nav_to_CategoryHome"
+            android:title="Category"/>
+
+
 
 
         <!--<item

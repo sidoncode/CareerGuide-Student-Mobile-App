@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -114,31 +117,44 @@ public class HomeFragment extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+
         Log.e("inside","-->edu" +Utility.getUserEducation(getActivity()));
         iv_banner = view.findViewById(R.id.iv_banner);
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 9th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class9th___5_uLynqGh4v.png").into(iv_banner);
+            toolbar.setTitle("Class 9th");
+
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 10th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class10th___8_hHDBZxDZ2.png").into(iv_banner);
+            toolbar.setTitle("Class 10th");
+
 
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 11th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class11th___5_jcQGsViNJr.png").into(iv_banner);
+            toolbar.setTitle("Class 11th");
+
         }
 
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 12th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner_12TH___3_MkTzKle5v.png").into(iv_banner);
+            toolbar.setTitle("Class 12th");
         }
 
         if(Utility.getUserEducation(getActivity()).contentEquals("Graduates")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Working___2_bs5hJSTVAr.png").into(iv_banner);
+            toolbar.setTitle("Graduates");
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Post Graduates")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Masters___1_HdkuGWnJST.png").into(iv_banner);
+            toolbar.setTitle("Post Graduates");
         }
         if(Utility.getUserEducation(getActivity()).contentEquals( "Working Professional")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Working___3_iw4be1oq1.png").into(iv_banner);
+            toolbar.setTitle("Working Professional");
         }
 
         recyclerView = view.findViewById(R.id.recycler_view);

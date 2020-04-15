@@ -1,5 +1,6 @@
 package com.careerguide.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +19,7 @@ import java.util.List;
 
 
 public class subcategoryAdapter extends RecyclerView.Adapter<subcategoryAdapter.MyViewHolder> {
-    private Context mContext;
+    private Activity mContext;
     private List<Subcategories> albumList;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -36,7 +37,7 @@ public class subcategoryAdapter extends RecyclerView.Adapter<subcategoryAdapter.
         }
     }
 
-    public subcategoryAdapter(Context mContext, List<Subcategories> subcat) {
+    public subcategoryAdapter(Activity mContext, List<Subcategories> subcat) {
         this.mContext = mContext;
         this.albumList = subcat;
         Log.e("#albumadapter" , "---->" +albumList);
@@ -64,7 +65,8 @@ public class subcategoryAdapter extends RecyclerView.Adapter<subcategoryAdapter.
             bIntent.putExtra("subcat_title",submodel.getName());
             bIntent.putExtra("parent_cat_title",submodel.getparent_cat());
             bIntent.putExtra("icon_url",submodel.getIcon_url());
-            v.getContext().startActivity(bIntent);
+            mContext.setResult(Activity.RESULT_OK,bIntent);
+            mContext.finish();
         });
         //Glide.with(mContext).load(submodel.getIcon_url()).into(holder.iv_icon);
     }

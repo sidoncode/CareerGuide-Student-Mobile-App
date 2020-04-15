@@ -1,5 +1,6 @@
 package com.careerguide.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -19,7 +20,7 @@ import com.careerguide.models.Goal;
 import java.util.List;
 
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder> {
-    Context context;
+    Activity context;
     List<Goal> goalList;
     //TypefaceUtility tfUtil;
 
@@ -38,7 +39,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         }
     }
 
-    public GoalAdapter(Context context, List<Goal> goalList) {
+    public GoalAdapter(Activity context, List<Goal> goalList) {
         this.context = context;
         this.goalList = goalList;
       //  tfUtil = new TypefaceUtility(context);
@@ -62,7 +63,9 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             bIntent.putExtra("cat_uid",goal.getUid());
             bIntent.putExtra("cat_title",goal.getName());
             bIntent.putExtra("icon_url" , goal.getIcon_url());
-            v.getContext().startActivity(bIntent);
+            bIntent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            context.startActivity(bIntent);
+            context.finish();
         });
         Glide.with(context).load(goal.getIcon_url()).into(holder.iv_icon);
 

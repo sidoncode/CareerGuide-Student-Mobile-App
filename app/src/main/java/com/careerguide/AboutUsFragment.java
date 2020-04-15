@@ -71,8 +71,9 @@ public class AboutUsFragment extends Fragment {
 
         aboutLayout.findViewById(R.id.askUs).setOnClickListener(v -> {
             try {
-                MenuItem menuItem = ((HomeActivity) getActivity()).nvDrawer.getMenu().getItem(4);
-                ((HomeActivity) getActivity()).selectDrawerItem(menuItem);
+                //todo revert back , ask rachit for use of this
+                /*MenuItem menuItem = ((HomeActivity) getActivity()).nvDrawer.getMenu().getItem(4);
+                ((HomeActivity) getActivity()).selectDrawerItem(menuItem);*/
             }
             catch (Exception ex)
             {
