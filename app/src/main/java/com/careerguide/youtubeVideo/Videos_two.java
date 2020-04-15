@@ -8,7 +8,7 @@ public class Videos_two {
     private String videoID;
     private String Desc;
 
-    Videos_two(String title, String thumbnail_url, String videoid , String Desc) {
+    public Videos_two(String title, String thumbnail_url, String videoid, String Desc) {
         this.title = title;
         this.thumbnail_url= thumbnail_url;
         this.videoID = videoid;

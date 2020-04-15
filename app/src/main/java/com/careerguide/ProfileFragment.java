@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
@@ -50,6 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -85,6 +88,8 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         userNameTextView = view.findViewById(R.id.userName);
         userLocationTextView = view.findViewById(R.id.userLocation);
+
+
 
         userNameTextView.setText(Utility.getUserFirstName(getActivity()) + " " + Utility.getUserLastName(getActivity()).trim());
         userLocationTextView.setText(Utility.getUserCity(getActivity()));
@@ -784,5 +789,18 @@ public class ProfileFragment extends Fragment {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
     }
 }

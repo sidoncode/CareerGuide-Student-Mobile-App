@@ -88,24 +88,27 @@
             android:textColor="#e91e63"
             android:textSize="13sp"
             android:text="Or connect with us..."/>
+
         <ImageView
             android:id="@+id/fbLink"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_facebook_contact_us"/>
+            android:src="@drawable/ic_facebook_contact_us" />
+
         <ImageView
             android:id="@+id/twitterLink"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_twitter_contact_us"/>
+            android:src="@drawable/ic_twitter_contact_us" />
+
         <ImageView
             android:id="@+id/linkedInLink"
-            android:layout_width="20dp"
+            android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_linkedin_contact_us"/>
+            android:src="@drawable/ic_linkedin_contact_us" />
     </LinearLayout>
 
     <View

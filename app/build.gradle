@@ -166,5 +166,10 @@ dependencies {
 
     // implementation 'com.zoho.salesiq:mobilisten:1.2.3'
 
+
+    implementation 'androidx.navigation:navigation-fragment:2.2.1'
+    implementation 'androidx.navigation:navigation-ui:2.2.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
