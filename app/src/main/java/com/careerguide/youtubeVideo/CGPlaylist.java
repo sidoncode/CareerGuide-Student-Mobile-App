@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.careerguide.R;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
@@ -64,9 +66,44 @@ public class CGPlaylist extends Fragment {
     private String browserKey;
     String loadMsg;
     String loadTitle;
-    LinearLayoutManager mLayoutManager , mLayoutManager_two, mLayoutManager_three, mLayoutManager_NINE , mLayoutManager_TEN , mLayoutManager_ELEVEN, mLayoutManager_TWELVE , mLayoutManager_GRADUATE ,mLayoutManager_POSTGRA ,mLayoutManager_WORKING, mLayoutManager_Blog;
+    LinearLayoutManager mLayoutManager ,
+                        mLayoutManager_two,
+                        mLayoutManager_three,
+                        mLayoutManager_NINE ,
+                        mLayoutManager_TEN ,
+                        mLayoutManager_ELEVEN,
+                        mLayoutManager_TWELVE ,
+                        mLayoutManager_GRADUATE ,
+                        mLayoutManager_POSTGRA ,
+                        mLayoutManager_WORKING,
+                        mLayoutManager_Blog;
 
-    TextView Cat_1,Cat_2,Cat_3,Cat_4,Cat_5,Cat_6,Cat_7,Cat_8,Cat_9,Cat_10, Cat_Blog,Cat_test;
+    TextView    Cat_1,
+                Cat_2,
+                Cat_3,
+                Cat_4,
+                Cat_5,
+                Cat_6,
+                Cat_7,
+                Cat_8,
+                Cat_9,
+                Cat_10,
+                Cat_Blog,
+                Cat_test;
+
+    ShimmerFrameLayout  shimmer_view_container_cat_1,
+                        shimmer_view_container_cat_2,
+                        shimmer_view_container_cat_Blog,
+                        shimmer_view_container_cat_3,
+                        shimmer_view_container_cat_4,
+                        shimmer_view_container_cat_5,
+                        shimmer_view_container_cat_6,
+                        shimmer_view_container_cat_7,
+                        shimmer_view_container_cat_8,
+                        shimmer_view_container_cat_9,
+                        shimmer_view_container_cat_10;
+
+
 
 
 
@@ -87,6 +124,18 @@ public class CGPlaylist extends Fragment {
         Cat_10 = thisScreensView.findViewById(R.id.Cat_10);
         Cat_Blog = thisScreensView.findViewById(R.id.Cat_Blog);
         Cat_test = thisScreensView.findViewById(R.id.Cat_test);
+
+        shimmer_view_container_cat_1=thisScreensView.findViewById(R.id.shimmer_view_container_cat_1);
+        shimmer_view_container_cat_2=thisScreensView.findViewById(R.id.shimmer_view_container_cat_2);
+        shimmer_view_container_cat_3=thisScreensView.findViewById(R.id.shimmer_view_container_cat_3);
+        shimmer_view_container_cat_4=thisScreensView.findViewById(R.id.shimmer_view_container_cat_4);
+        shimmer_view_container_cat_5=thisScreensView.findViewById(R.id.shimmer_view_container_cat_5);
+        shimmer_view_container_cat_6=thisScreensView.findViewById(R.id.shimmer_view_container_cat_6);
+        shimmer_view_container_cat_7=thisScreensView.findViewById(R.id.shimmer_view_container_cat_7);
+        shimmer_view_container_cat_8=thisScreensView.findViewById(R.id.shimmer_view_container_cat_8);
+        shimmer_view_container_cat_9=thisScreensView.findViewById(R.id.shimmer_view_container_cat_9);
+        shimmer_view_container_cat_10=thisScreensView.findViewById(R.id.shimmer_view_container_cat_10);
+        shimmer_view_container_cat_Blog=thisScreensView.findViewById(R.id.shimmer_view_container_cat_Blog);
 
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets() , "fonts/Montserrat-SemiBold.ttf");
@@ -259,6 +308,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter.notifyDataSetChanged();
+                            shimmer_view_container_cat_1.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -293,6 +343,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_two.notifyDataSetChanged();
+                            shimmer_view_container_cat_2.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -328,6 +379,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_Blog.notifyDataSetChanged();
+                            shimmer_view_container_cat_Blog.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -362,6 +414,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_three.notifyDataSetChanged();
+                            shimmer_view_container_cat_3.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -395,6 +448,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_NINE.notifyDataSetChanged();
+                            shimmer_view_container_cat_4.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -428,6 +482,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_TEN.notifyDataSetChanged();
+                            shimmer_view_container_cat_5.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -461,6 +516,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_ELEVEN.notifyDataSetChanged();
+                            shimmer_view_container_cat_6.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -493,6 +549,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_TWELVE.notifyDataSetChanged();
+                            shimmer_view_container_cat_7.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -525,6 +582,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_GRADUATE.notifyDataSetChanged();
+                            shimmer_view_container_cat_8.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -557,6 +615,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_POSTGRA.notifyDataSetChanged();
+                            shimmer_view_container_cat_9.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -589,6 +648,7 @@ public class CGPlaylist extends Fragment {
                         public void run() {
 
                             mVideoAdapter_WORKING.notifyDataSetChanged();
+                            shimmer_view_container_cat_10.setVisibility(View.INVISIBLE);
 
                         }
                     });

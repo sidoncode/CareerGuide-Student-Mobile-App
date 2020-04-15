@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/tools"
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
@@ -10,13 +11,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="vertical">
+            >
 
-            <LinearLayout
+                <LinearLayout
                 android:id="@+id/ll_goal_static_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,10 +193,11 @@
             </LinearLayout>
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_below="@+id/ll_goal_static_card">
 
                     <TextView
                         android:id="@+id/Cat_1"
@@ -216,7 +218,60 @@
                         android:id="@+id/yt_recycler_view_one"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@+id/Cat_1"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_1"
+                        android:elevation="1dp"
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            >
+                            <RelativeLayout
+                                android:id="@+id/loadingImageCat_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/loadingLineOneCat_1"
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_below="@+id/loadingImageCat_1"
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/loadingLineTwoCat_1"
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_below="@+id/loadingLineOneCat_1"
+                                >
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -231,7 +286,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@+id/shimmer_view_container_cat_1"/>
 
 
 
@@ -240,7 +296,60 @@
                         android:layout_width="match_parent"
                         android:layout_marginBottom="20dp"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_2"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_2"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/Cat_test"
@@ -254,20 +363,24 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@+id/shimmer_view_container_cat_2"/>
 
                     <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="8dp"
-                        android:scrollbars="none">
+                        android:scrollbars="none"
+                        android:layout_below="@id/Cat_test">
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="#00000000"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            >
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -722,14 +835,68 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/horizontalScrollView"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_Blog"
                         android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@+id/Cat_Blog"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_Blog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_Blog"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/Cat_3"
@@ -743,14 +910,68 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_Blog"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_NINE"
                         android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@+id/Cat_3"
+                        />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_3"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -765,14 +986,69 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_3"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_TEN"
                         android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_4"
+                        />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_4"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -787,14 +1063,68 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_4"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_ELEVEN"
                         android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_5"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_5"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -809,13 +1139,66 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_5"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_TWELVE"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_6"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_6"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -830,13 +1213,66 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_6"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_GRADUATE"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_7"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_7"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -851,13 +1287,66 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_7"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_POSTGRA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_8"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_8"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                     <TextView
@@ -872,13 +1361,67 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_8"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_WORKING"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_9"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_9"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/Cat_10"
@@ -892,14 +1435,68 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@id/shimmer_view_container_cat_9"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/yt_recycler_view_three"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
-                </LinearLayout>
-        </LinearLayout>
+                        android:visibility="visible"
+                        android:layout_below="@id/Cat_10"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container_cat_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        shimmer:duration="800"
+                        android:layout_below="@+id/Cat_10"
+                        android:elevation="1dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/loading_skimmer_height"
+                            android:background="#dddddd"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#707070">
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="160dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="210dp"
+                                android:layout_height="30dp"
+                                android:background="#707070"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
+
+                                >
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                </RelativeLayout>
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
