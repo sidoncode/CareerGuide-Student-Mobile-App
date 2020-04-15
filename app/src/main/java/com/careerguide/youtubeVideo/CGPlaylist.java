@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import android.os.Handler;
+import android.os.Looper;
 
 public class CGPlaylist extends Fragment {
 
@@ -216,10 +220,14 @@ public class CGPlaylist extends Fragment {
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
+            Log.i("LoadingStatus","Started");
+
+            Handler handler =new Handler();
+
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
+            //progressDialog.show();
         }
 
         @Override
@@ -244,6 +252,17 @@ public class CGPlaylist extends Fragment {
                     displaylistArray.add(displaylist);
                 }
                     Log.e("#First","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -267,29 +286,57 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_two.add(displaylist_two);
                     }
                     Log.e("#Second","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_two.notifyDataSetChanged();
+
+                        }
+                    });
+
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
                 }
+                try {
+                    String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
+                    String response_Blog = getUrlString(url_Blog);
+                    JSONArray jsonArray_Blog = new JSONArray(response_Blog);
+                    Log.e("Jsonresult", "--> " + response_Blog);
+                    for (int i = 0; i < jsonArray_Blog.length(); i++) {
+                        JSONObject jsonObject;
+                        jsonObject = (JSONObject) jsonArray_Blog.get(i);
+                        JSONObject jsonObject1;
+                        jsonObject1 = (JSONObject) jsonObject.get("title");
+                        JSONObject jsonObject2;
+                        jsonObject2 = (JSONObject) jsonObject.get("content");
+                        JSONObject jsonObject3;
+                        jsonObject3 = (JSONObject) jsonObject.get("excerpt");
+                        String imgUrl = getFetaureImageUrl(jsonObject2.getString("rendered"));
+                        displaylist_Blog = new DataMembers(jsonObject.getInt("id"), jsonObject1.getString("rendered"), jsonObject2.getString("rendered"), imgUrl, jsonObject.getString("link"), jsonObject3.getString("rendered"));
+                        displaylistArray_Blog.add(displaylist_Blog);
+                    }
+                    Log.e("#Blog", "-->");
 
-                String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
-                String response_Blog = getUrlString(url_Blog);
-                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
-                Log.e("Jsonresult" , "--> " +response_Blog);
-                for (int i = 0; i < jsonArray_Blog.length(); i++) {
-                    JSONObject jsonObject;
-                    jsonObject = (JSONObject) jsonArray_Blog.get(i);
-                    JSONObject jsonObject1;
-                    jsonObject1 = (JSONObject) jsonObject.get("title");
-                    JSONObject jsonObject2;
-                    jsonObject2 = (JSONObject) jsonObject.get("content");
-                    JSONObject jsonObject3;
-                    jsonObject3 = (JSONObject) jsonObject.get("excerpt");
-                    String imgUrl = getFetaureImageUrl(jsonObject2.getString("rendered"));
-                    displaylist_Blog = new DataMembers(jsonObject.getInt("id"), jsonObject1.getString("rendered") , jsonObject2.getString("rendered") ,imgUrl , jsonObject.getString("link"), jsonObject3.getString("rendered"));
-                    displaylistArray_Blog.add(displaylist_Blog);
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_Blog.notifyDataSetChanged();
+
+                        }
+                    });
                 }
-                Log.e("#Blog","-->");
+                catch(Exception e1)
+                {
+                    e1.printStackTrace();
+                }
+
 
                 try {
 
@@ -308,6 +355,18 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_three.add(displaylist_three);
                     }
                     Log.e("#Three","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_three.notifyDataSetChanged();
+
+                        }
+                    });
+
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -329,6 +388,17 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_NINE.add(displaylist_NINE);
                     }
                     Log.e("#Nine","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_NINE.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -351,6 +421,18 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_TEN.add(displaylist_TEN);
                     }
                     Log.e("#Ten","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_TEN.notifyDataSetChanged();
+
+                        }
+                    });
+
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -372,6 +454,17 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_ELEVEN.add(displaylist_ELEVEN);
                     }
                     Log.e("#Eleven","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_ELEVEN.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -393,6 +486,17 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_TWELVE.add(displaylist_TWELVE);
                     }
                     Log.e("#Twelve","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_TWELVE.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -414,6 +518,17 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_GRADUATE.add(displaylist_GRADUATE);
                     }
                     Log.e("#Graduate","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_GRADUATE.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -435,6 +550,17 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_POSTGRA.add(displaylist_POSTGRA);
                     }
                     Log.e("#PostGra","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_POSTGRA.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -456,6 +582,17 @@ public class CGPlaylist extends Fragment {
                         displaylistArray_WORKING.add(displaylist_WORKING);
                     }
                     Log.e("#Working","-->");
+
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            mVideoAdapter_WORKING.notifyDataSetChanged();
+
+                        }
+                    });
+
                 }catch(Exception e1)
                 {
                     e1.printStackTrace();
@@ -473,6 +610,7 @@ public class CGPlaylist extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
+            /*
             mVideoAdapter.notifyDataSetChanged();
             mVideoAdapter_two.notifyDataSetChanged();
             mVideoAdapter_three.notifyDataSetChanged();
@@ -484,7 +622,10 @@ public class CGPlaylist extends Fragment {
             mVideoAdapter_POSTGRA.notifyDataSetChanged();
             mVideoAdapter_WORKING.notifyDataSetChanged();
             mVideoAdapter_Blog.notifyDataSetChanged();
+
+             */
             if (progressDialog.isShowing()) {
+                Log.i("LoadingStatus","Started");
                 progressDialog.dismiss();
             }
         }
