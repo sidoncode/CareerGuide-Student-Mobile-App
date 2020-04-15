@@ -38,6 +38,7 @@
             android:icon="@drawable/couns_sign_up_intl"
             android:visible="false"
             android:title="Counselling"/>
+
         <item
             android:id="@+id/livesessions"
             android:icon="@drawable/exo_notification_small_icon"

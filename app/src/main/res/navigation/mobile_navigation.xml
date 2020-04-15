@@ -82,6 +82,13 @@
         android:label="Home"
         tools:layout="@layout/fragment_cgplaylist" />
 
+
+    <activity
+        android:id="@id/livesessions"
+        android:name="com.careerguide.exoplayerActivity"
+        android:label="Live Sessions"
+        tools:layout="@layout/exoplayer_play_activity" />
+
 <!--
 
     <action
