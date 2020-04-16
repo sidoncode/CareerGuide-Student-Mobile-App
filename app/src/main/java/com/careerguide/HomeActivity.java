@@ -9,9 +9,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
 
 import com.careerguide.blog.DataMembers;
-import com.careerguide.blog.activity.CatDetailActivity;
+import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.blog.util.Utils;
 import com.careerguide.youtubeVideo.Videos;
 import com.careerguide.youtubeVideo.Videos_ELEVEN;
 import com.careerguide.youtubeVideo.Videos_GRADUATE;
@@ -25,8 +28,6 @@ import com.careerguide.youtubeVideo.Videos_two;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -76,6 +77,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+import com.careerguide.blog.model.Categories;
+import com.google.gson.Gson;
 
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
@@ -153,7 +159,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 R.id.counsellorCorner)
                 .setDrawerLayout(mDrawer)
                 .build();
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         NavigationUI.setupActionBarWithNavController(this, navController,mAppBarConfiguration);
         NavigationUI.setupWithNavController (toolbar, navController, mDrawer);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -257,7 +263,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             navController.popBackStack(R.id.home_fragment,false);
             navController.navigate(R.id.nav_to_profileFragment);
             mDrawer.closeDrawers();
-
         });
 
 //        FragmentManager fragmentManager = getSupportFragmentManager();
@@ -866,9 +871,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             /*FragmentManager fragmentManager = getSupportFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();*/
 
-                            Menu menu = navigationView.getMenu();
-                            MenuItem menuItem = menu.findItem(R.id.nav_to_CategoryHome);
-                            NavigationUI.onNavDestinationSelected(menuItem,navController);
+//                            Menu menu = navigationView.getMenu();
+//                            MenuItem menuItem = menu.findItem(R.id.nav_to_CategoryHome);
+//                            NavigationUI.onNavDestinationSelected(menuItem,navController);
                             Log.e("Education Level" , "-->" +Utility.getUserEducation(activity));
                             setTitle(Utility.getUserEducation(activity));
                             mDrawer.closeDrawers();
@@ -912,7 +917,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
@@ -1407,6 +1412,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         DataMembers displaylist;
         List<DataMembers> displaylistArray = new ArrayList<>();
+        CompositeDisposable disposable;
+        Categories categories;
+        Bundle bundle = getIntent().getExtras();
+        List<CategoryDetails> categoryDetails;
+
 
         @Override
         protected void onPreExecute() {
@@ -1416,38 +1426,64 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected Void doInBackground(Void... params) {
+            disposable = new CompositeDisposable();
             // TODO Auto-generated method stub
+            categoryDetails = new ArrayList<>();
+         //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
+            disposable.add(Utils.get_api().get_cat_detail("10", "1")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableSingleObserver<List<CategoryDetails>>() {
+                        @Override
+                        public void onSuccess(List<CategoryDetails> cd) {
+                            if (cd != null) {
+                                for (CategoryDetails c : cd) {
+                                    c.setTitle(Utils.remove_tags(c.getTitle()));
+                                    c.setDesc(Utils.remove_tags(c.getDesc()));
+                                    Log.e("#c" , "-->" +c);
+                                    categoryDetails.add(c);
+                                }
+                                viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
+                            }
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e("Error Occured" , "-->");
+                        }
+                    }));
 
-            try {
-                String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
-                String response_Blog = getUrlString(url_Blog);
-                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
-                Log.e("Jsonresult" , "--> " +response_Blog);
-                for (int i = 0; i < jsonArray_Blog.length(); i++) {
-                    JSONObject jsonObject;
-                    jsonObject = (JSONObject) jsonArray_Blog.get(i);
-                    JSONObject jsonObject1;
-                    jsonObject1 = (JSONObject) jsonObject.get("title");
-                    JSONObject jsonObject2;
-                    jsonObject2 = (JSONObject) jsonObject.get("content");
-                    JSONObject jsonObject3;
-                    jsonObject3 = (JSONObject) jsonObject.get("excerpt");
-                    String imgUrl = getFetaureImageUrl(jsonObject2.getString("rendered"));
-                    displaylist = new DataMembers(jsonObject.getInt("id"), jsonObject1.getString("rendered") , jsonObject2.getString("rendered") ,imgUrl , jsonObject.getString("link"), jsonObject3.getString("rendered"));
-                    displaylistArray.add(displaylist);
-                }
-                Log.e("#Blog","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
+
+//            try {
+//                String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
+//                String response_Blog = getUrlString(url_Blog);
+//                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
+//                Log.e("Jsonresult" , "--> " +response_Blog);
+//                for (int i = 0; i < jsonArray_Blog.length(); i++) {
+//                    JSONObject jsonObject;
+//                    jsonObject = (JSONObject) jsonArray_Blog.get(i);
+//                    JSONObject jsonObject1;
+//                    jsonObject1 = (JSONObject) jsonObject.get("title");
+//                    JSONObject jsonObject2;
+//                    jsonObject2 = (JSONObject) jsonObject.get("content");
+//                    JSONObject jsonObject3;
+//                    jsonObject3 = (JSONObject) jsonObject.get("excerpt");
+//                    String imgUrl = getFetaureImageUrl(jsonObject2.getString("rendered"));
+//                    displaylist = new DataMembers(jsonObject.getInt("id"), jsonObject1.getString("rendered") , jsonObject2.getString("rendered") ,imgUrl , jsonObject.getString("link"), jsonObject3.getString("rendered"));
+//                    displaylistArray.add(displaylist);
+//                }
+//                Log.e("#Blog","-->");
+//            }catch(Exception e1)
+//            {
+//                e1.printStackTrace();
+//            }
             return null;
-
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
+      //      viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
+           viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
+
         }
     }
 

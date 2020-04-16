@@ -1,21 +1,16 @@
 package com.careerguide.youtubeVideo;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,37 +21,28 @@ import com.careerguide.CGPlayListViewModel;
 import com.careerguide.R;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
+import com.careerguide.blog.adapter.CatDetailAdapter;
+import com.careerguide.blog.model.CategoryDetails;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
 public class CGPlaylist extends Fragment {
 
-    List<Videos> displaylistArray = new ArrayList<>();
-    List<Videos_two> displaylistArray_two = new ArrayList<>();
-    List<Videos_three> displaylistArray_three = new ArrayList<>();
-    List<Videos_NINE> displaylistArray_NINE = new ArrayList<>();
-    List<Videos_TEN> displaylistArray_TEN = new ArrayList<>();
-    List<Videos_ELEVEN> displaylistArray_ELEVEN = new ArrayList<>();
-    List<Videos_TWELVE> displaylistArray_TWELVE = new ArrayList<>();
-    List<Videos_GRADUATE> displaylistArray_GRADUATE = new ArrayList<>();
-    List<Videos_POSTGRA> displaylistArray_POSTGRA = new ArrayList<>();
-    List<Videos_WORKING> displaylistArray_WORKING = new ArrayList<>();
-    List<DataMembers> displaylistArray_Blog = new ArrayList<>();
+    private List<Videos> displaylistArray = new ArrayList<>();
+    private List<Videos_two> displaylistArray_two = new ArrayList<>();
+    private List<Videos_three> displaylistArray_three = new ArrayList<>();
+    private List<Videos_NINE> displaylistArray_NINE = new ArrayList<>();
+    private List<Videos_TEN> displaylistArray_TEN = new ArrayList<>();
+    private List<Videos_ELEVEN> displaylistArray_ELEVEN = new ArrayList<>();
+    private List<Videos_TWELVE> displaylistArray_TWELVE = new ArrayList<>();
+    private List<Videos_GRADUATE> displaylistArray_GRADUATE = new ArrayList<>();
+    private List<Videos_POSTGRA> displaylistArray_POSTGRA = new ArrayList<>();
+    private List<Videos_WORKING> displaylistArray_WORKING = new ArrayList<>();
+    private List<DataMembers> displaylistArray_Blog = new ArrayList<>();
+    private List<CategoryDetails> categoryDetails;
 
     private YT_recycler_adapter mVideoAdapter;
     private YT_recycler_adapter_two mVideoAdapter_two;
@@ -68,25 +54,13 @@ public class CGPlaylist extends Fragment {
     private YT_recycler_adapter_GRADUATE mVideoAdapter_GRADUATE;
     private YT_recycler_adapter_POSTGRA mVideoAdapter_POSTGRA;
     private YT_recycler_adapter_WORKING mVideoAdapter_WORKING;
-    private RecyclerAdapter mVideoAdapter_Blog;
+    private CatDetailAdapter mVideoAdapter_Blog;
 
-    Context context;
-    private String browserKey;
-    String loadMsg;
-    String loadTitle;
-    LinearLayoutManager mLayoutManager ,
-                        mLayoutManager_two,
-                        mLayoutManager_three,
-                        mLayoutManager_NINE ,
-                        mLayoutManager_TEN ,
-                        mLayoutManager_ELEVEN,
-                        mLayoutManager_TWELVE ,
-                        mLayoutManager_GRADUATE ,
-                        mLayoutManager_POSTGRA ,
-                        mLayoutManager_WORKING,
-                        mLayoutManager_Blog;
+    private Context context;
+    private String loadMsg;
+    private String loadTitle;
 
-    TextView    Cat_1,
+    private TextView    Cat_1,
                 Cat_2,
                 Cat_3,
                 Cat_4,
@@ -176,7 +150,7 @@ public class CGPlaylist extends Fragment {
 
         loadTitle = "Loading...";
         loadMsg = "Loading your videos...";
-        browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+        String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
         int cornerRadius = 5;
         int videoTxtColor = Color.parseColor("#000000");
 
@@ -195,11 +169,11 @@ public class CGPlaylist extends Fragment {
         RecyclerView mVideoRecyclerView_NINE = thisScreensView.findViewById(R.id.yt_recycler_view_NINE);
         RecyclerView mVideoRecyclerView_TEN = thisScreensView.findViewById(R.id.yt_recycler_view_TEN);
 
-        mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mLayoutManager_two = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mLayoutManager_three = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mLayoutManager_NINE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mLayoutManager_TEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_two = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_three = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_NINE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_TEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
         mVideoRecyclerView.setLayoutManager(mLayoutManager);
         mVideoRecyclerView_two.setLayoutManager(mLayoutManager_two);
@@ -220,45 +194,46 @@ public class CGPlaylist extends Fragment {
         mVideoRecyclerView_TEN.setAdapter(mVideoAdapter_TEN);
 
         RecyclerView mVideoRecyclerView_ELEVEN = thisScreensView.findViewById(R.id.yt_recycler_view_ELEVEN);
-        mLayoutManager_ELEVEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_ELEVEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_ELEVEN.setLayoutManager(mLayoutManager_ELEVEN);
         mVideoAdapter_ELEVEN = new YT_recycler_adapter_ELEVEN(displaylistArray_ELEVEN, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_ELEVEN.setAdapter(mVideoAdapter_ELEVEN);
 
         RecyclerView mVideoRecyclerView_TWELVE = thisScreensView.findViewById(R.id.yt_recycler_view_TWELVE);
-        mLayoutManager_TWELVE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_TWELVE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_TWELVE.setLayoutManager(mLayoutManager_TWELVE);
         mVideoAdapter_TWELVE = new YT_recycler_adapter_TWELVE(displaylistArray_TWELVE, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_TWELVE.setAdapter(mVideoAdapter_TWELVE);
 
         RecyclerView mVideoRecyclerView_GRADUATE = thisScreensView.findViewById(R.id.yt_recycler_view_GRADUATE);
-        mLayoutManager_GRADUATE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_GRADUATE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_GRADUATE.setLayoutManager(mLayoutManager_GRADUATE);
         mVideoAdapter_GRADUATE = new YT_recycler_adapter_GRADUATE(displaylistArray_GRADUATE, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_GRADUATE.setAdapter(mVideoAdapter_GRADUATE);
 
         RecyclerView mVideoRecyclerView_POSTGRA = thisScreensView.findViewById(R.id.yt_recycler_view_POSTGRA);
-        mLayoutManager_POSTGRA = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_POSTGRA = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_POSTGRA.setLayoutManager(mLayoutManager_POSTGRA);
         mVideoAdapter_POSTGRA = new YT_recycler_adapter_POSTGRA(displaylistArray_POSTGRA, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_POSTGRA.setAdapter(mVideoAdapter_POSTGRA);
 
         RecyclerView mVideoRecyclerView_WORKING = thisScreensView.findViewById(R.id.yt_recycler_view_WORKING);
-        mLayoutManager_WORKING = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_WORKING = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_WORKING.setLayoutManager(mLayoutManager_WORKING);
         mVideoAdapter_WORKING = new YT_recycler_adapter_WORKING(displaylistArray_WORKING, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_WORKING.setAdapter(mVideoAdapter_WORKING);
 
+        categoryDetails = new ArrayList<>();
         RecyclerView mVideoRecyclerView_Blog = thisScreensView.findViewById(R.id.yt_recycler_view_Blog);
-        mLayoutManager_Blog = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_Blog = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_Blog.setLayoutManager(mLayoutManager_Blog);
-        mVideoAdapter_Blog = new RecyclerAdapter(getActivity() , displaylistArray_Blog);
+        mVideoAdapter_Blog = new CatDetailAdapter(getActivity() , categoryDetails);
         mVideoRecyclerView_Blog.setAdapter(mVideoAdapter_Blog);
 
         return thisScreensView;
     }
 
-    CGPlayListViewModel channelLiveModel;
+    private CGPlayListViewModel channelLiveModel;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -320,16 +295,16 @@ public class CGPlaylist extends Fragment {
 
         });
 
-        channelLiveModel.getDisplaylistArray_ELEVEN().observe(getActivity(), updatedList -> {
-
-            displaylistArray_ELEVEN.clear();
-            displaylistArray_ELEVEN.addAll(updatedList);
-            if(displaylistArray_ELEVEN.size()>0) {
-                mVideoAdapter_ELEVEN.notifyDataSetChanged();
-                shimmer_view_container_cat_5.setVisibility(View.INVISIBLE);
-            }
-
-        });
+//        channelLiveModel.getDisplaylistArray_ELEVEN().observe(getActivity(), updatedList -> {
+//
+//            displaylistArray_ELEVEN.clear();
+//            displaylistArray_ELEVEN.addAll(updatedList);
+//            if(displaylistArray_ELEVEN.size()>0) {
+//                mVideoAdapter_ELEVEN.notifyDataSetChanged();
+//                shimmer_view_container_cat_5.setVisibility(View.INVISIBLE);
+//            }
+//
+//        });
 
         channelLiveModel.getDisplaylistArray_TWELVE().observe(getActivity(), updatedList -> {
 
@@ -375,19 +350,15 @@ public class CGPlaylist extends Fragment {
             }
         });
 
-        channelLiveModel.getDisplaylistArray_Blog().observe(getActivity(), updatedList -> {
-
-            displaylistArray_Blog.clear();
-            displaylistArray_Blog.addAll(updatedList);
-            if(displaylistArray_Blog.size()>0) {
+        channelLiveModel.getDisplaylistArray_categoryDetails().observe(getActivity(), updatedList -> {
+            Log.e("Inside blog" , "-->");
+            categoryDetails.clear();
+            categoryDetails.addAll(updatedList);
+            if(categoryDetails.size()>0) {
                 mVideoAdapter_Blog.notifyDataSetChanged();
                 shimmer_view_container_cat_Blog.setVisibility(View.INVISIBLE);
             }
         });
-
-
-
-
 
     }
 

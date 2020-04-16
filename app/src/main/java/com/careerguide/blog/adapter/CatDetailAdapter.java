@@ -1,14 +1,18 @@
 package com.careerguide.blog.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +32,8 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
     public CatDetailAdapter(Context ctx, List<CategoryDetails> categoryDetails) {
         this.ctx = ctx;
         this.categoryDetails = categoryDetails;
+        Log.e("#inside adapter" , "-->" );
+
     }
 
     @NonNull
@@ -39,7 +45,7 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Utils.set_image(ctx, categoryDetails.get(position).getPic_url(), holder.id_pic);
+        Utils.set_image(ctx, categoryDetails.get(position).getPic_url(), (AppCompatImageView) holder.id_pic);
         holder.id_title.setText(categoryDetails.get(position).getTitle());
         holder.id_desc.setText(categoryDetails.get(position).getDesc());
         holder.lay_cv.setOnClickListener(v -> {
@@ -54,10 +60,10 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
         return categoryDetails.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView lay_cv;
-        private AppCompatImageView id_pic;
-        private AppCompatTextView id_title, id_desc;
+     class ViewHolder extends RecyclerView.ViewHolder {
+         CardView lay_cv;
+         ImageView id_pic;
+         TextView id_title, id_desc;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +71,14 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
             id_pic = itemView.findViewById(R.id.id_pic);
             id_title = itemView.findViewById(R.id.id_title);
             id_desc = itemView.findViewById(R.id.id_desc);
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity)ctx).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+            int height = displayMetrics.heightPixels;
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.WRAP_CONTENT);
+            params.setMargins(30, 5, 20, 5);
+            lay_cv.setLayoutParams(params);
         }
     }
 }

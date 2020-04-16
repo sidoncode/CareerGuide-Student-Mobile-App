@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.youtubeVideo.Videos;
 import com.careerguide.youtubeVideo.Videos_ELEVEN;
 import com.careerguide.youtubeVideo.Videos_GRADUATE;
@@ -31,6 +32,7 @@ public class CGPlayListViewModel extends ViewModel {
     private MutableLiveData<List<Videos_POSTGRA>> displaylistArray_POSTGRA;
     private MutableLiveData<List<Videos_WORKING>> displaylistArray_WORKING;
     private MutableLiveData<List<DataMembers>> displaylistArray_Blog;
+    private MutableLiveData<List<CategoryDetails>> displaylistArray_categoryDetails;
 
     public CGPlayListViewModel() {
         displaylistArray = new MutableLiveData<>();
@@ -44,6 +46,7 @@ public class CGPlayListViewModel extends ViewModel {
         displaylistArray_POSTGRA = new MutableLiveData<>();
         displaylistArray_WORKING = new MutableLiveData<>();
         displaylistArray_Blog = new MutableLiveData<>();
+        displaylistArray_categoryDetails = new MutableLiveData<>();
 
     }
 
@@ -134,5 +137,13 @@ public class CGPlayListViewModel extends ViewModel {
 
     public void setDisplaylistArray_Blog(List<DataMembers> displaylistArray_Blog) {
         this.displaylistArray_Blog.setValue(displaylistArray_Blog);
+    }
+
+    public MutableLiveData<List<CategoryDetails>> getDisplaylistArray_categoryDetails() {
+        return displaylistArray_categoryDetails;
+    }
+
+    public void setDisplaylistArray_categoryDetails(List<CategoryDetails> displaylistArray_categoryDetails) {
+        this.displaylistArray_categoryDetails.setValue(displaylistArray_categoryDetails);
     }
 }

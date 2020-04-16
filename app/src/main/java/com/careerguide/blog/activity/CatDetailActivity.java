@@ -1,13 +1,13 @@
 package com.careerguide.blog.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.careerguide.R;
 import com.careerguide.blog.adapter.CatDetailAdapter;
 import com.careerguide.blog.model.Categories;
@@ -112,9 +112,11 @@ public class CatDetailActivity extends AppCompatActivity {
                                 for (CategoryDetails c : cd) {
                                     c.setTitle(Utils.remove_tags(c.getTitle()));
                                     c.setDesc(Utils.remove_tags(c.getDesc()));
+                                    Log.e("#c" , "-->" +c);
                                     categoryDetails.add(c);
                                 }
                                 adapter.notifyDataSetChanged();
+
                             }
                         }
 

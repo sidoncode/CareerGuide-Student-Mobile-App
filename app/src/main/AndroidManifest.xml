@@ -24,7 +24,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".blog.activity.MainBlog"></activity>
+        <activity android:name=".LoadPdf"></activity>
+        <activity android:name=".blog.activity.MainBlog" />
         <activity
             android:name=".youtubeVideo.youtubeFeedDetail"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -229,7 +230,6 @@
         <activity
             android:name=".blog.activity.CatDetailWoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Video_player"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"

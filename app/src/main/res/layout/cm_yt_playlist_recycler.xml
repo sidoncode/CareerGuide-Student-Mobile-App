@@ -236,10 +236,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
+                            android:layout_marginBottom="30dp"
                             >
                             <RelativeLayout
                                 android:id="@+id/loadingImageCat_1"
                                 android:layout_width="match_parent"
+
                                 android:layout_height="120dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
@@ -861,6 +863,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
+                            android:layout_marginBottom="10dp"
                             android:orientation="vertical"
                             >
                             <RelativeLayout
@@ -936,6 +939,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
+                            android:layout_marginBottom="30dp"
                             android:background="#dddddd"
                             android:orientation="vertical"
                             >
@@ -1013,6 +1017,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
+                            android:layout_marginBottom="30dp"
                             android:orientation="vertical"
                             >
                             <RelativeLayout
@@ -1089,6 +1094,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
+                            android:layout_marginBottom="30dp"
                             android:orientation="vertical"
                             >
                             <RelativeLayout
@@ -1163,6 +1169,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
+                            android:layout_marginBottom="30dp"
                             android:background="#dddddd"
                             android:orientation="vertical"
                             >
@@ -1238,6 +1245,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
+                            android:layout_marginBottom="30dp"
                             android:orientation="vertical"
                             >
                             <RelativeLayout
@@ -1313,6 +1321,7 @@
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
                             android:orientation="vertical"
+                            android:layout_marginBottom="30dp"
                             >
                             <RelativeLayout
 
@@ -1387,6 +1396,8 @@
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
                             android:orientation="vertical"
+                            android:layout_marginBottom="30dp"
+
                             >
                             <RelativeLayout
 
@@ -1461,6 +1472,8 @@
                             android:layout_height="@dimen/loading_skimmer_height"
                             android:background="#dddddd"
                             android:orientation="vertical"
+                            android:layout_marginBottom="30dp"
+
                             >
                             <RelativeLayout
 

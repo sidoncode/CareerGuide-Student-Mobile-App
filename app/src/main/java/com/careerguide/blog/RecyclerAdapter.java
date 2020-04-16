@@ -21,6 +21,8 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.R;
+import com.careerguide.blog.activity.CategoryActivity;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -63,11 +65,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Vholde
         Glide.with(context).load(dataMembers.imgurl).apply(options).into(holder.image);
         holder.readMore.setOnClickListener(view -> {
            // Toast.makeText(context, "Read More Clicked", Toast.LENGTH_SHORT).show();
-           Intent intent = new Intent(context,DetailActivity.class);
-            intent.putExtra("url",dataMembers.postCode);
-            intent.putExtra("posttitle",dataMembers.postTitle);
-            Log.i("Sending:",dataMembers.posturl);
-            BlogActivity.tContent = dataMembers.posturl;
+//           Intent intent = new Intent(context,DetailActivity.class);
+//            intent.putExtra("url",dataMembers.postCode);
+//            intent.putExtra("posttitle",dataMembers.postTitle);
+//            Log.i("Sending:",dataMembers.posturl);
+//            BlogActivity.tContent = dataMembers.posturl;
+//            context.startActivity(intent);
+            Intent intent = new Intent(context, CategoryActivity.class);
+            intent.putExtra("data", new Gson().toJson(dataMemberses.get(position)));
             context.startActivity(intent);
         });
     }

@@ -158,18 +158,18 @@ public class PauseActivity extends AppCompatActivity {
                 //    Log.e("#globalreport_url", "urlis " +report_url);
                     Log.e("#usermail", "mail:" +Utility.getUserEmail(activity));
                     progressDialog.dismiss();
+                    Intent intent = new Intent(activity, LoadPdf.class);
+                    intent.putExtra("url", url1);
+                    startActivity(intent);
                     finish();
                     save_report_url(url1);
-                    get_report_url();
+                  //  get_report_url();
 
                 }
-            },1500), new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            },1500), error -> {
+                progressDialog.dismiss();
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
 
-                }
             })
             {
                 @Override
@@ -223,23 +223,12 @@ public class PauseActivity extends AppCompatActivity {
     }
 
     private void save_report_url(final String report_url){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "save_report_url", new Response.Listener<String>()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "save_report_url",
+                response -> Log.e("222save_report_url", response),
+                error -> Log.e("save_report_url_error","error"))
         {
             @Override
-            public void onResponse(String response)
-            {
-                Log.e("222save_report_url", response);
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("save_report_url_error","error");
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
                 Log.e("sendurl" , "url: " +report_url);
                 params.put("report_url",report_url);
@@ -254,38 +243,27 @@ public class PauseActivity extends AppCompatActivity {
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
     private void get_report_url(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", new Response.Listener<String>()
-                            {
-                                @Override
-                                public void onResponse(String response)
-                                {
-                                    JSONObject jobj = null;
-                                    try {
-                                        jobj = new JSONObject(response);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    Log.e("222save_report_url", response);
-                                    String test = "";
-                                    String reporturl = jobj.optString("Report_url");
-                                    Log.e("#homeurl","report " +reporturl);
-                                        Intent intent = new Intent(activity, WebViewActivity.class);
-                                        intent.putExtra("url", reporturl);
-                                         intent.putExtra("filename", "Report");
-                                        Log.e("HomeResponse", reporturl);
-                                        startActivity(intent);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", response -> {
+            JSONObject jobj = null;
+            try {
+                jobj = new JSONObject(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.e("222save_report_url", response);
+            String test = "";
+            String reporturl = jobj.optString("Report_url");
+            Log.e("#homeurl","report " +reporturl);
+                Intent intent = new Intent(activity, WebViewActivity.class);
+                intent.putExtra("url", reporturl);
+                 intent.putExtra("filename", "Report");
+                Log.e("HomeResponse", reporturl);
+                startActivity(intent);
 
-                                }
-                            }, new Response.ErrorListener()
+        }, error -> Log.e("save_report_url_error","error"))
                             {
                                 @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e("save_report_url_error","error");
-                                }
-                            })
-                            {
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
+                                protected Map<String, String> getParams() {
                                     HashMap<String,String> params = new HashMap<>();
                                     params.put("email" , Utility.getUserEmail(activity));
                                     Log.e("#line_status_request",params.toString());
