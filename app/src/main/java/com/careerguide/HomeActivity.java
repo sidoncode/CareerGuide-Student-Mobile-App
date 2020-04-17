@@ -871,9 +871,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             /*FragmentManager fragmentManager = getSupportFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();*/
 
-//                            Menu menu = navigationView.getMenu();
-//                            MenuItem menuItem = menu.findItem(R.id.nav_to_CategoryHome);
-//                            NavigationUI.onNavDestinationSelected(menuItem,navController);
+                            Menu menu = navigationView.getMenu();
+                            MenuItem menuItem = menu.findItem(R.id.nav_to_CategoryHome);
+                            NavigationUI.onNavDestinationSelected(menuItem,navController);
                             Log.e("Education Level" , "-->" +Utility.getUserEducation(activity));
                             setTitle(Utility.getUserEducation(activity));
                             mDrawer.closeDrawers();
