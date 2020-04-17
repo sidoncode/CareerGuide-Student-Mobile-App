@@ -70,6 +70,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1129,6 +1130,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         protected void onPostExecute(Void result) {
             viewModelProvider.setDisplaylistArray_NINE(displaylistArray);
         }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
     }
 
 
@@ -1298,6 +1304,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_GRADUATE.optString("img_url");
                     String title = JsonObject_GRADUATE.optString("title");
                     String video_url = JsonObject_GRADUATE.optString("video_url");
+                    String pic_url = JsonObject_GRADUATE.optString("pic_url");
+                    //Log.e("#Graduate","pic-->"+JsonObject_GRADUATE.toString());
                     displaylist = new Videos_GRADUATE(email, name, img_url, video_url, title, "");
                     displaylistArray.add(displaylist);
                 }

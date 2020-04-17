@@ -790,17 +790,5 @@ public class ProfileFragment extends Fragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
-    }
+    
 }

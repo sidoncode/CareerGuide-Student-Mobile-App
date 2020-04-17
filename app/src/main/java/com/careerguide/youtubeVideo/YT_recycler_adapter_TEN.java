@@ -96,7 +96,7 @@ public class YT_recycler_adapter_TEN extends RecyclerView.Adapter<YT_recycler_ad
                 .dontAnimate()
                 .dontTransform();
         Glide.with(activity).load(video.getImgurl() ).apply(options).into(holder.imageView);
-        holder.imageView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , Video_player.class);
             intent.putExtra("live_video_url" , video.getVideourl());
             intent.putExtra("Fullname" , video.getFullName());

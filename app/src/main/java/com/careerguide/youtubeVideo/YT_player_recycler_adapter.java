@@ -95,7 +95,7 @@ public class YT_player_recycler_adapter extends RecyclerView.Adapter<YT_player_r
                 .dontAnimate()
                 .dontTransform();
         Glide.with(activity).load(video.getThumbnailUrl() ).apply(options).into(holder.imageView);
-        holder.imageView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , youtubeFeedDetail.class);
             intent.putExtra("data_id" , video.getVideoID());
             v.getContext().startActivity(intent);

@@ -5,9 +5,6 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/home_fragment">
 
-
-
-
     <fragment
         android:id="@id/contact_us"
         android:name="com.careerguide.ContactUsFragment"

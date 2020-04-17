@@ -105,7 +105,7 @@ public class YT_recycler_adapter_three extends RecyclerView.Adapter<YT_recycler_
 //        });
 
 
-        holder.imageView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , youtubeFeedDetail.class);
             intent.putExtra("data_id" , video.getVideoID());
             v.getContext().startActivity(intent);
