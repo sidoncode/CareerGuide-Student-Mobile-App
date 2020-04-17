@@ -66,7 +66,7 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
         Glide.with(mContext).load(album.getCounsellor_Avatar()).into(holder.civ_user);
-        holder.itemView.setOnClickListener(view -> {
+        holder.itemView.findViewById(R.id.ll_single_course).setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , Video_player.class);
             intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());

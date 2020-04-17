@@ -61,6 +61,7 @@ public class CounsellorProfile extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
         getLiveSession();
+
     }
 
     private void prepareAlbums() {

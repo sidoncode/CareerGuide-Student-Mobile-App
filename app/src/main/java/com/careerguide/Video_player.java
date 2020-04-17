@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.careerguide.exoplayer.AndExoPlayerView;
 import com.careerguide.exoplayer.utils.PathUtil;
 import com.google.android.gms.tasks.Task;
@@ -23,8 +26,19 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import com.careerguide.exoplayer.utils.PublicFunctions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Map;
+
 public class Video_player extends AppCompatActivity {
+
+    private String hostEmail;
+    private String hostPicUrl;
+
     private AndExoPlayerView andExoPlayerView;
    // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
     private int req_code = 129;
@@ -55,8 +69,9 @@ public class Video_player extends AppCompatActivity {
                         Log.e("title","--> "+ title);
                         // String url = getIntent().getStringExtra("live_video_  url");
                         andExoPlayerView.setName(getIntent().getStringExtra("Fullname"));
-                        andExoPlayerView.setImg(getIntent().getStringExtra("imgurl"));
-                        andExoPlayerView.sethost_email(getIntent().getStringExtra("host_email"));
+                        hostEmail = getIntent().getStringExtra("host_email");
+                        andExoPlayerView.sethost_email(hostEmail);
+                        fetchAndApplyImage();
                         new DownloadFile( ).execute (img_url, title);
                         load_url( getIntent().getStringExtra("live_video_url"));
                     }
@@ -152,8 +167,8 @@ public class Video_player extends AppCompatActivity {
         return bitmap;
     }
     public void video_share(View view) {
-        String img_url= getIntent().getStringExtra("imgurl");
-        Log.e("img",img_url);
+        String img_url= hostPicUrl;
+        Log.e("img", hostPicUrl);
         String name= getIntent().getStringExtra("Fullname");
         Log.e("name",name);
         String title= getIntent().getStringExtra("title");
@@ -254,6 +269,36 @@ public class Video_player extends AppCompatActivity {
         super.onResume();
         andExoPlayerView.setPlayWhenReady(true);
     }
+
+    private void fetchAndApplyImage(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/counsellor/fetch_counsellor_detail",
+                response -> {
+                    Log.d("#HOSTEMAIL Response",response);
+                    try {
+                        JSONObject responseObject = new JSONObject(response);
+                        JSONArray jsonArray = responseObject.getJSONArray("counsellors");
+                        JSONObject counsellor = (JSONObject) jsonArray.get(0);
+                        hostPicUrl = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
+                        Log.d("#HOSTPIC :", hostPicUrl);
+                        andExoPlayerView.setImg(hostPicUrl);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("host_pic__error","error"))
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("email" ,hostEmail);
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
+
 }
 
 //package com.careerguide;
