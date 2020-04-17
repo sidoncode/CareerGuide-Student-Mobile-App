@@ -19,6 +19,7 @@ import com.careerguide.*;
 import com.careerguide.adapters.GoalAdapter;
 import com.careerguide.VolleySingleton;
 import com.careerguide.models.Goal;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,10 +40,15 @@ public class GoalsActivity extends AppCompatActivity {
     TextView tv_title;
     MenuItem classimg;
     RecyclerView rv_goals;
+    ShimmerFrameLayout shimmer_view_container;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
+
+        shimmer_view_container=findViewById(R.id.shimmer_view_container);
+
         requestQueue= Volley.newRequestQueue(this);
         goalList=new ArrayList<>();
         goalAdapter=new GoalAdapter(this,goalList);
@@ -89,9 +95,11 @@ public class GoalsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            shimmer_view_container.setVisibility(View.INVISIBLE);
             }, error -> {
             Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
             Log.e("all_coun_rerror","error");
+            shimmer_view_container.setVisibility(View.INVISIBLE);
         });
 
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.careerguide.CGPlayListViewModel;
@@ -42,7 +43,7 @@ public class CGPlaylist extends Fragment {
     private List<Videos_POSTGRA> displaylistArray_POSTGRA = new ArrayList<>();
     private List<Videos_WORKING> displaylistArray_WORKING = new ArrayList<>();
     private List<DataMembers> displaylistArray_Blog = new ArrayList<>();
-    private List<CategoryDetails> categoryDetails;
+    private List<CategoryDetails> categoryDetails = new ArrayList<>();
 
     private YT_recycler_adapter mVideoAdapter;
     private YT_recycler_adapter_two mVideoAdapter_two;
@@ -60,18 +61,30 @@ public class CGPlaylist extends Fragment {
     private String loadMsg;
     private String loadTitle;
 
+    private LinearLayoutManager mLayoutManager ,
+                                mLayoutManager_two,
+                                mLayoutManager_three,
+                                mLayoutManager_NINE ,
+                                mLayoutManager_TEN ,
+                                mLayoutManager_ELEVEN,
+                                mLayoutManager_TWELVE ,
+                                mLayoutManager_GRADUATE ,
+                                mLayoutManager_POSTGRA ,
+                                mLayoutManager_WORKING;
+
+
     private TextView    Cat_1,
-                Cat_2,
-                Cat_3,
-                Cat_4,
-                Cat_5,
-                Cat_6,
-                Cat_7,
-                Cat_8,
-                Cat_9,
-                Cat_10,
-                Cat_Blog,
-                Cat_test;
+                        Cat_2,
+                        Cat_3,
+                        Cat_4,
+                        Cat_5,
+                        Cat_6,
+                        Cat_7,
+                        Cat_8,
+                        Cat_9,
+                        Cat_10,
+                        Cat_Blog,
+                        Cat_test;
 
     ShimmerFrameLayout  shimmer_view_container_cat_1,
                         shimmer_view_container_cat_2,
@@ -85,8 +98,17 @@ public class CGPlaylist extends Fragment {
                         shimmer_view_container_cat_9,
                         shimmer_view_container_cat_10;
 
-
-
+    private RelativeLayout  comingSoonCat_1,
+                            comingSoonCat_2,
+                            comingSoonCat_3,
+                            comingSoonCat_4,
+                            comingSoonCat_5,
+                            comingSoonCat_6,
+                            comingSoonCat_7,
+                            comingSoonCat_8,
+                            comingSoonCat_9,
+                            comingSoonCat_10,
+                            comingSoonCat_Blog;
 
 
     //onCreateView...
@@ -119,6 +141,18 @@ public class CGPlaylist extends Fragment {
         shimmer_view_container_cat_10=thisScreensView.findViewById(R.id.shimmer_view_container_cat_10);
         shimmer_view_container_cat_Blog=thisScreensView.findViewById(R.id.shimmer_view_container_cat_Blog);
 
+        comingSoonCat_1=thisScreensView.findViewById(R.id.comingSoonCat_1);
+        comingSoonCat_2=thisScreensView.findViewById(R.id.comingSoonCat_2);
+        comingSoonCat_3=thisScreensView.findViewById(R.id.comingSoonCat_3);
+        comingSoonCat_4=thisScreensView.findViewById(R.id.comingSoonCat_4);
+        comingSoonCat_5=thisScreensView.findViewById(R.id.comingSoonCat_5);
+        comingSoonCat_6=thisScreensView.findViewById(R.id.comingSoonCat_6);
+        comingSoonCat_7=thisScreensView.findViewById(R.id.comingSoonCat_7);
+        comingSoonCat_8=thisScreensView.findViewById(R.id.comingSoonCat_8);
+        comingSoonCat_9=thisScreensView.findViewById(R.id.comingSoonCat_9);
+        comingSoonCat_10=thisScreensView.findViewById(R.id.comingSoonCat_10);
+        comingSoonCat_Blog=thisScreensView.findViewById(R.id.comingSoonCat_Blog);
+
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets() , "fonts/Montserrat-SemiBold.ttf");
 
@@ -145,7 +179,7 @@ public class CGPlaylist extends Fragment {
         Cat_7.setText("Graduates");
         Cat_8.setText("Post Graduates");
         Cat_9.setText("Working Professional");
-        Cat_10.setText("Counselor Video");
+        Cat_10.setText("Counsellor Videos");
         Cat_test.setText("Psychometric Test");
 
         loadTitle = "Loading...";
@@ -163,72 +197,70 @@ public class CGPlaylist extends Fragment {
 //        mVideoRecyclerView.setAdapter(mVideoAdapter);
 
 
-        RecyclerView mVideoRecyclerView = thisScreensView.findViewById(R.id.yt_recycler_view_one);
-        RecyclerView mVideoRecyclerView_two = thisScreensView.findViewById(R.id.yt_recycler_view_two);
-        RecyclerView mVideoRecyclerView_three = thisScreensView.findViewById(R.id.yt_recycler_view_three);
-        RecyclerView mVideoRecyclerView_NINE = thisScreensView.findViewById(R.id.yt_recycler_view_NINE);
-        RecyclerView mVideoRecyclerView_TEN = thisScreensView.findViewById(R.id.yt_recycler_view_TEN);
+        RecyclerView mVideoRecyclerView = thisScreensView.findViewById(R.id.yt_recycler_view_one);//category_1
+        RecyclerView mVideoRecyclerView_two = thisScreensView.findViewById(R.id.yt_recycler_view_two);//category_2
+        RecyclerView mVideoRecyclerView_three = thisScreensView.findViewById(R.id.yt_recycler_view_three);//category_10
+        RecyclerView mVideoRecyclerView_NINE = thisScreensView.findViewById(R.id.yt_recycler_view_NINE);//category_3
+        RecyclerView mVideoRecyclerView_TEN = thisScreensView.findViewById(R.id.yt_recycler_view_TEN);//category_4
+        RecyclerView mVideoRecyclerView_ELEVEN = thisScreensView.findViewById(R.id.yt_recycler_view_ELEVEN);//category_5
+        RecyclerView mVideoRecyclerView_TWELVE = thisScreensView.findViewById(R.id.yt_recycler_view_TWELVE);//category_6
+        RecyclerView mVideoRecyclerView_GRADUATE = thisScreensView.findViewById(R.id.yt_recycler_view_GRADUATE);//category_7
+        RecyclerView mVideoRecyclerView_POSTGRA = thisScreensView.findViewById(R.id.yt_recycler_view_POSTGRA);//category_8
+        RecyclerView mVideoRecyclerView_WORKING = thisScreensView.findViewById(R.id.yt_recycler_view_WORKING);//category_9
+        RecyclerView mVideoRecyclerView_Blog = thisScreensView.findViewById(R.id.yt_recycler_view_Blog);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager mLayoutManager_two = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager mLayoutManager_three = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager mLayoutManager_NINE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager mLayoutManager_TEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
+        mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_two = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_three = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_NINE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_TEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_ELEVEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_TWELVE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_GRADUATE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_POSTGRA = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager_WORKING = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager_Blog = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
 
         mVideoRecyclerView.setLayoutManager(mLayoutManager);
         mVideoRecyclerView_two.setLayoutManager(mLayoutManager_two);
         mVideoRecyclerView_three.setLayoutManager(mLayoutManager_three);
         mVideoRecyclerView_NINE.setLayoutManager(mLayoutManager_NINE);
         mVideoRecyclerView_TEN.setLayoutManager(mLayoutManager_TEN);
+        mVideoRecyclerView_ELEVEN.setLayoutManager(mLayoutManager_ELEVEN);
+        mVideoRecyclerView_TWELVE.setLayoutManager(mLayoutManager_TWELVE);
+        mVideoRecyclerView_GRADUATE.setLayoutManager(mLayoutManager_GRADUATE);
+        mVideoRecyclerView_POSTGRA.setLayoutManager(mLayoutManager_POSTGRA);
+        mVideoRecyclerView_WORKING.setLayoutManager(mLayoutManager_WORKING);
+        mVideoRecyclerView_Blog.setLayoutManager(mLayoutManager_Blog);
+
 
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_two = new YT_recycler_adapter_two(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_three = new YT_recycler_adapter_three(displaylistArray_three, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_NINE = new YT_recycler_adapter_NINE(displaylistArray_NINE, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_TEN = new YT_recycler_adapter_TEN(displaylistArray_TEN, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_ELEVEN = new YT_recycler_adapter_ELEVEN(displaylistArray_ELEVEN, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_TWELVE = new YT_recycler_adapter_TWELVE(displaylistArray_TWELVE, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_GRADUATE = new YT_recycler_adapter_GRADUATE(displaylistArray_GRADUATE, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_POSTGRA = new YT_recycler_adapter_POSTGRA(displaylistArray_POSTGRA, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_WORKING = new YT_recycler_adapter_WORKING(displaylistArray_WORKING, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_Blog = new CatDetailAdapter(getActivity() , categoryDetails);
+
 
         mVideoRecyclerView.setAdapter(mVideoAdapter);
         mVideoRecyclerView_two.setAdapter(mVideoAdapter_two);
         mVideoRecyclerView_three.setAdapter(mVideoAdapter_three);
         mVideoRecyclerView_NINE.setAdapter(mVideoAdapter_NINE);
         mVideoRecyclerView_TEN.setAdapter(mVideoAdapter_TEN);
-
-        RecyclerView mVideoRecyclerView_ELEVEN = thisScreensView.findViewById(R.id.yt_recycler_view_ELEVEN);
-        LinearLayoutManager mLayoutManager_ELEVEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mVideoRecyclerView_ELEVEN.setLayoutManager(mLayoutManager_ELEVEN);
-        mVideoAdapter_ELEVEN = new YT_recycler_adapter_ELEVEN(displaylistArray_ELEVEN, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_ELEVEN.setAdapter(mVideoAdapter_ELEVEN);
-
-        RecyclerView mVideoRecyclerView_TWELVE = thisScreensView.findViewById(R.id.yt_recycler_view_TWELVE);
-        LinearLayoutManager mLayoutManager_TWELVE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mVideoRecyclerView_TWELVE.setLayoutManager(mLayoutManager_TWELVE);
-        mVideoAdapter_TWELVE = new YT_recycler_adapter_TWELVE(displaylistArray_TWELVE, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_TWELVE.setAdapter(mVideoAdapter_TWELVE);
-
-        RecyclerView mVideoRecyclerView_GRADUATE = thisScreensView.findViewById(R.id.yt_recycler_view_GRADUATE);
-        LinearLayoutManager mLayoutManager_GRADUATE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mVideoRecyclerView_GRADUATE.setLayoutManager(mLayoutManager_GRADUATE);
-        mVideoAdapter_GRADUATE = new YT_recycler_adapter_GRADUATE(displaylistArray_GRADUATE, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_GRADUATE.setAdapter(mVideoAdapter_GRADUATE);
-
-        RecyclerView mVideoRecyclerView_POSTGRA = thisScreensView.findViewById(R.id.yt_recycler_view_POSTGRA);
-        LinearLayoutManager mLayoutManager_POSTGRA = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mVideoRecyclerView_POSTGRA.setLayoutManager(mLayoutManager_POSTGRA);
-        mVideoAdapter_POSTGRA = new YT_recycler_adapter_POSTGRA(displaylistArray_POSTGRA, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_POSTGRA.setAdapter(mVideoAdapter_POSTGRA);
-
-        RecyclerView mVideoRecyclerView_WORKING = thisScreensView.findViewById(R.id.yt_recycler_view_WORKING);
-        LinearLayoutManager mLayoutManager_WORKING = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mVideoRecyclerView_WORKING.setLayoutManager(mLayoutManager_WORKING);
-        mVideoAdapter_WORKING = new YT_recycler_adapter_WORKING(displaylistArray_WORKING, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoRecyclerView_WORKING.setAdapter(mVideoAdapter_WORKING);
-
-        categoryDetails = new ArrayList<>();
-        RecyclerView mVideoRecyclerView_Blog = thisScreensView.findViewById(R.id.yt_recycler_view_Blog);
-        LinearLayoutManager mLayoutManager_Blog = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        mVideoRecyclerView_Blog.setLayoutManager(mLayoutManager_Blog);
-        mVideoAdapter_Blog = new CatDetailAdapter(getActivity() , categoryDetails);
         mVideoRecyclerView_Blog.setAdapter(mVideoAdapter_Blog);
+
 
         return thisScreensView;
     }
@@ -244,35 +276,39 @@ public class CGPlaylist extends Fragment {
         channelLiveModel.getDisplaylistArray().observe(getActivity(), updatedList -> {
             displaylistArray.clear();
             displaylistArray.addAll(updatedList);
-            if(displaylistArray.size()>0)
-            {
+            if(displaylistArray.size()>0) {
                 mVideoAdapter.notifyDataSetChanged();
-                shimmer_view_container_cat_1.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_1.setVisibility(View.VISIBLE);
             }
+            shimmer_view_container_cat_1.setVisibility(View.INVISIBLE);
 
         });
 
         channelLiveModel.getDisplaylistArray_two().observe(getActivity(), updatedList -> {
             displaylistArray_two.clear();
             displaylistArray_two.addAll(updatedList);
-            if(displaylistArray_two.size()>0)
-            {
+            if(displaylistArray_two.size()>0) {
                 mVideoAdapter_two.notifyDataSetChanged();
-                shimmer_view_container_cat_2.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_2.setVisibility(View.VISIBLE);
             }
-
+            shimmer_view_container_cat_2.setVisibility(View.INVISIBLE);
 
         });
 
-        channelLiveModel.getDisplaylistArray_three().observe(getActivity(), updatedList -> {
-            displaylistArray_three.clear();
-            displaylistArray_three.addAll(updatedList);
-            if(displaylistArray_three.size()>0) {
-                mVideoAdapter_three.notifyDataSetChanged();
-                shimmer_view_container_cat_10.setVisibility(View.INVISIBLE);
+        channelLiveModel.getDisplaylistArray_categoryDetails().observe(getActivity(), updatedList -> {
+            Log.e("Inside blog" , "-->");
+            categoryDetails.clear();
+            categoryDetails.addAll(updatedList);
+            if(categoryDetails.size()>0) {
+                mVideoAdapter_Blog.notifyDataSetChanged();
+            }else{
+                comingSoonCat_Blog.setVisibility(View.VISIBLE);
             }
-
+            shimmer_view_container_cat_Blog.setVisibility(View.INVISIBLE);
         });
+
 
         channelLiveModel.getDisplaylistArray_NINE().observe(getActivity(), updatedList -> {
 
@@ -280,8 +316,10 @@ public class CGPlaylist extends Fragment {
             displaylistArray_NINE.addAll(updatedList);
             if(displaylistArray_NINE.size()>0) {
                 mVideoAdapter_NINE.notifyDataSetChanged();
-                shimmer_view_container_cat_3.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_3.setVisibility(View.VISIBLE);
             }
+            shimmer_view_container_cat_3.setVisibility(View.INVISIBLE);
 
         });
 
@@ -290,21 +328,24 @@ public class CGPlaylist extends Fragment {
             displaylistArray_TEN.addAll(updatedList);
             if(displaylistArray_TEN.size()>0) {
                 mVideoAdapter_TEN.notifyDataSetChanged();
-                shimmer_view_container_cat_4.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_4.setVisibility(View.VISIBLE);
             }
+            shimmer_view_container_cat_4.setVisibility(View.INVISIBLE);
 
         });
 
-//        channelLiveModel.getDisplaylistArray_ELEVEN().observe(getActivity(), updatedList -> {
-//
-//            displaylistArray_ELEVEN.clear();
-//            displaylistArray_ELEVEN.addAll(updatedList);
-//            if(displaylistArray_ELEVEN.size()>0) {
-//                mVideoAdapter_ELEVEN.notifyDataSetChanged();
-//                shimmer_view_container_cat_5.setVisibility(View.INVISIBLE);
-//            }
-//
-//        });
+        channelLiveModel.getDisplaylistArray_ELEVEN().observe(getActivity(), updatedList -> {
+
+            displaylistArray_ELEVEN.clear();
+            displaylistArray_ELEVEN.addAll(updatedList);
+            if(displaylistArray_ELEVEN.size()>0) {
+                mVideoAdapter_ELEVEN.notifyDataSetChanged();
+            }else{
+                comingSoonCat_5.setVisibility(View.VISIBLE);
+            }
+            shimmer_view_container_cat_5.setVisibility(View.INVISIBLE);
+        });
 
         channelLiveModel.getDisplaylistArray_TWELVE().observe(getActivity(), updatedList -> {
 
@@ -312,9 +353,10 @@ public class CGPlaylist extends Fragment {
             displaylistArray_TWELVE.addAll(updatedList);
             if(displaylistArray_TWELVE.size()>0) {
                 mVideoAdapter_TWELVE.notifyDataSetChanged();
-                shimmer_view_container_cat_6.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_6.setVisibility(View.VISIBLE);
             }
-
+            shimmer_view_container_cat_6.setVisibility(View.INVISIBLE);
         });
 
         channelLiveModel.getDisplaylistArray_GRADUATE().observe(getActivity(), updatedList -> {
@@ -324,8 +366,10 @@ public class CGPlaylist extends Fragment {
             if(displaylistArray_GRADUATE.size()>0) {
                 mVideoAdapter_GRADUATE.notifyDataSetChanged();
                 shimmer_view_container_cat_7.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_7.setVisibility(View.VISIBLE);
             }
-
+            shimmer_view_container_cat_7.setVisibility(View.INVISIBLE);
         });
 
         channelLiveModel.getDisplaylistArray_POSTGRA().observe(getActivity(), updatedList -> {
@@ -334,9 +378,10 @@ public class CGPlaylist extends Fragment {
             displaylistArray_POSTGRA.addAll(updatedList);
             if(displaylistArray_POSTGRA.size()>0) {
                 mVideoAdapter_POSTGRA.notifyDataSetChanged();
-                shimmer_view_container_cat_8.setVisibility(View.INVISIBLE);
+            }else{
+                comingSoonCat_8.setVisibility(View.VISIBLE);
             }
-
+            shimmer_view_container_cat_8.setVisibility(View.INVISIBLE);
 
         });
 
@@ -346,19 +391,30 @@ public class CGPlaylist extends Fragment {
             displaylistArray_WORKING.addAll(updatedList);
             if(displaylistArray_WORKING.size()>0) {
                 mVideoAdapter_WORKING.notifyDataSetChanged();
-                shimmer_view_container_cat_9.setVisibility(View.INVISIBLE);
+
+            }else{
+                comingSoonCat_9.setVisibility(View.VISIBLE);
             }
+            shimmer_view_container_cat_9.setVisibility(View.INVISIBLE);
         });
 
-        channelLiveModel.getDisplaylistArray_categoryDetails().observe(getActivity(), updatedList -> {
-            Log.e("Inside blog" , "-->");
-            categoryDetails.clear();
-            categoryDetails.addAll(updatedList);
-            if(categoryDetails.size()>0) {
-                mVideoAdapter_Blog.notifyDataSetChanged();
-                shimmer_view_container_cat_Blog.setVisibility(View.INVISIBLE);
+
+
+        channelLiveModel.getDisplaylistArray_three().observe(getActivity(), updatedList -> {
+            displaylistArray_three.clear();
+            displaylistArray_three.addAll(updatedList);
+            if(displaylistArray_three.size()>0) {
+                mVideoAdapter_three.notifyDataSetChanged();
+
+            }else{
+                comingSoonCat_10.setVisibility(View.VISIBLE);
             }
+            shimmer_view_container_cat_10.setVisibility(View.INVISIBLE);
+
         });
+
+
+
 
     }
 
