@@ -74,6 +74,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -955,21 +956,38 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50";
                 String response = getUrlString(url);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray = json.getJSONArray("items");
-                for (int i = jsonArray.length()-1; i >= jsonArray.length()-6; i--) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int jsonArrayLen=jsonArray.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+
+                for (int i = jsonArrayLen-1; i >= jsonArrayLen-6; i--) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(tempRandom);
                     JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
                     String title = jsonObject.getJSONObject("snippet").getString("title");
                     String Desc = jsonObject.getJSONObject("snippet").getString("description");
@@ -1002,20 +1020,36 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_two = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK&key=" + browserKey + "&maxResults=50";
                 String response_two = getUrlString(url_two);
                 JSONObject json_two = new JSONObject(response_two);
                 JSONArray jsonArray_two = json_two.getJSONArray("items");
-                for (int i = jsonArray_two.length()-1; i >=0; i--) {
+                int jsonArrayLen=jsonArray_two.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = jsonArrayLen-1; i >=0; i--) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
                     JSONObject jsonObject_two = jsonArray_two.getJSONObject(i);
                     JSONObject video_two = jsonObject_two.getJSONObject("snippet").getJSONObject("resourceId");
                     String title_two = jsonObject_two.getJSONObject("snippet").getString("title");
@@ -1048,21 +1082,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_three = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc&key=" + browserKey + "&maxResults=50";
                 String response_three = getUrlString(url_three);
                 JSONObject json_three = new JSONObject(response_three);
                 JSONArray jsonArray_three = json_three.getJSONArray("items");
-                for (int i = jsonArray_three.length()-1; i >= jsonArray_three.length()-6; i--) {
-                    JSONObject jsonObject_three = jsonArray_three.getJSONObject(i);
+                int jsonArrayLen=jsonArray_three.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen-1; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject jsonObject_three = jsonArray_three.getJSONObject(tempRandom);
                     JSONObject video_three = jsonObject_three.getJSONObject("snippet").getJSONObject("resourceId");
                     String title_three = jsonObject_three.getJSONObject("snippet").getString("title");
                     String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
@@ -1094,21 +1144,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_NINE = "https://app.careerguide.com/api/main/videos_NINE";
                 String response_NINE = getUrlString(url_NINE);
                 JSONObject json_NINE = new JSONObject(response_NINE);
                 JSONArray jsonArray_NINE = json_NINE.optJSONArray("videos");
-                for (int i = 0; i < jsonArray_NINE.length(); i++) {
-                    JSONObject JsonObject_NINE = jsonArray_NINE.optJSONObject(i);
+                int jsonArrayLen=jsonArray_NINE.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen ; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_NINE = jsonArray_NINE.optJSONObject(tempRandom);
                     String email_NINE = JsonObject_NINE.optString("email");
                     String name_NINE = JsonObject_NINE.optString("Name");
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
@@ -1145,13 +1211,13 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_TEN = "https://app.careerguide.com/api/main/videos_TEN";
@@ -1159,8 +1225,24 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 JSONObject json_TEN = new JSONObject(response_TEN);
                 JSONArray jsonArray_TEN = json_TEN.optJSONArray("videos");
                 Log.e("jsonArray_TEN", "-->" + jsonArray_TEN.length());
-                for (int i = 0; i < jsonArray_TEN.length(); i++) {
-                    JSONObject JsonObject_TEN = jsonArray_TEN.optJSONObject(i);
+                int jsonArrayLen=jsonArray_TEN.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_TEN = jsonArray_TEN.optJSONObject(tempRandom);
                     String email_TEN = JsonObject_TEN.optString("email");
                     String name_TEN = JsonObject_TEN.optString("Name");
                     String img_url_TEN = JsonObject_TEN.optString("img_url");
@@ -1192,21 +1274,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_ELEVEN = "https://app.careerguide.com/api/main/videos_ELEVEN";
                 String response_ELEVEN = getUrlString(url_ELEVEN);
                 JSONObject json_ELEVEN = new JSONObject(response_ELEVEN);
                 JSONArray jsonArray_ELEVEN = json_ELEVEN.optJSONArray("videos");
-                for (int i = 0; i < jsonArray_ELEVEN.length(); i++) {
-                    JSONObject JsonObject_ELEVEN = jsonArray_ELEVEN.optJSONObject(i);
+                int jsonArrayLen=jsonArray_ELEVEN.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_ELEVEN = jsonArray_ELEVEN.optJSONObject(tempRandom);
                     String email = JsonObject_ELEVEN.optString("email");
                     String name = JsonObject_ELEVEN.optString("Name");
                     String img_url = JsonObject_ELEVEN.optString("img_url");
@@ -1237,21 +1335,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_TWELVE = "https://app.careerguide.com/api/main/videos_TWELVE";
                 String response_TWELVE = getUrlString(url_TWELVE);
                 JSONObject json_TWELVE = new JSONObject(response_TWELVE);
                 JSONArray jsonArray_TWELVE = json_TWELVE.optJSONArray("videos");
-                for (int i = 0; i < jsonArray_TWELVE.length(); i++) {
-                    JSONObject JsonObject_TWELVE = jsonArray_TWELVE.optJSONObject(i);
+                int jsonArrayLen=jsonArray_TWELVE.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_TWELVE = jsonArray_TWELVE.optJSONObject(tempRandom);
                     String email = JsonObject_TWELVE.optString("email");
                     String name = JsonObject_TWELVE.optString("Name");
                     String img_url = JsonObject_TWELVE.optString("img_url");
@@ -1284,21 +1398,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_GRADUATE = "https://app.careerguide.com/api/main/videos_GRADUATE";
                 String response_GRADUATE = getUrlString(url_GRADUATE);
                 JSONObject json_GRADUATE = new JSONObject(response_GRADUATE);
                 JSONArray jsonArray_GRADUATE = json_GRADUATE.optJSONArray("videos");
-                for (int i = 0; i < jsonArray_GRADUATE.length(); i++) {
-                    JSONObject JsonObject_GRADUATE = jsonArray_GRADUATE.optJSONObject(i);
+                int jsonArrayLen=jsonArray_GRADUATE.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_GRADUATE = jsonArray_GRADUATE.optJSONObject(tempRandom);
                     String email = JsonObject_GRADUATE.optString("email");
                     String name = JsonObject_GRADUATE.optString("Name");
                     String img_url = JsonObject_GRADUATE.optString("img_url");
@@ -1332,21 +1462,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_POSTGRA = "https://app.careerguide.com/api/main/videos_POSTGRA";
                 String response_POSTGRA = getUrlString(url_POSTGRA);
                 JSONObject json_POSTGRA = new JSONObject(response_POSTGRA);
                 JSONArray jsonArray_POSTGRA = json_POSTGRA.optJSONArray("videos");
-                for (int i = 0; i < jsonArray_POSTGRA.length(); i++) {
-                    JSONObject JsonObject_POSTGRA = jsonArray_POSTGRA.optJSONObject(i);
+                int jsonArrayLen=jsonArray_POSTGRA.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_POSTGRA = jsonArray_POSTGRA.optJSONObject(tempRandom);
                     String email = JsonObject_POSTGRA.optString("email");
                     String name = JsonObject_POSTGRA.optString("Name");
                     String img_url = JsonObject_POSTGRA.optString("img_url");
@@ -1378,21 +1524,37 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // TODO Auto-generated method stub
+            
 
             try {
                 String url_WORKING = "https://app.careerguide.com/api/main/videos_WORKING";
                 String response_WORKING = getUrlString(url_WORKING);
                 JSONObject json_WORKING = new JSONObject(response_WORKING);
                 JSONArray jsonArray_WORKING = json_WORKING.optJSONArray("videos");
-                for (int i = 0; i < jsonArray_WORKING.length(); i++) {
-                    JSONObject JsonObject_WORKING = jsonArray_WORKING.optJSONObject(i);
+                int jsonArrayLen=jsonArray_WORKING.length();
+                List<Integer> randomIndexList = new ArrayList<Integer>();
+                Random rand = new Random();
+                int tempRandom;
+
+                for (int i = 0; i < jsonArrayLen; i++) {
+
+                    while(true) {//loop until no duplicate is found.
+                        tempRandom = rand.nextInt(jsonArrayLen);
+                        if (randomIndexList.contains(tempRandom)) {
+                            continue;//duplicate number,hence skip
+                        } else {
+                            randomIndexList.add(tempRandom);
+                            break;
+                        }
+                    }
+
+                    JSONObject JsonObject_WORKING = jsonArray_WORKING.optJSONObject(tempRandom);
                     String email = JsonObject_WORKING.optString("email");
                     String name = JsonObject_WORKING.optString("Name");
                     String img_url = JsonObject_WORKING.optString("img_url");
@@ -1428,14 +1590,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             disposable = new CompositeDisposable();
-            // TODO Auto-generated method stub
+            
             categoryDetails = new ArrayList<>();
          //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
             disposable.add(Utils.get_api().get_cat_detail("10", "1")
