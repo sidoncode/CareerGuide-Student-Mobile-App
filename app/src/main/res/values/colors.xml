@@ -30,4 +30,5 @@
     <color name="toolbarTransparent">#95000000</color>
     <color name="profileBackground">#fff</color>
     <color name="post_details">#747474</color>
+    <color name="coming_soon_relative_layout_background">#c4ffc4</color>
 </resources>
