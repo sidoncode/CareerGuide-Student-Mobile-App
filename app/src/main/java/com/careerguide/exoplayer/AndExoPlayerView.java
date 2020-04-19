@@ -70,7 +70,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private boolean currPlayWhenReady = false;
     private boolean showController = true;
     private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
-    private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
+    private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_MATCH;
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
     private ComponentListener componentListener;
@@ -111,10 +111,10 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     if(playerView.getWidth() < playerView.getHeight())
                     {
                         exitFullScreen();
-                        setAspectRatio(EnumAspectRatio.ASPECT_9_16);
+                        setAspectRatio(EnumAspectRatio.ASPECT_MATCH);
                     } else {
-                    enterFullScreen();
-                        setAspectRatio(EnumAspectRatio.ASPECT_16_9);
+                        enterFullScreen();
+                        setAspectRatio(EnumAspectRatio.ASPECT_MATCH);
                     }
                     stateString = "ExoPlayer.STATE_READY     -";
                     break;
@@ -563,7 +563,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 //        imageViewExitFullScreen.setVisibility(VISIBLE);
 
         if (getActivity() != null)
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         hideSystemUi();
 
     }
@@ -573,7 +573,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 //        imageViewEnterFullScreen.setVisibility(VISIBLE);
 
         if (getActivity() != null)
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         hideSystemUi();
     }
 

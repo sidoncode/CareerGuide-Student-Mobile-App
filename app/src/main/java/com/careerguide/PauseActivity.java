@@ -3,6 +3,9 @@ package com.careerguide;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,17 +158,20 @@ public class PauseActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     String url1 = response.optString("pdf_url");
+                    //Uri uri = Uri.parse(getIntent().getStringExtra("url"));
 
-                  //  report_url = url;
-                //    Log.e("#globalreport_url", "urlis " +report_url);
+                    //  report_url = url;
+                    //    Log.e("#globalreport_url", "urlis " +report_url);
                     Log.e("#usermail", "mail:" +Utility.getUserEmail(activity));
                     progressDialog.dismiss();
-                    Intent intent = new Intent(activity, LoadPdf.class);
-                    intent.putExtra("url", url1);
+                    //Intent intent = new Intent(activity, LoadPdf.class);
+                    //intent.putExtra("url", url1);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://docs.google.com/gview?embedded=true&url=" + url1));
+
                     startActivity(intent);
                     finish();
                     save_report_url(url1);
-                  //  get_report_url();
+                    //  get_report_url();
 
                 }
             },1500), error -> {
@@ -233,8 +241,8 @@ public class PauseActivity extends AppCompatActivity {
                 Log.e("sendurl" , "url: " +report_url);
                 params.put("report_url",report_url);
                 params.put("email" , Utility.getUserEmail(activity));
-               // String name = "Andorra";
-               // params.put("name" , name);
+                // String name = "Andorra";
+                // params.put("name" , name);
                 Log.e("#nline_status_request",params.toString());
                 Log.e("userreport" , Utility.getReportUrl(activity));
                 return params;
@@ -242,6 +250,30 @@ public class PauseActivity extends AppCompatActivity {
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
+    public class DownloadFile extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
+            String fileName = strings[1];  // -> maven.pdf
+            String extStorageDirectory = Environment.getExternalStorageDirectory ( ).toString ( );
+            File folder = new File ( extStorageDirectory, "Career-Ebook" );
+            folder.mkdir ( );
+
+            File pdfFile = new File ( folder, fileName );
+
+            try {
+                pdfFile.createNewFile ( );
+            } catch (IOException e) {
+                e.printStackTrace ( );
+            }
+            FileDownloader.downloadFile ( fileUrl, pdfFile );
+            return null;
+        }
+
+
+    }
+
     private void get_report_url(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", response -> {
             JSONObject jobj = null;
@@ -254,23 +286,23 @@ public class PauseActivity extends AppCompatActivity {
             String test = "";
             String reporturl = jobj.optString("Report_url");
             Log.e("#homeurl","report " +reporturl);
-                Intent intent = new Intent(activity, WebViewActivity.class);
-                intent.putExtra("url", reporturl);
-                 intent.putExtra("filename", "Report");
-                Log.e("HomeResponse", reporturl);
-                startActivity(intent);
+            Intent intent = new Intent(activity, WebViewActivity.class);
+            intent.putExtra("url", reporturl);
+            intent.putExtra("filename", "Report");
+            Log.e("HomeResponse", reporturl);
+            startActivity(intent);
 
         }, error -> Log.e("save_report_url_error","error"))
-                            {
-                                @Override
-                                protected Map<String, String> getParams() {
-                                    HashMap<String,String> params = new HashMap<>();
-                                    params.put("email" , Utility.getUserEmail(activity));
-                                    Log.e("#line_status_request",params.toString());
-                                    return params;
-                                }
-                            };
-                            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("email" , Utility.getUserEmail(activity));
+                Log.e("#line_status_request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
 
 }

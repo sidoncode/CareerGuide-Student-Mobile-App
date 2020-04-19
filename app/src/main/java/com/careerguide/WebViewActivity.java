@@ -54,7 +54,7 @@ public class WebViewActivity extends AppCompatActivity {
         }
         StrictMode.setVmPolicy ( builder.build ( ) );
         getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
-        new DownloadFile ( ).execute ( pdfurl, pdfname );
+        //new DownloadFile ( ).execute ( pdfurl, pdfname );
         getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
         FirebaseApp.initializeApp ( activity );
         WebView webView = (WebView) findViewById ( R.id.webView );
@@ -135,29 +135,6 @@ public class WebViewActivity extends AppCompatActivity {
 //        finish();
     }
 
-    public class DownloadFile extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-            String fileName = strings[1];  // -> maven.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory ( ).toString ( );
-            File folder = new File ( extStorageDirectory, "Career-Ebook" );
-            folder.mkdir ( );
-
-            File pdfFile = new File ( folder, fileName );
-
-            try {
-                pdfFile.createNewFile ( );
-            } catch (IOException e) {
-                e.printStackTrace ( );
-            }
-            FileDownloader.downloadFile ( fileUrl, pdfFile );
-            return null;
-        }
-
-
-    }
 
 }
 
