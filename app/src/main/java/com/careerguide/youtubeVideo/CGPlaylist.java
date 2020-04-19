@@ -86,17 +86,17 @@ public class CGPlaylist extends Fragment {
                         Cat_Blog,
                         Cat_test;
 
-    ShimmerFrameLayout  shimmer_view_container_cat_1,
-                        shimmer_view_container_cat_2,
-                        shimmer_view_container_cat_Blog,
-                        shimmer_view_container_cat_3,
-                        shimmer_view_container_cat_4,
-                        shimmer_view_container_cat_5,
-                        shimmer_view_container_cat_6,
-                        shimmer_view_container_cat_7,
-                        shimmer_view_container_cat_8,
-                        shimmer_view_container_cat_9,
-                        shimmer_view_container_cat_10;
+    View    shimmer_view_container_cat_1,
+            shimmer_view_container_cat_2,
+            shimmer_view_container_cat_Blog,
+            shimmer_view_container_cat_3,
+            shimmer_view_container_cat_4,
+            shimmer_view_container_cat_5,
+            shimmer_view_container_cat_6,
+            shimmer_view_container_cat_7,
+            shimmer_view_container_cat_8,
+            shimmer_view_container_cat_9,
+            shimmer_view_container_cat_10;
 
     private RelativeLayout  comingSoonCat_1,
                             comingSoonCat_2,
