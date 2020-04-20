@@ -27,6 +27,7 @@ import com.careerguide.youtubeVideo.Videos_three;
 import com.careerguide.youtubeVideo.Videos_two;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -49,6 +50,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -194,6 +196,16 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         });
 
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() != R.id.class_cat)
+                {
+                    toolbar.setSubtitle("");
+                }
+            }
+        });
+
         viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
 
 
@@ -236,11 +248,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         tv_name = headerLayout.findViewById(R.id.tv_name);
         Log.e("###tv_name","-->" +getIntent().getStringExtra("subcat_title"));
 
+        tv_name.setText(Utility.getUserEducation(activity));
+        Glide.with(this).load(Utility.getIcon_url(activity)).into(classimg);
 
-        if(getIntent().getStringExtra("parent_cat_title") == null){
-            tv_name.setText(Utility.getUserEducation(activity));
-        }
-        else{
+       /* if(getIntent().getStringExtra("parent_cat_title") == null){
+        }else{
             tv_name.setText(getIntent().getStringExtra("parent_cat_title"));
             Utility.setEducationUid(activity , getIntent().getStringExtra("subcat_uid"));
             Log.e("uidis" , " " + getIntent().getStringExtra("subcat_uid"));
@@ -254,6 +266,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         else{
             Glide.with(this).load(getIntent().getStringExtra("icon_url")).into(classimg);
         }
+
+        */
 
         headerLayout.findViewById(R.id.class_cat).setOnClickListener(v -> startActivityForResult(new Intent(activity,GoalsActivity.class),REQUEST_CATEGORY_CODE));
 
@@ -845,8 +859,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         editText.setBackgroundColor(Color.TRANSPARENT);
     }
 
-    private void updateProfile(final String key, final String editText, final View edit, final View done, final View cancel) {
-        String value = editText;
+    private void updateProfile(final String key, final String category,String subCategory, final View edit, final View done, final View cancel) {
+
+        String value = category;
         if (value.isEmpty())
         {
             Toast.makeText(activity,"Please insert value first", Toast.LENGTH_LONG).show();
@@ -877,8 +892,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             NavigationUI.onNavDestinationSelected(menuItem,navController);
                             Log.e("Education Level" , "-->" +Utility.getUserEducation(activity));
                             setTitle(Utility.getUserEducation(activity));
+                            toolbar.setSubtitle(subCategory);
                             mDrawer.closeDrawers();
                             break;
+
                     }
                     if (edit != null)
                         edit.setVisibility(View.VISIBLE);
@@ -924,6 +941,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -934,7 +952,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             tv_name.setText(data.getStringExtra("parent_cat_title"));
             Utility.setEducationUid(this, data.getStringExtra("subcat_uid"));
             Log.e("uidis", " " + data.getStringExtra("subcat_uid"));
-            updateProfile("education_level", data.getStringExtra("parent_cat_title"), null, null, null);
+            updateProfile("education_level", data.getStringExtra("parent_cat_title"),data.getStringExtra("subcat_title"), null, null, null);
 
             if (data.getStringExtra("icon_url") == null) {
                 Glide.with(this).load(Utility.getIcon_url(this)).into(classimg);
