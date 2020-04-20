@@ -1374,6 +1374,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 Random rand = new Random();
                 int tempRandom;
 
+                
                 for (int i = 0; i < jsonArrayLen; i++) {
 
                     while(true) {//loop until no duplicate is found.
