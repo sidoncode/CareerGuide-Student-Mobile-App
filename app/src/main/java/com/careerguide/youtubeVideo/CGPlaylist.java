@@ -278,6 +278,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray.addAll(updatedList);
             if(displaylistArray.size()>0) {
                 mVideoAdapter.notifyDataSetChanged();
+                comingSoonCat_1.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_1.setVisibility(View.VISIBLE);
             }
@@ -290,6 +291,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_two.addAll(updatedList);
             if(displaylistArray_two.size()>0) {
                 mVideoAdapter_two.notifyDataSetChanged();
+                comingSoonCat_2.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_2.setVisibility(View.VISIBLE);
             }
@@ -303,6 +305,7 @@ public class CGPlaylist extends Fragment {
             categoryDetails.addAll(updatedList);
             if(categoryDetails.size()>0) {
                 mVideoAdapter_Blog.notifyDataSetChanged();
+                comingSoonCat_Blog.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_Blog.setVisibility(View.VISIBLE);
             }
@@ -316,6 +319,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_NINE.addAll(updatedList);
             if(displaylistArray_NINE.size()>0) {
                 mVideoAdapter_NINE.notifyDataSetChanged();
+                comingSoonCat_3.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_3.setVisibility(View.VISIBLE);
             }
@@ -328,6 +332,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_TEN.addAll(updatedList);
             if(displaylistArray_TEN.size()>0) {
                 mVideoAdapter_TEN.notifyDataSetChanged();
+                comingSoonCat_4.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_4.setVisibility(View.VISIBLE);
             }
@@ -341,6 +346,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_ELEVEN.addAll(updatedList);
             if(displaylistArray_ELEVEN.size()>0) {
                 mVideoAdapter_ELEVEN.notifyDataSetChanged();
+                comingSoonCat_5.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_5.setVisibility(View.VISIBLE);
             }
@@ -353,6 +359,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_TWELVE.addAll(updatedList);
             if(displaylistArray_TWELVE.size()>0) {
                 mVideoAdapter_TWELVE.notifyDataSetChanged();
+                comingSoonCat_6.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_6.setVisibility(View.VISIBLE);
             }
@@ -365,7 +372,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_GRADUATE.addAll(updatedList);
             if(displaylistArray_GRADUATE.size()>0) {
                 mVideoAdapter_GRADUATE.notifyDataSetChanged();
-                shimmer_view_container_cat_7.setVisibility(View.INVISIBLE);
+                comingSoonCat_7.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_7.setVisibility(View.VISIBLE);
             }
@@ -378,6 +385,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_POSTGRA.addAll(updatedList);
             if(displaylistArray_POSTGRA.size()>0) {
                 mVideoAdapter_POSTGRA.notifyDataSetChanged();
+                comingSoonCat_8.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_8.setVisibility(View.VISIBLE);
             }
@@ -391,7 +399,7 @@ public class CGPlaylist extends Fragment {
             displaylistArray_WORKING.addAll(updatedList);
             if(displaylistArray_WORKING.size()>0) {
                 mVideoAdapter_WORKING.notifyDataSetChanged();
-
+                comingSoonCat_9.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_9.setVisibility(View.VISIBLE);
             }
@@ -405,17 +413,12 @@ public class CGPlaylist extends Fragment {
             displaylistArray_three.addAll(updatedList);
             if(displaylistArray_three.size()>0) {
                 mVideoAdapter_three.notifyDataSetChanged();
-
+                comingSoonCat_10.setVisibility(View.INVISIBLE);
             }else{
                 comingSoonCat_10.setVisibility(View.VISIBLE);
             }
             shimmer_view_container_cat_10.setVisibility(View.INVISIBLE);
-
         });
-
-
-
-
     }
 
 
