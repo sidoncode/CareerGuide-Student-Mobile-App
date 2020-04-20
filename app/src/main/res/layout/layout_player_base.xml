@@ -6,15 +6,16 @@
     android:orientation="vertical">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:layout_gravity="center"
         android:id="@+id/simpleExoPlayerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:controller_layout_id="@layout/video_player_exo_controllers" />
 
     <include
         android:id="@+id/linearLayoutLoading1"
         layout="@layout/layout_page_title"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:visibility="visible" />
 
     <include
@@ -27,9 +28,9 @@
         layout="@layout/layout_player_loading"
         android:visibility="gone" />
 
-<!--    <include-->
-<!--        android:id="@+id/linearLayoutLoading1"-->
-<!--        layout="@layout/like_whatsapp_layout"-->
-<!--        android:visibility="visible" />-->
+    <!--    <include-->
+    <!--        android:id="@+id/linearLayoutLoading1"-->
+    <!--        layout="@layout/like_whatsapp_layout"-->
+    <!--        android:visibility="visible" />-->
 
 </FrameLayout>

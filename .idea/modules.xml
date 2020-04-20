@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CareerGuide-Student-Mobile-App-OsmanDroid.iml" filepath="$PROJECT_DIR$/CareerGuide-Student-Mobile-App-OsmanDroid.iml" group="CareerGuide-Student-Mobile-App-OsmanDroid" />
+      <module fileurl="file://$PROJECT_DIR$/CareerGuide-Student-Mobile-App-new.iml" filepath="$PROJECT_DIR$/CareerGuide-Student-Mobile-App-new.iml" group="CareerGuide-Student-Mobile-App-new" />
+      <module fileurl="file://$PROJECT_DIR$/app/CareerGuide-Student-Mobile-App-new-app.iml" filepath="$PROJECT_DIR$/app/CareerGuide-Student-Mobile-App-new-app.iml" group="CareerGuide-Student-Mobile-App-new/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="CareerGuide-Student-Mobile-App-OsmanDroid/app" />
     </modules>
   </component>
