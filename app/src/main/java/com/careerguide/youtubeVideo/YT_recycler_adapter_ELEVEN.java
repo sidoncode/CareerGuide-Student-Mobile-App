@@ -104,6 +104,7 @@ public class YT_recycler_adapter_ELEVEN extends RecyclerView.Adapter<YT_recycler
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());
             intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
         });
 

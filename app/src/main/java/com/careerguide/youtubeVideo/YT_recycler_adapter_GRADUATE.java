@@ -97,6 +97,7 @@ public class YT_recycler_adapter_GRADUATE extends RecyclerView.Adapter<YT_recycl
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getPicUrl());
             intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
         });
     }
