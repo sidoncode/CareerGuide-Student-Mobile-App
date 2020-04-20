@@ -20,6 +20,7 @@ import java.util.List;
 
 public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapter.MyViewHolder> {
 
+    private boolean seeAllMode=false;
     private List<Videos> videoList;
     private String key;
     private Activity activity;
@@ -47,17 +48,21 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
             name.setOnClickListener(v -> {
             });
 
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int width = displayMetrics.widthPixels;
-            int height = displayMetrics.heightPixels;
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.MATCH_PARENT);
-            params.setMargins(50, 5, 50, 5);
-            ll_story.setLayoutParams(params);
+            if(seeAllMode) {
+                ll_story.setPadding(0,32,0,32);
+            }else {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int width = displayMetrics.widthPixels;
+                int height = displayMetrics.heightPixels;
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int) (width / 1.25), RecyclerView.LayoutParams.MATCH_PARENT);
+                params.setMargins(50, 5, 50, 5);
+                ll_story.setLayoutParams(params);
+            }
         }
     }
 
-    YT_recycler_adapter(List<Videos> videoList, String yt_key, Activity activity, int cornerRadius, int textColor) {
+    public YT_recycler_adapter(List<Videos> videoList, String yt_key, Activity activity, int cornerRadius, int textColor) {
         this.activity  = activity;
         this.key = yt_key;
         this.videoList = videoList;
@@ -109,5 +114,9 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
     @Override
     public int getItemCount() {
         return videoList.size();
+    }
+    public void setSeeAllMode(boolean b)
+    {
+        this.seeAllMode = b;
     }
 }

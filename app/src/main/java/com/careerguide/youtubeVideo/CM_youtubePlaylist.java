@@ -3,6 +3,7 @@ package com.careerguide.youtubeVideo;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -11,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.careerguide.R;
+import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
 
@@ -32,28 +35,28 @@ import java.util.regex.Pattern;
 public class CM_youtubePlaylist extends AppCompatActivity {
 
     List<Videos> displaylistArray = new ArrayList<Videos>();
-    List<Videos_two> displaylistArray_two = new ArrayList<Videos_two>();
-    List<Videos_three> displaylistArray_three = new ArrayList<Videos_three>();
-    List<Videos_NINE> displaylistArray_NINE = new ArrayList<Videos_NINE>();
-    List<Videos_TEN> displaylistArray_TEN = new ArrayList<Videos_TEN>();
-    List<Videos_ELEVEN> displaylistArray_ELEVEN = new ArrayList<Videos_ELEVEN>();
-    List<Videos_TWELVE> displaylistArray_TWELVE = new ArrayList<Videos_TWELVE>();
-    List<Videos_GRADUATE> displaylistArray_GRADUATE = new ArrayList<Videos_GRADUATE>();
-    List<Videos_POSTGRA> displaylistArray_POSTGRA = new ArrayList<Videos_POSTGRA>();
-    List<Videos_WORKING> displaylistArray_WORKING = new ArrayList<Videos_WORKING>();
+    List<Videos> displaylistArray_two = new ArrayList<Videos>();
+    List<Videos> displaylistArray_three = new ArrayList<Videos>();
+    List<CommonEducationModel> displaylistArray_NINE = new ArrayList<CommonEducationModel>();
+    List<CommonEducationModel> displaylistArray_TEN = new ArrayList<CommonEducationModel>();
+    List<CommonEducationModel> displaylistArray_ELEVEN = new ArrayList<CommonEducationModel>();
+    List<CommonEducationModel> displaylistArray_TWELVE = new ArrayList<CommonEducationModel>();
+    List<CommonEducationModel> displaylistArray_GRADUATE = new ArrayList<CommonEducationModel>();
+    List<CommonEducationModel> displaylistArray_POSTGRA = new ArrayList<CommonEducationModel>();
+    List<CommonEducationModel> displaylistArray_WORKING = new ArrayList<CommonEducationModel>();
     List<DataMembers> displaylistArray_Blog = new ArrayList<DataMembers>();
 
     private RecyclerView mVideoRecyclerView , mVideoRecyclerView_two ,mVideoRecyclerView_three , mVideoRecyclerView_NINE, mVideoRecyclerView_TEN, mVideoRecyclerView_ELEVEN, mVideoRecyclerView_TWELVE,mVideoRecyclerView_GRADUATE,mVideoRecyclerView_POSTGRA,mVideoRecyclerView_WORKING ,mVideoRecyclerView_Blog ;
     private YT_recycler_adapter mVideoAdapter;
-    private YT_recycler_adapter_two mVideoAdapter_two;
-    private YT_recycler_adapter_three mVideoAdapter_three;
-    private YT_recycler_adapter_NINE mVideoAdapter_NINE;
-    private YT_recycler_adapter_TEN mVideoAdapter_TEN;
-    private YT_recycler_adapter_ELEVEN mVideoAdapter_ELEVEN;
-    private YT_recycler_adapter_TWELVE mVideoAdapter_TWELVE;
-    private YT_recycler_adapter_GRADUATE mVideoAdapter_GRADUATE;
-    private YT_recycler_adapter_POSTGRA mVideoAdapter_POSTGRA;
-    private YT_recycler_adapter_WORKING mVideoAdapter_WORKING;
+    private YT_recycler_adapter mVideoAdapter_two;
+    private YT_recycler_adapter mVideoAdapter_three;
+    private CommonEducationAdapter mVideoAdapter_NINE;
+    private CommonEducationAdapter mVideoAdapter_TEN;
+    private CommonEducationAdapter mVideoAdapter_ELEVEN;
+    private CommonEducationAdapter mVideoAdapter_TWELVE;
+    private CommonEducationAdapter mVideoAdapter_GRADUATE;
+    private CommonEducationAdapter mVideoAdapter_POSTGRA;
+    private CommonEducationAdapter mVideoAdapter_WORKING;
     private RecyclerAdapter mVideoAdapter_Blog;
 
     Context context;
@@ -136,10 +139,10 @@ public class CM_youtubePlaylist extends AppCompatActivity {
         mVideoRecyclerView_TEN.setLayoutManager(mLayoutManager_TEN);
 
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, this, cornerRadius, videoTxtColor);
-        mVideoAdapter_two = new YT_recycler_adapter_two(displaylistArray_two, browserKey, this, cornerRadius, videoTxtColor);
-        mVideoAdapter_three = new YT_recycler_adapter_three(displaylistArray_three, browserKey, this, cornerRadius, videoTxtColor);
-        mVideoAdapter_NINE = new YT_recycler_adapter_NINE(displaylistArray_NINE, browserKey, this, cornerRadius, videoTxtColor);
-        mVideoAdapter_TEN = new YT_recycler_adapter_TEN(displaylistArray_TEN, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_two = new YT_recycler_adapter(displaylistArray_two, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_three = new YT_recycler_adapter(displaylistArray_three, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_NINE = new CommonEducationAdapter(displaylistArray_NINE, this);
+        mVideoAdapter_TEN = new CommonEducationAdapter(displaylistArray_TEN, this);
 
         mVideoRecyclerView.setAdapter(mVideoAdapter);
         mVideoRecyclerView_two.setAdapter(mVideoAdapter_two);
@@ -150,31 +153,31 @@ public class CM_youtubePlaylist extends AppCompatActivity {
         mVideoRecyclerView_ELEVEN = findViewById(R.id.yt_recycler_view_ELEVEN);
         mLayoutManager_ELEVEN = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_ELEVEN.setLayoutManager(mLayoutManager_ELEVEN);
-        mVideoAdapter_ELEVEN = new YT_recycler_adapter_ELEVEN(displaylistArray_ELEVEN, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_ELEVEN = new CommonEducationAdapter(displaylistArray_ELEVEN, this);
         mVideoRecyclerView_ELEVEN.setAdapter(mVideoAdapter_ELEVEN);
 
         mVideoRecyclerView_TWELVE = findViewById(R.id.yt_recycler_view_TWELVE);
         mLayoutManager_TWELVE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_TWELVE.setLayoutManager(mLayoutManager_TWELVE);
-        mVideoAdapter_TWELVE = new YT_recycler_adapter_TWELVE(displaylistArray_TWELVE, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_TWELVE = new CommonEducationAdapter(displaylistArray_TWELVE, this);
         mVideoRecyclerView_TWELVE.setAdapter(mVideoAdapter_TWELVE);
 
         mVideoRecyclerView_GRADUATE = findViewById(R.id.yt_recycler_view_GRADUATE);
         mLayoutManager_GRADUATE = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_GRADUATE.setLayoutManager(mLayoutManager_GRADUATE);
-        mVideoAdapter_GRADUATE = new YT_recycler_adapter_GRADUATE(displaylistArray_GRADUATE, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_GRADUATE = new CommonEducationAdapter(displaylistArray_GRADUATE, this);
         mVideoRecyclerView_GRADUATE.setAdapter(mVideoAdapter_GRADUATE);
 
         mVideoRecyclerView_POSTGRA = findViewById(R.id.yt_recycler_view_POSTGRA);
         mLayoutManager_POSTGRA = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_POSTGRA.setLayoutManager(mLayoutManager_POSTGRA);
-        mVideoAdapter_POSTGRA = new YT_recycler_adapter_POSTGRA(displaylistArray_POSTGRA, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_POSTGRA = new CommonEducationAdapter(displaylistArray_POSTGRA, this);
         mVideoRecyclerView_POSTGRA.setAdapter(mVideoAdapter_POSTGRA);
 
         mVideoRecyclerView_WORKING = findViewById(R.id.yt_recycler_view_WORKING);
         mLayoutManager_WORKING = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mVideoRecyclerView_WORKING.setLayoutManager(mLayoutManager_WORKING);
-        mVideoAdapter_WORKING = new YT_recycler_adapter_WORKING(displaylistArray_WORKING, browserKey, this, cornerRadius, videoTxtColor);
+        mVideoAdapter_WORKING = new CommonEducationAdapter(displaylistArray_WORKING, this);
         mVideoRecyclerView_WORKING.setAdapter(mVideoAdapter_WORKING);
 
         mVideoRecyclerView_Blog = findViewById(R.id.yt_recycler_view_Blog);
@@ -192,15 +195,15 @@ public class CM_youtubePlaylist extends AppCompatActivity {
     {
 
         Videos displaylist ;
-        Videos_two displaylist_two;
-        Videos_three displaylist_three;
-        Videos_NINE displaylist_NINE;
-        Videos_TEN displaylist_TEN;
-        Videos_ELEVEN displaylist_ELEVEN;
-        Videos_TWELVE displaylist_TWELVE;
-        Videos_GRADUATE displaylist_GRADUATE;
-        Videos_POSTGRA displaylist_POSTGRA;
-        Videos_WORKING displaylist_WORKING;
+        Videos displaylist_two;
+        Videos displaylist_three;
+        CommonEducationModel displaylist_NINE;
+        CommonEducationModel displaylist_TEN;
+        CommonEducationModel displaylist_ELEVEN;
+        CommonEducationModel displaylist_TWELVE;
+        CommonEducationModel displaylist_GRADUATE;
+        CommonEducationModel displaylist_POSTGRA;
+        CommonEducationModel displaylist_WORKING;
         DataMembers displaylist_Blog;
 
         final ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -248,7 +251,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String id_two = video_two.getString("videoId");
                     Log.e("inside","-->" +id_two);
                     String thumbUrl_two = jsonObject_two.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("standard").getString("url");
-                    displaylist_two = new Videos_two(title_two, thumbUrl_two ,id_two , Desc_two);
+                    displaylist_two = new Videos(title_two, thumbUrl_two ,id_two , Desc_two);
                     displaylistArray_two.add(displaylist_two);
                 }
 
@@ -284,7 +287,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String id_three = video_three.getString("videoId");
                     Log.e("inside","-->" +id_three);
                     String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("standard").getString("url");
-                    displaylist_three = new Videos_three(title_three, thumbUrl_three ,id_three , Desc_three);
+                    displaylist_three = new Videos(title_three, thumbUrl_three ,id_three , Desc_three);
                     displaylistArray_three.add(displaylist_three);
                 }
 
@@ -299,7 +302,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
                     String title_NINE = JsonObject_NINE.optString("title");
                     String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    displaylist_NINE = new Videos_NINE(email_NINE,name_NINE,img_url_NINE,video_url_NINE,title_NINE,"");
+                    displaylist_NINE = new CommonEducationModel(email_NINE,name_NINE,img_url_NINE,video_url_NINE,title_NINE,"");
                     displaylistArray_NINE.add(displaylist_NINE);
                 }
 
@@ -316,7 +319,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url_TEN = JsonObject_TEN.optString("img_url");
                     String title_TEN = JsonObject_TEN.optString("title");
                     String video_url_TEN = JsonObject_TEN.optString("video_url");
-                    displaylist_TEN = new Videos_TEN(email_TEN,name_TEN,img_url_TEN,video_url_TEN,title_TEN,"");
+                    displaylist_TEN = new CommonEducationModel(email_TEN,name_TEN,img_url_TEN,video_url_TEN,title_TEN,"");
                     displaylistArray_TEN.add(displaylist_TEN);
                 }
 
@@ -331,7 +334,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_ELEVEN.optString("img_url");
                     String title = JsonObject_ELEVEN.optString("title");
                     String video_url = JsonObject_ELEVEN.optString("video_url");
-                    displaylist_ELEVEN = new Videos_ELEVEN(email,name,img_url,video_url,title,"");
+                    displaylist_ELEVEN = new CommonEducationModel(email,name,img_url,video_url,title,"");
                     displaylistArray_ELEVEN.add(displaylist_ELEVEN);
                 }
 
@@ -346,7 +349,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_TWELVE.optString("img_url");
                     String title = JsonObject_TWELVE.optString("title");
                     String video_url = JsonObject_TWELVE.optString("video_url");
-                    displaylist_TWELVE = new Videos_TWELVE(email,name,img_url,video_url,title,"");
+                    displaylist_TWELVE = new CommonEducationModel(email,name,img_url,video_url,title,"");
                     displaylistArray_TWELVE.add(displaylist_TWELVE);
                 }
 
@@ -361,7 +364,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_GRADUATE.optString("img_url");
                     String title = JsonObject_GRADUATE.optString("title");
                     String video_url = JsonObject_GRADUATE.optString("video_url");
-                    displaylist_GRADUATE = new Videos_GRADUATE(email,name,img_url,video_url,title,"");
+                    displaylist_GRADUATE = new CommonEducationModel(email,name,img_url,video_url,title,"");
                     displaylistArray_GRADUATE.add(displaylist_GRADUATE);
                 }
 
@@ -376,7 +379,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_POSTGRA.optString("img_url");
                     String title = JsonObject_POSTGRA.optString("title");
                     String video_url = JsonObject_POSTGRA.optString("video_url");
-                    displaylist_POSTGRA = new Videos_POSTGRA(email,name,img_url,video_url,title,"");
+                    displaylist_POSTGRA = new CommonEducationModel(email,name,img_url,video_url,title,"");
                     displaylistArray_POSTGRA.add(displaylist_POSTGRA);
                 }
 
@@ -391,7 +394,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_WORKING.optString("img_url");
                     String title = JsonObject_WORKING.optString("title");
                     String video_url = JsonObject_WORKING.optString("video_url");
-                    displaylist_WORKING = new Videos_WORKING(email,name,img_url,video_url,title,"");
+                    displaylist_WORKING = new CommonEducationModel(email,name,img_url,video_url,title,"");
                     displaylistArray_WORKING.add(displaylist_WORKING);
                 }
 
@@ -471,4 +474,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
 
         return imgurl;
     }
+
+
+
+
 }

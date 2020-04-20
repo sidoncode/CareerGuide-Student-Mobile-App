@@ -4,17 +4,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:shimmer="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="20dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:showIn=".CGPlaylist">
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             >
 
             <LinearLayout
@@ -193,1224 +196,1222 @@
             </LinearLayout>
 
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/ll_goal_static_card">
+                android:orientation="vertical">
+
+
 
                 <!--cat_1-->
-                <TextView
-                    android:id="@+id/Cat_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginBottom="20dp"
-                    android:id="@+id/yt_recycler_view_one"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@+id/Cat_1"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_1"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_1"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_1"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_1"                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat1"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_one"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_1"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_10"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
                 <!--cat_2-->
-                <TextView
-                    android:id="@+id/Cat_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@+id/shimmer_view_container_cat_1"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_two"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_2"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_2"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_2"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_2"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_2"                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat2"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_two"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_2"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_2"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
                 <!--cat_test-->
-                <TextView
-                    android:id="@+id/Cat_test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@+id/shimmer_view_container_cat_2"/>
-                <HorizontalScrollView
-                    android:id="@+id/horizontalScrollView"
+                <!--cat_2-->
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="8dp"
-                    android:scrollbars="none"
-                    android:layout_below="@id/Cat_test">
+                    android:layout_height="wrap_content">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
                         android:orientation="horizontal"
-                        >
-                        <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
+
+                        <TextView
+                            android:id="@+id/Cat_test"                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat_test"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content"/>
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/tests"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_ideal_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/ideal_test" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Ideal Career Test"
-                                        android:gravity="center"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="20dp"
-                                        android:gravity="center"
-                                        android:text="Provides you 12 pages of Psychometric \n report."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-
-                                </LinearLayout>
-
-
-                            </androidx.cardview.widget.CardView>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/stream_selector"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_professional_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/professional_test" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Professional \nSkill Index Test"
-                                        android:gravity="center"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="40dp"
-                                        android:gravity="center"
-                                        android:text="Know your Professional Skill Index!\n And train your way to a brighter career."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:background="@drawable/round_background_professional_button"
-                                        android:gravity="center"
-                                        android:text="Coming Soon"
-                                        android:textColor="#fff"
-                                        android:textSize="12sp"/>
-                                </LinearLayout>
-
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/ideal_career2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_humanities_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/humanities_test" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Humanities\n Career Selector Test"
-                                        android:gravity="center"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="40dp"
-                                        android:gravity="center"
-                                        android:text="Know your Humanities best career option\n And train your way to a brighter career."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:background="@drawable/round_background_humanites_button"
-                                        android:gravity="center"
-                                        android:text="Coming Soon"
-                                        android:textColor="#fff"
-                                        android:textSize="12sp"/>
-
-                                </LinearLayout>
-
-                            </androidx.cardview.widget.CardView>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/ideal_career3"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_stream_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/stream_selector" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Stream Selector\n Test"
-                                        android:gravity="center"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="40dp"
-                                        android:gravity="center"
-                                        android:text="Provides you 4 pages of Psychometric report."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:background="@drawable/round_background_stream_button"
-                                        android:gravity="center"
-                                        android:text="Coming Soon"
-                                        android:paddingBottom="5dp"
-                                        android:textColor="#fff"
-                                        android:textSize="12sp"/>
-                                </LinearLayout>
-
-                            </androidx.cardview.widget.CardView></LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/ideal_career4"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_commerce_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/commerce_test" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:gravity="center"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Commerce Career\n Test"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="40dp"
-                                        android:gravity="center"
-                                        android:text="Know your Commerce Best Career Option!\n And train your way to a brighter career."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:background="@drawable/round_background_commerce_button"
-                                        android:gravity="center"
-                                        android:text="Coming Soon"
-                                        android:paddingBottom="5dp"
-                                        android:textColor="#fff"
-                                        android:textSize="12sp"/>
-
-                                </LinearLayout>
-
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/ideal_career5"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_engineering_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/engineering_test" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Engineering \nBracnch Selector Test"
-                                        android:gravity="center"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="40dp"
-                                        android:gravity="center"
-                                        android:text="The best way to select your engineering\n branch. Discover it today."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:background="@drawable/round_background_engineering_button"
-                                        android:gravity="center"
-                                        android:text="Coming Soon"
-                                        android:paddingBottom="5dp"
-                                        android:textColor="#fff"
-                                        android:textSize="12sp"/>
-
-                                </LinearLayout>
-
-                            </androidx.cardview.widget.CardView>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:id="@+id/skill_career"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="250dp"
-                                    android:background="@drawable/round_background_skillbased_up"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="70dp"
-                                        android:layout_height="70dp"
-                                        android:layout_marginTop="10dp"
-                                        android:src="@drawable/skill_based_test" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="25dp"
-                                        android:layout_marginTop="20dp"
-                                        android:layout_marginRight="25dp"
-                                        android:text="Skill \nBased Career Test"
-                                        android:gravity="center"
-                                        android:textColor="#000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="45dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="45dp"
-                                        android:layout_marginBottom="40dp"
-                                        android:gravity="center"
-                                        android:text="The best way to select your engineering\n branch. Discover it today."
-                                        android:textColor="#000"
-                                        android:textSize="10sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:background="@drawable/round_background_skillbased_button"
-                                        android:gravity="center"
-                                        android:text="Coming Soon"
-                                        android:paddingBottom="5dp"
-                                        android:textColor="#fff"
-                                        android:textSize="12sp"/>
-
-                                </LinearLayout>
-
-                            </androidx.cardview.widget.CardView>
-
-                        </LinearLayout>
                     </LinearLayout>
-                </HorizontalScrollView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <HorizontalScrollView
+                            android:id="@+id/horizontalScrollView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="8dp"
+                            android:scrollbars="none">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#00000000"
+                                android:orientation="horizontal"
+                                >
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="#00000000"
+                                    android:orientation="vertical">
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/tests"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_ideal_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/ideal_test" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Ideal Career Test"
+                                                android:gravity="center"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="20dp"
+                                                android:gravity="center"
+                                                android:text="Provides you 12 pages of Psychometric \n report."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+
+                                        </LinearLayout>
+
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="#00000000"
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/stream_selector"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_professional_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/professional_test" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Professional \nSkill Index Test"
+                                                android:gravity="center"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="40dp"
+                                                android:gravity="center"
+                                                android:text="Know your Professional Skill Index!\n And train your way to a brighter career."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:background="@drawable/round_background_professional_button"
+                                                android:gravity="center"
+                                                android:text="Coming Soon"
+                                                android:textColor="#fff"
+                                                android:textSize="12sp"/>
+                                        </LinearLayout>
+
+                                    </androidx.cardview.widget.CardView>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/ideal_career2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_humanities_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/humanities_test" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Humanities\n Career Selector Test"
+                                                android:gravity="center"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="40dp"
+                                                android:gravity="center"
+                                                android:text="Know your Humanities best career option\n And train your way to a brighter career."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:background="@drawable/round_background_humanites_button"
+                                                android:gravity="center"
+                                                android:text="Coming Soon"
+                                                android:textColor="#fff"
+                                                android:textSize="12sp"/>
+
+                                        </LinearLayout>
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/ideal_career3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_stream_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/stream_selector" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Stream Selector\n Test"
+                                                android:gravity="center"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="40dp"
+                                                android:gravity="center"
+                                                android:text="Provides you 4 pages of Psychometric report."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:background="@drawable/round_background_stream_button"
+                                                android:gravity="center"
+                                                android:text="Coming Soon"
+                                                android:paddingBottom="5dp"
+                                                android:textColor="#fff"
+                                                android:textSize="12sp"/>
+                                        </LinearLayout>
+
+                                    </androidx.cardview.widget.CardView></LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/ideal_career4"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_commerce_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/commerce_test" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:gravity="center"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Commerce Career\n Test"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="40dp"
+                                                android:gravity="center"
+                                                android:text="Know your Commerce Best Career Option!\n And train your way to a brighter career."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:background="@drawable/round_background_commerce_button"
+                                                android:gravity="center"
+                                                android:text="Coming Soon"
+                                                android:paddingBottom="5dp"
+                                                android:textColor="#fff"
+                                                android:textSize="12sp"/>
+
+                                        </LinearLayout>
+
+                                    </androidx.cardview.widget.CardView>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/ideal_career5"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_engineering_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/engineering_test" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Engineering \nBracnch Selector Test"
+                                                android:gravity="center"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="40dp"
+                                                android:gravity="center"
+                                                android:text="The best way to select your engineering\n branch. Discover it today."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:background="@drawable/round_background_engineering_button"
+                                                android:gravity="center"
+                                                android:text="Coming Soon"
+                                                android:paddingBottom="5dp"
+                                                android:textColor="#fff"
+                                                android:textSize="12sp"/>
+
+                                        </LinearLayout>
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        app:cardCornerRadius="5dp"
+                                        app:cardElevation="0dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/skill_career"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="250dp"
+                                            android:background="@drawable/round_background_skillbased_up"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="70dp"
+                                                android:layout_height="70dp"
+                                                android:layout_marginTop="10dp"
+                                                android:src="@drawable/skill_based_test" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginRight="25dp"
+                                                android:text="Skill \nBased Career Test"
+                                                android:gravity="center"
+                                                android:textColor="#000"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="45dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginRight="45dp"
+                                                android:layout_marginBottom="40dp"
+                                                android:gravity="center"
+                                                android:text="The best way to select your engineering\n branch. Discover it today."
+                                                android:textColor="#000"
+                                                android:textSize="10sp" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:background="@drawable/round_background_skillbased_button"
+                                                android:gravity="center"
+                                                android:text="Coming Soon"
+                                                android:paddingBottom="5dp"
+                                                android:textColor="#fff"
+                                                android:textSize="12sp"/>
+
+                                        </LinearLayout>
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
 
                 <!--cat_Blog-->
-                <TextView
-                    android:id="@+id/Cat_Blog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/horizontalScrollView"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_Blog"
-                    android:layout_marginBottom="20dp"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@+id/Cat_Blog"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_Blog"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_Blog"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_Blog"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_Blog"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_Blog"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat_blogs"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_Blog"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_Blog"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_Blog"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
                 <!--cat_3-->
-                <TextView
-                    android:id="@+id/Cat_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_Blog"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_NINE"
-                    android:layout_marginBottom="20dp"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@+id/Cat_3"
-                    />
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_3"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_3"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_3"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_3"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat3"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_NINE"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_3"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_3"
+                            layout="@layout/coming_soon_lyt"/>
+
                 </RelativeLayout>
+                </LinearLayout>
+
+
 
 
 
 
                 <!--cat_4-->
-                <TextView
-                    android:id="@+id/Cat_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_3"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_TEN"
-                    android:layout_marginBottom="20dp"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_4"
-                    />
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_4"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_4"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_4"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_4"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat4"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_TEN"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_4"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_4"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
 
                 <!--cat_5-->
-                <TextView
-                    android:id="@+id/Cat_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_4"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_ELEVEN"
-                    android:layout_marginBottom="20dp"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_5"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_5"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_5"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_5"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_5"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat5"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_ELEVEN"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_5"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_5"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
                 <!--cat_6-->
-                <TextView
-                    android:id="@+id/Cat_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_5"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_TWELVE"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_6"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_6"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_6"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_6"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_6"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat6"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_TWELVE"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_6"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_6"
+                            layout="@layout/coming_soon_lyt"/>
 
+                    </RelativeLayout>
+                </LinearLayout>
 
 
                 <!--cat_7-->
-                <TextView
-                    android:id="@+id/Cat_7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_6"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_GRADUATE"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_7"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_7"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_7"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_7"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_7"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_7"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat7"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_GRADUATE"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_7"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_7"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
 
                 <!--cat_8-->
-                <TextView
-                    android:id="@+id/Cat_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_7"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_POSTGRA"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_8"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_8"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_8"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_8"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_8"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_8"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat8"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_POSTGRA"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_8"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_8"
+                            layout="@layout/coming_soon_lyt"/>
 
+                    </RelativeLayout>
+                </LinearLayout>
 
 
                 <!--cat_9-->
-                <TextView
-                    android:id="@+id/Cat_9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_8"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_WORKING"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_9"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_9"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_9"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_9"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_9"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_9"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat9"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_WORKING"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_9"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_9"
+                            layout="@layout/coming_soon_lyt"/>
 
+                    </RelativeLayout>
+                </LinearLayout>
 
 
                 <!--cat_10-->
-                <TextView
-                    android:id="@+id/Cat_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="Ongoing courses"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/shimmer_view_container_cat_9"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/yt_recycler_view_three"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_below="@id/Cat_10"/>
-                <include layout="@layout/shimmer_cgpaylist_single_category_loading"
-                    android:id="@+id/shimmer_view_container_cat_10"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/Cat_10"
-                    />
-                <RelativeLayout
-                    android:id="@+id/comingSoonCat_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:background="@color/coming_soon_relative_layout_background"
-                    android:layout_below="@+id/Cat_10"
-                    android:elevation="2dp"
-                    android:visibility="invisible">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
-                        <TextView
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="3dp">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stay Tuned"
-                            android:textSize="32sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We'll notify you soon"
-                            android:textSize="28sp"
-                            android:textColor="#707070"
-                            android:layout_gravity="center"
-                            />
+                            android:id="@+id/Cat_10"
+                            android:visibility="visible"
+                            android:text="Ongoing courses"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
 
+                        <Button
+                            android:onClick="onSeeAllClick"
+                            android:background="@android:color/transparent"
+                            android:id="@+id/see_all_cat10"
+                            android:padding="2dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/app_blue"
+                            android:text="See All"
+                            android:textAllCaps="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_three"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            />
+                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"
+                            android:id="@+id/shimmer_view_container_cat_10"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent" />
+                        <include
+                            android:id="@+id/comingSoonCat_10"
+                            layout="@layout/coming_soon_lyt"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
-
-
-            </RelativeLayout>
-        </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
