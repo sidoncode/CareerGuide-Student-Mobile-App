@@ -329,7 +329,7 @@ public class Utility extends Application
     public static String getUserEducation(Activity activity)
     {
         SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
-        return sharedPreferences.getString("education","");
+        return sharedPreferences.getString("education","Select Education Level");
     }
 
     public static String getUserEducationUid(Activity activity)
