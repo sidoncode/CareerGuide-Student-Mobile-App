@@ -1198,7 +1198,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
                     String title_NINE = JsonObject_NINE.optString("title");
                     String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    displaylist = new Videos_NINE(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "");
+                    String video_views = JsonObject_NINE.optString("views");
+                    displaylist = new Videos_NINE(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Nine","-->");
@@ -1266,7 +1267,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url_TEN = JsonObject_TEN.optString("img_url");
                     String title_TEN = JsonObject_TEN.optString("title");
                     String video_url_TEN = JsonObject_TEN.optString("video_url");
-                    displaylist = new Videos_TEN(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "");
+                    String video_views=JsonObject_TEN.optString("views");
+                    displaylist = new Videos_TEN(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Ten","-->");
@@ -1328,7 +1330,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_ELEVEN.optString("img_url");
                     String title = JsonObject_ELEVEN.optString("title");
                     String video_url = JsonObject_ELEVEN.optString("video_url");
-                    displaylist = new Videos_ELEVEN(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_ELEVEN.optString("views");
+                    displaylist = new Videos_ELEVEN(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
             }catch(Exception e1)
@@ -1389,7 +1392,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_TWELVE.optString("img_url");
                     String title = JsonObject_TWELVE.optString("title");
                     String video_url = JsonObject_TWELVE.optString("video_url");
-                    displaylist = new Videos_TWELVE(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_TWELVE.optString("views");
+                    displaylist = new Videos_TWELVE(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Twelve","-->");
@@ -1454,7 +1458,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject_GRADUATE.optString("video_url");
                     String pic_url = JsonObject_GRADUATE.optString("pic_url");
                     //Log.e("#Graduate","pic-->"+JsonObject_GRADUATE.toString());
-                    displaylist = new Videos_GRADUATE(email, name, img_url, video_url, title, "");
+                    String video_views= JsonObject_GRADUATE.optString("views");
+                    displaylist = new Videos_GRADUATE(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Graduate","-->");
@@ -1516,7 +1521,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_POSTGRA.optString("img_url");
                     String title = JsonObject_POSTGRA.optString("title");
                     String video_url = JsonObject_POSTGRA.optString("video_url");
-                    displaylist = new Videos_POSTGRA(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_POSTGRA.optString("views");
+                    displaylist = new Videos_POSTGRA(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#PostGra","-->");
@@ -1578,7 +1584,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_WORKING.optString("img_url");
                     String title = JsonObject_WORKING.optString("title");
                     String video_url = JsonObject_WORKING.optString("video_url");
-                    displaylist = new Videos_WORKING(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_WORKING.optString("views");
+                    displaylist = new Videos_WORKING(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Working","-->");

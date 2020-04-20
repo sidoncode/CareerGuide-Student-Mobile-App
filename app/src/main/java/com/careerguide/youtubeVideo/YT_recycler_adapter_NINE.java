@@ -99,6 +99,7 @@ public class YT_recycler_adapter_NINE extends RecyclerView.Adapter<YT_recycler_a
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());
             intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
 //            Intent videoIntent = YouTubeStandalonePlayer.createVideoIntent(activity, key, video.getId(), 0, true, false);
 //            activity.startActivityForResult(videoIntent, REQ_PLAYER_CODE);

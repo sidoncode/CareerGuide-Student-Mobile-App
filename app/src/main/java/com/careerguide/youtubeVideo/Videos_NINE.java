@@ -9,15 +9,17 @@ public class Videos_NINE implements Serializable {
     String name;
     String imgurl;
     String videourl;
+    String videoviews;
 
 
-    public Videos_NINE(String email, String name, String imgurl, String videourl, String title , String picUrl) {
+    public Videos_NINE(String email, String name, String imgurl, String videourl, String title , String picUrl,String videoviews) {
         this.email = email;
         this.name = name;
         this.imgurl = imgurl;
         this.videourl = videourl;
         this.title = title;
         this.picUrl = picUrl;
+        this.videoviews=videoviews;
     }
 
 
@@ -43,6 +45,10 @@ public class Videos_NINE implements Serializable {
 
     public String getVideourl() {
         return videourl;
+    }
+
+    public String getVideoViews() {
+        return videoviews;
     }
 
 
