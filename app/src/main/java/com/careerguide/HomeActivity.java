@@ -12,19 +12,13 @@ import android.net.Uri;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
+import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.activity.CatDetailActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
+import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
-import com.careerguide.youtubeVideo.Videos_ELEVEN;
-import com.careerguide.youtubeVideo.Videos_GRADUATE;
-import com.careerguide.youtubeVideo.Videos_NINE;
-import com.careerguide.youtubeVideo.Videos_POSTGRA;
-import com.careerguide.youtubeVideo.Videos_TEN;
-import com.careerguide.youtubeVideo.Videos_TWELVE;
-import com.careerguide.youtubeVideo.Videos_WORKING;
-import com.careerguide.youtubeVideo.Videos_three;
-import com.careerguide.youtubeVideo.Videos_two;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -60,7 +54,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.activity.GoalsActivity;
-import com.careerguide.youtubeVideo.CGPlaylist;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +65,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +74,8 @@ import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import com.careerguide.blog.model.Categories;
-import com.google.gson.Gson;
 
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
@@ -1033,8 +1023,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task2 extends AsyncTask<Void, Void, Void> {
 
-        Videos_two displaylist;
-        List<Videos_two> displaylistArray = new ArrayList<>();
+        Videos displaylist;
+        List<Videos> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1075,7 +1065,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String id_two = video_two.getString("videoId");
                     Log.e("inside","-->" +id_two);
                     String thumbUrl_two = jsonObject_two.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    displaylist = new Videos_two(title_two, thumbUrl_two ,id_two , Desc_two);
+                    displaylist = new Videos(title_two, thumbUrl_two ,id_two , Desc_two);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Second","-->");
@@ -1095,8 +1085,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task3 extends AsyncTask<Void, Void, Void> {
 
-        Videos_three displaylist;
-        List<Videos_three> displaylistArray = new ArrayList<>();
+        Videos displaylist;
+        List<Videos> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1136,7 +1126,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
                     String id_three = video_three.getString("videoId");
                     String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    displaylist = new Videos_three(title_three, thumbUrl_three, id_three, Desc_three);
+                    displaylist = new Videos(title_three, thumbUrl_three, id_three, Desc_three);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Three","-->");
@@ -1157,8 +1147,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task9 extends AsyncTask<Void, Void, Void> {
 
-        Videos_NINE displaylist;
-        List<Videos_NINE> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1198,7 +1188,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
                     String title_NINE = JsonObject_NINE.optString("title");
                     String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    displaylist = new Videos_NINE(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "");
+                    displaylist = new CommonEducationModel(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "");
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Nine","-->");
@@ -1224,8 +1214,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task10 extends AsyncTask<Void, Void, Void> {
 
-        Videos_TEN displaylist;
-        List<Videos_TEN> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1266,7 +1256,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url_TEN = JsonObject_TEN.optString("img_url");
                     String title_TEN = JsonObject_TEN.optString("title");
                     String video_url_TEN = JsonObject_TEN.optString("video_url");
-                    displaylist = new Videos_TEN(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "");
+                    displaylist = new CommonEducationModel(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "");
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Ten","-->");
@@ -1287,8 +1277,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task11 extends AsyncTask<Void, Void, Void> {
 
-        Videos_ELEVEN displaylist;
-        List<Videos_ELEVEN> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1328,7 +1318,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_ELEVEN.optString("img_url");
                     String title = JsonObject_ELEVEN.optString("title");
                     String video_url = JsonObject_ELEVEN.optString("video_url");
-                    displaylist = new Videos_ELEVEN(email, name, img_url, video_url, title, "");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "");
                     displaylistArray.add(displaylist);
                 }
             }catch(Exception e1)
@@ -1348,8 +1338,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task12 extends AsyncTask<Void, Void, Void> {
 
-        Videos_TWELVE displaylist;
-        List<Videos_TWELVE> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1389,7 +1379,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_TWELVE.optString("img_url");
                     String title = JsonObject_TWELVE.optString("title");
                     String video_url = JsonObject_TWELVE.optString("video_url");
-                    displaylist = new Videos_TWELVE(email, name, img_url, video_url, title, "");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "");
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Twelve","-->");
@@ -1411,8 +1401,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class TaskGrad extends AsyncTask<Void, Void, Void> {
 
-        Videos_GRADUATE displaylist;
-        List<Videos_GRADUATE> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1454,7 +1444,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject_GRADUATE.optString("video_url");
                     String pic_url = JsonObject_GRADUATE.optString("pic_url");
                     //Log.e("#Graduate","pic-->"+JsonObject_GRADUATE.toString());
-                    displaylist = new Videos_GRADUATE(email, name, img_url, video_url, title, "");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "");
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Graduate","-->");
@@ -1475,8 +1465,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class TaskPostGrad extends AsyncTask<Void, Void, Void> {
 
-        Videos_POSTGRA displaylist;
-        List<Videos_POSTGRA> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1516,7 +1506,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_POSTGRA.optString("img_url");
                     String title = JsonObject_POSTGRA.optString("title");
                     String video_url = JsonObject_POSTGRA.optString("video_url");
-                    displaylist = new Videos_POSTGRA(email, name, img_url, video_url, title, "");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "");
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#PostGra","-->");
@@ -1537,8 +1527,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class TaskWorking extends AsyncTask<Void, Void, Void> {
 
-        Videos_WORKING displaylist;
-        List<Videos_WORKING> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1578,7 +1568,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_WORKING.optString("img_url");
                     String title = JsonObject_WORKING.optString("title");
                     String video_url = JsonObject_WORKING.optString("video_url");
-                    displaylist = new Videos_WORKING(email, name, img_url, video_url, title, "");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "");
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Working","-->");
@@ -1718,6 +1708,85 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         return imgurl;
     }
+
+
+
+    public void onSeeAllClick(View v)
+    {
+        int mode =0;
+        Intent intent = new Intent(this, SeeAllActivity.class);
+
+        switch (v.getId())
+        {
+            case R.id.see_all_cat1:
+                mode =1;
+                intent.putExtra("KEY","PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS");
+                intent.putExtra("TITLE","Corona Awareness");
+
+                break;
+
+            case R.id.see_all_cat2:
+                mode =1;
+                intent.putExtra("KEY","PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK");
+                intent.putExtra("TITLE","CareerGuide Counsellors");
+                break;
+
+            case R.id.see_all_cat10:
+                mode =1;
+                intent.putExtra("KEY","PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc");
+                intent.putExtra("TITLE","Counsellor Videos");
+                break;
+
+            case R.id.see_all_cat_test:
+                startActivity(new Intent(this,PsychometricTestsActivity.class));
+                return;
+
+            case R.id.see_all_cat_blogs:
+                startActivity(new Intent(this, CatDetailActivity.class));
+                return;
+
+            case R.id.see_all_cat3:
+                intent.putExtra("EDU_KEY","videos_NINE");
+                intent.putExtra("TITLE","Class 9th");
+                break;
+
+            case R.id.see_all_cat4:
+                intent.putExtra("EDU_KEY","videos_TEN");
+                intent.putExtra("TITLE","Class 10th");
+
+                break;
+
+            case R.id.see_all_cat5:
+                intent.putExtra("EDU_KEY","videos_ELEVEN");
+                intent.putExtra("TITLE","Class 11th");
+                break;
+
+            case R.id.see_all_cat6:
+                intent.putExtra("EDU_KEY","videos_TWELVE");
+                intent.putExtra("TITLE","Class 12th");
+                break;
+
+            case R.id.see_all_cat7:
+                intent.putExtra("EDU_KEY","videos_GRADUATE");
+                intent.putExtra("TITLE","Graduates");
+                break;
+
+            case R.id.see_all_cat8:
+                intent.putExtra("EDU_KEY","videos_POSTGRA");
+                intent.putExtra("TITLE","Post Graduates");
+                break;
+
+            case R.id.see_all_cat9:
+                intent.putExtra("EDU_KEY","videos_WORKING");
+                intent.putExtra("TITLE","Working Professionals");
+                break;
+        }
+
+        intent.putExtra("mode",mode);
+        startActivity(intent);
+    }
+
+
 
 
 }
