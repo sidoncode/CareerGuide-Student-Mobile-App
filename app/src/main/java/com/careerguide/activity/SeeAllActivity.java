@@ -133,7 +133,8 @@ public class SeeAllActivity extends AppCompatActivity {
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
                     String title_NINE = JsonObject_NINE.optString("title");
                     String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    commonEducationModel = new CommonEducationModel(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "");
+                    String video_views = JsonObject_NINE.optString("views");
+                    commonEducationModel = new CommonEducationModel(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "",video_views);
                     educationList.add(commonEducationModel);
                 }
                 Log.e("#Nine","-->");

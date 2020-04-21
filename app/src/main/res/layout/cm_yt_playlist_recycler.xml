@@ -258,7 +258,7 @@
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent" />
                         <include
-                            android:id="@+id/comingSoonCat_10"
+                            android:id="@+id/comingSoonCat_1"
                             layout="@layout/coming_soon_lyt"/>
 
                     </RelativeLayout>

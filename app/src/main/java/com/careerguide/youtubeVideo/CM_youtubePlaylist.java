@@ -302,7 +302,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
                     String title_NINE = JsonObject_NINE.optString("title");
                     String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    displaylist_NINE = new CommonEducationModel(email_NINE,name_NINE,img_url_NINE,video_url_NINE,title_NINE,"");
+                    String video_views = JsonObject_NINE.optString("views");
+                    displaylist_NINE = new CommonEducationModel(email_NINE,name_NINE,img_url_NINE,video_url_NINE,title_NINE,"",video_views);
                     displaylistArray_NINE.add(displaylist_NINE);
                 }
 
@@ -319,7 +320,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url_TEN = JsonObject_TEN.optString("img_url");
                     String title_TEN = JsonObject_TEN.optString("title");
                     String video_url_TEN = JsonObject_TEN.optString("video_url");
-                    displaylist_TEN = new CommonEducationModel(email_TEN,name_TEN,img_url_TEN,video_url_TEN,title_TEN,"");
+                    String video_views = JsonObject_TEN.optString("views");
+                    displaylist_TEN = new CommonEducationModel(email_TEN,name_TEN,img_url_TEN,video_url_TEN,title_TEN,"",video_views);
                     displaylistArray_TEN.add(displaylist_TEN);
                 }
 
@@ -334,7 +336,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_ELEVEN.optString("img_url");
                     String title = JsonObject_ELEVEN.optString("title");
                     String video_url = JsonObject_ELEVEN.optString("video_url");
-                    displaylist_ELEVEN = new CommonEducationModel(email,name,img_url,video_url,title,"");
+                    String video_views = JsonObject_ELEVEN.optString("views");
+                    displaylist_ELEVEN = new CommonEducationModel(email,name,img_url,video_url,title,"",video_views);
                     displaylistArray_ELEVEN.add(displaylist_ELEVEN);
                 }
 
@@ -349,7 +352,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_TWELVE.optString("img_url");
                     String title = JsonObject_TWELVE.optString("title");
                     String video_url = JsonObject_TWELVE.optString("video_url");
-                    displaylist_TWELVE = new CommonEducationModel(email,name,img_url,video_url,title,"");
+                    String video_views = JsonObject_TWELVE.optString("views");
+                    displaylist_TWELVE = new CommonEducationModel(email,name,img_url,video_url,title,"",video_views);
                     displaylistArray_TWELVE.add(displaylist_TWELVE);
                 }
 
@@ -364,7 +368,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_GRADUATE.optString("img_url");
                     String title = JsonObject_GRADUATE.optString("title");
                     String video_url = JsonObject_GRADUATE.optString("video_url");
-                    displaylist_GRADUATE = new CommonEducationModel(email,name,img_url,video_url,title,"");
+                    String video_views = JsonObject_GRADUATE.optString("views");
+                    displaylist_GRADUATE = new CommonEducationModel(email,name,img_url,video_url,title,"",video_views);
                     displaylistArray_GRADUATE.add(displaylist_GRADUATE);
                 }
 
@@ -379,7 +384,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_POSTGRA.optString("img_url");
                     String title = JsonObject_POSTGRA.optString("title");
                     String video_url = JsonObject_POSTGRA.optString("video_url");
-                    displaylist_POSTGRA = new CommonEducationModel(email,name,img_url,video_url,title,"");
+                    String video_views = JsonObject_POSTGRA.optString("views");
+                    displaylist_POSTGRA = new CommonEducationModel(email,name,img_url,video_url,title,"",video_views);
                     displaylistArray_POSTGRA.add(displaylist_POSTGRA);
                 }
 
@@ -394,7 +400,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
                     String img_url = JsonObject_WORKING.optString("img_url");
                     String title = JsonObject_WORKING.optString("title");
                     String video_url = JsonObject_WORKING.optString("video_url");
-                    displaylist_WORKING = new CommonEducationModel(email,name,img_url,video_url,title,"");
+                    String video_views = JsonObject_WORKING.optString("views");
+                    displaylist_WORKING = new CommonEducationModel(email,name,img_url,video_url,title,"",video_views);
                     displaylistArray_WORKING.add(displaylist_WORKING);
                 }
 
@@ -474,8 +481,4 @@ public class CM_youtubePlaylist extends AppCompatActivity {
 
         return imgurl;
     }
-
-
-
-
 }

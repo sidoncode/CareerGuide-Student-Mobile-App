@@ -2,17 +2,16 @@ package com.careerguide.youtubeVideo;
 
 import java.io.Serializable;
 
-public class CommonEducationModel  implements Serializable {
-    private String email;
-    private String picUrl;
-    private String title;
-    private String name;
-    private String imgurl;
-    private String videourl;
+public class Videos_GRADUATE implements Serializable {
+    String email;
+    String picUrl;
+    String title;
+    String name;
+    String imgurl;
+    String videourl;
     String videoviews;
 
-
-    public CommonEducationModel(String email, String name, String imgurl, String videourl, String title , String picUrl,String videoviews) {
+    public Videos_GRADUATE(String email, String name, String imgurl, String videourl, String title , String picUrl,String videoviews) {
         this.email = email;
         this.name = name;
         this.imgurl = imgurl;

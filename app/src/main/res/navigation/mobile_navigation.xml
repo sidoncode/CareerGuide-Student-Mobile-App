@@ -44,12 +44,10 @@
         android:name="com.careerguide.Refer_a_friend"
         android:label="Refer a Friend"
         tools:layout="@layout/activity_refer_a_friend" />
-
     <activity
         android:id="@id/Blog"
         android:name="com.careerguide.blog.activity.CatDetailActivity"
         android:label="Blogs" />
-
     <fragment
         android:id="@+id/terms_conditions"
         android:name="com.careerguide.TermsAndConditionFragment"

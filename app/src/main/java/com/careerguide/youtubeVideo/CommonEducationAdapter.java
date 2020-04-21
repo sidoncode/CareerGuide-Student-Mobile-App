@@ -96,6 +96,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());
             intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
         });
 
