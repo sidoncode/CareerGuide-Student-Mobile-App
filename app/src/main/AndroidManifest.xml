@@ -223,6 +223,9 @@
             android:name=".activity.Activity_class"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".blog.activity.CatNotifiActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".blog.activity.CatListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
