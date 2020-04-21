@@ -5,16 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
-import com.careerguide.youtubeVideo.Videos_ELEVEN;
-import com.careerguide.youtubeVideo.Videos_GRADUATE;
-import com.careerguide.youtubeVideo.Videos_NINE;
-import com.careerguide.youtubeVideo.Videos_POSTGRA;
-import com.careerguide.youtubeVideo.Videos_TEN;
-import com.careerguide.youtubeVideo.Videos_TWELVE;
-import com.careerguide.youtubeVideo.Videos_WORKING;
-import com.careerguide.youtubeVideo.Videos_three;
-import com.careerguide.youtubeVideo.Videos_two;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +14,15 @@ import java.util.List;
 public class CGPlayListViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<Videos>> displaylistArray;
-    private MutableLiveData<List<Videos_two>> displaylistArray_two;
-    private MutableLiveData<List<Videos_three>> displaylistArray_three;
-    private MutableLiveData<List<Videos_NINE>> displaylistArray_NINE;
-    private MutableLiveData<List<Videos_TEN>> displaylistArray_TEN;
-    private MutableLiveData<List<Videos_ELEVEN>> displaylistArray_ELEVEN;
-    private MutableLiveData<List<Videos_TWELVE>> displaylistArray_TWELVE;
-    private MutableLiveData<List<Videos_GRADUATE>> displaylistArray_GRADUATE;
-    private MutableLiveData<List<Videos_POSTGRA>> displaylistArray_POSTGRA;
-    private MutableLiveData<List<Videos_WORKING>> displaylistArray_WORKING;
+    private MutableLiveData<List<Videos>> displaylistArray_two;
+    private MutableLiveData<List<Videos>> displaylistArray_three;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_NINE;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_TEN;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_ELEVEN;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_TWELVE;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_GRADUATE;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_POSTGRA;
+    private MutableLiveData<List<CommonEducationModel>> displaylistArray_WORKING;
     private MutableLiveData<List<DataMembers>> displaylistArray_Blog;
     private MutableLiveData<List<CategoryDetails>> displaylistArray_categoryDetails;
 
@@ -59,75 +51,75 @@ public class CGPlayListViewModel extends ViewModel {
         this.displaylistArray.setValue(displaylistArray);
     }
 
-    public MutableLiveData<List<Videos_two>> getDisplaylistArray_two() {
+    public MutableLiveData<List<Videos>> getDisplaylistArray_two() {
         return displaylistArray_two;
     }
 
-    public void setDisplaylistArray_two(List<Videos_two> displaylistArray_two) {
+    public void setDisplaylistArray_two(List<Videos> displaylistArray_two) {
         this.displaylistArray_two.setValue(displaylistArray_two);
     }
 
-    public MutableLiveData<List<Videos_three>> getDisplaylistArray_three() {
+    public MutableLiveData<List<Videos>> getDisplaylistArray_three() {
         return displaylistArray_three;
     }
 
-    public void setDisplaylistArray_three(List<Videos_three> displaylistArray_three) {
+    public void setDisplaylistArray_three(List<Videos> displaylistArray_three) {
         this.displaylistArray_three.setValue(displaylistArray_three);
     }
 
-    public MutableLiveData<List<Videos_NINE>> getDisplaylistArray_NINE() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_NINE() {
         return displaylistArray_NINE;
     }
 
-    public void setDisplaylistArray_NINE(List<Videos_NINE> displaylistArray_NINE) {
+    public void setDisplaylistArray_NINE(List<CommonEducationModel> displaylistArray_NINE) {
         this.displaylistArray_NINE.setValue(displaylistArray_NINE);
     }
 
-    public MutableLiveData<List<Videos_TEN>> getDisplaylistArray_TEN() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_TEN() {
         return displaylistArray_TEN;
     }
 
-    public void setDisplaylistArray_TEN(List<Videos_TEN> displaylistArray_TEN) {
+    public void setDisplaylistArray_TEN(List<CommonEducationModel> displaylistArray_TEN) {
         this.displaylistArray_TEN.setValue(displaylistArray_TEN);
     }
 
-    public MutableLiveData<List<Videos_ELEVEN>> getDisplaylistArray_ELEVEN() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_ELEVEN() {
         return displaylistArray_ELEVEN;
     }
 
-    public void setDisplaylistArray_ELEVEN(List<Videos_ELEVEN> displaylistArray_ELEVEN) {
+    public void setDisplaylistArray_ELEVEN(List<CommonEducationModel> displaylistArray_ELEVEN) {
         this.displaylistArray_ELEVEN.setValue(displaylistArray_ELEVEN);
     }
 
-    public MutableLiveData<List<Videos_TWELVE>> getDisplaylistArray_TWELVE() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_TWELVE() {
         return displaylistArray_TWELVE;
     }
 
-    public void setDisplaylistArray_TWELVE(List<Videos_TWELVE> displaylistArray_TWELVE) {
+    public void setDisplaylistArray_TWELVE(List<CommonEducationModel> displaylistArray_TWELVE) {
         this.displaylistArray_TWELVE.setValue(displaylistArray_TWELVE);
     }
 
-    public MutableLiveData<List<Videos_GRADUATE>> getDisplaylistArray_GRADUATE() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_GRADUATE() {
         return displaylistArray_GRADUATE;
     }
 
-    public void setDisplaylistArray_GRADUATE(List<Videos_GRADUATE> displaylistArray_GRADUATE) {
+    public void setDisplaylistArray_GRADUATE(List<CommonEducationModel> displaylistArray_GRADUATE) {
         this.displaylistArray_GRADUATE.setValue(displaylistArray_GRADUATE);
     }
 
-    public MutableLiveData<List<Videos_POSTGRA>> getDisplaylistArray_POSTGRA() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_POSTGRA() {
         return displaylistArray_POSTGRA;
     }
 
-    public void setDisplaylistArray_POSTGRA(List<Videos_POSTGRA> displaylistArray_POSTGRA) {
+    public void setDisplaylistArray_POSTGRA(List<CommonEducationModel> displaylistArray_POSTGRA) {
         this.displaylistArray_POSTGRA.setValue(displaylistArray_POSTGRA);
     }
 
-    public MutableLiveData<List<Videos_WORKING>> getDisplaylistArray_WORKING() {
+    public MutableLiveData<List<CommonEducationModel>> getDisplaylistArray_WORKING() {
         return displaylistArray_WORKING;
     }
 
-    public void setDisplaylistArray_WORKING(List<Videos_WORKING> displaylistArray_WORKING) {
+    public void setDisplaylistArray_WORKING(List<CommonEducationModel> displaylistArray_WORKING) {
         this.displaylistArray_WORKING.setValue(displaylistArray_WORKING);
     }
 

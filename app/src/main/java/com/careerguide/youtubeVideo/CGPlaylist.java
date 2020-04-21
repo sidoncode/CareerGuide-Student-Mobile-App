@@ -1,6 +1,7 @@
 package com.careerguide.youtubeVideo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.careerguide.CGPlayListViewModel;
 import com.careerguide.R;
+import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
 import com.careerguide.blog.adapter.CatDetailAdapter;
@@ -33,28 +35,28 @@ import java.util.Objects;
 public class CGPlaylist extends Fragment {
 
     private List<Videos> displaylistArray = new ArrayList<>();
-    private List<Videos_two> displaylistArray_two = new ArrayList<>();
-    private List<Videos_three> displaylistArray_three = new ArrayList<>();
-    private List<Videos_NINE> displaylistArray_NINE = new ArrayList<>();
-    private List<Videos_TEN> displaylistArray_TEN = new ArrayList<>();
-    private List<Videos_ELEVEN> displaylistArray_ELEVEN = new ArrayList<>();
-    private List<Videos_TWELVE> displaylistArray_TWELVE = new ArrayList<>();
-    private List<Videos_GRADUATE> displaylistArray_GRADUATE = new ArrayList<>();
-    private List<Videos_POSTGRA> displaylistArray_POSTGRA = new ArrayList<>();
-    private List<Videos_WORKING> displaylistArray_WORKING = new ArrayList<>();
+    private List<Videos> displaylistArray_two = new ArrayList<>();
+    private List<Videos> displaylistArray_three = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_NINE = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_TEN = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_ELEVEN = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_TWELVE = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_GRADUATE = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_POSTGRA = new ArrayList<>();
+    private List<CommonEducationModel> displaylistArray_WORKING = new ArrayList<>();
     private List<DataMembers> displaylistArray_Blog = new ArrayList<>();
     private List<CategoryDetails> categoryDetails = new ArrayList<>();
 
     private YT_recycler_adapter mVideoAdapter;
-    private YT_recycler_adapter_two mVideoAdapter_two;
-    private YT_recycler_adapter_three mVideoAdapter_three;
-    private YT_recycler_adapter_NINE mVideoAdapter_NINE;
-    private YT_recycler_adapter_TEN mVideoAdapter_TEN;
-    private YT_recycler_adapter_ELEVEN mVideoAdapter_ELEVEN;
-    private YT_recycler_adapter_TWELVE mVideoAdapter_TWELVE;
-    private YT_recycler_adapter_GRADUATE mVideoAdapter_GRADUATE;
-    private YT_recycler_adapter_POSTGRA mVideoAdapter_POSTGRA;
-    private YT_recycler_adapter_WORKING mVideoAdapter_WORKING;
+    private YT_recycler_adapter mVideoAdapter_two;
+    private YT_recycler_adapter mVideoAdapter_three;
+    private CommonEducationAdapter mVideoAdapter_NINE;
+    private CommonEducationAdapter mVideoAdapter_TEN;
+    private CommonEducationAdapter mVideoAdapter_ELEVEN;
+    private CommonEducationAdapter mVideoAdapter_TWELVE;
+    private CommonEducationAdapter mVideoAdapter_GRADUATE;
+    private CommonEducationAdapter mVideoAdapter_POSTGRA;
+    private CommonEducationAdapter mVideoAdapter_WORKING;
     private CatDetailAdapter mVideoAdapter_Blog;
 
     private Context context;
@@ -237,15 +239,15 @@ public class CGPlaylist extends Fragment {
 
 
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_two = new YT_recycler_adapter_two(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_three = new YT_recycler_adapter_three(displaylistArray_three, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_NINE = new YT_recycler_adapter_NINE(displaylistArray_NINE, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_TEN = new YT_recycler_adapter_TEN(displaylistArray_TEN, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_ELEVEN = new YT_recycler_adapter_ELEVEN(displaylistArray_ELEVEN, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_TWELVE = new YT_recycler_adapter_TWELVE(displaylistArray_TWELVE, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_GRADUATE = new YT_recycler_adapter_GRADUATE(displaylistArray_GRADUATE, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_POSTGRA = new YT_recycler_adapter_POSTGRA(displaylistArray_POSTGRA, browserKey, getActivity(), cornerRadius, videoTxtColor);
-        mVideoAdapter_WORKING = new YT_recycler_adapter_WORKING(displaylistArray_WORKING, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_two = new YT_recycler_adapter(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_three = new YT_recycler_adapter(displaylistArray_three, browserKey, getActivity(), cornerRadius, videoTxtColor);
+        mVideoAdapter_NINE = new CommonEducationAdapter(displaylistArray_NINE, getActivity());
+        mVideoAdapter_TEN = new CommonEducationAdapter(displaylistArray_TEN, getActivity());
+        mVideoAdapter_ELEVEN = new CommonEducationAdapter(displaylistArray_ELEVEN, getActivity());
+        mVideoAdapter_TWELVE = new CommonEducationAdapter(displaylistArray_TWELVE, getActivity());
+        mVideoAdapter_GRADUATE = new CommonEducationAdapter(displaylistArray_GRADUATE, getActivity());
+        mVideoAdapter_POSTGRA = new CommonEducationAdapter(displaylistArray_POSTGRA, getActivity());
+        mVideoAdapter_WORKING = new CommonEducationAdapter(displaylistArray_WORKING, getActivity());
         mVideoAdapter_Blog = new CatDetailAdapter(getActivity() , categoryDetails);
 
 
@@ -418,8 +420,16 @@ public class CGPlaylist extends Fragment {
                 comingSoonCat_10.setVisibility(View.VISIBLE);
             }
             shimmer_view_container_cat_10.setVisibility(View.INVISIBLE);
+
         });
+
+
+
+
+
     }
+
+
 
 
 
@@ -427,8 +437,8 @@ public class CGPlaylist extends Fragment {
     private class TheTask extends AsyncTask<Void, Void, Void>
     {
         Videos displaylist ;
-        Videos_two displaylist_two;
-        Videos_three displaylist_three;
+        Videos displaylist_two;
+        Videos displaylist_three;
         Videos_NINE displaylist_NINE;
         Videos_TEN displaylist_TEN;
         Videos_ELEVEN displaylist_ELEVEN;
@@ -505,7 +515,7 @@ public class CGPlaylist extends Fragment {
                         String id_two = video_two.getString("videoId");
                         Log.e("inside","-->" +id_two);
                         String thumbUrl_two = jsonObject_two.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                        displaylist_two = new Videos_two(title_two, thumbUrl_two ,id_two , Desc_two);
+                        displaylist_two = new Videos(title_two, thumbUrl_two ,id_two , Desc_two);
                         displaylistArray_two.add(displaylist_two);
                     }
                     Log.e("#Second","-->");
@@ -576,7 +586,7 @@ public class CGPlaylist extends Fragment {
                         String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
                         String id_three = video_three.getString("videoId");
                         String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                        displaylist_three = new Videos_three(title_three, thumbUrl_three, id_three, Desc_three);
+                        displaylist_three = new Videos(title_three, thumbUrl_three, id_three, Desc_three);
                         displaylistArray_three.add(displaylist_three);
                     }
                     Log.e("#Three","-->");

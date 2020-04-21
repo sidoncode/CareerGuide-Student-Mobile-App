@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        tools:ignore="LockedOrientationActivity"
         android:name="com.ZohoSalesiq"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,8 +24,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
-        <activity android:name=".LoadPdf"></activity>
+        tools:replace="android:allowBackup" >
+        <activity android:name=".activity.SeeAllActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity android:name=".LoadPdf" />
         <activity android:name=".blog.activity.MainBlog" />
         <activity
             android:name=".youtubeVideo.youtubeFeedDetail"

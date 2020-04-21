@@ -3,8 +3,6 @@ package com.careerguide.youtubeVideo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,24 +11,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.R;
-import com.careerguide.activity.feedDetailActivity;
+import com.careerguide.Video_player;
 
 import java.util.List;
 
-public class YT_recycler_adapter_ELEVEN extends RecyclerView.Adapter<YT_recycler_adapter_ELEVEN.MyViewHolder> {
+public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducationAdapter.MyViewHolder> {
 
-    private List<Videos_ELEVEN> videoList;
-    private String key;
+    private List<CommonEducationModel> videoList;
     private Activity activity;
-    private int REQ_PLAYER_CODE  = 1;
-    private int cornerRadius;
-    private int cardColor;
-    private int textColor;
+    boolean seeAllMode = false;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name , desc;
@@ -41,33 +38,29 @@ public class YT_recycler_adapter_ELEVEN extends RecyclerView.Adapter<YT_recycler
             super(view);
             imageView = view.findViewById(R.id.imageView);
 
-//            CardView cardView = view.findViewById(R.id.card_view);
-//            cardView.setCardBackgroundColor(cardColor);
-//            cardView.setRadius(cornerRadius);
             name = view.findViewById(R.id.name);
             desc = view.findViewById(R.id.desc);
             ll_story = view.findViewById(R.id.ll_story);
-            name.setTextColor(textColor);
             name.setOnClickListener(v -> {
             });
 
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int width = displayMetrics.widthPixels;
-            int height = displayMetrics.heightPixels;
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.MATCH_PARENT);
-            params.setMargins(50, 5, 50, 5);
-            ll_story.setLayoutParams(params);
+            if(seeAllMode) {
+                ll_story.setPadding(0,32,0,32);
+            }else {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int width = displayMetrics.widthPixels;
+                //int height = displayMetrics.heightPixels;
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.WRAP_CONTENT);
+                params.setMargins(50, 5, 50, 5);
+                ll_story.setLayoutParams(params);
+            }
         }
     }
 
-    YT_recycler_adapter_ELEVEN(List<Videos_ELEVEN> videoList, String yt_key, Activity activity, int cornerRadius, int textColor) {
+    public CommonEducationAdapter(List<CommonEducationModel> videoList, Activity activity) {
         this.activity  = activity;
-        this.key = yt_key;
         this.videoList = videoList;
-        this.cornerRadius = cornerRadius;
-        this.textColor = textColor;
-
     }
 
     @NonNull
@@ -76,13 +69,12 @@ public class YT_recycler_adapter_ELEVEN extends RecyclerView.Adapter<YT_recycler
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cm_yt_list_items, parent, false);
 
-
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Videos_ELEVEN video = videoList.get(position);
+        CommonEducationModel video = videoList.get(position);
         Typeface font = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-SemiBold.ttf");
         Typeface font_desc = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-Regular.ttf");
         holder.name.setTypeface(font);
@@ -99,7 +91,7 @@ public class YT_recycler_adapter_ELEVEN extends RecyclerView.Adapter<YT_recycler
                 .dontTransform();
         Glide.with(activity).load(video.getImgurl() ).apply(options).into(holder.imageView);
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext() , feedDetailActivity.class);
+            Intent intent = new Intent(v.getContext() , Video_player.class);
             intent.putExtra("live_video_url" , video.getVideourl());
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());
@@ -115,5 +107,10 @@ public class YT_recycler_adapter_ELEVEN extends RecyclerView.Adapter<YT_recycler
     @Override
     public int getItemCount() {
         return videoList.size();
+    }
+
+    public void setSeeAllMode(boolean b)
+    {
+        this.seeAllMode = b;
     }
 }
