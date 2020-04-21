@@ -3,6 +3,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,8 +28,15 @@ import com.bumptech.glide.Glide;
 import com.careerguide.Book_Appoinment.BookCounsellor;
 import com.careerguide.adapters.AllTopicsItemAdapter;
 import com.careerguide.adapters.CounsellorAdapter;
+import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.adapter.CatDetailAdapter;
+import com.careerguide.blog.model.Categories;
+import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
 import com.careerguide.models.topics_model;
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +44,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 
 /**
@@ -51,7 +68,7 @@ public class HomeFragment extends Fragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private CompositeDisposable disposable;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,7 +84,7 @@ public class HomeFragment extends Fragment
     private ArrayList<Counsellor> Counsellors_profile = new ArrayList<>();
     private CounsellorAdapter counsellor_adapter;
     private int Counsellors_profile_size;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView,blogsRecyclerView;
     private AlbumsAdapter adapter;
     private List<Album> albumList;
     private RadioButton class1RadioButton, class10RadioButton, class12RadioButton, graduateRadioButton, postGraduateRadioButton;
@@ -81,6 +98,14 @@ public class HomeFragment extends Fragment
     LinearLayout ideal_career;
     NestedScrollView nsv_items;
     ImageView iv_banner;
+
+    private List<CategoryDetails> categoryDetails;
+    private CatDetailAdapter blogAdapter;
+    TextView blogsTv;
+
+    String subCat ="";
+
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -120,23 +145,23 @@ public class HomeFragment extends Fragment
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
 
+        subCat = toolbar.getSubtitle().toString();
+
         Log.e("inside","-->edu" +Utility.getUserEducation(getActivity()));
         iv_banner = view.findViewById(R.id.iv_banner);
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 9th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class9th___5_uLynqGh4v.png").into(iv_banner);
             toolbar.setTitle("Class 9th");
-
         }
+
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 10th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class10th___8_hHDBZxDZ2.png").into(iv_banner);
             toolbar.setTitle("Class 10th");
-
 
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 11th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class11th___5_jcQGsViNJr.png").into(iv_banner);
             toolbar.setTitle("Class 11th");
-
         }
 
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 12th")){
@@ -181,11 +206,26 @@ public class HomeFragment extends Fragment
         recycler_counsellor.setLayoutManager(mLayoutManager);
         recycler_counsellor.setAdapter(counsellor_adapter);
 
+
+
+        categoryDetails = new ArrayList<>();
+        disposable = new CompositeDisposable();
+
+        blogsRecyclerView = view.findViewById(R.id.recycler_blogs);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        blogsRecyclerView.setLayoutManager(mLayoutManager);
+        blogAdapter = new CatDetailAdapter(getActivity(),categoryDetails);
+        blogsRecyclerView.setAdapter(blogAdapter);
+
+
+
+
         Log.e("LoadingStatus","JustStarted");
         //progressDialog.show();
         getLiveSession();
         gettopic();
         getcounsellor();
+        getBlogs();
 
         view.findViewById(R.id.tests).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
@@ -203,6 +243,10 @@ public class HomeFragment extends Fragment
         view.findViewById(R.id.tv_see_all).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), exoplayerActivity.class));
         });
+
+
+        blogsTv = view.findViewById(R.id.blogs_title);
+
 
 //        view.findViewById(R.id.counsellorSignUp).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -688,6 +732,77 @@ public class HomeFragment extends Fragment
                 HashMap<String, String> params = new HashMap<>();
                 //params.put("user_education", Utility.getUserEducationUid(getActivity()));
                 Log.e("all_coun_req", params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+
+
+
+    private void getBlogs(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/Blog_list",
+                response -> {
+                    //Log.d("#BLOG",response);
+                    try {
+                        JSONObject responseObject = new JSONObject(response);
+                        JSONArray jsonArray = responseObject.getJSONArray("playlist");
+
+                        if(jsonArray.length()<=0)
+                        {
+                            blogsTv.setVisibility(View.GONE);
+                            blogsRecyclerView.setVisibility(View.GONE);
+                        }
+                        for (int i=0;i<jsonArray.length();i++)
+                        {
+                            JSONObject singleBlog = (JSONObject) jsonArray.get(i);
+                            String blogId = singleBlog.getString("blog_id");
+                            Log.d("#BLOG",blogId);
+
+                            disposable.add(Utils.get_api().get_specific_cat_detail(blogId, "8", "1")
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribeWith(new DisposableSingleObserver<List<CategoryDetails>>() {
+                                        @Override
+                                        public void onSuccess(List<CategoryDetails> cd) {
+                                            if (cd != null) {
+                                                for (CategoryDetails c : cd) {
+                                                    c.setTitle(Utils.remove_tags(c.getTitle()));
+                                                    c.setDesc(Utils.remove_tags(c.getDesc()));
+                                                    //Log.e("dataset","-->" +c.getTitle());
+                                                    categoryDetails.add(c);
+                                                }
+                                                //Log.e("dataset next","-->" );
+                                                blogAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+//                                            loading = false;
+//                                            Utils.hide_loader(id_progress);
+//                                            id_sw.setRefreshing(false);
+                                        }
+                                    }));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("#BLOG","error"+error.toString()))
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                String category = Utility.getUserEducationUid(getActivity());
+                params.put("category" ,category);
+                if(category.equals("NINE") || category.equals("TEN"))
+                    params.put("sub_cat", "");
+                else
+                params.put("sub_cat" , subCat);
+
                 return params;
             }
         };
