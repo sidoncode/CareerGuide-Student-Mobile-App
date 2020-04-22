@@ -26,11 +26,13 @@ public class feedDetailActivity extends AppCompatActivity {
 
         imageView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext() , Video_player.class);
+            intent.putExtra("id" , getIntent().getStringExtra("id"));
             intent.putExtra("live_video_url" , getIntent().getStringExtra("live_video_url"));
             intent.putExtra("title" , getIntent().getStringExtra("title"));
             intent.putExtra("Fullname" ,getIntent().getStringExtra("Fullname") );
             intent.putExtra("imgurl" , getIntent().getStringExtra("imgurl"));
             intent.putExtra("host_email" , getIntent().getStringExtra("host_email"));
+            intent.putExtra("video_views" , getIntent().getStringExtra("video_views"));
             view.getContext().startActivity(intent);
         });
     }

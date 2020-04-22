@@ -92,6 +92,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
         Glide.with(activity).load(video.getImgurl() ).apply(options).into(holder.imageView);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , Video_player.class);
+            intent.putExtra("id" , video.getId());
             intent.putExtra("live_video_url" , video.getVideourl());
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());

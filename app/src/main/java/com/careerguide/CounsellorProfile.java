@@ -68,7 +68,7 @@ public class CounsellorProfile extends AppCompatActivity {
         for(int i = 0; i<size;i++){
             String imgurl = "";
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(activity) , getIntent().getStringExtra("host_img"));
+            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(activity) , getIntent().getStringExtra("host_img"),getIntent().getStringExtra("video_views"));
             albumList.add(a);
         }
         adapter.notifyDataSetChanged();
@@ -87,13 +87,15 @@ public class CounsellorProfile extends AppCompatActivity {
                     pb_loading.setVisibility(View.GONE);
                     for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
                         JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String id = counselorJsonObject.optString("id");
+                        String email = counselorJsonObject.optString("id");
                         String name = counselorJsonObject.optString("Name");
                         Log.e("name--> ", "==> " + name);
                         String img_url = counselorJsonObject.optString("img_url");
                         String title = counselorJsonObject.optString("title");
                         String video_url = counselorJsonObject.optString("video_url");
-                        counsellors.add(new live_counsellor_session(id, name, img_url, video_url, title, ""));
+                        String video_views = counselorJsonObject.optString("video_views");
+                        String id = counselorJsonObject.optString("id");
+                        counsellors.add(new live_counsellor_session(id,email, name, img_url, video_url, title, "",video_views));
                     }
                     size = counsellors.size();
                     prepareAlbums();

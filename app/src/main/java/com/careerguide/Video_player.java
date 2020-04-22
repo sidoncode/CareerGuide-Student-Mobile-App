@@ -1,4 +1,5 @@
 package com.careerguide;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
@@ -44,6 +45,8 @@ public class Video_player extends AppCompatActivity {
     private AndExoPlayerView andExoPlayerView;
    // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
     private int req_code = 129;
+    private String videoId="";
+    Context context=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -77,7 +80,8 @@ public class Video_player extends AppCompatActivity {
                         if(!getIntent().getStringExtra("video_views").contains("null"))//if value is not null set updated value
                             andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
 
-
+                        videoId=getIntent().getStringExtra("id");
+                        new TaskUpdateViewCounter().execute();
 
                         fetchAndApplyImage();
 
@@ -88,6 +92,9 @@ public class Video_player extends AppCompatActivity {
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
 
     }
+
+
+
     private void load_url(String s_url) {
         Log.e ( "url1", "-->" + s_url );
         if (s_url.contains ( "mp4" ))
@@ -336,6 +343,32 @@ public class Video_player extends AppCompatActivity {
 
         }
     }
+
+    private class TaskUpdateViewCounter extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/UpdateViews",
+                    response -> {
+                        Log.i("Updated_video_counter",response);
+                    },
+                    error -> Log.e("error","error"))
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("video_id" ,videoId);
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+
+            return null;
+        }
+    }
+
+
 
 
 

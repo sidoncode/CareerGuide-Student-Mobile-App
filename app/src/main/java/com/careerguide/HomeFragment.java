@@ -555,7 +555,12 @@ public class HomeFragment extends Fragment
                                 String img_url = counselorJsonObject.optString("img_url");
                                 String title = counselorJsonObject.optString("title");
                                 String video_url = counselorJsonObject.optString("video_url");
-                                counsellors.add(new live_counsellor_session(email,name,img_url,video_url,title,""));
+                                String video_views = counselorJsonObject.optString("video_views");
+                                String id = counselorJsonObject.optString("id");
+                                if(video_views.contains("")){
+                                    video_views="1";
+                                }
+                                counsellors.add(new live_counsellor_session(id,email,name,img_url,video_url,title,"",video_views));
                             }
                             size = counsellors.size();
                             //gettopic();
@@ -563,7 +568,7 @@ public class HomeFragment extends Fragment
                             for(int i = 0; i<size;i++){
                                 //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
                                 Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-                                Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl());
+                                Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
                                 albumList.add(a);
 
                             }
