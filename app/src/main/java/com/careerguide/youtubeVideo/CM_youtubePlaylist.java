@@ -3,7 +3,6 @@ package com.careerguide.youtubeVideo;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -12,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.careerguide.R;
-import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
 
