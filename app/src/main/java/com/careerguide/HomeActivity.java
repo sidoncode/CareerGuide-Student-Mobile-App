@@ -1567,7 +1567,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             break;
                         }
                     }
-
                     JSONObject JsonObject_WORKING = jsonArray_WORKING.optJSONObject(tempRandom);
                     String email = JsonObject_WORKING.optString("email");
                     String name = JsonObject_WORKING.optString("Name");

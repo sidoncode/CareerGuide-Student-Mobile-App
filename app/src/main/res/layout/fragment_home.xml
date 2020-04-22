@@ -23,7 +23,6 @@
                 android:id="@+id/ll_goal_static_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:orientation="vertical">
 
                 <ImageView
@@ -49,115 +48,115 @@
 <!--                    </TextView>-->
 <!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="15dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_wifi" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="15dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:src="@drawable/ic_wifi" />-->
 
-                    <TextView
-                        android:id="@+id/tv_sessions_count"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="8"
-                        android:text="3,500K Students Helped"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_sessions_count"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="8"-->
+<!--                        android:text="3,500K Students Helped"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="15dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_about_selected" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="15dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:src="@drawable/ic_about_selected" />-->
 
-                    <TextView
-                        android:id="@+id/tv_languages"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="8"
-                        android:text="100K Psychometric Done"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_languages"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="8"-->
+<!--                        android:text="100K Psychometric Done"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="15dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_black_back" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="15dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:src="@drawable/ic_arrow_black_back" />-->
 
-                    <TextView
-                        android:id="@+id/tv_educators"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="8"
-                        android:text="1,500 Top Career Counsellors"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_educators"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="8"-->
+<!--                        android:text="1,500 Top Career Counsellors"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="15dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_attach" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="15dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:src="@drawable/ic_attach" />-->
 
-                    <TextView
-                        android:id="@+id/tv_star"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="8"
-                        android:text="13,400 Geographic Reach"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_star"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="8"-->
+<!--                        android:text="13,400 Geographic Reach"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp"
+                    android:paddingTop="30dp"
                     android:paddingBottom="30dp">
 
                     <LinearLayout
@@ -799,7 +798,7 @@
                     android:id="@+id/blogs_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Blogs"
+                    android:text="Career Articles"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     android:textSize="18sp"
