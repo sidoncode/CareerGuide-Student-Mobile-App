@@ -795,7 +795,7 @@ public class HomeFragment extends Fragment
     private void getBlogs(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/Blog_list",
                 response -> {
-                    //Log.d("#BLOG",response);
+                    Log.d("#BLOG",response);
                     try {
                         JSONObject responseObject = new JSONObject(response);
                         JSONArray jsonArray = responseObject.getJSONArray("playlist");
@@ -804,42 +804,53 @@ public class HomeFragment extends Fragment
                         {
                             blogsTv.setVisibility(View.GONE);
                             blogsRecyclerView.setVisibility(View.GONE);
-                        }
-                        for (int i=0;i<jsonArray.length();i++)
-                        {
-                            JSONObject singleBlog = (JSONObject) jsonArray.get(i);
-                            String blogId = singleBlog.getString("blog_id");
-                            Log.d("#BLOG",blogId);
+                        }else {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject singleBlog = (JSONObject) jsonArray.get(i);
+                                String blogId = singleBlog.getString("blog_id");
+                                Log.d("#BLOG", blogId);
+                                String sub_cat = singleBlog.getString("sub_cat");
 
-                            disposable.add(Utils.get_api().get_specific_cat_detail(blogId, "8", "1")
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribeWith(new DisposableSingleObserver<List<CategoryDetails>>() {
-                                        @Override
-                                        public void onSuccess(List<CategoryDetails> cd) {
-                                            if (cd != null) {
-                                                for (CategoryDetails c : cd) {
-                                                    c.setTitle(Utils.remove_tags(c.getTitle()));
-                                                    c.setDesc(Utils.remove_tags(c.getDesc()));
-                                                    //Log.e("dataset","-->" +c.getTitle());
-                                                    categoryDetails.add(c);
+                                disposable.add(Utils.get_api().get_specific_cat_detail(blogId, "8", "1")
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribeWith(new DisposableSingleObserver<List<CategoryDetails>>() {
+                                            @Override
+                                            public void onSuccess(List<CategoryDetails> cd) {
+                                                try {
+                                                    if (cd != null) {
+                                                        for (CategoryDetails c : cd) {
+                                                            c.setTitle(Utils.remove_tags(c.getTitle()));
+                                                            c.setDesc(Utils.remove_tags(c.getDesc()));
+                                                            //Log.e("dataset","-->" +c.getTitle());
+                                                            Log.d("#BLOG", "ITEM: " + c.getTitle() + "------" + c.getPic_url());
+                                                            categoryDetails.add(c);
+                                                        }
+                                                        //Log.e("dataset next","-->" );
+                                                        blogAdapter.notifyDataSetChanged();
+                                                    } else {
+                                                        blogsTv.setVisibility(View.GONE);
+                                                        blogsRecyclerView.setVisibility(View.GONE);
+                                                    }
+
+                                                } catch (Exception e) {
+                                                    Log.e("#BLOG", "onError: " + e.toString());
                                                 }
-                                                //Log.e("dataset next","-->" );
-                                                blogAdapter.notifyDataSetChanged();
                                             }
-                                        }
 
-                                        @Override
-                                        public void onError(Throwable e) {
+                                            @Override
+                                            public void onError(Throwable e) {
 //                                            loading = false;
 //                                            Utils.hide_loader(id_progress);
 //                                            id_sw.setRefreshing(false);
-                                        }
-                                    }));
+                                                Log.e("#BLOG", "onError: " + e.toString());
+                                            }
+                                        }));
+                            }
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e("#BLOG","error: "+e.toString());
                     }
                 },
                 error -> Log.e("#BLOG","error"+error.toString()))
@@ -849,6 +860,7 @@ public class HomeFragment extends Fragment
                 HashMap<String,String> params = new HashMap<>();
                 String category = Utility.getUserEducationUid(getActivity());
                 params.put("category" ,category);
+
                 if(category.equals("NINE") || category.equals("TEN"))
                     params.put("sub_cat", "");
                 else
@@ -880,19 +892,38 @@ public class HomeFragment extends Fragment
                                 Log.e("#play","-->" +playlist_id);
                             }
 
-                            if(playList.size()>0)
-                            {
+                            if(playList.size()>0) {
                                 p1Title.setText(playList.get(0).getName());
-                                fetchPlayListData(1,playList.get(0).getId());
+                                fetchPlayListData(1, playList.get(0).getId());
 
-                                p2Title.setText(playList.get(1).getName());
-                                fetchPlayListData(2,playList.get(1).getId());
+                                if (playList.size() > 1) {
+                                    p2Title.setText(playList.get(1).getName());
+                                    fetchPlayListData(2, playList.get(1).getId());
 
-                                p3Title.setText(playList.get(2).getName());
-                                fetchPlayListData(3,playList.get(2).getId());
+                                    if (playList.size() > 2) {
+                                        p3Title.setText(playList.get(2).getName());
+                                        fetchPlayListData(3, playList.get(2).getId());
+                                    } else {
+                                        p3Title.setVisibility(View.GONE);
+                                        playList3Recv.setVisibility(View.GONE);
+                                    }
+                                } else {
+                                    p2Title.setVisibility(View.GONE);
+                                    playList2Recv.setVisibility(View.GONE);
+                                    p3Title.setVisibility(View.GONE);
+                                    playList3Recv.setVisibility(View.GONE);
+                                }
 
-
+                            }else {
+                                p1Title.setVisibility(View.GONE);
+                                playList1Recv.setVisibility(View.GONE);
+                                p2Title.setVisibility(View.GONE);
+                                playList2Recv.setVisibility(View.GONE);
+                                p3Title.setVisibility(View.GONE);
+                                playList3Recv.setVisibility(View.GONE);
                             }
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("#PLAYLIST","error"+e.toString());
@@ -904,7 +935,12 @@ public class HomeFragment extends Fragment
                 @Override
                 protected Map<String, String> getParams() {
                     HashMap<String,String> params = new HashMap<>();
-                    params.put("page" ,Utility.getUserEducationUid(getActivity()));
+                    String category = Utility.getUserEducationUid(getActivity());
+                    params.put("page" ,category);
+                    if(category.equals("NINE") || category.equals("TEN"))
+                        params.put("sub_cat", "");
+                    else
+                        params.put("sub_cat" , subCat);
                     return params;
                 }
             };
@@ -921,10 +957,10 @@ public class HomeFragment extends Fragment
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
                 response -> {
-                    Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+                    //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
 
             try {
-                Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+                //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray = json.getJSONArray("items");
                 int jsonArrayLen = jsonArray.length();
@@ -995,9 +1031,6 @@ public class HomeFragment extends Fragment
             Log.d("#PLAYLIST", "error: "+ error.toString());
 
         });
-
-        //String response = Utility.getUrlString(url);
-
 
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
