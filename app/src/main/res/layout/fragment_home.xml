@@ -313,6 +313,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:gravity="center|start"
                     android:id="@+id/p1_title"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
@@ -351,6 +352,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:gravity="center|start"
                     android:id="@+id/p2_title"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
@@ -390,6 +392,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:gravity="center|start"
                     android:id="@+id/p3_title"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
