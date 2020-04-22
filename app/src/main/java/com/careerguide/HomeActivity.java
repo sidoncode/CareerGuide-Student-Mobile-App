@@ -999,7 +999,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
                     String title = jsonObject.getJSONObject("snippet").getString("title");
                     String Desc = jsonObject.getJSONObject("snippet").getString("description");
-                    String id = video.getString("id");
+                    String id = video.getString("videoId");
                     String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
                     displaylist = new Videos(title, thumbUrl ,id , Desc);
                     displaylistArray.add(displaylist);
@@ -1062,7 +1062,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     JSONObject video_two = jsonObject_two.getJSONObject("snippet").getJSONObject("resourceId");
                     String title_two = jsonObject_two.getJSONObject("snippet").getString("title");
                     String Desc_two = jsonObject_two.getJSONObject("snippet").getString("description");
-                    String id_two = video_two.getString("id");
+                    String id_two = video_two.getString("videoId");
                     Log.e("inside","-->" +id_two);
                     String thumbUrl_two = jsonObject_two.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
                     displaylist = new Videos(title_two, thumbUrl_two ,id_two , Desc_two);
@@ -1124,7 +1124,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     JSONObject video_three = jsonObject_three.getJSONObject("snippet").getJSONObject("resourceId");
                     String title_three = jsonObject_three.getJSONObject("snippet").getString("title");
                     String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
-                    String id_three = video_three.getString("id");
+                    String id_three = video_three.getString("videoId");
                     String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
                     displaylist = new Videos(title_three, thumbUrl_three, id_three, Desc_three);
                     displaylistArray.add(displaylist);
@@ -1294,7 +1294,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             
 
             try {
-                String url_ELEVEN = "";
+                String url_ELEVEN = "https://app.careerguide.com/api/main/videos_ELEVEN";
                 String response = Utility.getUrlString(url_ELEVEN);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray= json.optJSONArray("videos");
@@ -1423,7 +1423,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_GRADUATE = "https://app.careerguide.com/api/main/videos_GRADUATE";
-                String response = = Utility.getUrlString(url_GRADUATE);
+                String response = Utility.getUrlString(url_GRADUATE);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray= json.optJSONArray("videos");
                 int jsonArrayLen=jsonArray.length();
