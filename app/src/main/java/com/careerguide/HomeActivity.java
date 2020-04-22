@@ -1162,15 +1162,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_NINE = "https://app.careerguide.com/api/main/videos_NINE";
-                String response_NINE = Utility.getUrlString(url_NINE);
-                JSONObject json_NINE = new JSONObject(response_NINE);
-                JSONArray jsonArray_NINE = json_NINE.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_NINE.length();
+                String response = Utility.getUrlString(url_NINE);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
 
-                for (int i = 0; i < jsonArrayLen ; i++) {
+                for (int i = 0; i < jsonArrayLen; i++) {
 
                     while(true) {//loop until no duplicate is found.
                         tempRandom = rand.nextInt(jsonArrayLen);
@@ -1182,14 +1182,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
                     }
 
-                    JSONObject JsonObject_NINE = jsonArray_NINE.optJSONObject(tempRandom);
-                    String email_NINE = JsonObject_NINE.optString("email");
-                    String name_NINE = JsonObject_NINE.optString("Name");
-                    String img_url_NINE = JsonObject_NINE.optString("img_url");
-                    String title_NINE = JsonObject_NINE.optString("title");
-                    String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    String video_views=JsonObject_NINE.optString("views");
-                    displaylist = new CommonEducationModel(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Nine","-->");
@@ -1230,11 +1231,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_TEN = "https://app.careerguide.com/api/main/videos_TEN";
-                String response_TEN = Utility.getUrlString(url_TEN);
-                JSONObject json_TEN = new JSONObject(response_TEN);
-                JSONArray jsonArray_TEN = json_TEN.optJSONArray("videos");
-                Log.e("jsonArray_TEN", "-->" + jsonArray_TEN.length());
-                int jsonArrayLen=jsonArray_TEN.length();
+                String response = Utility.getUrlString(url_TEN);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -1251,14 +1251,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
                     }
 
-                    JSONObject JsonObject_TEN = jsonArray_TEN.optJSONObject(tempRandom);
-                    String email_TEN = JsonObject_TEN.optString("email");
-                    String name_TEN = JsonObject_TEN.optString("Name");
-                    String img_url_TEN = JsonObject_TEN.optString("img_url");
-                    String title_TEN = JsonObject_TEN.optString("title");
-                    String video_url_TEN = JsonObject_TEN.optString("video_url");
-                    String video_views=JsonObject_TEN.optString("views");
-                    displaylist = new CommonEducationModel(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Ten","-->");
@@ -1294,10 +1295,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_ELEVEN = "https://app.careerguide.com/api/main/videos_ELEVEN";
-                String response_ELEVEN = Utility.getUrlString(url_ELEVEN);
-                JSONObject json_ELEVEN = new JSONObject(response_ELEVEN);
-                JSONArray jsonArray_ELEVEN = json_ELEVEN.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_ELEVEN.length();
+                String response = Utility.getUrlString(url_ELEVEN);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -1314,14 +1315,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
                     }
 
-                    JSONObject JsonObject_ELEVEN = jsonArray_ELEVEN.optJSONObject(tempRandom);
-                    String email = JsonObject_ELEVEN.optString("email");
-                    String name = JsonObject_ELEVEN.optString("Name");
-                    String img_url = JsonObject_ELEVEN.optString("img_url");
-                    String title = JsonObject_ELEVEN.optString("title");
-                    String video_url = JsonObject_ELEVEN.optString("video_url");
-                    String video_views = JsonObject_ELEVEN.optString("views");
-                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
             }catch(Exception e1)
@@ -1356,10 +1358,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_TWELVE = "https://app.careerguide.com/api/main/videos_TWELVE";
-                String response_TWELVE = Utility.getUrlString(url_TWELVE);
-                JSONObject json_TWELVE = new JSONObject(response_TWELVE);
-                JSONArray jsonArray_TWELVE = json_TWELVE.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_TWELVE.length();
+                String response = Utility.getUrlString(url_TWELVE);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -1376,14 +1378,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
                     }
 
-                    JSONObject JsonObject_TWELVE = jsonArray_TWELVE.optJSONObject(tempRandom);
-                    String email = JsonObject_TWELVE.optString("email");
-                    String name = JsonObject_TWELVE.optString("Name");
-                    String img_url = JsonObject_TWELVE.optString("img_url");
-                    String title = JsonObject_TWELVE.optString("title");
-                    String video_url = JsonObject_TWELVE.optString("video_url");
-                    String video_views = JsonObject_TWELVE.optString("views");
-                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Twelve","-->");
@@ -1420,10 +1423,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_GRADUATE = "https://app.careerguide.com/api/main/videos_GRADUATE";
-                String response_GRADUATE = Utility.getUrlString(url_GRADUATE);
-                JSONObject json_GRADUATE = new JSONObject(response_GRADUATE);
-                JSONArray jsonArray_GRADUATE = json_GRADUATE.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_GRADUATE.length();
+                String response = Utility.getUrlString(url_GRADUATE);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -1440,16 +1443,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
                     }
 
-                    JSONObject JsonObject_GRADUATE = jsonArray_GRADUATE.optJSONObject(tempRandom);
-                    String email = JsonObject_GRADUATE.optString("email");
-                    String name = JsonObject_GRADUATE.optString("Name");
-                    String img_url = JsonObject_GRADUATE.optString("img_url");
-                    String title = JsonObject_GRADUATE.optString("title");
-                    String video_url = JsonObject_GRADUATE.optString("video_url");
-                    String pic_url = JsonObject_GRADUATE.optString("pic_url");
-                    //Log.e("#Graduate","pic-->"+JsonObject_GRADUATE.toString());
-                    String video_views = JsonObject_GRADUATE.optString("views");
-                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Graduate","-->");
@@ -1485,10 +1487,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_POSTGRA = "https://app.careerguide.com/api/main/videos_POSTGRA";
-                String response_POSTGRA = Utility.getUrlString(url_POSTGRA);
-                JSONObject json_POSTGRA = new JSONObject(response_POSTGRA);
-                JSONArray jsonArray_POSTGRA = json_POSTGRA.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_POSTGRA.length();
+                String response = Utility.getUrlString(url_POSTGRA);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -1505,14 +1507,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
                     }
 
-                    JSONObject JsonObject_POSTGRA = jsonArray_POSTGRA.optJSONObject(tempRandom);
-                    String email = JsonObject_POSTGRA.optString("email");
-                    String name = JsonObject_POSTGRA.optString("Name");
-                    String img_url = JsonObject_POSTGRA.optString("img_url");
-                    String title = JsonObject_POSTGRA.optString("title");
-                    String video_url = JsonObject_POSTGRA.optString("video_url");
-                    String video_views = JsonObject_POSTGRA.optString("views");
-                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#PostGra","-->");
@@ -1548,10 +1551,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_WORKING = "https://app.careerguide.com/api/main/videos_WORKING";
-                String response_WORKING = Utility.getUrlString(url_WORKING);
-                JSONObject json_WORKING = new JSONObject(response_WORKING);
-                JSONArray jsonArray_WORKING = json_WORKING.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_WORKING.length();
+                String response = Utility.getUrlString(url_WORKING);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray= json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -1567,14 +1570,16 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             break;
                         }
                     }
-                    JSONObject JsonObject_WORKING = jsonArray_WORKING.optJSONObject(tempRandom);
-                    String email = JsonObject_WORKING.optString("email");
-                    String name = JsonObject_WORKING.optString("Name");
-                    String img_url = JsonObject_WORKING.optString("img_url");
-                    String title = JsonObject_WORKING.optString("title");
-                    String video_url = JsonObject_WORKING.optString("video_url");
-                    String video_views = JsonObject_WORKING.optString("views");
-                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
+
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Working","-->");
@@ -1673,7 +1678,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-    
+
 
 
 

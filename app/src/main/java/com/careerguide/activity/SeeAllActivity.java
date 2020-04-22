@@ -108,9 +108,9 @@ public class SeeAllActivity extends AppCompatActivity {
 
             try {
                 String response_NINE = getUrlString(URL_EDUCATION);
-                JSONObject json_NINE = new JSONObject(response_NINE);
-                JSONArray jsonArray_NINE = json_NINE.optJSONArray("videos");
-                int jsonArrayLen=jsonArray_NINE.length();
+                JSONObject json = new JSONObject(response_NINE);
+                JSONArray jsonArray = json.optJSONArray("videos");
+                int jsonArrayLen=jsonArray.length();
                 List<Integer> randomIndexList = new ArrayList<Integer>();
                 Random rand = new Random();
                 int tempRandom;
@@ -127,14 +127,15 @@ public class SeeAllActivity extends AppCompatActivity {
                         }
                     }
 
-                    JSONObject JsonObject_NINE = jsonArray_NINE.optJSONObject(tempRandom);
-                    String email_NINE = JsonObject_NINE.optString("email");
-                    String name_NINE = JsonObject_NINE.optString("Name");
-                    String img_url_NINE = JsonObject_NINE.optString("img_url");
-                    String title_NINE = JsonObject_NINE.optString("title");
-                    String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    String video_views = JsonObject_NINE.optString("views");
-                    commonEducationModel = new CommonEducationModel(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "",video_views);
+                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String email = JsonObject.optString("email");
+                    String name = JsonObject.optString("Name");
+                    String img_url = JsonObject.optString("img_url");
+                    String title = JsonObject.optString("title");
+                    String video_url = JsonObject.optString("video_url");
+                    String video_views=JsonObject.optString("views");
+                    String id = JsonObject.optString("id");
+                    commonEducationModel = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     educationList.add(commonEducationModel);
                 }
                 Log.e("#Nine","-->");

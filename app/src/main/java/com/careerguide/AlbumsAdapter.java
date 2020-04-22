@@ -96,12 +96,14 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         holder.itemView.setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
+            intent.putExtra("id" , album.getId());
             intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
             intent.putExtra("title" , album.getlive_caption());
             intent.putExtra("class_cat",album.getClass_cat());
             intent.putExtra("Fullname" , album.getName());
             intent.putExtra("imgurl" , album.getThumbnail());
             intent.putExtra("host_email" , album.gethost_email());
+            intent.putExtra("video_views" , album.getVideoViews());
             view.getContext().startActivity(intent);
         });
     }

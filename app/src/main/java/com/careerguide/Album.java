@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * Created by Lincoln on 18/05/16.
  */
 public class Album {
+    private String id;
     private String name;
     private String live_caption;
     private String thumbnail;
@@ -14,12 +15,14 @@ public class Album {
     private String host_email;
     private String class_cat;
     private String Counsellor_Avatar;
+    private String videoviews;
     private String[] strArray;
     ArrayList<live_counsellor_session> videourls = new ArrayList<>();
     public Album() {
     }
 
-    Album(String name, String live_caption, String thumbnail, String channel_name, ArrayList<live_counsellor_session> videourls, String host_email, String class_cat, String Counsellor_Avatar) {
+    Album(String id,String name, String live_caption, String thumbnail, String channel_name, ArrayList<live_counsellor_session> videourls, String host_email, String class_cat, String Counsellor_Avatar,String videoviews) {
+        this.id=id;
         this.name = name;
         this.host_email = host_email;
         this.live_caption = live_caption;
@@ -28,7 +31,10 @@ public class Album {
         this.videourls = videourls;
         this.class_cat = class_cat;
         this.Counsellor_Avatar = Counsellor_Avatar;
+        this.videoviews=videoviews;
     }
+
+    public  String getId(){return  id;}
 
     public String getName() {
         return name;
@@ -82,4 +88,5 @@ public class Album {
         this.channel_name = channel_name;
     }
 
+    public String getVideoViews(){ return videoviews; }
 }
