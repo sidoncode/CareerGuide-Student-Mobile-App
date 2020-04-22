@@ -2,6 +2,7 @@ package com.careerguide;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,17 +35,23 @@ import com.careerguide.blog.model.Categories;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
+import com.careerguide.models.PlayList;
 import com.careerguide.models.topics_model;
+import com.careerguide.youtubeVideo.Videos;
+import com.careerguide.youtubeVideo.YT_recycler_adapter;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -104,6 +111,17 @@ public class HomeFragment extends Fragment
     TextView blogsTv;
 
     String subCat ="";
+
+
+    RecyclerView playList1Recv,playList2Recv,playList3Recv;
+    YT_recycler_adapter adapterP1,adapterP2,adapterP3;
+    List<Videos> p1List,p2List,p3List;
+    TextView p1Title,p2Title,p3Title;
+
+
+    private List<PlayList> playList;
+
+    private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
 
 
     public HomeFragment() {
@@ -218,6 +236,32 @@ public class HomeFragment extends Fragment
         blogsRecyclerView.setAdapter(blogAdapter);
 
 
+        playList1Recv = view.findViewById(R.id.p1_recycler_view);
+        playList2Recv = view.findViewById(R.id.p2_recycler_view);
+        playList3Recv = view.findViewById(R.id.p3_recycler_view);
+
+        p1Title = view.findViewById(R.id.p1_title);
+        p2Title = view.findViewById(R.id.p2_title);
+        p3Title = view.findViewById(R.id.p3_title);
+
+        playList = new ArrayList<>();
+        p1List = new ArrayList<>();
+        p2List = new ArrayList<>();
+        p3List = new ArrayList<>();
+
+        adapterP1 = new YT_recycler_adapter(p1List,browserKey,getActivity(),0, Color.parseColor("#000000"));
+        adapterP2 = new YT_recycler_adapter(p2List,browserKey,getActivity(),0, Color.parseColor("#000000"));
+        adapterP3 = new YT_recycler_adapter(p3List,browserKey,getActivity(),0, Color.parseColor("#000000"));
+
+        playList1Recv.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        playList1Recv.setAdapter(adapterP1);
+
+        playList2Recv.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        playList2Recv.setAdapter(adapterP2);
+
+        playList3Recv.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        playList3Recv.setAdapter(adapterP3);
+
 
 
         Log.e("LoadingStatus","JustStarted");
@@ -226,6 +270,8 @@ public class HomeFragment extends Fragment
         gettopic();
         getcounsellor();
         getBlogs();
+        fetchPlayListIds();
+
 
         view.findViewById(R.id.tests).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
@@ -814,4 +860,145 @@ public class HomeFragment extends Fragment
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
+
+
+    void fetchPlayListIds()
+    {
+        try {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/youtube_playlist",
+                    response -> {
+                        JSONObject json;
+                        try {
+                            json = new JSONObject(response);
+                            Log.d("#PLAYLIST", "response: "+response);
+                            JSONArray jsonArray = json.getJSONArray("playlist");
+                            for (int i=0; i< jsonArray.length();i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                String playlist_name = jsonObject.getString("playlist_name");
+                                String playlist_id = jsonObject.getString("playlist_id");
+                                playList.add(new PlayList(playlist_id,playlist_name));
+                                Log.e("#play","-->" +playlist_id);
+                            }
+
+                            if(playList.size()>0)
+                            {
+                                p1Title.setText(playList.get(0).getName());
+                                fetchPlayListData(1,playList.get(0).getId());
+
+                                p2Title.setText(playList.get(1).getName());
+                                fetchPlayListData(2,playList.get(1).getId());
+
+                                p3Title.setText(playList.get(2).getName());
+                                fetchPlayListData(3,playList.get(2).getId());
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("#PLAYLIST","error"+e.toString());
+                        }
+
+                    },
+                    error -> Log.e("#PLAYLIST","error"))
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("page" ,Utility.getUserEducationUid(getActivity()));
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+    }
+
+
+    private void fetchPlayListData(int mCase, String playlistId) {
+        String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&key=" + browserKey + "&maxResults=50";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
+                response -> {
+                    Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+
+            try {
+                Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray = json.getJSONArray("items");
+                int jsonArrayLen = jsonArray.length();
+
+                for (int i = jsonArrayLen - 1; i >= 0; i--) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    JSONObject video_json = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
+                    String title = jsonObject.getJSONObject("snippet").getString("title");
+                    String Desc = jsonObject.getJSONObject("snippet").getString("description");
+                    String id = video_json.getString("videoId");
+                    Log.e("inside", "video ID-->" + id);
+                    String thumbUrl_two = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
+                    Videos video = new Videos(title, thumbUrl_two, id, Desc);
+
+                    switch (mCase)
+                    {
+                        case 1:
+                            p1List.add(video);
+                            break;
+                        case 2:
+                            p2List.add(video);
+                            break;
+                        case 3:
+                            p3List.add(video);
+                            break;
+                    }
+
+                }
+                switch (mCase)
+                {
+                    case 1:
+                        if(p1List.size()>0)
+                            adapterP1.notifyDataSetChanged();
+                        else
+                        {
+                            p1Title.setVisibility(View.GONE);
+                            playList1Recv.setVisibility(View.GONE);
+                        }
+                        break;
+
+                    case 2:
+                        if(p2List.size()>0)
+                            adapterP2.notifyDataSetChanged();
+                        else
+                        {
+                            p2Title.setVisibility(View.GONE);
+                            playList3Recv.setVisibility(View.GONE);
+                        }
+                        break;
+
+                    case 3:
+                        if(p3List.size()>0)
+                            adapterP3.notifyDataSetChanged();
+                        else
+                        {
+                            p3Title.setVisibility(View.GONE);
+                            playList3Recv.setVisibility(View.GONE);
+                        }
+                        break;
+                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+                },error -> {
+            Log.d("#PLAYLIST", "error: "+ error.toString());
+
+        });
+
+        //String response = Utility.getUrlString(url);
+
+
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
 }
