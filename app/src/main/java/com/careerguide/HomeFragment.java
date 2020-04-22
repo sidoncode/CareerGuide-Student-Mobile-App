@@ -2,7 +2,9 @@ package com.careerguide;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,15 +29,36 @@ import com.bumptech.glide.Glide;
 import com.careerguide.Book_Appoinment.BookCounsellor;
 import com.careerguide.adapters.AllTopicsItemAdapter;
 import com.careerguide.adapters.CounsellorAdapter;
+import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.adapter.CatDetailAdapter;
+import com.careerguide.blog.model.Categories;
+import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
+import com.careerguide.models.PlayList;
 import com.careerguide.models.topics_model;
+import com.careerguide.youtubeVideo.Videos;
+import com.careerguide.youtubeVideo.YT_recycler_adapter;
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
+
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 
 /**
@@ -51,7 +75,7 @@ public class HomeFragment extends Fragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private CompositeDisposable disposable;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,7 +91,7 @@ public class HomeFragment extends Fragment
     private ArrayList<Counsellor> Counsellors_profile = new ArrayList<>();
     private CounsellorAdapter counsellor_adapter;
     private int Counsellors_profile_size;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView,blogsRecyclerView;
     private AlbumsAdapter adapter;
     private List<Album> albumList;
     private RadioButton class1RadioButton, class10RadioButton, class12RadioButton, graduateRadioButton, postGraduateRadioButton;
@@ -81,6 +105,25 @@ public class HomeFragment extends Fragment
     LinearLayout ideal_career;
     NestedScrollView nsv_items;
     ImageView iv_banner;
+
+    private List<CategoryDetails> categoryDetails;
+    private CatDetailAdapter blogAdapter;
+    TextView blogsTv;
+
+    String subCat ="";
+
+
+    RecyclerView playList1Recv,playList2Recv,playList3Recv;
+    YT_recycler_adapter adapterP1,adapterP2,adapterP3;
+    List<Videos> p1List,p2List,p3List;
+    TextView p1Title,p2Title,p3Title;
+
+
+    private List<PlayList> playList;
+
+    private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -120,23 +163,23 @@ public class HomeFragment extends Fragment
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
 
+        subCat = toolbar.getSubtitle().toString();
+
         Log.e("inside","-->edu" +Utility.getUserEducation(getActivity()));
         iv_banner = view.findViewById(R.id.iv_banner);
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 9th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class9th___5_uLynqGh4v.png").into(iv_banner);
             toolbar.setTitle("Class 9th");
-
         }
+
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 10th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class10th___8_hHDBZxDZ2.png").into(iv_banner);
             toolbar.setTitle("Class 10th");
-
 
         }
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 11th")){
             Glide.with(getContext()).load("https://ik.imagekit.io/careerguide/Banner-Class11th___5_jcQGsViNJr.png").into(iv_banner);
             toolbar.setTitle("Class 11th");
-
         }
 
         if(Utility.getUserEducation(getActivity()).contentEquals("Class 12th")){
@@ -181,11 +224,54 @@ public class HomeFragment extends Fragment
         recycler_counsellor.setLayoutManager(mLayoutManager);
         recycler_counsellor.setAdapter(counsellor_adapter);
 
+
+
+        categoryDetails = new ArrayList<>();
+        disposable = new CompositeDisposable();
+
+        blogsRecyclerView = view.findViewById(R.id.recycler_blogs);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        blogsRecyclerView.setLayoutManager(mLayoutManager);
+        blogAdapter = new CatDetailAdapter(getActivity(),categoryDetails);
+        blogsRecyclerView.setAdapter(blogAdapter);
+
+
+        playList1Recv = view.findViewById(R.id.p1_recycler_view);
+        playList2Recv = view.findViewById(R.id.p2_recycler_view);
+        playList3Recv = view.findViewById(R.id.p3_recycler_view);
+
+        p1Title = view.findViewById(R.id.p1_title);
+        p2Title = view.findViewById(R.id.p2_title);
+        p3Title = view.findViewById(R.id.p3_title);
+
+        playList = new ArrayList<>();
+        p1List = new ArrayList<>();
+        p2List = new ArrayList<>();
+        p3List = new ArrayList<>();
+
+        adapterP1 = new YT_recycler_adapter(p1List,browserKey,getActivity(),0, Color.parseColor("#000000"));
+        adapterP2 = new YT_recycler_adapter(p2List,browserKey,getActivity(),0, Color.parseColor("#000000"));
+        adapterP3 = new YT_recycler_adapter(p3List,browserKey,getActivity(),0, Color.parseColor("#000000"));
+
+        playList1Recv.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        playList1Recv.setAdapter(adapterP1);
+
+        playList2Recv.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        playList2Recv.setAdapter(adapterP2);
+
+        playList3Recv.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        playList3Recv.setAdapter(adapterP3);
+
+
+
         Log.e("LoadingStatus","JustStarted");
         //progressDialog.show();
         getLiveSession();
         gettopic();
         getcounsellor();
+        getBlogs();
+        fetchPlayListIds();
+
 
         view.findViewById(R.id.tests).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
@@ -203,6 +289,10 @@ public class HomeFragment extends Fragment
         view.findViewById(R.id.tv_see_all).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), exoplayerActivity.class));
         });
+
+
+        blogsTv = view.findViewById(R.id.blogs_title);
+
 
 //        view.findViewById(R.id.counsellorSignUp).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -694,4 +784,249 @@ public class HomeFragment extends Fragment
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
+
+
+
+    private void getBlogs(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/Blog_list",
+                response -> {
+                    Log.d("#BLOG",response);
+                    try {
+                        JSONObject responseObject = new JSONObject(response);
+                        JSONArray jsonArray = responseObject.getJSONArray("playlist");
+
+                        if(jsonArray.length()<=0)
+                        {
+                            blogsTv.setVisibility(View.GONE);
+                            blogsRecyclerView.setVisibility(View.GONE);
+                        }else {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject singleBlog = (JSONObject) jsonArray.get(i);
+                                String blogId = singleBlog.getString("blog_id");
+                                Log.d("#BLOG", blogId);
+                                String sub_cat = singleBlog.getString("sub_cat");
+
+                                disposable.add(Utils.get_api().get_specific_cat_detail(blogId, "8", "1")
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribeWith(new DisposableSingleObserver<List<CategoryDetails>>() {
+                                            @Override
+                                            public void onSuccess(List<CategoryDetails> cd) {
+                                                try {
+                                                    if (cd != null) {
+                                                        for (CategoryDetails c : cd) {
+                                                            c.setTitle(Utils.remove_tags(c.getTitle()));
+                                                            c.setDesc(Utils.remove_tags(c.getDesc()));
+                                                            //Log.e("dataset","-->" +c.getTitle());
+                                                            Log.d("#BLOG", "ITEM: " + c.getTitle() + "------" + c.getPic_url());
+                                                            categoryDetails.add(c);
+                                                        }
+                                                        //Log.e("dataset next","-->" );
+                                                        blogAdapter.notifyDataSetChanged();
+                                                    } else {
+                                                        blogsTv.setVisibility(View.GONE);
+                                                        blogsRecyclerView.setVisibility(View.GONE);
+                                                    }
+
+                                                } catch (Exception e) {
+                                                    Log.e("#BLOG", "onError: " + e.toString());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onError(Throwable e) {
+//                                            loading = false;
+//                                            Utils.hide_loader(id_progress);
+//                                            id_sw.setRefreshing(false);
+                                                Log.e("#BLOG", "onError: " + e.toString());
+                                            }
+                                        }));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("#BLOG","error: "+e.toString());
+                    }
+                },
+                error -> Log.e("#BLOG","error"+error.toString()))
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                String category = Utility.getUserEducationUid(getActivity());
+                params.put("category" ,category);
+
+                if(category.equals("NINE") || category.equals("TEN"))
+                    params.put("sub_cat", "");
+                else
+                params.put("sub_cat" , subCat);
+
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+
+
+    void fetchPlayListIds()
+    {
+        try {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/youtube_playlist",
+                    response -> {
+                        JSONObject json;
+                        try {
+                            json = new JSONObject(response);
+                            Log.d("#PLAYLIST", "response: "+response);
+                            JSONArray jsonArray = json.getJSONArray("playlist");
+                            for (int i=0; i< jsonArray.length();i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                String playlist_name = jsonObject.getString("playlist_name");
+                                String playlist_id = jsonObject.getString("playlist_id");
+                                playList.add(new PlayList(playlist_id,playlist_name));
+                                Log.e("#play","-->" +playlist_id);
+                            }
+
+                            if(playList.size()>0) {
+                                p1Title.setText(playList.get(0).getName());
+                                fetchPlayListData(1, playList.get(0).getId());
+
+                                if (playList.size() > 1) {
+                                    p2Title.setText(playList.get(1).getName());
+                                    fetchPlayListData(2, playList.get(1).getId());
+
+                                    if (playList.size() > 2) {
+                                        p3Title.setText(playList.get(2).getName());
+                                        fetchPlayListData(3, playList.get(2).getId());
+                                    } else {
+                                        p3Title.setVisibility(View.GONE);
+                                        playList3Recv.setVisibility(View.GONE);
+                                    }
+                                } else {
+                                    p2Title.setVisibility(View.GONE);
+                                    playList2Recv.setVisibility(View.GONE);
+                                    p3Title.setVisibility(View.GONE);
+                                    playList3Recv.setVisibility(View.GONE);
+                                }
+
+                            }else {
+                                p1Title.setVisibility(View.GONE);
+                                playList1Recv.setVisibility(View.GONE);
+                                p2Title.setVisibility(View.GONE);
+                                playList2Recv.setVisibility(View.GONE);
+                                p3Title.setVisibility(View.GONE);
+                                playList3Recv.setVisibility(View.GONE);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("#PLAYLIST","error"+e.toString());
+                        }
+
+                    },
+                    error -> Log.e("#PLAYLIST","error"))
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String,String> params = new HashMap<>();
+                    String category = Utility.getUserEducationUid(getActivity());
+                    params.put("page" ,category);
+                    if(category.equals("NINE") || category.equals("TEN"))
+                        params.put("sub_cat", "");
+                    else
+                        params.put("sub_cat" , subCat);
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+    }
+
+
+    private void fetchPlayListData(int mCase, String playlistId) {
+        String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&key=" + browserKey + "&maxResults=50";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
+                response -> {
+                    //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+
+            try {
+                //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+                JSONObject json = new JSONObject(response);
+                JSONArray jsonArray = json.getJSONArray("items");
+                int jsonArrayLen = jsonArray.length();
+
+                for (int i = jsonArrayLen - 1; i >= 0; i--) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    JSONObject video_json = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
+                    String title = jsonObject.getJSONObject("snippet").getString("title");
+                    String Desc = jsonObject.getJSONObject("snippet").getString("description");
+                    String id = video_json.getString("videoId");
+                    Log.e("inside", "video ID-->" + id);
+                    String thumbUrl_two = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
+                    Videos video = new Videos(title, thumbUrl_two, id, Desc);
+
+                    switch (mCase)
+                    {
+                        case 1:
+                            p1List.add(video);
+                            break;
+                        case 2:
+                            p2List.add(video);
+                            break;
+                        case 3:
+                            p3List.add(video);
+                            break;
+                    }
+
+                }
+                switch (mCase)
+                {
+                    case 1:
+                        if(p1List.size()>0)
+                            adapterP1.notifyDataSetChanged();
+                        else
+                        {
+                            p1Title.setVisibility(View.GONE);
+                            playList1Recv.setVisibility(View.GONE);
+                        }
+                        break;
+
+                    case 2:
+                        if(p2List.size()>0)
+                            adapterP2.notifyDataSetChanged();
+                        else
+                        {
+                            p2Title.setVisibility(View.GONE);
+                            playList3Recv.setVisibility(View.GONE);
+                        }
+                        break;
+
+                    case 3:
+                        if(p3List.size()>0)
+                            adapterP3.notifyDataSetChanged();
+                        else
+                        {
+                            p3Title.setVisibility(View.GONE);
+                            playList3Recv.setVisibility(View.GONE);
+                        }
+                        break;
+                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+                },error -> {
+            Log.d("#PLAYLIST", "error: "+ error.toString());
+
+        });
+
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
 }

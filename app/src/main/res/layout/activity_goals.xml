@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_banner"/>
 
-            <!--LoadingShimmer for 7 items-->
+
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view_container"
                 android:layout_width="match_parent"
@@ -77,6 +77,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <!--LoadingShimmer for 7 items-->
                     <include layout="@layout/shimmer_goalactivity_single_item_loading"/>
                     <include layout="@layout/shimmer_goalactivity_single_item_loading"/>
                     <include layout="@layout/shimmer_goalactivity_single_item_loading"/>

@@ -12,19 +12,13 @@ import android.net.Uri;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
+import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.activity.CatDetailActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
+import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
-import com.careerguide.youtubeVideo.Videos_ELEVEN;
-import com.careerguide.youtubeVideo.Videos_GRADUATE;
-import com.careerguide.youtubeVideo.Videos_NINE;
-import com.careerguide.youtubeVideo.Videos_POSTGRA;
-import com.careerguide.youtubeVideo.Videos_TEN;
-import com.careerguide.youtubeVideo.Videos_TWELVE;
-import com.careerguide.youtubeVideo.Videos_WORKING;
-import com.careerguide.youtubeVideo.Videos_three;
-import com.careerguide.youtubeVideo.Videos_two;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -60,7 +54,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.activity.GoalsActivity;
-import com.careerguide.youtubeVideo.CGPlaylist;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +65,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +74,8 @@ import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import com.careerguide.blog.model.Categories;
-import com.google.gson.Gson;
 
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
@@ -984,7 +974,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50";
-                String response = getUrlString(url);
+                String response = Utility.getUrlString(url);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray = json.getJSONArray("items");
                 int jsonArrayLen=jsonArray.length();
@@ -1033,8 +1023,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task2 extends AsyncTask<Void, Void, Void> {
 
-        Videos_two displaylist;
-        List<Videos_two> displaylistArray = new ArrayList<>();
+        Videos displaylist;
+        List<Videos> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1048,7 +1038,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_two = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK&key=" + browserKey + "&maxResults=50";
-                String response_two = getUrlString(url_two);
+                String response_two = Utility.getUrlString(url_two);
                 JSONObject json_two = new JSONObject(response_two);
                 JSONArray jsonArray_two = json_two.getJSONArray("items");
                 int jsonArrayLen=jsonArray_two.length();
@@ -1075,7 +1065,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String id_two = video_two.getString("videoId");
                     Log.e("inside","-->" +id_two);
                     String thumbUrl_two = jsonObject_two.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    displaylist = new Videos_two(title_two, thumbUrl_two ,id_two , Desc_two);
+                    displaylist = new Videos(title_two, thumbUrl_two ,id_two , Desc_two);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Second","-->");
@@ -1095,8 +1085,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task3 extends AsyncTask<Void, Void, Void> {
 
-        Videos_three displaylist;
-        List<Videos_three> displaylistArray = new ArrayList<>();
+        Videos displaylist;
+        List<Videos> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1110,7 +1100,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_three = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc&key=" + browserKey + "&maxResults=50";
-                String response_three = getUrlString(url_three);
+                String response_three = Utility.getUrlString(url_three);
                 JSONObject json_three = new JSONObject(response_three);
                 JSONArray jsonArray_three = json_three.getJSONArray("items");
                 int jsonArrayLen=jsonArray_three.length();
@@ -1136,7 +1126,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
                     String id_three = video_three.getString("videoId");
                     String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    displaylist = new Videos_three(title_three, thumbUrl_three, id_three, Desc_three);
+                    displaylist = new Videos(title_three, thumbUrl_three, id_three, Desc_three);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Three","-->");
@@ -1157,8 +1147,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task9 extends AsyncTask<Void, Void, Void> {
 
-        Videos_NINE displaylist;
-        List<Videos_NINE> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1172,7 +1162,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_NINE = "https://app.careerguide.com/api/main/videos_NINE";
-                String response_NINE = getUrlString(url_NINE);
+                String response_NINE = Utility.getUrlString(url_NINE);
                 JSONObject json_NINE = new JSONObject(response_NINE);
                 JSONArray jsonArray_NINE = json_NINE.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_NINE.length();
@@ -1198,7 +1188,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url_NINE = JsonObject_NINE.optString("img_url");
                     String title_NINE = JsonObject_NINE.optString("title");
                     String video_url_NINE = JsonObject_NINE.optString("video_url");
-                    displaylist = new Videos_NINE(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "");
+                    String video_views=JsonObject_NINE.optString("views");
+                    displaylist = new CommonEducationModel(email_NINE, name_NINE, img_url_NINE, video_url_NINE, title_NINE, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Nine","-->");
@@ -1224,8 +1215,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task10 extends AsyncTask<Void, Void, Void> {
 
-        Videos_TEN displaylist;
-        List<Videos_TEN> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1239,7 +1230,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_TEN = "https://app.careerguide.com/api/main/videos_TEN";
-                String response_TEN = getUrlString(url_TEN);
+                String response_TEN = Utility.getUrlString(url_TEN);
                 JSONObject json_TEN = new JSONObject(response_TEN);
                 JSONArray jsonArray_TEN = json_TEN.optJSONArray("videos");
                 Log.e("jsonArray_TEN", "-->" + jsonArray_TEN.length());
@@ -1266,7 +1257,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url_TEN = JsonObject_TEN.optString("img_url");
                     String title_TEN = JsonObject_TEN.optString("title");
                     String video_url_TEN = JsonObject_TEN.optString("video_url");
-                    displaylist = new Videos_TEN(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "");
+                    String video_views=JsonObject_TEN.optString("views");
+                    displaylist = new CommonEducationModel(email_TEN, name_TEN, img_url_TEN, video_url_TEN, title_TEN, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Ten","-->");
@@ -1287,8 +1279,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task11 extends AsyncTask<Void, Void, Void> {
 
-        Videos_ELEVEN displaylist;
-        List<Videos_ELEVEN> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1302,7 +1294,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_ELEVEN = "https://app.careerguide.com/api/main/videos_ELEVEN";
-                String response_ELEVEN = getUrlString(url_ELEVEN);
+                String response_ELEVEN = Utility.getUrlString(url_ELEVEN);
                 JSONObject json_ELEVEN = new JSONObject(response_ELEVEN);
                 JSONArray jsonArray_ELEVEN = json_ELEVEN.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_ELEVEN.length();
@@ -1328,7 +1320,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_ELEVEN.optString("img_url");
                     String title = JsonObject_ELEVEN.optString("title");
                     String video_url = JsonObject_ELEVEN.optString("video_url");
-                    displaylist = new Videos_ELEVEN(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_ELEVEN.optString("views");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
             }catch(Exception e1)
@@ -1348,8 +1341,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class Task12 extends AsyncTask<Void, Void, Void> {
 
-        Videos_TWELVE displaylist;
-        List<Videos_TWELVE> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1363,7 +1356,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_TWELVE = "https://app.careerguide.com/api/main/videos_TWELVE";
-                String response_TWELVE = getUrlString(url_TWELVE);
+                String response_TWELVE = Utility.getUrlString(url_TWELVE);
                 JSONObject json_TWELVE = new JSONObject(response_TWELVE);
                 JSONArray jsonArray_TWELVE = json_TWELVE.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_TWELVE.length();
@@ -1389,7 +1382,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_TWELVE.optString("img_url");
                     String title = JsonObject_TWELVE.optString("title");
                     String video_url = JsonObject_TWELVE.optString("video_url");
-                    displaylist = new Videos_TWELVE(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_TWELVE.optString("views");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Twelve","-->");
@@ -1411,8 +1405,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class TaskGrad extends AsyncTask<Void, Void, Void> {
 
-        Videos_GRADUATE displaylist;
-        List<Videos_GRADUATE> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1426,7 +1420,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_GRADUATE = "https://app.careerguide.com/api/main/videos_GRADUATE";
-                String response_GRADUATE = getUrlString(url_GRADUATE);
+                String response_GRADUATE = Utility.getUrlString(url_GRADUATE);
                 JSONObject json_GRADUATE = new JSONObject(response_GRADUATE);
                 JSONArray jsonArray_GRADUATE = json_GRADUATE.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_GRADUATE.length();
@@ -1454,7 +1448,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject_GRADUATE.optString("video_url");
                     String pic_url = JsonObject_GRADUATE.optString("pic_url");
                     //Log.e("#Graduate","pic-->"+JsonObject_GRADUATE.toString());
-                    displaylist = new Videos_GRADUATE(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_GRADUATE.optString("views");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Graduate","-->");
@@ -1475,8 +1470,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class TaskPostGrad extends AsyncTask<Void, Void, Void> {
 
-        Videos_POSTGRA displaylist;
-        List<Videos_POSTGRA> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1490,7 +1485,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_POSTGRA = "https://app.careerguide.com/api/main/videos_POSTGRA";
-                String response_POSTGRA = getUrlString(url_POSTGRA);
+                String response_POSTGRA = Utility.getUrlString(url_POSTGRA);
                 JSONObject json_POSTGRA = new JSONObject(response_POSTGRA);
                 JSONArray jsonArray_POSTGRA = json_POSTGRA.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_POSTGRA.length();
@@ -1516,7 +1511,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_POSTGRA.optString("img_url");
                     String title = JsonObject_POSTGRA.optString("title");
                     String video_url = JsonObject_POSTGRA.optString("video_url");
-                    displaylist = new Videos_POSTGRA(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_POSTGRA.optString("views");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#PostGra","-->");
@@ -1537,8 +1533,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private class TaskWorking extends AsyncTask<Void, Void, Void> {
 
-        Videos_WORKING displaylist;
-        List<Videos_WORKING> displaylistArray = new ArrayList<>();
+        CommonEducationModel displaylist;
+        List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -1552,7 +1548,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_WORKING = "https://app.careerguide.com/api/main/videos_WORKING";
-                String response_WORKING = getUrlString(url_WORKING);
+                String response_WORKING = Utility.getUrlString(url_WORKING);
                 JSONObject json_WORKING = new JSONObject(response_WORKING);
                 JSONArray jsonArray_WORKING = json_WORKING.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_WORKING.length();
@@ -1578,7 +1574,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String img_url = JsonObject_WORKING.optString("img_url");
                     String title = JsonObject_WORKING.optString("title");
                     String video_url = JsonObject_WORKING.optString("video_url");
-                    displaylist = new Videos_WORKING(email, name, img_url, video_url, title, "");
+                    String video_views = JsonObject_WORKING.optString("views");
+                    displaylist = new CommonEducationModel(email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
                 Log.e("#Working","-->");
@@ -1643,7 +1640,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 //            try {
 //                String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
-//                String response_Blog = getUrlString(url_Blog);
+//                String response_Blog = Utility.getUrlString(url_Blog);
 //                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
 //                Log.e("Jsonresult" , "--> " +response_Blog);
 //                for (int i = 0; i < jsonArray_Blog.length(); i++) {
@@ -1677,47 +1674,86 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-    private byte[] getUrlBytes(String urlSpec) throws IOException {
-        URL url = new URL(urlSpec);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            InputStream in = connection.getInputStream();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IOException(connection.getResponseMessage() +
-                        ": with " +
-                        urlSpec);
-            }
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer)) > 0) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.close();
-            return out.toByteArray();
-        } finally {
-            connection.disconnect();
+    
+
+
+
+    public void onSeeAllClick(View v)
+    {
+        int mode =0;
+        Intent intent = new Intent(this, SeeAllActivity.class);
+
+        switch (v.getId())
+        {
+            case R.id.see_all_cat1:
+                mode =1;
+                intent.putExtra("KEY","PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS");
+                intent.putExtra("TITLE","Corona Awareness");
+
+                break;
+
+            case R.id.see_all_cat2:
+                mode =1;
+                intent.putExtra("KEY","PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK");
+                intent.putExtra("TITLE","CareerGuide Counsellors");
+                break;
+
+            case R.id.see_all_cat10:
+                mode =1;
+                intent.putExtra("KEY","PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc");
+                intent.putExtra("TITLE","Counsellor Videos");
+                break;
+
+            case R.id.see_all_cat_test:
+                startActivity(new Intent(this,PsychometricTestsActivity.class));
+                return;
+
+            case R.id.see_all_cat_blogs:
+                startActivity(new Intent(this, CatDetailActivity.class));
+                return;
+
+            case R.id.see_all_cat3:
+                intent.putExtra("EDU_KEY","videos_NINE");
+                intent.putExtra("TITLE","Class 9th");
+                break;
+
+            case R.id.see_all_cat4:
+                intent.putExtra("EDU_KEY","videos_TEN");
+                intent.putExtra("TITLE","Class 10th");
+
+                break;
+
+            case R.id.see_all_cat5:
+                intent.putExtra("EDU_KEY","videos_ELEVEN");
+                intent.putExtra("TITLE","Class 11th");
+                break;
+
+            case R.id.see_all_cat6:
+                intent.putExtra("EDU_KEY","videos_TWELVE");
+                intent.putExtra("TITLE","Class 12th");
+                break;
+
+            case R.id.see_all_cat7:
+                intent.putExtra("EDU_KEY","videos_GRADUATE");
+                intent.putExtra("TITLE","Graduates");
+                break;
+
+            case R.id.see_all_cat8:
+                intent.putExtra("EDU_KEY","videos_POSTGRA");
+                intent.putExtra("TITLE","Post Graduates");
+                break;
+
+            case R.id.see_all_cat9:
+                intent.putExtra("EDU_KEY","videos_WORKING");
+                intent.putExtra("TITLE","Working Professionals");
+                break;
         }
-    }
-    private String getUrlString(String urlSpec) throws IOException {
-        return new String(getUrlBytes(urlSpec));
+
+        intent.putExtra("mode",mode);
+        startActivity(intent);
     }
 
-    private String getFetaureImageUrl(String rendered) {
 
-        String imgurl;
-        Pattern r = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-        Matcher m = r.matcher(rendered);
-        if (m.find()) {
-            Log.i("0",m.group(1));
-            imgurl = m.group(1);
-        }
-        else {
-            imgurl = "http://localsplashcdn.wpengine.netdna-cdn.com/wp-content/uploads/2013/04/The-page-wont-load.png";
-        }
-
-        return imgurl;
-    }
 
 
 }

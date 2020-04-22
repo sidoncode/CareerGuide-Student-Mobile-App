@@ -302,8 +302,16 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         TextView textView1 = findViewById(R.id.live_user_nickname_tv);
         textView1.setText(name);
         TextView textView2 = findViewById(R.id.live_user);
-        textView2.setText("213" );
+        textView2.setText("1");//default value
+
     }
+
+
+    public void setVideoViews(String videoviews) {
+        TextView textView2 = findViewById(R.id.live_user);
+        textView2.setText(videoviews);
+    }
+
 
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);

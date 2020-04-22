@@ -31,7 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Video_player extends AppCompatActivity {
@@ -71,7 +73,14 @@ public class Video_player extends AppCompatActivity {
                         andExoPlayerView.setName(getIntent().getStringExtra("Fullname"));
                         hostEmail = getIntent().getStringExtra("host_email");
                         andExoPlayerView.sethost_email(hostEmail);
+
+                        if(!getIntent().getStringExtra("video_views").contains("null"))//if value is not null set updated value
+                            andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
+
+
+
                         fetchAndApplyImage();
+
                         new DownloadFile( ).execute (img_url, title);
                         load_url( getIntent().getStringExtra("live_video_url"));
                     }
@@ -296,6 +305,38 @@ public class Video_player extends AppCompatActivity {
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+    private class TaskUpdateVideoView extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+
+            try {
+
+                String update_url = "";
+                //Volley request
+            }catch(Exception e1)
+            {
+                e1.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+    }
+
 
 
 
