@@ -1,6 +1,7 @@
 package com.careerguide;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -60,6 +63,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -336,11 +340,51 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 setTitle("Home");
                 Log.e("Urltrst", "myurl" + reporturl);
                 progressDialog2.dismiss();
+
                 Intent intent = new Intent(activity, WebViewActivity.class);
                 intent.putExtra("url", reporturl);
                 intent.putExtra("filename", "Report");
                 Log.e("HomeResponse", reporturl);
-                startActivity(intent);
+
+                boolean reportAlreadyLoaded=true;
+
+                String filename = "/Download/Pyschometric_Report.pdf";
+                File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+
+                if(!f1.exists() && !f1.isDirectory()) {
+                    reportAlreadyLoaded=false;
+                    DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                    Uri uri = Uri.parse(reporturl);
+
+                    DownloadManager.Request request = new DownloadManager.Request(uri);
+                    request.setTitle("Pyschometric Report");
+                    request.setDescription("Downloading");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setVisibleInDownloadsUi(true);
+                    request.setDestinationUri(Uri.fromFile(f1));
+
+                    downloadmanager.enqueue(request);
+
+                    final ProgressDialog progressDialog = new ProgressDialog ( activity );
+                    progressDialog.setTitle("Fetching Pyschometric Report");
+                    progressDialog.show();
+                    Handler handler = new Handler ( );
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss ();
+                            startActivity(intent);
+                        }
+                    }, 5500);
+
+                }else
+                {
+                    startActivity(intent);
+                }
+
+
+
             }
             else {
                 setTitle("Home");
