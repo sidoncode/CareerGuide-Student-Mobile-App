@@ -1674,7 +1674,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-    private byte[] getUrlBytes(String urlSpec) throws IOException {
+    private static byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         try {
@@ -1696,11 +1696,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             connection.disconnect();
         }
     }
-    private String getUrlString(String urlSpec) throws IOException {
+    private static String getUrlString(String urlSpec) throws IOException {
         return new String(getUrlBytes(urlSpec));
     }
 
-    private String getFetaureImageUrl(String rendered) {
+    private static String getFetaureImageUrl(String rendered) {
 
         String imgurl;
         Pattern r = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");

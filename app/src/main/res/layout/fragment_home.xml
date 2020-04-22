@@ -320,6 +320,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/see_all_tests"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -784,6 +785,46 @@
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
+
+
+            <!--Blogs-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/blogs_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Blogs"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingStart="10dp"
+                    android:layout_weight="8"/>
+
+                <!--<TextView
+                    android:id="@+id/blogs_see_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="See all"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp"
+                    android:visibility="visible" />-->
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_blogs"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
