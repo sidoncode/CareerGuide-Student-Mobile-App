@@ -974,7 +974,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50";
-                String response = getUrlString(url);
+                String response = Utility.getUrlString(url);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray = json.getJSONArray("items");
                 int jsonArrayLen=jsonArray.length();
@@ -1038,7 +1038,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_two = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK&key=" + browserKey + "&maxResults=50";
-                String response_two = getUrlString(url_two);
+                String response_two = Utility.getUrlString(url_two);
                 JSONObject json_two = new JSONObject(response_two);
                 JSONArray jsonArray_two = json_two.getJSONArray("items");
                 int jsonArrayLen=jsonArray_two.length();
@@ -1100,7 +1100,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_three = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc&key=" + browserKey + "&maxResults=50";
-                String response_three = getUrlString(url_three);
+                String response_three = Utility.getUrlString(url_three);
                 JSONObject json_three = new JSONObject(response_three);
                 JSONArray jsonArray_three = json_three.getJSONArray("items");
                 int jsonArrayLen=jsonArray_three.length();
@@ -1162,7 +1162,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_NINE = "https://app.careerguide.com/api/main/videos_NINE";
-                String response_NINE = getUrlString(url_NINE);
+                String response_NINE = Utility.getUrlString(url_NINE);
                 JSONObject json_NINE = new JSONObject(response_NINE);
                 JSONArray jsonArray_NINE = json_NINE.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_NINE.length();
@@ -1230,7 +1230,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_TEN = "https://app.careerguide.com/api/main/videos_TEN";
-                String response_TEN = getUrlString(url_TEN);
+                String response_TEN = Utility.getUrlString(url_TEN);
                 JSONObject json_TEN = new JSONObject(response_TEN);
                 JSONArray jsonArray_TEN = json_TEN.optJSONArray("videos");
                 Log.e("jsonArray_TEN", "-->" + jsonArray_TEN.length());
@@ -1294,7 +1294,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_ELEVEN = "https://app.careerguide.com/api/main/videos_ELEVEN";
-                String response_ELEVEN = getUrlString(url_ELEVEN);
+                String response_ELEVEN = Utility.getUrlString(url_ELEVEN);
                 JSONObject json_ELEVEN = new JSONObject(response_ELEVEN);
                 JSONArray jsonArray_ELEVEN = json_ELEVEN.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_ELEVEN.length();
@@ -1356,7 +1356,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_TWELVE = "https://app.careerguide.com/api/main/videos_TWELVE";
-                String response_TWELVE = getUrlString(url_TWELVE);
+                String response_TWELVE = Utility.getUrlString(url_TWELVE);
                 JSONObject json_TWELVE = new JSONObject(response_TWELVE);
                 JSONArray jsonArray_TWELVE = json_TWELVE.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_TWELVE.length();
@@ -1420,7 +1420,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_GRADUATE = "https://app.careerguide.com/api/main/videos_GRADUATE";
-                String response_GRADUATE = getUrlString(url_GRADUATE);
+                String response_GRADUATE = Utility.getUrlString(url_GRADUATE);
                 JSONObject json_GRADUATE = new JSONObject(response_GRADUATE);
                 JSONArray jsonArray_GRADUATE = json_GRADUATE.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_GRADUATE.length();
@@ -1485,7 +1485,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_POSTGRA = "https://app.careerguide.com/api/main/videos_POSTGRA";
-                String response_POSTGRA = getUrlString(url_POSTGRA);
+                String response_POSTGRA = Utility.getUrlString(url_POSTGRA);
                 JSONObject json_POSTGRA = new JSONObject(response_POSTGRA);
                 JSONArray jsonArray_POSTGRA = json_POSTGRA.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_POSTGRA.length();
@@ -1548,7 +1548,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             try {
                 String url_WORKING = "https://app.careerguide.com/api/main/videos_WORKING";
-                String response_WORKING = getUrlString(url_WORKING);
+                String response_WORKING = Utility.getUrlString(url_WORKING);
                 JSONObject json_WORKING = new JSONObject(response_WORKING);
                 JSONArray jsonArray_WORKING = json_WORKING.optJSONArray("videos");
                 int jsonArrayLen=jsonArray_WORKING.length();
@@ -1640,7 +1640,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 //            try {
 //                String url_Blog = "https://institute.careerguide.com/wp-json/wp/v2/posts";
-//                String response_Blog = getUrlString(url_Blog);
+//                String response_Blog = Utility.getUrlString(url_Blog);
 //                JSONArray jsonArray_Blog = new JSONArray(response_Blog);
 //                Log.e("Jsonresult" , "--> " +response_Blog);
 //                for (int i = 0; i < jsonArray_Blog.length(); i++) {
@@ -1674,47 +1674,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-    private static byte[] getUrlBytes(String urlSpec) throws IOException {
-        URL url = new URL(urlSpec);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            InputStream in = connection.getInputStream();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IOException(connection.getResponseMessage() +
-                        ": with " +
-                        urlSpec);
-            }
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer)) > 0) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.close();
-            return out.toByteArray();
-        } finally {
-            connection.disconnect();
-        }
-    }
-    private static String getUrlString(String urlSpec) throws IOException {
-        return new String(getUrlBytes(urlSpec));
-    }
-
-    private static String getFetaureImageUrl(String rendered) {
-
-        String imgurl;
-        Pattern r = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-        Matcher m = r.matcher(rendered);
-        if (m.find()) {
-            Log.i("0",m.group(1));
-            imgurl = m.group(1);
-        }
-        else {
-            imgurl = "http://localsplashcdn.wpengine.netdna-cdn.com/wp-content/uploads/2013/04/The-page-wont-load.png";
-        }
-
-        return imgurl;
-    }
+    
 
 
 
