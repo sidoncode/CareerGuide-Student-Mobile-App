@@ -6,11 +6,10 @@
     android:orientation="vertical"
     tools:context=".WebViewActivity">
 
-    <WebView
-        android:layout_weight="1"
-        android:id="@+id/webView"
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="match_parent"/>
 
     <Button
         android:paddingBottom="@dimen/_3sdp"

@@ -2,6 +2,7 @@ package com.careerguide;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,10 +21,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.github.barteksc.pdfviewer.PDFView;
 import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 import java.io.IOException;
+
+import android.webkit.WebChromeClient;
 
 public class WebViewActivity extends AppCompatActivity {
     private static final String TAG = WebViewActivity.class.getSimpleName ( );
@@ -33,18 +37,26 @@ public class WebViewActivity extends AppCompatActivity {
             Uri.parse ( "content://" + AUTHORITY );
     private Activity activity = this;
     private Context mContext;
+    private String pdfurl;
+    PDFView pdfView;
 
     WebView webView;
     Activity view;
+
+    String filename = "/Download/Pyschometric_Report.pdf";
+    File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+
+    Bundle savedInstanceStatetemp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
+        savedInstanceStatetemp=savedInstanceState;
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder ( );
 
         String pdfname = getIntent ( ).getStringExtra ( "filename" );
-        String pdfurl = getIntent ( ).getStringExtra ( "url" );
+        pdfurl = getIntent ( ).getStringExtra ( "url" );
         setContentView ( R.layout.activity_web_view );
         if (pdfurl.contains ( "sample" ) || pdfurl.contains("amazonaws") ){
             setTitle ( "View Report" );
@@ -57,22 +69,24 @@ public class WebViewActivity extends AppCompatActivity {
         //new DownloadFile ( ).execute ( pdfurl, pdfname );
         getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
         FirebaseApp.initializeApp ( activity );
-        WebView webView = (WebView) findViewById ( R.id.webView );
-        webView.getSettings ( ).setJavaScriptEnabled ( true );
-        webView.getSettings ( ).setAllowUniversalAccessFromFileURLs ( true );
-        webView.getSettings ( ).setLoadWithOverviewMode ( true );
-        webView.getSettings ( ).setDomStorageEnabled ( true );
-        final ProgressDialog progressDialog = new ProgressDialog ( activity );
-        progressDialog.setMessage ( "Please Wait..." );
-        progressDialog.setCancelable ( false );
-        progressDialog.setCanceledOnTouchOutside ( false );
-        progressDialog.show ( );
-        webView.loadUrl ( "https://docs.google.com/gview?embedded=true&url=" + pdfurl );
-        Handler handler = new Handler ( );
-        boolean b = handler.postDelayed (() -> progressDialog.dismiss ( ), 10000 );
 
 
+        pdfView = (PDFView) findViewById ( R.id.pdfView );
+        pdfView.setSwipeVertical(true);
 
+            pdfView.fromUri(Uri.fromFile(f1))
+                    // all pages are displayed by default
+                    .enableSwipe(true) // allows to block changing pages using swipe
+                    .swipeHorizontal(false)
+                    .enableDoubletap(true)
+                    .defaultPage(0)
+                    .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+                    .password(null)
+                    .scrollHandle(null)
+                    .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+                    // spacing between pages in dp. To define spacing color, set view background
+                    .spacing(0)
+                    .load();
 
         if (ContextCompat.checkSelfPermission ( this, "android.Manifest.permission.READ_EXTERNAL_STORAGE" )
                 != PackageManager.PERMISSION_GRANTED) {
@@ -83,7 +97,9 @@ public class WebViewActivity extends AppCompatActivity {
             }
         }
 
+
     }
+
 
 
     @Override
@@ -113,8 +129,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     public void shareAsset(View v) {
         String pdfname = getIntent ( ).getStringExtra ( "filename" );
-        File pdfFile = new File ( Environment.getExternalStorageDirectory ( ) + "/Career-Ebook/" + pdfname );  // -> filename = maven.pdf
-        Uri path = Uri.fromFile ( pdfFile );
+        Uri path = Uri.fromFile ( f1 );
         Intent shareIntent = new Intent ( );
         shareIntent.setAction ( Intent.ACTION_SEND ); // temp permission for receiving app to read this file
         shareIntent.setType ( "application/pdf" );
