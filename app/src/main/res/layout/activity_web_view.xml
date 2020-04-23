@@ -4,12 +4,19 @@
     android:layout_height="fill_parent"
     android:background="#000E0D0D"
     android:orientation="vertical"
-    tools:context=".WebViewActivity">
+    android:weightSum="1"
+    tools:context="com.careerguide.WebViewActivity">
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.92"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08">
 
     <Button
         android:paddingBottom="@dimen/_3sdp"
@@ -22,7 +29,10 @@
         android:text="Share"
         android:background="@color/app_blue"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"
+        />
+    </RelativeLayout>
 
     <!--<ImageView
                 android:id="@+id/image"
