@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.IOException;
 
 import android.webkit.WebChromeClient;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class WebViewActivity extends AppCompatActivity {
     private static final String TAG = WebViewActivity.class.getSimpleName ( );
@@ -39,40 +41,42 @@ public class WebViewActivity extends AppCompatActivity {
     private Context mContext;
     private String pdfurl;
     PDFView pdfView;
+    RelativeLayout tryAgain;
+
+    File f1;
 
     WebView webView;
     Activity view;
 
-    String filename = "/Download/Pyschometric_Report.pdf";
-    File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
-
-    Bundle savedInstanceStatetemp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        savedInstanceStatetemp=savedInstanceState;
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder ( );
 
-        String pdfname = getIntent ( ).getStringExtra ( "filename" );
-        pdfurl = getIntent ( ).getStringExtra ( "url" );
-        setContentView ( R.layout.activity_web_view );
-        if (pdfurl.contains ( "sample" ) || pdfurl.contains("amazonaws") ){
-            setTitle ( "View Report" );
-        }
-        else{
-            setTitle ( "Career E-Book" );
-        }
-        StrictMode.setVmPolicy ( builder.build ( ) );
-        getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
-        //new DownloadFile ( ).execute ( pdfurl, pdfname );
-        getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
-        FirebaseApp.initializeApp ( activity );
+        String pdfName = getIntent ( ).getStringExtra ( "pdfName" );
+        String toolBarTitle = getIntent ( ).getStringExtra ( "toolBarTitle" );
+        try {
 
 
-        pdfView = (PDFView) findViewById ( R.id.pdfView );
-        pdfView.setSwipeVertical(true);
+            String filePath = "/Download/"+pdfName;
+            f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filePath);
+
+
+            setContentView ( R.layout.activity_web_view );
+
+            setTitle ( toolBarTitle );
+
+            StrictMode.setVmPolicy ( builder.build ( ) );
+            getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
+            //new DownloadFile ( ).execute ( pdfurl, pdfname );
+            getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
+            FirebaseApp.initializeApp ( activity );
+
+            //tryAgain = (RelativeLayout) findViewById ( R.id.tryAgain );
+            pdfView = (PDFView) findViewById ( R.id.pdfView );
+            pdfView.setSwipeVertical(true);
 
             pdfView.fromUri(Uri.fromFile(f1))
                     // all pages are displayed by default
@@ -88,15 +92,19 @@ public class WebViewActivity extends AppCompatActivity {
                     .spacing(0)
                     .load();
 
-        if (ContextCompat.checkSelfPermission ( this, "android.Manifest.permission.READ_EXTERNAL_STORAGE" )
-                != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission ( this, "android.Manifest.permission.READ_EXTERNAL_STORAGE" )
+                    != PackageManager.PERMISSION_GRANTED) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions ( new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        15 );
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions ( new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            15 );
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            //tryAgain.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"Try again in some time!!!",Toast.LENGTH_LONG).show();
         }
-
 
     }
 
@@ -152,4 +160,3 @@ public class WebViewActivity extends AppCompatActivity {
 
 
 }
-
