@@ -5,7 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:elevation="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="24dp"
+                android:text="Fetching..."
+                android:padding="5dp"/>
+
+            <ProgressBar
+                android:layout_width="250dp"
+                android:layout_height="90dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
@@ -39,14 +66,14 @@
 
 
                 <ImageView
-                    android:id="@+id/age_careerr"
+                    android:id="@+id/imageViewSelfCareer"
                     android:layout_width="match_parent"
                     android:layout_height="218dp"
                     android:layout_marginTop="6dp"
                     app:srcCompat="@drawable/selfcareer" />
 
                 <Button
-                    android:id="@+id/newage1"
+                    android:id="@+id/buttonSelfCareer"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="115dp"
@@ -86,7 +113,7 @@
 
 
                 <ImageView
-                    android:id="@+id/age_career"
+                    android:id="@+id/imageViewNewAge"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginTop="10dp"
@@ -95,7 +122,7 @@
                     />
 
                 <Button
-                    android:id="@+id/newage"
+                    android:id="@+id/buttonNewAge"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="115dp"
@@ -109,4 +136,5 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+    </RelativeLayout>
 </ScrollView>

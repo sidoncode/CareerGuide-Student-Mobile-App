@@ -340,16 +340,17 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 setTitle("Home");
                 Log.e("Urltrst", "myurl" + reporturl);
                 progressDialog2.dismiss();
+                String filename = "/Download/Pyschometric_Report.pdf";
+                File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
 
                 Intent intent = new Intent(activity, WebViewActivity.class);
-                intent.putExtra("url", reporturl);
-                intent.putExtra("filename", "Report");
+                intent.putExtra("pdfName", "Pyschometric_Report.pdf");
+                intent.putExtra("toolBarTitle","Psychometric Report");
+
                 Log.e("HomeResponse", reporturl);
 
                 boolean reportAlreadyLoaded=true;
 
-                String filename = "/Download/Pyschometric_Report.pdf";
-                File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
 
                 if(!f1.exists() && !f1.isDirectory()) {
                     reportAlreadyLoaded=false;
@@ -357,7 +358,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     Uri uri = Uri.parse(reporturl);
 
                     DownloadManager.Request request = new DownloadManager.Request(uri);
-                    request.setTitle("Pyschometric Report");
+                    request.setTitle("Psychometric Report");
                     request.setDescription("Downloading");
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                     request.setVisibleInDownloadsUi(true);
@@ -366,9 +367,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     downloadmanager.enqueue(request);
 
                     final ProgressDialog progressDialog = new ProgressDialog ( activity );
-                    progressDialog.setTitle("Fetching Pyschometric Report");
+                    progressDialog.setTitle("Fetching Psychometric Report");
                     progressDialog.show();
-                    Handler handler = new Handler ( );
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
