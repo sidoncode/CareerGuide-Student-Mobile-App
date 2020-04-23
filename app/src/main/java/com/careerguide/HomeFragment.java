@@ -938,7 +938,7 @@ public class HomeFragment extends Fragment
                     String category = Utility.getUserEducationUid(getActivity());
                     params.put("page" ,category);
                     if(category.equals("NINE") || category.equals("TEN"))
-                        params.put("sub_cat", "");
+                        params.put("sub_cat", "TEN");
                     else
                         params.put("sub_cat" , subCat);
                     return params;

@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.careerguide.youtubeVideo.youtubeFeedDetail;
@@ -51,7 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String title = remoteMessage.getData().get("title");
             //imageUri will contain URL of the image to be displayed with Notification
             String imageUri = remoteMessage.getData().get("image");
-            if(imageUri == ""){
+            if(TextUtils.isEmpty(imageUri)){
                 imageUri = "https://www.careerguide.com/images-mcg/counselling1.jpg";
             }
             String activity = remoteMessage.getData().get("Activity");

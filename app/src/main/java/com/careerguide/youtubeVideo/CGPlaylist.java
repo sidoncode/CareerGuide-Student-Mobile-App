@@ -20,13 +20,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.careerguide.CGPlayListViewModel;
+import com.careerguide.PlanActivity;
+import com.careerguide.PsychometricTestsActivity;
 import com.careerguide.R;
-import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
-import com.careerguide.blog.RecyclerAdapter;
 import com.careerguide.blog.adapter.CatDetailAdapter;
 import com.careerguide.blog.model.CategoryDetails;
-import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +130,15 @@ public class CGPlaylist extends Fragment {
         Cat_Blog = thisScreensView.findViewById(R.id.Cat_Blog);
         Cat_test = thisScreensView.findViewById(R.id.Cat_test);
 
+        thisScreensView.findViewById(R.id.tests).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
+        });
+        View.OnClickListener onClick = v -> {
+            startActivity(new Intent(getActivity(), PlanActivity.class));
+        };
+        thisScreensView.findViewById(R.id.tv_subscribe).setOnClickListener(onClick);
+
+
         shimmer_view_container_cat_1=thisScreensView.findViewById(R.id.shimmer_view_container_cat_1);
         shimmer_view_container_cat_2=thisScreensView.findViewById(R.id.shimmer_view_container_cat_2);
         shimmer_view_container_cat_3=thisScreensView.findViewById(R.id.shimmer_view_container_cat_3);
@@ -172,7 +180,7 @@ public class CGPlaylist extends Fragment {
         Cat_test.setTypeface(font);
 
         Cat_1.setText("Corona Awareness");
-        Cat_2.setText("CareerGuide Counsellors");
+        Cat_2.setText("Career Options");
         Cat_Blog.setText("Career Articles");
         Cat_3.setText("Class 9th");
         Cat_4.setText("Class 10th");
@@ -181,7 +189,7 @@ public class CGPlaylist extends Fragment {
         Cat_7.setText("Graduates");
         Cat_8.setText("Post Graduates");
         Cat_9.setText("Working Professional");
-        Cat_10.setText("Counsellor Videos");
+        Cat_10.setText("Study Abroad");
         Cat_test.setText("Psychometric Test");
 
         loadTitle = "Loading...";
@@ -264,7 +272,9 @@ public class CGPlaylist extends Fragment {
         mVideoRecyclerView_Blog.setAdapter(mVideoAdapter_Blog);
 
 
-        return thisScreensView;
+
+
+            return thisScreensView;
     }
 
     private CGPlayListViewModel channelLiveModel;
