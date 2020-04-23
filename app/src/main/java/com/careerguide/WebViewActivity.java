@@ -40,30 +40,29 @@ public class WebViewActivity extends AppCompatActivity {
     private String pdfurl;
     PDFView pdfView;
 
+    File f1;
+
     WebView webView;
     Activity view;
 
-    String filename = "/Download/Pyschometric_Report.pdf";
-    File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
-
-    Bundle savedInstanceStatetemp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        savedInstanceStatetemp=savedInstanceState;
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder ( );
 
-        String pdfname = getIntent ( ).getStringExtra ( "filename" );
-        pdfurl = getIntent ( ).getStringExtra ( "url" );
+        String pdfName = getIntent ( ).getStringExtra ( "pdfName" );
+        String toolBarTitle = getIntent ( ).getStringExtra ( "toolBarTitle" );
+
+        String filePath = "/Download/"+pdfName;
+        f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filePath);
+
+
         setContentView ( R.layout.activity_web_view );
-        if (pdfurl.contains ( "sample" ) || pdfurl.contains("amazonaws") ){
-            setTitle ( "View Report" );
-        }
-        else{
-            setTitle ( "Career E-Book" );
-        }
+
+        setTitle ( toolBarTitle );
+
         StrictMode.setVmPolicy ( builder.build ( ) );
         getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
         //new DownloadFile ( ).execute ( pdfurl, pdfname );
