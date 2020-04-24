@@ -65,6 +65,7 @@ public class CatDetailActivity extends AppCompatActivity {
 
         categoryDetails = new ArrayList<>();
         adapter = new CatDetailAdapter(this, categoryDetails);
+        adapter.setSeeAllMode(true);
         id_rv.setHasFixedSize(true);
         lm = new LinearLayoutManager(this);
         id_rv.setLayoutManager(lm);
