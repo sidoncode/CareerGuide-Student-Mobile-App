@@ -115,6 +115,8 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
     public int getItemCount() {
         return videoList.size();
     }
+
+
     public void setSeeAllMode(boolean b)
     {
         this.seeAllMode = b;

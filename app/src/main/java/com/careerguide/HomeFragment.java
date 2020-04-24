@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.Book_Appoinment.BookCounsellor;
+import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.adapters.AllTopicsItemAdapter;
 import com.careerguide.adapters.CounsellorAdapter;
 import com.careerguide.blog.DataMembers;
@@ -117,6 +118,8 @@ public class HomeFragment extends Fragment
     YT_recycler_adapter adapterP1,adapterP2,adapterP3;
     List<Videos> p1List,p2List,p3List;
     TextView p1Title,p2Title,p3Title;
+    TextView p1SeeAll,p2SeeAll,p3SeeAll;
+
 
 
     private List<PlayList> playList;
@@ -244,6 +247,12 @@ public class HomeFragment extends Fragment
         p2Title = view.findViewById(R.id.p2_title);
         p3Title = view.findViewById(R.id.p3_title);
 
+        p1SeeAll = view.findViewById(R.id.p1_see_all);
+        p2SeeAll = view.findViewById(R.id.p2_see_all);
+        p3SeeAll = view.findViewById(R.id.p3_see_all);
+
+
+
         playList = new ArrayList<>();
         p1List = new ArrayList<>();
         p2List = new ArrayList<>();
@@ -277,6 +286,11 @@ public class HomeFragment extends Fragment
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
             //startActivity(new Intent(getActivity(),PaymentGateway.class));
         });
+
+        view.findViewById(R.id.see_all_tests).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
+        });
+
         View.OnClickListener onClick = v -> {
             startActivity(new Intent(getActivity(), PlanActivity.class));
         };
@@ -287,7 +301,43 @@ public class HomeFragment extends Fragment
         });
 
         view.findViewById(R.id.tv_see_all).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), exoplayerActivity.class));
+            Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+            intent.putExtra("mode",0);
+            intent.putExtra("EDU_KEY","videos_"+Utility.getUserEducationUid(getActivity()));
+            intent.putExtra("TITLE","Classes");
+            startActivity(intent);
+        });
+
+
+
+        p1SeeAll.setOnClickListener(v -> {
+            if(playList.size()>0 && p1List.size()>0) {
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                intent.putExtra("mode", 1);
+                intent.putExtra("KEY", playList.get(0).getId());
+                intent.putExtra("TITLE", playList.get(0).getName());
+                startActivity(intent);
+            }
+        });
+
+        p2SeeAll.setOnClickListener(v -> {
+            if(playList.size()>1 && p2List.size()>0) {
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                intent.putExtra("mode", 1);
+                intent.putExtra("KEY", playList.get(1).getId());
+                intent.putExtra("TITLE", playList.get(1).getName());
+                startActivity(intent);
+            }
+        });
+
+        p3SeeAll.setOnClickListener(v -> {
+            if(playList.size()>2 && p3List.size()>0) {
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                intent.putExtra("mode", 1);
+                intent.putExtra("KEY", playList.get(2).getId());
+                intent.putExtra("TITLE", playList.get(2).getName());
+                startActivity(intent);
+            }
         });
 
 
@@ -906,12 +956,16 @@ public class HomeFragment extends Fragment
                                     } else {
                                         p3Title.setVisibility(View.GONE);
                                         playList3Recv.setVisibility(View.GONE);
+                                        p3SeeAll.setVisibility(View.GONE);
                                     }
                                 } else {
                                     p2Title.setVisibility(View.GONE);
                                     playList2Recv.setVisibility(View.GONE);
                                     p3Title.setVisibility(View.GONE);
                                     playList3Recv.setVisibility(View.GONE);
+                                    p2SeeAll.setVisibility(View.GONE);
+                                    p3SeeAll.setVisibility(View.GONE);
+
                                 }
 
                             }else {
@@ -921,6 +975,9 @@ public class HomeFragment extends Fragment
                                 playList2Recv.setVisibility(View.GONE);
                                 p3Title.setVisibility(View.GONE);
                                 playList3Recv.setVisibility(View.GONE);
+                                p1SeeAll.setVisibility(View.GONE);
+                                p2SeeAll.setVisibility(View.GONE);
+                                p3SeeAll.setVisibility(View.GONE);
                             }
 
 
@@ -953,7 +1010,7 @@ public class HomeFragment extends Fragment
 
 
     private void fetchPlayListData(int mCase, String playlistId) {
-        String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&key=" + browserKey + "&maxResults=50";
+        String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&key=" + browserKey + "&maxResults=6";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
                 response -> {
@@ -993,8 +1050,10 @@ public class HomeFragment extends Fragment
                 switch (mCase)
                 {
                     case 1:
-                        if(p1List.size()>0)
+                        if(p1List.size()>0) {
+                            p1SeeAll.setText("See all");
                             adapterP1.notifyDataSetChanged();
+                        }
                         else
                         {
                             p1Title.setVisibility(View.GONE);
@@ -1003,8 +1062,10 @@ public class HomeFragment extends Fragment
                         break;
 
                     case 2:
-                        if(p2List.size()>0)
+                        if(p2List.size()>0) {
+                            p2SeeAll.setText("See all");
                             adapterP2.notifyDataSetChanged();
+                        }
                         else
                         {
                             p2Title.setVisibility(View.GONE);
@@ -1013,8 +1074,10 @@ public class HomeFragment extends Fragment
                         break;
 
                     case 3:
-                        if(p3List.size()>0)
+                        if(p3List.size()>0) {
+                            p3SeeAll.setText("See all");
                             adapterP3.notifyDataSetChanged();
+                        }
                         else
                         {
                             p3Title.setVisibility(View.GONE);
