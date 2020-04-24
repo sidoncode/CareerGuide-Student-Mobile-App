@@ -596,6 +596,17 @@ public class Utility extends Application
             }
         }
 
+        public static boolean deleteOldReport(String fileName){
+
+            File oldReport=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
+                if (oldReport.delete()) {
+                    System.out.println("Report Deleted");
+                    return true;
+                } else {
+                    System.out.println("Report not Deleted");
+                    return false;
+                }
+            }
 }
 
 

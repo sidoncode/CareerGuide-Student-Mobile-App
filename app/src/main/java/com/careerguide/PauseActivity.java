@@ -259,6 +259,9 @@ public class PauseActivity extends AppCompatActivity {
             save_report_url(reporturl);
 
             if(Utility.getStoragePermissionFromUser(activity)){
+                if(Utility.checkFileExist(filename)){
+                    Utility.deleteOldReport(filename);
+                }
                 downloadID=Utility.downloadPdf(filename,reporturl,"Psychometric Test report","Downloading...",this);
             }else{
                 hideProgressBar();
