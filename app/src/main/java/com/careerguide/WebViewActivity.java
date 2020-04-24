@@ -150,12 +150,12 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //  webView.loadUrl("https://docs.google.com/viewerng/viewer?url=" + /*"https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67528.pdf"*/ getIntent().getStringExtra("url"));
         super.onBackPressed ( );
-//        Intent back1 = new Intent(WebViewActivity.this, ebookpdf.class);
-//        back1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(back1);
-//        finish();
+/*
+        Intent goToHomeScreen = new Intent(this, HomeActivity.class);
+        startActivity(goToHomeScreen);
+        finish();*/
+
     }
 
 
