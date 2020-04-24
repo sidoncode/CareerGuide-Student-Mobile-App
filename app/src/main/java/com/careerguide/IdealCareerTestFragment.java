@@ -1,8 +1,11 @@
 package com.careerguide;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,13 +50,38 @@ public class IdealCareerTestFragment extends TestSuperFragment {
     private String enteredCountryFlag;
     private View alertDialogView;
     private boolean testAvailable = false;
+    String fileName="Sample_Report.pdf";
+    RelativeLayout progressBar;
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     final private int ASSESMENT_REQ_CODE = 1;
 
+    long downloadID;
+    BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Fetching the download id received with the broadcast
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            //Checking if the received broadcast is for our enqueued download by matching download id
+            if (downloadID == id) {
+                Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
+                startWebViewActivity();
+            }
+        }
+    };
 
     public IdealCareerTestFragment() {
         // Required empty public constructor
+    }
+
+    void startWebViewActivity(){
+
+        Intent intent1 = new Intent(getActivity(), WebViewActivity.class);
+        intent1.putExtra("pdfName", fileName);
+        intent1.putExtra("toolBarTitle","Sample Report");
+        hideProgressBar();
+        startActivity(intent1);
+
     }
 
 
@@ -62,6 +91,7 @@ public class IdealCareerTestFragment extends TestSuperFragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_ideal_career_test, container, false);
 
+        getActivity().registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 
         view.findViewById(R.id.startButton).setOnClickListener(v -> {
@@ -80,6 +110,8 @@ public class IdealCareerTestFragment extends TestSuperFragment {
         }
         return view;
     }
+
+
 
     private void proceedTest()
     {
@@ -193,10 +225,15 @@ public class IdealCareerTestFragment extends TestSuperFragment {
                         });
 
                         alertDialogView.findViewById(R.id.sampleReport).setOnClickListener(v -> {
-                            Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                            intent.putExtra("url","https://www.careerguide.com/sample-report/ideal-career-report-sample-report-new.pdf");
-                            intent.putExtra("filename", "Report");
-                            startActivity(intent);
+                            progressBar=alertDialogView.findViewById(R.id.progressBar);
+                            if(Utility.getStoragePermissionFromUser(getActivity())) {//file already downloaded
+                                if (Utility.checkFileExist(fileName))
+                                    startWebViewActivity();
+                                else {
+                                    showProgressBar();
+                                    downloadID = Utility.downloadPdf(fileName, "https://www.careerguide.com/sample-report/ideal-career-report-sample-report-new.pdf", "Report Sample", "Downloading...", activity);
+                                }
+                            }
                         });
                         ad.show();
                     } else {
@@ -997,4 +1034,17 @@ public class IdealCareerTestFragment extends TestSuperFragment {
             return row;
         }
     }
+
+    void showProgressBar(){
+
+        progressBar.setVisibility(View.VISIBLE);
+
+    }
+    void hideProgressBar(){
+
+        progressBar.setVisibility (View.INVISIBLE);
+
+    }
+
+
 }
