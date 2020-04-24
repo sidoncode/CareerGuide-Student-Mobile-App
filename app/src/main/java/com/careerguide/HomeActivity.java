@@ -86,6 +86,9 @@ import com.careerguide.blog.model.Categories;
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
 
+    //storage permission code
+    private static final int PERMISSION_REQUEST_CODE = 1;
+
     public static final int REQUEST_CATEGORY_CODE = 201;
     private Activity activity = this;
     private ListView mDrawerList;
@@ -137,6 +140,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressDialog=new ProgressDialog ( this);
+        progressDialog.setTitle("Downloading...");
         progressDialog.setCancelable(false);
         /*
 
@@ -177,12 +181,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 //Checking if the received broadcast is for our enqueued download by matching download id
                 if (downloadID == id) {
                     Toast.makeText(HomeActivity.this, "Download Completed", Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(activity, WebViewActivity.class);
-                    intent1.putExtra("pdfName", "Psychometric_Report.pdf");
-                    intent1.putExtra("toolBarTitle","Psychometric Report");
-                    progressDialog.dismiss();
-                    startActivity(intent1);
-                    finish();
+                    startWebViewActivity();
                 }
             }
         };
@@ -367,48 +366,23 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 Log.e("Urltrst", "myurl" + reporturl);
                 progressDialog2.dismiss();
 
-                String filename = "/Download/Psychometric_Report.pdf";
-                File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+                String filename = "Psychometric_Report.pdf";
 
-                Intent intent = new Intent(activity, WebViewActivity.class);
-                intent.putExtra("pdfName", "Psychometric_Report.pdf");
-                intent.putExtra("toolBarTitle","Psychometric Report");
-                Log.e("HomeResponse", reporturl);
-
-                boolean reportAlreadyLoaded=true;
-
-                if(!f1.exists() && !f1.isDirectory()) {
-                    reportAlreadyLoaded=false;
-                    DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                    Uri uri = Uri.parse(reporturl);
-
-                    Log.i("homescreenreporturl",reporturl);
-                    DownloadManager.Request request = new DownloadManager.Request(uri);
-                    request.setTitle("Psychometric Report");
-                    request.setDescription("Downloading");
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    request.setVisibleInDownloadsUi(true);
-                    request.setDestinationUri(Uri.fromFile(f1));
-                    downloadID=downloadmanager.enqueue(request);
-                    progressDialog.setTitle("Fetching Psychometric Report");
+                if(Utility.getStoragePermissionFromUser(this)) {
                     progressDialog.show();
-
-                }else
-                {
-                    startActivity(intent);
+                    if( Utility.checkFileExist(filename))
+                        startWebViewActivity();
+                    else
+                        downloadID=Utility.downloadPdf(filename,reporturl,"Psychometric Report","Downloading...",this);
                 }
-
-
-
             }
             else {
                 setTitle("Home");
-                Log.e("insdieif","dialouge");
+
                 final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
                 final View dialog = getLayoutInflater().inflate(R.layout.dialouge_test_report, null);
                 alertDialog.setView(dialog);
                 alertDialog.show();
-                //setTitle("Home");
 
                 dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
                     startActivity(new Intent(activity,PsychometricTestsActivity.class));
@@ -1812,10 +1786,35 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         startActivity(intent);
     }
 
+    void startWebViewActivity(){
+
+        Intent intent1 = new Intent(activity, WebViewActivity.class);
+        intent1.putExtra("pdfName", "Psychometric_Report.pdf");
+        intent1.putExtra("toolBarTitle","Psychometric Report");
+        progressDialog.dismiss();
+        startActivity(intent1);
+        finish();
+
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(onDownloadComplete);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("value", "Permission Granted.");
+                } else {
+                    Log.e("value", "Permission Denied, You cannot save reports/Ebooks .");
+                }
+                break;
+        }
     }
 
 

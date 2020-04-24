@@ -288,29 +288,7 @@ public class PauseActivity extends AppCompatActivity {
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
-    public class DownloadFile extends AsyncTask<String, Void, Void> {
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-            String fileName = strings[1];  // -> maven.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory ( ).toString ( );
-            File folder = new File ( extStorageDirectory, "Career-Ebook" );
-            folder.mkdir ( );
-
-            File pdfFile = new File ( folder, fileName );
-
-            try {
-                pdfFile.createNewFile ( );
-            } catch (IOException e) {
-                e.printStackTrace ( );
-            }
-            FileDownloader.downloadFile ( fileUrl, pdfFile );
-            return null;
-        }
-
-
-    }
 
     private void get_report_url(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", response -> {
