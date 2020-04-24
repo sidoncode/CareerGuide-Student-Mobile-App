@@ -510,8 +510,8 @@ public class Utility extends Application
         Uri uri = Uri.parse(url);
 
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setTitle(downloadDescription);
-        request.setDescription(downloadTitle);
+        request.setTitle(downloadTitle);
+        request.setDescription(downloadDescription);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setVisibleInDownloadsUi(true);
         File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
@@ -561,7 +561,6 @@ public class Utility extends Application
                         public void onClick(DialogInterface dialog, int id) {
                             Intent settingsIntent = new Intent(Settings.ACTION_SETTINGS);//open wifi settings
                             activity.startActivity(settingsIntent);
-
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -597,6 +596,17 @@ public class Utility extends Application
             }
         }
 
+        public static boolean deleteOldReport(String fileName){
+
+            File oldReport=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
+                if (oldReport.delete()) {
+                    System.out.println("Report Deleted");
+                    return true;
+                } else {
+                    System.out.println("Report not Deleted");
+                    return false;
+                }
+            }
 }
 
 
