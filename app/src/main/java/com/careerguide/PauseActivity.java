@@ -51,6 +51,7 @@ public class PauseActivity extends AppCompatActivity {
     RelativeLayout progressBar;
     BroadcastReceiver broadcastReceiver;
     String filename = "Psychometric_Report.pdf";
+    Boolean reportGenerated=false;
 
     BroadcastReceiver onDownloadComplete;
     long downloadID;
@@ -101,7 +102,7 @@ public class PauseActivity extends AppCompatActivity {
         if(finished)
         {
             hideProgressBar();
-            ((Button)findViewById(R.id.continueButton)).setText("Download Report");
+            ((Button)findViewById(R.id.continueButton)).setText("Generate Report");
         }
         else {
             hideProgressBar();
@@ -113,61 +114,23 @@ public class PauseActivity extends AppCompatActivity {
 
                 if(finished)
                 {
-                    ((Button)findViewById(R.id.continueButton)).setEnabled(false);
-                    generateReport();
+                    ((Button)findViewById(R.id.continueButton)).setEnabled(false);//disable the download button
+                    if(reportGenerated) {//if report is not generated
+                        get_report_url();
+                    }
+                    else {//report was generated but storage permission was not given
+                        get_report_url();
+                    }
+
                 }
                 else {
                     hideProgressBar();
                     PauseActivity.super.onBackPressed();
                     //finish();
                 }
-
             }
         });
     }
-
-    /*private void generateReport() {
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("Generating report...");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        String url = "https://devapi.careerguide.com/api/assessment_report";
-        try
-        {
-            final JSONObject jsonBody = new JSONObject("{\"api_key\": \"D7DC21B2-2G71-4CEE-950F-0019675AB74B\", \"test_type\": \"ideal\",\"user_auth\": \"m0bESYfssIk%3d-NDVkZGRhM2QtY2QzZS00ZDQ0LWIzNDctODRiODY1Y2E4NzI1\"}");
-            JSONArray jsonArray = new JSONArray();
-            for(QuestionAndOptions questionAndOptions : Utility.questionAndOptionses)
-            {
-                int sno = questionAndOptions.getQuestion().getSrNo();
-                String key = questionAndOptions.getAnswerKey();
-                JSONObject object1 = new JSONObject();
-                object1.put("sno",sno);
-                object1.put("key",key);
-                jsonArray.put(object1);
-            }
-            jsonBody.put("questions",jsonArray);
-            Log.e("json response", jsonBody.toString());
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>()
-            {
-                @Override
-                public void onResponse(JSONObject response)
-                {
-                    progressDialog.dismiss();
-                    Log.e("Response",response.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Log.e("json response", VoleyErrorHelper.getMessage(error,activity));
-                }
-            });
-            VolleySingleton.getInstance(activity).addToRequestQueue(request);
-            progressDialog.show();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void generateReport() {
         showProgressBar();
@@ -192,17 +155,9 @@ public class PauseActivity extends AppCompatActivity {
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, response ->
             {
 
+                //String url1 = response.optString("pdf_url");This link doesn't work
 
-                String url1 = response.optString("pdf_url");
-                Log.i("reportsubmiturl",url1);
-                //Uri uri = Uri.parse(getIntent().getStringExtra("url"));
-
-                //  report_url = url;
-                //    Log.e("#globalreport_url", "urlis " +report_url);
                 Log.e("#usermail", "mail:" +Utility.getUserEmail(activity));
-                //Intent intent = new Intent(activity, LoadPdf.class);
-                //intent.putExtra("url", url1);
-
 
                 get_report_url();
 
@@ -218,7 +173,6 @@ public class PauseActivity extends AppCompatActivity {
                         String jsonString =
                                 null;
                         jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-                        //Log.e("String response",jsonString);
                         final JSONArray jsonArray = new JSONArray(jsonString);
                         JSONObject jsonObject = (jsonArray.getJSONObject(0));
                         return Response.success(jsonObject,
@@ -243,11 +197,9 @@ public class PauseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //if(finished)
-        {
-            //super.onBackPressed();
-            //get_report_url();
-        }
+
+            //super.onBackPressed();//Dont take the user back when the report is generating therefore commented
+
     }
 
     @Override
@@ -279,8 +231,6 @@ public class PauseActivity extends AppCompatActivity {
                 Log.e("sendurl" , "url: " +report_url);
                 params.put("report_url",report_url);
                 params.put("email" , Utility.getUserEmail(activity));
-                // String name = "Andorra";
-                // params.put("name" , name);
                 Log.e("#nline_status_request",params.toString());
                 Log.e("userreport" , Utility.getReportUrl(activity));
                 return params;
@@ -291,7 +241,10 @@ public class PauseActivity extends AppCompatActivity {
 
 
     private void get_report_url(){
+        showProgressBar();
+        ((Button)findViewById(R.id.continueButton)).setText("Downloading...");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", response -> {
+            ((TextView)findViewById(R.id.progressBarTitle)).setText("Downloading...");
             JSONObject jobj = null;
             try {
                 jobj = new JSONObject(response);
@@ -303,11 +256,15 @@ public class PauseActivity extends AppCompatActivity {
             String reporturl = jobj.optString("Report_url");
             Log.e("#homeurl","report " +reporturl);
 
-            downloadPdf(filename,reporturl);
             save_report_url(reporturl);
 
-
-
+            if(Utility.getStoragePermissionFromUser(activity)){
+                downloadID=Utility.downloadPdf(filename,reporturl,"Psychometric Test report","Downloading...",this);
+            }else{
+                hideProgressBar();
+                ((Button)findViewById(R.id.continueButton)).setText("Download Report");
+                ((Button)findViewById(R.id.continueButton)).setEnabled(true);//enable the download button after the user grants permission
+            }
         }, error -> Log.e("save_report_url_error","error"))
         {
             @Override
@@ -330,28 +287,6 @@ public class PauseActivity extends AppCompatActivity {
 
         progressBar.setVisibility (View.INVISIBLE);
 
-    }
-
-    void downloadPdf(String fileName,String url){
-        try{
-
-            DownloadManager downloadmanager = (DownloadManager)this.getSystemService(Context.DOWNLOAD_SERVICE);
-
-            Uri uri = Uri.parse(url);
-
-            DownloadManager.Request request = new DownloadManager.Request(uri);
-            request.setTitle("Psychometric Report");
-            request.setDescription("Downloading");
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setVisibleInDownloadsUi(true);
-            File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
-            request.setDestinationUri(Uri.fromFile(file));
-
-            downloadID=downloadmanager.enqueue(request);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 }
