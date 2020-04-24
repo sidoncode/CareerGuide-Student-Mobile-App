@@ -317,7 +317,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:paddingStart="10dp"
-                    android:text="Playlist 1"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -356,7 +356,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:paddingStart="10dp"
-                    android:text="Playlist 2"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -396,7 +396,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:paddingStart="10dp"
-                    android:text="Playlist 3"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />

@@ -1,15 +1,59 @@
 package com.careerguide;
 
+import android.app.Activity;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.os.Environment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.io.File;
 
 public class ebookpdf extends Fragment {
 
-        ebookpdf activity = this;
+    private static final int PERMISSION_REQUEST_CODE = 1;
+
+    BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Fetching the download id received with the broadcast
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            //Checking if the received broadcast is for our enqueued download by matching download id
+            if (downloadID == id) {
+                Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
+                hideProgressBar();
+                startActivity(goToNextScreen);
+            }
+        }
+    };
+
+    Intent goToNextScreen;
+
+    long downloadID;
+
+
+    String ebook1="self-career-counselling-ebook.pdf";
+    String ebook1_URL="https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf";
+    String ebook2="new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf";
+    String ebook2_URL="https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf";
+    String toolBarTitle="Career EBook";
+    RelativeLayout progressBar;
 
     public ebookpdf() {
         // Required empty public constructor
@@ -22,98 +66,90 @@ public class ebookpdf extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_ebook, container, false);
-        view.findViewById(R.id.newage1).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+        progressBar=view.findViewById(R.id.progressBar);
 
-            intent.putExtra("filename", "self-career-counselling-ebook.pdf");
-            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf");
-            startActivity(intent);
+        getActivity().registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
+        view.findViewById(R.id.imageViewSelfCareer).setOnClickListener(v -> {
+            goToNextScreen = new Intent(getActivity(), WebViewActivity.class);
+            goToNextScreen.putExtra("pdfName", ebook1);
+            goToNextScreen.putExtra("toolBarTitle",toolBarTitle);
+
+            if(Utility.getStoragePermissionFromUser(getActivity())) {//file already downloaded
+                if (Utility.checkFileExist(ebook1))
+                    startActivity(goToNextScreen);
+                else {
+                    downloadID = Utility.downloadPdf(ebook1, ebook1_URL, "Self Career Ebook", "Downloading...", getActivity());
+                    showProgressBar();
+                }
+            }
         });
-        view.findViewById(R.id.age_careerr).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WebViewActivity.class);
 
-            intent.putExtra("filename", "self-career-counselling-ebook.pdf");
-            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf");
 
-            startActivity(intent);
+
+        view.findViewById(R.id.buttonSelfCareer).setOnClickListener(v -> {
+            goToNextScreen = new Intent(getActivity(), WebViewActivity.class);
+
+            goToNextScreen.putExtra("pdfName", ebook1);
+            goToNextScreen.putExtra("toolBarTitle",toolBarTitle);
+
+            if(Utility.getStoragePermissionFromUser(getActivity())) {//file already downloaded
+                if (Utility.checkFileExist(ebook1))
+                    startActivity(goToNextScreen);
+                else {
+                    downloadID = Utility.downloadPdf(ebook1, ebook1_URL, "Self Career Ebook", "Downloading...", getActivity());
+                    showProgressBar();
+                }
+            }
         });
 
-        view.findViewById(R.id.newage).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WebViewActivity.class);
-            intent.putExtra("filename", "new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
-            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
+        view.findViewById(R.id.imageViewNewAge).setOnClickListener(v -> {
+            goToNextScreen = new Intent(getActivity(), WebViewActivity.class);
+            goToNextScreen.putExtra("pdfName", ebook2);
+            goToNextScreen.putExtra("toolBarTitle", toolBarTitle);
 
-            startActivity(intent);
+
+            if (Utility.getStoragePermissionFromUser(getActivity())) {//file already downloaded
+                if (Utility.checkFileExist(ebook2))
+                    startActivity(goToNextScreen);
+                else {
+                    downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age Ebook", "Downloading...", getActivity());
+                    showProgressBar();
+                }
+            }
         });
-        view.findViewById(R.id.age_career).setOnClickListener(v -> {
+        view.findViewById(R.id.buttonNewAge).setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebViewActivity.class);
-            intent.putExtra("filename", "new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
-            intent.putExtra("url","https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf");
-            startActivity(intent);
+            intent.putExtra("pdfName", ebook2);
+            intent.putExtra("toolBarTitle",toolBarTitle);
+
+            if(Utility.getStoragePermissionFromUser(getActivity())) {//file already downloaded
+                if (Utility.checkFileExist(ebook2))
+                    startActivity(intent);
+                else {
+                    downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age Ebook", "Downloading...", getActivity());
+                    showProgressBar();
+                }
+            }
         });
         return view;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Utility.getStoragePermissionFromUser(getActivity());
+    }
+
+    void showProgressBar(){
+
+        progressBar.setVisibility (View.VISIBLE);
+
+    }
+    void hideProgressBar(){
+
+        progressBar.setVisibility (View.INVISIBLE);
+
+    }
 }
-//    String message = "Choose today Enjoy tomorrow - Make right career choices";
-//    File fileBrochure = new File( Environment.getExternalStorageDirectory().getPath() + "/" + pdfsname );
-//                if (!fileBrochure.exists()) {
-//                        CopyAssetsbrochure();
-//                        }
-//
-//                        /** PDF reader code */
-//                        File file = new File( Environment.getExternalStorageDirectory().getPath() + "/" + pdfsname );
-//
-//                        Intent intent = new Intent( Intent.ACTION_SEND );
-//                        intent.putExtra( Intent.EXTRA_STREAM, Uri.fromFile( file ) );
-//                        intent.setType( "application/pdf" );
-//                        intent.putExtra( Intent.EXTRA_TEXT, message );
-//                        intent.addFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-//                        intent.setPackage( "com.whatsapp" );
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        try {
-//                        startActivity( intent );
-//                        } catch (ActivityNotFoundException e) {
-//                        Toast.makeText( ShareActivity.this, "NO Pdf Viewer", Toast.LENGTH_SHORT ).show();
-//                        }
-//                        }
-//
-////method to write the PDFs file to sd card
-//private void CopyAssetsbrochure() {
-//        AssetManager assetManager = getAssets();
-//        String[] files = null;
-//        try {
-//        files = assetManager.list( "" );
-//        } catch (IOException e) {
-//        Log.e( "tag", e.getMessage() );
-//        }
-//        for (int i = 0; i < files.length; i++) {
-//        String fStr = files[i];
-//        if (fStr.equalsIgnoreCase( pdfsname)) {
-//        InputStream in = null;
-//        OutputStream out = null;
-//        try {
-//        in = assetManager.open( files[i] );
-//        out = new FileOutputStream ( Environment.getExternalStorageDirectory() + "/" + files[i] );
-//        copyFile( in, out );
-//        in.close();
-//        out.flush();
-//        out.close();
-//
-//        break;
-//        } catch (Exception e) {
-//        Log.e( "tag", e.getMessage() );
-//        }
-//        }
-//        }
-//        }
-//        } );
-//        }
-//
-//        private void copyFile(InputStream in, OutputStream out) throws IOException {
-//        byte[] buffer = new byte[1024];
-//        int read;
-//        while((read = in.read(buffer)) != -1){
-//        out.write(buffer, 0, read);
-//        }
-//        }

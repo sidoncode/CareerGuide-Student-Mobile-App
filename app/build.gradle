@@ -28,8 +28,8 @@ android {
         applicationId "com.careerguide"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 95
-        versionName "1.0.95"
+        versionCode 99
+        versionName "1.0.99"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -159,6 +159,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'com.onesignal:OneSignal:3.13.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
 
     // implementation 'com.zoho.salesiq:mobilisten:1.2.3'

@@ -1,9 +1,12 @@
 package com.careerguide;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -31,6 +34,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -60,6 +65,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -80,6 +86,9 @@ import com.careerguide.blog.model.Categories;
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
 
+    //storage permission code
+    private static final int PERMISSION_REQUEST_CODE = 1;
+
     public static final int REQUEST_CATEGORY_CODE = 201;
     private Activity activity = this;
     private ListView mDrawerList;
@@ -89,6 +98,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private static TextView nameTextView , tv_name;
     private static TextView locationTextView;
     private static View headerLayout;
+
+    ProgressDialog progressDialog;
+    BroadcastReceiver onDownloadComplete;
+    long downloadID;
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -126,7 +139,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        progressDialog=new ProgressDialog ( this);
+        progressDialog.setTitle("Downloading...");
+        progressDialog.setCancelable(false);
         /*
 
          * Tutorial
@@ -157,6 +172,20 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         NavigationUI.setupActionBarWithNavController(this, navController,mAppBarConfiguration);
         NavigationUI.setupWithNavController (toolbar, navController, mDrawer);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        onDownloadComplete = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //Fetching the download id received with the broadcast
+                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                //Checking if the received broadcast is for our enqueued download by matching download id
+                if (downloadID == id) {
+                    Toast.makeText(HomeActivity.this, "Download Completed", Toast.LENGTH_SHORT).show();
+                    startWebViewActivity();
+                }
+            }
+        };
+        registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 
 
@@ -336,20 +365,24 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 setTitle("Home");
                 Log.e("Urltrst", "myurl" + reporturl);
                 progressDialog2.dismiss();
-                Intent intent = new Intent(activity, WebViewActivity.class);
-                intent.putExtra("url", reporturl);
-                intent.putExtra("filename", "Report");
-                Log.e("HomeResponse", reporturl);
-                startActivity(intent);
+
+                String filename = "Psychometric_Report.pdf";
+
+                if(Utility.getStoragePermissionFromUser(this)) {
+                    progressDialog.show();
+                    if( Utility.checkFileExist(filename))
+                        startWebViewActivity();
+                    else
+                        downloadID=Utility.downloadPdf(filename,reporturl,"Psychometric Report","Downloading...",this);
+                }
             }
             else {
                 setTitle("Home");
-                Log.e("insdieif","dialouge");
+
                 final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
                 final View dialog = getLayoutInflater().inflate(R.layout.dialouge_test_report, null);
                 alertDialog.setView(dialog);
                 alertDialog.show();
-                //setTitle("Home");
 
                 dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
                     startActivity(new Intent(activity,PsychometricTestsActivity.class));
@@ -1037,7 +1070,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             
 
             try {
-                String url_two = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK&key=" + browserKey + "&maxResults=50";
+                String url_two = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO7H9GCU_aZbZTK-G064Mcgd&key=" + browserKey + "&maxResults=50";
                 String response_two = Utility.getUrlString(url_two);
                 JSONObject json_two = new JSONObject(response_two);
                 JSONArray jsonArray_two = json_two.getJSONArray("items");
@@ -1099,7 +1132,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             
 
             try {
-                String url_three = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc&key=" + browserKey + "&maxResults=50";
+                String url_three = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO5Rnt3QlWFTdf-50IUp7bBg&key=" + browserKey + "&maxResults=50";
                 String response_three = Utility.getUrlString(url_three);
                 JSONObject json_three = new JSONObject(response_three);
                 JSONArray jsonArray_three = json_three.getJSONArray("items");
@@ -1108,7 +1141,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 Random rand = new Random();
                 int tempRandom;
 
-                for (int i = 0; i < jsonArrayLen-1; i++) {
+                for (int i = 0; i < jsonArrayLen; i++) {
 
                     while(true) {//loop until no duplicate is found.
                         tempRandom = rand.nextInt(jsonArrayLen);
@@ -1190,6 +1223,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
                     String id = JsonObject.optString("id");
+
                     displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
@@ -1259,6 +1293,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
                     String id = JsonObject.optString("id");
+                    Log.e("#views" , "-->" +video_views);
                     displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
                 }
@@ -1676,12 +1711,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
     }
 
-
-
-
-
-
-
     public void onSeeAllClick(View v)
     {
         int mode =0;
@@ -1698,14 +1727,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
             case R.id.see_all_cat2:
                 mode =1;
-                intent.putExtra("KEY","PLnnMTbSs_SO6r8uB8i0COUrTe7L4SLZeK");
-                intent.putExtra("TITLE","CareerGuide Counsellors");
+                intent.putExtra("KEY","PLnnMTbSs_SO7H9GCU_aZbZTK-G064Mcgd");
+                intent.putExtra("TITLE","Career Options");
                 break;
 
             case R.id.see_all_cat10:
                 mode =1;
-                intent.putExtra("KEY","PLnnMTbSs_SO6xa4LFPEFb1t3ICJ0IQNLc");
-                intent.putExtra("TITLE","Counsellor Videos");
+                intent.putExtra("KEY","PLnnMTbSs_SO5Rnt3QlWFTdf-50IUp7bBg");
+                intent.putExtra("TITLE","Study Abroad");
                 break;
 
             case R.id.see_all_cat_test:
@@ -1757,7 +1786,36 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         startActivity(intent);
     }
 
+    void startWebViewActivity(){
 
+        Intent intent1 = new Intent(activity, WebViewActivity.class);
+        intent1.putExtra("pdfName", "Psychometric_Report.pdf");
+        intent1.putExtra("toolBarTitle","Psychometric Report");
+        progressDialog.dismiss();
+        startActivity(intent1);
+        finish();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(onDownloadComplete);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("value", "Permission Granted.");
+                } else {
+                    Log.e("value", "Permission Denied, You cannot save reports/Ebooks .");
+                }
+                break;
+        }
+    }
 
 
 }
