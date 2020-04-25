@@ -322,16 +322,16 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/p1_see_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="See all"
+                    android:text=""
                     android:textColor="@color/app_blue"
                     android:textSize="15sp"
-                    android:visibility="visible" />-->
+                    android:visibility="visible" />
             </LinearLayout>
 
 
@@ -361,16 +361,16 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/p2_see_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="See all"
+                    android:text=""
                     android:textColor="@color/app_blue"
                     android:textSize="15sp"
-                    android:visibility="visible" />-->
+                    android:visibility="visible" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -401,16 +401,16 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/p3_see_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="See all"
+                    android:text=""
                     android:textColor="@color/app_blue"
                     android:textSize="15sp"
-                    android:visibility="visible" />-->
+                    android:visibility="visible" />
             </LinearLayout>
 
 
