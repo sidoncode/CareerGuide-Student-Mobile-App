@@ -56,6 +56,8 @@ public class PauseActivity extends AppCompatActivity {
     BroadcastReceiver onDownloadComplete;
     long downloadID;
 
+    String newPDFUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +118,7 @@ public class PauseActivity extends AppCompatActivity {
                 {
                     ((Button)findViewById(R.id.continueButton)).setEnabled(false);//disable the download button
                     if(reportGenerated) {//if report is generated but storage permission was not given
-                        get_report_url();
+                        downloadReport();
                     }
                     else {//report was not generated
                         generateReport();
@@ -136,6 +138,7 @@ public class PauseActivity extends AppCompatActivity {
         showProgressBar();
         String url = "https://devapi.careerguide.com/api/assessment_report";
         String auth = getIntent().getStringExtra("auth");
+        Log.i("userauthpassed",auth);
         try
         {
             final JSONObject jsonBody = new JSONObject("{\"api_key\":\"D7DC21B2-2G71-4CEE-950F-0019675AB74B\",\"test_type\":\"ideal\",\"user_auth\":" + "\""+ auth + "\"" + /*\"m0bESYfssIk%3d-NDVkZGRhM2QtY2QzZS00ZDQ0LWIzNDctODRiODY1Y2E4NzI1\"*/ ",\"questions\":[{\"sno\":1,\"key\":\"B\"},{\"sno\":2,\"key\":\"B\"},{\"sno\":3,\"key\":\"B\"},{\"sno\":4,\"key\":\"B\"},{\"sno\":5,\"key\":\"B\"},{\"sno\":6,\"key\":\"B\"},{\"sno\":7,\"key\":\"B\"},{\"sno\":8,\"key\":\"B\"},{\"sno\":9,\"key\":\"B\"},{\"sno\":10,\"key\":\"B\"},{\"sno\":11,\"key\":\"B\"},{\"sno\":12,\"key\":\"B\"},{\"sno\":13,\"key\":\"B\"},{\"sno\":14,\"key\":\"B\"},{\"sno\":15,\"key\":\"B\"},{\"sno\":16,\"key\":\"B\"},{\"sno\":17,\"key\":\"B\"},{\"sno\":18,\"key\":\"B\"},{\"sno\":19,\"key\":\"B\"},{\"sno\":20,\"key\":\"B\"},{\"sno\":21,\"key\":\"B\"},{\"sno\":22,\"key\":\"B\"},{\"sno\":23,\"key\":\"B\"},{\"sno\":24,\"key\":\"B\"},{\"sno\":25,\"key\":\"B\"},{\"sno\":26,\"key\":\"B\"},{\"sno\":27,\"key\":\"B\"},{\"sno\":28,\"key\":\"B\"},{\"sno\":29,\"key\":\"B\"},{\"sno\":30,\"key\":\"B\"},{\"sno\":31,\"key\":\"B\"},{\"sno\":32,\"key\":\"B\"},{\"sno\":33,\"key\":\"B\"},{\"sno\":34,\"key\":\"B\"},{\"sno\":35,\"key\":\"B\"},{\"sno\":36,\"key\":\"B\"},{\"sno\":37,\"key\":\"B\"},{\"sno\":38,\"key\":\"B\"},{\"sno\":39,\"key\":\"B\"},{\"sno\":40,\"key\":\"B\"},{\"sno\":41,\"key\":\"B\"},{\"sno\":42,\"key\":\"B\"},{\"sno\":43,\"key\":\"B\"},{\"sno\":44,\"key\":\"B\"},{\"sno\":45,\"key\":\"B\"},{\"sno\":46,\"key\":\"B\"},{\"sno\":47,\"key\":\"B\"},{\"sno\":48,\"key\":\"B\"},{\"sno\":49,\"key\":\"B\"},{\"sno\":50,\"key\":\"B\"},{\"sno\":51,\"key\":\"B\"},{\"sno\":52,\"key\":\"B\"},{\"sno\":53,\"key\":\"B\"},{\"sno\":54,\"key\":\"B\"},{\"sno\":55,\"key\":\"B\"},{\"sno\":56,\"key\":\"B\"},{\"sno\":57,\"key\":\"B\"},{\"sno\":58,\"key\":\"D\"},{\"sno\":59,\"key\":\"B\"},{\"sno\":60,\"key\":\"B\"},{\"sno\":61,\"key\":\"B\"},{\"sno\":62,\"key\":\"B\"},{\"sno\":63,\"key\":\"B\"},{\"sno\":64,\"key\":\"B\"},{\"sno\":65,\"key\":\"B\"},{\"sno\":66,\"key\":\"B\"},{\"sno\":67,\"key\":\"B\"},{\"sno\":68,\"key\":\"B\"},{\"sno\":69,\"key\":\"B\"},{\"sno\":70,\"key\":\"B\"},{\"sno\":71,\"key\":\"D\"},{\"sno\":72,\"key\":\"B\"},{\"sno\":73,\"key\":\"B\"},{\"sno\":74,\"key\":\"B\"},{\"sno\":75,\"key\":\"B\"},{\"sno\":76,\"key\":\"B\"},{\"sno\":77,\"key\":\"B\"},{\"sno\":78,\"key\":\"B\"},{\"sno\":79,\"key\":\"B\"},{\"sno\":80,\"key\":\"B\"},{\"sno\":81,\"key\":\"B\"},{\"sno\":82,\"key\":\"B\"},{\"sno\":83,\"key\":\"B\"},{\"sno\":84,\"key\":\"B\"},{\"sno\":85,\"key\":\"B\"},{\"sno\":86,\"key\":\"B\"},{\"sno\":87,\"key\":\"B\"},{\"sno\":88,\"key\":\"B\"},{\"sno\":89,\"key\":\"D\"},{\"sno\":90,\"key\":\"B\"},{\"sno\":91,\"key\":\"C\"},{\"sno\":92,\"key\":\"B\"},{\"sno\":93,\"key\":\"B\"},{\"sno\":94,\"key\":\"B\"},{\"sno\":95,\"key\":\"B\"},{\"sno\":96,\"key\":\"B\"},{\"sno\":97,\"key\":\"B\"},{\"sno\":98,\"key\":\"C\"},{\"sno\":99,\"key\":\"B\"},{\"sno\":100,\"key\":\"B\"},{\"sno\":101,\"key\":\"B\"},{\"sno\":102,\"key\":\"B\"},{\"sno\":103,\"key\":\"B\"},{\"sno\":104,\"key\":\"B\"},{\"sno\":105,\"key\":\"B\"},{\"sno\":106,\"key\":\"B\"},{\"sno\":107,\"key\":\"B\"},{\"sno\":108,\"key\":\"B\"},{\"sno\":109,\"key\":\"B\"},{\"sno\":110,\"key\":\"B\"},{\"sno\":111,\"key\":\"B\"},{\"sno\":112,\"key\":\"B\"},{\"sno\":113,\"key\":\"B\"},{\"sno\":114,\"key\":\"B\"},{\"sno\":115,\"key\":\"B\"},{\"sno\":116,\"key\":\"B\"},{\"sno\":117,\"key\":\"B\"},{\"sno\":118,\"key\":\"B\"},{\"sno\":119,\"key\":\"B\"},{\"sno\":120,\"key\":\"B\"},{\"sno\":121,\"key\":\"B\"},{\"sno\":122,\"key\":\"B\"},{\"sno\":123,\"key\":\"B\"},{\"sno\":124,\"key\":\"B\"},{\"sno\":125,\"key\":\"B\"},{\"sno\":126,\"key\":\"B\"},{\"sno\":127,\"key\":\"B\"},{\"sno\":128,\"key\":\"B\"},{\"sno\":129,\"key\":\"B\"},{\"sno\":130,\"key\":\"B\"},{\"sno\":131,\"key\":\"B\"},{\"sno\":132,\"key\":\"B\"},{\"sno\":133,\"key\":\"B\"},{\"sno\":134,\"key\":\"B\"},{\"sno\":135,\"key\":\"B\"},{\"sno\":136,\"key\":\"B\"},{\"sno\":137,\"key\":\"B\"},{\"sno\":138,\"key\":\"B\"},{\"sno\":139,\"key\":\"B\"},{\"sno\":140,\"key\":\"B\"},{\"sno\":141,\"key\":\"B\"},{\"sno\":142,\"key\":\"B\"},{\"sno\":143,\"key\":\"B\"},{\"sno\":144,\"key\":\"B\"},{\"sno\":145,\"key\":\"B\"},{\"sno\":146,\"key\":\"B\"},{\"sno\":147,\"key\":\"B\"},{\"sno\":148,\"key\":\"B\"},{\"sno\":149,\"key\":\"B\"},{\"sno\":150,\"key\":\"B\"},{\"sno\":151,\"key\":\"B\"},{\"sno\":152,\"key\":\"B\"},{\"sno\":153,\"key\":\"B\"},{\"sno\":154,\"key\":\"B\"},{\"sno\":155,\"key\":\"B\"},{\"sno\":156,\"key\":\"B\"},{\"sno\":157,\"key\":\"B\"},{\"sno\":158,\"key\":\"B\"},{\"sno\":159,\"key\":\"B\"},{\"sno\":160,\"key\":\"B\"},{\"sno\":161,\"key\":\"B\"},{\"sno\":162,\"key\":\"B\"},{\"sno\":163,\"key\":\"B\"},{\"sno\":164,\"key\":\"B\"},{\"sno\":165,\"key\":\"B\"},{\"sno\":166,\"key\":\"B\"},{\"sno\":167,\"key\":\"B\"},{\"sno\":168,\"key\":\"B\"},{\"sno\":169,\"key\":\"B\"},{\"sno\":170,\"key\":\"B\"},{\"sno\":171,\"key\":\"B\"},{\"sno\":172,\"key\":\"B\"},{\"sno\":173,\"key\":\"B\"},{\"sno\":174,\"key\":\"B\"},{\"sno\":175,\"key\":\"B\"},{\"sno\":176,\"key\":\"B\"},{\"sno\":177,\"key\":\"B\"},{\"sno\":178,\"key\":\"B\"},{\"sno\":179,\"key\":\"B\"},{\"sno\":180,\"key\":\"B\"},{\"sno\":181,\"key\":\"B\"},{\"sno\":182,\"key\":\"B\"}]}");
@@ -155,14 +158,20 @@ public class PauseActivity extends AppCompatActivity {
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, response ->
             {
 
-                //String url1 = response.optString("pdf_url");This link doesn't work
+                newPDFUrl = response.optString("pdf_url");//This link doesn't work
+
+                Log.i("Newurl",newPDFUrl);
 
                 Log.e("#usermail", "mail:" +Utility.getUserEmail(activity));
 
-                get_report_url();
+                save_report_url(newPDFUrl);
+
+                downloadReport();
+
 
             }, error -> {
                 hideProgressBar();
+                ((Button)findViewById(R.id.continueButton)).setEnabled(true);
                 Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
 
             })
@@ -239,48 +248,6 @@ public class PauseActivity extends AppCompatActivity {
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
 
-
-    private void get_report_url(){
-        showProgressBar();
-        ((Button)findViewById(R.id.continueButton)).setText("Downloading...");
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "get_report_url", response -> {
-            ((TextView)findViewById(R.id.progressBarTitle)).setText("Downloading...");
-            JSONObject jobj = null;
-            try {
-                jobj = new JSONObject(response);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.e("222save_report_url", response);
-            String test = "";
-            String reporturl = jobj.optString("Report_url");
-            Log.e("#homeurl","report " +reporturl);
-
-            save_report_url(reporturl);
-
-            if(Utility.getStoragePermissionFromUser(activity)){
-                if(Utility.checkFileExist(filename)){
-                    Utility.deleteOldReport(filename);
-                }
-                downloadID=Utility.downloadPdf(filename,reporturl,"Psychometric Test report","Downloading...",this);
-            }else{
-                hideProgressBar();
-                ((Button)findViewById(R.id.continueButton)).setText("Download Report");
-                ((Button)findViewById(R.id.continueButton)).setEnabled(true);//enable the download button after the user grants permission
-            }
-        }, error -> Log.e("save_report_url_error","error"))
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("email" , Utility.getUserEmail(activity));
-                Log.e("#line_status_request",params.toString());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-    }
-
     void showProgressBar(){
         progressBar.setEnabled(false);
         progressBar.setVisibility (View.VISIBLE);
@@ -291,5 +258,22 @@ public class PauseActivity extends AppCompatActivity {
         progressBar.setVisibility (View.INVISIBLE);
 
     }
+
+    void downloadReport(){
+        ((Button)findViewById(R.id.continueButton)).setText("Downloading...");
+        if(Utility.getStoragePermissionFromUser(activity)){
+            if(Utility.checkFileExist(filename)){
+                Utility.deleteOldReport(filename);
+            }
+            Log.i("pdfurl->",newPDFUrl);
+            downloadID=Utility.downloadPdf(filename,newPDFUrl,"Psychometric Test report","Downloading...",this);
+        }else{
+            hideProgressBar();
+            ((Button)findViewById(R.id.continueButton)).setText("Download Report");
+            ((Button)findViewById(R.id.continueButton)).setEnabled(true);//enable the download button after the user grants permission
+        }
+    }
+
+
 
 }
