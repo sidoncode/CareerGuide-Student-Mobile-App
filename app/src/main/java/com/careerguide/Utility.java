@@ -506,18 +506,28 @@ public class Utility extends Application
 
     //Download file to Downloads folder, returns the id(long) of the file being downloaded
     public static long downloadPdf(String fileName,String url,String downloadTitle,String downloadDescription,Activity currentActivity){
-        DownloadManager downloadmanager = (DownloadManager)currentActivity.getSystemService(Context.DOWNLOAD_SERVICE);
-        Uri uri = Uri.parse(url);
+        try {
+            DownloadManager downloadmanager = (DownloadManager)currentActivity.getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse(url);
 
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setTitle(downloadTitle);
-        request.setDescription(downloadDescription);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setVisibleInDownloadsUi(true);
-        File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
-        request.setDestinationUri(Uri.fromFile(file));
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setTitle(downloadTitle);
+            request.setDescription(downloadDescription);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setVisibleInDownloadsUi(true);
+            File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
+            request.setDestinationUri(Uri.fromFile(file));
+            return (downloadmanager.enqueue(request));
 
-        return (downloadmanager.enqueue(request));
+        }catch (Exception e){
+            Toast.makeText(currentActivity.getApplicationContext(), "Couldn't download file, Try again!",
+                    Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            return (-1);
+        }
+
+
+
 
     }
 
