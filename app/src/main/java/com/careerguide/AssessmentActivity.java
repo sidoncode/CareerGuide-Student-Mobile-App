@@ -38,6 +38,7 @@ public class AssessmentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         final String auth = getIntent().getStringExtra("auth");
+        Log.i("auth_key_passed",auth+"test");
         String url = "https://devapi.careerguide.com/api/assessment_questions";
         try
         {

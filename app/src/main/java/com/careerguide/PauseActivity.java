@@ -116,7 +116,7 @@ public class PauseActivity extends AppCompatActivity {
                 {
                     ((Button)findViewById(R.id.continueButton)).setEnabled(false);//disable the download button
                     if(reportGenerated) {//if report is not generated
-                        get_report_url();
+                        generateReport();
                     }
                     else {//report was generated but storage permission was not given
                         get_report_url();
