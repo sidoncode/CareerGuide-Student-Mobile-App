@@ -80,8 +80,9 @@ public class PauseActivity extends AppCompatActivity {
                 if (downloadID == id) {
                     Toast.makeText(PauseActivity.this, "Download Completed", Toast.LENGTH_SHORT).show();
                     Intent intent1 = new Intent(activity, WebViewActivity.class);
-                    intent1.putExtra("pdfName", "Psychometric_Report.pdf");
+                    intent1.putExtra("pdfName", filename);
                     intent1.putExtra("toolBarTitle","Psychometric Report");
+                    intent1.putExtra("errorMessage","Don't Worry your Psychometric Report is already generated and saved on our end. You can find it in View Psychometric Report in menu's tab");
                     hideProgressBar();
                     startActivity(intent1);
                     finish();
@@ -266,6 +267,7 @@ public class PauseActivity extends AppCompatActivity {
                 Utility.deleteOldReport(filename);
             }
             Log.i("pdfurl->",newPDFUrl);
+            Log.i("filenamemmm",filename);
             downloadID=Utility.downloadPdf(filename,newPDFUrl,"Psychometric Test report","Downloading...",this);
         }else{
             hideProgressBar();
@@ -273,7 +275,5 @@ public class PauseActivity extends AppCompatActivity {
             ((Button)findViewById(R.id.continueButton)).setEnabled(true);//enable the download button after the user grants permission
         }
     }
-
-
 
 }
