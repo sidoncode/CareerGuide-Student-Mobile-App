@@ -455,7 +455,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequests);
 
     }
-    
+
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
@@ -1089,7 +1089,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 Random rand = new Random();
                 int tempRandom;
 
-                for (int i = 0; i < jsonArrayLen; i++) {
+                int i;//control i depending on the items present default is 6
+                if(jsonArrayLen<7){
+                    i=7-jsonArrayLen;
+                }else {
+                    i=0;
+                }
+
+                for (; i < 7; i++) {
 
                     while(true) {//loop until no duplicate is found.
                         tempRandom = rand.nextInt(jsonArrayLen);
