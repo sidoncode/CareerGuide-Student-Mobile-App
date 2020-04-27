@@ -1793,8 +1793,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         intent1.putExtra("toolBarTitle","Psychometric Report");
         progressDialog.dismiss();
         startActivity(intent1);
-        finish();
-
     }
 
     @Override

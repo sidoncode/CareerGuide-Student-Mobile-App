@@ -17,6 +17,7 @@ import android.os.Handler;import android.os.StrictMode;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -29,6 +30,7 @@ import java.io.IOException;
 
 import android.webkit.WebChromeClient;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WebViewActivity extends AppCompatActivity {
@@ -41,7 +43,7 @@ public class WebViewActivity extends AppCompatActivity {
     private Context mContext;
     private String pdfurl;
     PDFView pdfView;
-    RelativeLayout tryAgain;
+    RelativeLayout tryAgainError;
 
     File f1;
 
@@ -57,6 +59,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         String pdfName = getIntent ( ).getStringExtra ( "pdfName" );
         String toolBarTitle = getIntent ( ).getStringExtra ( "toolBarTitle" );
+
         try {
 
 
@@ -74,24 +77,32 @@ public class WebViewActivity extends AppCompatActivity {
             getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
             FirebaseApp.initializeApp ( activity );
 
-            //tryAgain = (RelativeLayout) findViewById ( R.id.tryAgain );
+            tryAgainError = (RelativeLayout) findViewById ( R.id.tryAgainError);
             pdfView = (PDFView) findViewById ( R.id.pdfView );
             pdfView.setSwipeVertical(true);
 
-            pdfView.fromUri(Uri.fromFile(f1))
-                    // all pages are displayed by default
-                    .enableSwipe(true) // allows to block changing pages using swipe
-                    .swipeHorizontal(false)
-                    .enableDoubletap(true)
-                    .defaultPage(0)
-                    .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
-                    .password(null)
-                    .scrollHandle(null)
-                    .enableAntialiasing(true) // improve rendering a little bit on low-res screens
-                    // spacing between pages in dp. To define spacing color, set view background
-                    .spacing(0)
-                    .load();
 
+            if(Utility.checkFileExist(pdfName)) {
+                tryAgainError.setVisibility(View.GONE);
+                pdfView.fromUri(Uri.fromFile(f1))
+                        // all pages are displayed by default
+                        .enableSwipe(true) // allows to block changing pages using swipe
+                        .swipeHorizontal(false)
+                        .enableDoubletap(true)
+                        .defaultPage(0)
+                        .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+                        .password(null)
+                        .scrollHandle(null)
+                        .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+                        // spacing between pages in dp. To define spacing color, set view background
+                        .spacing(0)
+                        .load();
+
+            }else {
+                String customErrorMessage=getIntent().getStringExtra("errorMessage");
+                ((TextView)findViewById(R.id.textViewErroMessage)).setText(customErrorMessage);
+                tryAgainError.setVisibility(View.VISIBLE);
+            }
             if (ContextCompat.checkSelfPermission ( this, "android.Manifest.permission.READ_EXTERNAL_STORAGE" )
                     != PackageManager.PERMISSION_GRANTED) {
 
@@ -102,23 +113,21 @@ public class WebViewActivity extends AppCompatActivity {
             }
         }catch (Exception e){
             e.printStackTrace();
-            //tryAgain.setVisibility(View.VISIBLE);
-            Toast.makeText(this,"Try again in some time!!!",Toast.LENGTH_LONG).show();
+
+            tryAgainError.setVisibility(View.VISIBLE);
+
         }
 
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater ( ).inflate ( R.menu.activity_webview, menu );
+        getMenuInflater( ).inflate ( R.menu.activity_webview, menu );
         return super.onCreateOptionsMenu ( menu );
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
 
         if (item.getItemId ( ) == android.R.id.home) {
             finish ( );
@@ -151,11 +160,6 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ( );
-/*
-        Intent goToHomeScreen = new Intent(this, HomeActivity.class);
-        startActivity(goToHomeScreen);
-        finish();*/
-
     }
 
 

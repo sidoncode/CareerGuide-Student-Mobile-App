@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,8 +89,16 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
         Typeface font_desc = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-Regular.ttf");
         holder.name.setTypeface(font);
         holder.name.setText(video.getTitle());
-        holder.desc.setTypeface(font_desc);
-        holder.desc.setText(video.getDesc());
+
+        if(video.getDesc().isEmpty()){
+            holder.desc.setVisibility(View.GONE);
+            Log.e("isempty","-->");
+        }
+        else {
+            Log.e("else","-->");
+            holder.desc.setTypeface(font_desc);
+            holder.desc.setText(video.getDesc());
+        }
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.loading)
@@ -106,8 +115,6 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
             //Intent videoIntent = YouTubeStandalonePlayer.createVideoIntent(activity, key, video.getVideoID(), 0, true, false);
            // activity.startActivityForResult(videoIntent, REQ_PLAYER_CODE);
         });
-
-
 
     }
 

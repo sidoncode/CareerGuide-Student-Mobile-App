@@ -403,14 +403,10 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                         }
                     });
             final Handler handler = new Handler();
-            handler.postDelayed(new Runnable()
-            {
-                @Override
-                public void run() {
-                    if(progressDialogCustom != null && progressDialogCustom.isShowing()) {
-                        progressDialogCustom.dismiss();
-                        showRetryLocation();
-                    }
+            handler.postDelayed(() -> {
+                if(progressDialogCustom != null && progressDialogCustom.isShowing()) {
+                    progressDialogCustom.dismiss();
+                    showRetryLocation();
                 }
             }, 1000 * 10);
         }
@@ -582,11 +578,10 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 circleImageView.setImageBitmap(bitmap);
             }
         }*/
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-        {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK)
-            {
+            if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Log.e("result uri", resultUri.toString());
                 try {
@@ -595,8 +590,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }

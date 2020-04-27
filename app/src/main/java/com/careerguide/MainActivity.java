@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
         FirebaseApp.initializeApp(activity);
-        FirebaseMessaging.getInstance().subscribeToTopic("mytest");
+        FirebaseMessaging.getInstance().subscribeToTopic("notitest");
+        // FirebaseMessaging.getInstance().subscribeToTopic("mytest");
         Log.d("AndroidBash", "Subscribed");
         //Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
         //https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf
