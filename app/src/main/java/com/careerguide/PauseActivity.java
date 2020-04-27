@@ -82,7 +82,7 @@ public class PauseActivity extends AppCompatActivity {
                     Intent intent1 = new Intent(activity, WebViewActivity.class);
                     intent1.putExtra("pdfName", filename);
                     intent1.putExtra("toolBarTitle","Psychometric Report");
-                    intent1.putExtra("errorMessage","Don't Worry your Psychometric Report is already generated and saved on our end. You can find it in View Psychometric Report in menu's tab");
+                    intent1.putExtra("errorMessage","Don't worry your Psychometric Report is already generated and saved on our end. You can find it in View Psychometric Report in menu's tab.");
                     hideProgressBar();
                     startActivity(intent1);
                     finish();
@@ -262,6 +262,7 @@ public class PauseActivity extends AppCompatActivity {
 
     void downloadReport(){
         ((Button)findViewById(R.id.continueButton)).setText("Downloading...");
+        ((TextView)findViewById(R.id.progressBarTitle)).setText("Downloading...");
         if(Utility.getStoragePermissionFromUser(activity)){
             if(Utility.checkFileExist(filename)){
                 Utility.deleteOldReport(filename);

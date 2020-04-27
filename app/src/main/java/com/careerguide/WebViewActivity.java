@@ -17,6 +17,7 @@ import android.os.Handler;import android.os.StrictMode;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -119,13 +120,12 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater ( ).inflate ( R.menu.activity_webview, menu );
+        getMenuInflater( ).inflate ( R.menu.activity_webview, menu );
         return super.onCreateOptionsMenu ( menu );
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
 
         if (item.getItemId ( ) == android.R.id.home) {
             finish ( );
@@ -158,11 +158,6 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ( );
-/*
-        Intent goToHomeScreen = new Intent(this, HomeActivity.class);
-        startActivity(goToHomeScreen);
-        finish();*/
-
     }
 
 
