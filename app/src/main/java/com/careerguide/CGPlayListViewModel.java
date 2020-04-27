@@ -135,7 +135,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_categoryDetails;
     }
 
-    public void setDisplaylistArray_categoryDetails(List<CategoryDetails> displaylistArray_categoryDetails) {
+    void setDisplaylistArray_categoryDetails(List<CategoryDetails> displaylistArray_categoryDetails) {
         this.displaylistArray_categoryDetails.setValue(displaylistArray_categoryDetails);
     }
 }

@@ -79,7 +79,8 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
         Typeface font_desc = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-Regular.ttf");
         holder.name.setTypeface(font);
         holder.name.setText(video.getTitle());
-        holder.desc.setTypeface(font_desc);
+//        holder.desc.setTypeface(font_desc);
+        holder.desc.setVisibility(View.GONE);
         //holder.desc.setText(video.getDesc());
         RequestOptions options = new RequestOptions()
                 .centerCrop()

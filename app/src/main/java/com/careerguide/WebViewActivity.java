@@ -59,7 +59,6 @@ public class WebViewActivity extends AppCompatActivity {
 
         String pdfName = getIntent ( ).getStringExtra ( "pdfName" );
         String toolBarTitle = getIntent ( ).getStringExtra ( "toolBarTitle" );
-        String customErrorMessage=getIntent().getStringExtra("errorMessage");
 
         try {
 
@@ -100,6 +99,7 @@ public class WebViewActivity extends AppCompatActivity {
                         .load();
 
             }else {
+                String customErrorMessage=getIntent().getStringExtra("errorMessage");
                 ((TextView)findViewById(R.id.textViewErroMessage)).setText(customErrorMessage);
                 tryAgainError.setVisibility(View.VISIBLE);
             }
@@ -113,6 +113,8 @@ public class WebViewActivity extends AppCompatActivity {
             }
         }catch (Exception e){
             e.printStackTrace();
+
+            tryAgainError.setVisibility(View.VISIBLE);
 
         }
 

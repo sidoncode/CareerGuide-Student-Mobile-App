@@ -627,64 +627,58 @@ public class HomeFragment extends Fragment
         if(Utility.getUserEducationUid(getActivity())==null){
 
         }
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Facebook_Live_video", new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                //progressDialog.dismiss();
-                if (isAdded()) {
-                    Log.e("all_coun_res_video", response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean status = jsonObject.optBoolean("status", false);
-                        if (status)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Facebook_Live_video", response -> {
+            //progressDialog.dismiss();
+            if (isAdded()) {
+                Log.e("all_coun_res_video", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
                         {
-                            JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                            Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
-                            for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
-                            {
-                                JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                                String email = counselorJsonObject.optString("email");
-                                String name = counselorJsonObject.optString("Name");
-                                Log.e("name--> " , "==> " +name );
-                                String img_url = counselorJsonObject.optString("img_url");
-                                String title = counselorJsonObject.optString("title");
-                                String video_url = counselorJsonObject.optString("video_url");
-                                String video_views = counselorJsonObject.optString("video_views");
-                                String id = counselorJsonObject.optString("id");
-                                if(video_views.contains("")){
-                                    video_views="1";
-                                }
-                                counsellors.add(new live_counsellor_session(id,email,name,img_url,video_url,title,"",video_views));
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String email = counselorJsonObject.optString("email");
+                            String name = counselorJsonObject.optString("Name");
+                            Log.e("name--> " , "==> " +name );
+                            String img_url = counselorJsonObject.optString("img_url");
+                            String title = counselorJsonObject.optString("title");
+                            String video_url = counselorJsonObject.optString("video_url");
+                            String video_views = counselorJsonObject.optString("video_views");
+                            String id = counselorJsonObject.optString("id");
+                            if(video_views.contains("")){
+                                video_views="1";
                             }
-                            size = counsellors.size();
-                            //gettopic();
-
-                            for(int i = 0; i<size;i++){
-                                //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
-                                Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-                                Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
-                                albumList.add(a);
-
-                            }
-                            adapter.notifyDataSetChanged();
-
-                            Log.e("size " , "==> " +counsellors );
-                            //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                            counsellors.add(new live_counsellor_session(id,email,name,img_url,video_url,title,"",video_views));
                         }
+                        size = counsellors.size();
+                        //gettopic();
 
+                        for(int i = 0; i<size;i++){
+                            //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
+                            Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
+                            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
+                            albumList.add(a);
 
-                        else {
-                            //progressDialog.dismiss();
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        adapter.notifyDataSetChanged();
+
+                        Log.e("size " , "==> " +counsellors );
+                        //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                     }
+
+
+                    else {
+                        //progressDialog.dismiss();
+                        Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-
         }, error -> {
             //progressDialog.dismiss();
 //                Toast.makeText(getActivity(),VoleyErrorHelper.getMessage(error,getActivity()),Toast.LENGTH_LONG).show();
@@ -912,7 +906,7 @@ public class HomeFragment extends Fragment
                 params.put("category" ,category);
 
                 if(category.equals("NINE") || category.equals("TEN"))
-                    params.put("sub_cat", "");
+                    params.put("sub_cat", category);
                 else
                 params.put("sub_cat" , subCat);
 
