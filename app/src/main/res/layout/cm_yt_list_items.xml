@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/ll_story"
+<LinearLayout
+    android:id="@+id/ll_story"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/app_blue"
         android:textSize="13sp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:text="CareerGuide.com" />
 </LinearLayout>
