@@ -912,7 +912,7 @@ public class HomeFragment extends Fragment
                 params.put("category" ,category);
 
                 if(category.equals("NINE") || category.equals("TEN"))
-                    params.put("sub_cat", "");
+                    params.put("sub_cat", category);
                 else
                 params.put("sub_cat" , subCat);
 
