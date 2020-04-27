@@ -77,7 +77,7 @@ public class Video_player extends AppCompatActivity {
                         hostEmail = getIntent().getStringExtra("host_email");
                         andExoPlayerView.sethost_email(hostEmail);
                         Log.e("#views video" , "-->" +getIntent().getStringExtra("video_views"));
-                        if(!getIntent().getStringExtra("video_views").contains("null"))//if value is not null set updated value
+                        if(getIntent().getStringExtra("video_views")!=null)//if value is not null set updated value
                             andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
 
                         videoId=getIntent().getStringExtra("id");
