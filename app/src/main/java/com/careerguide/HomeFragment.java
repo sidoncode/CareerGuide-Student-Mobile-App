@@ -120,6 +120,8 @@ public class HomeFragment extends Fragment
     TextView p1Title,p2Title,p3Title;
     TextView p1SeeAll,p2SeeAll,p3SeeAll;
 
+    View shimmer_p1,shimmer_p2,shimmer_p3;
+
 
 
     private List<PlayList> playList;
@@ -250,6 +252,10 @@ public class HomeFragment extends Fragment
         p1SeeAll = view.findViewById(R.id.p1_see_all);
         p2SeeAll = view.findViewById(R.id.p2_see_all);
         p3SeeAll = view.findViewById(R.id.p3_see_all);
+
+        shimmer_p1 = view.findViewById(R.id.shimmer_view_p1);
+        shimmer_p2 = view.findViewById(R.id.shimmer_view_p2);
+        shimmer_p3 = view.findViewById(R.id.shimmer_view_p3);
 
 
 
@@ -951,6 +957,7 @@ public class HomeFragment extends Fragment
                                         p3Title.setVisibility(View.GONE);
                                         playList3Recv.setVisibility(View.GONE);
                                         p3SeeAll.setVisibility(View.GONE);
+                                        shimmer_p3.setVisibility(View.GONE);
                                     }
                                 } else {
                                     p2Title.setVisibility(View.GONE);
@@ -959,6 +966,8 @@ public class HomeFragment extends Fragment
                                     playList3Recv.setVisibility(View.GONE);
                                     p2SeeAll.setVisibility(View.GONE);
                                     p3SeeAll.setVisibility(View.GONE);
+                                    shimmer_p2.setVisibility(View.GONE);
+                                    shimmer_p3.setVisibility(View.GONE);
 
                                 }
 
@@ -972,6 +981,10 @@ public class HomeFragment extends Fragment
                                 p1SeeAll.setVisibility(View.GONE);
                                 p2SeeAll.setVisibility(View.GONE);
                                 p3SeeAll.setVisibility(View.GONE);
+                                shimmer_p1.setVisibility(View.GONE);
+                                shimmer_p2.setVisibility(View.GONE);
+                                shimmer_p3.setVisibility(View.GONE);
+
                             }
 
 
@@ -1047,11 +1060,13 @@ public class HomeFragment extends Fragment
                         if(p1List.size()>0) {
                             p1SeeAll.setText("See all");
                             adapterP1.notifyDataSetChanged();
+                            shimmer_p1.setVisibility(View.INVISIBLE);
                         }
                         else
                         {
                             p1Title.setVisibility(View.GONE);
                             playList1Recv.setVisibility(View.GONE);
+                            shimmer_p1.setVisibility(View.GONE);
                         }
                         break;
 
@@ -1059,11 +1074,15 @@ public class HomeFragment extends Fragment
                         if(p2List.size()>0) {
                             p2SeeAll.setText("See all");
                             adapterP2.notifyDataSetChanged();
+                            shimmer_p2.setVisibility(View.INVISIBLE);
+
                         }
                         else
                         {
                             p2Title.setVisibility(View.GONE);
-                            playList3Recv.setVisibility(View.GONE);
+                            playList2Recv.setVisibility(View.GONE);
+                            shimmer_p2.setVisibility(View.GONE);
+
                         }
                         break;
 
@@ -1071,11 +1090,15 @@ public class HomeFragment extends Fragment
                         if(p3List.size()>0) {
                             p3SeeAll.setText("See all");
                             adapterP3.notifyDataSetChanged();
+                            shimmer_p3.setVisibility(View.INVISIBLE);
+
                         }
                         else
                         {
                             p3Title.setVisibility(View.GONE);
                             playList3Recv.setVisibility(View.GONE);
+                            shimmer_p3.setVisibility(View.GONE);
+
                         }
                         break;
                 }
