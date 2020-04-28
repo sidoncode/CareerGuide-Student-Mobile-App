@@ -214,7 +214,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -248,7 +248,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_one"
-                            android:layout_marginBottom="20dp"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -278,7 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -312,7 +312,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_two"
-                            android:layout_marginBottom="20dp"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -331,7 +331,6 @@
 
 
                 <!--cat_test-->
-                <!--cat_2-->
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -343,7 +342,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -848,7 +847,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -882,7 +881,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_Blog"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -912,7 +911,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -946,7 +945,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_NINE"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -979,7 +978,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1013,7 +1012,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_TEN"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -1044,7 +1043,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1078,7 +1077,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_ELEVEN"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -1108,7 +1107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1142,7 +1141,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_TWELVE"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -1171,7 +1170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1205,7 +1204,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_GRADUATE"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -1235,7 +1234,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
+
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1269,7 +1268,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_POSTGRA"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -1298,7 +1297,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1332,7 +1330,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_WORKING"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -1361,7 +1359,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="16dp"
                         android:layout_marginBottom="3dp">
 
                         <TextView
@@ -1395,7 +1392,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_three"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
