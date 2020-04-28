@@ -210,7 +210,6 @@ public class Video_player extends AppCompatActivity {
                                 .build())
                 .buildDynamicLink();
         Log.e("main", "Long refer Link"+ dynamicLink.getUri());
-        Log.e("imageurl",getIntent().getStringExtra("imgurl"));
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLongLink(dynamicLink.getUri())
                 .buildShortDynamicLink()
