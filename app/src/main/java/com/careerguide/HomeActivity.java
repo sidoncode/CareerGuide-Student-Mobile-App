@@ -75,6 +75,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,20 +118,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
     CGPlayListViewModel viewModelProvider;
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
     public void openchat(){
 
     }
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,8 +177,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         };
         registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-
-
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.rate_us:
@@ -212,8 +200,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     mDrawer.closeDrawers();
                     return true;
             }
-
-
         });
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
@@ -327,20 +313,34 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
         executeAllTasks();
-
     }
 
-    private void executeAllTasks() {
-        new Task1().execute();
-        new Task2().execute();
-        new Task3().execute();
-        new Task9().execute();
-        new Task10().execute();
-        new Task11().execute();
-        new Task12().execute();
-        new TaskGrad().execute();
-        new TaskPostGrad().execute();
-        new TaskWorking().execute();
+    private void executeAllTasks(){
+
+        String url_one[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50","1"};
+        String url_two[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO7H9GCU_aZbZTK-G064Mcgd&key=" + browserKey + "&maxResults=50","2"};
+        String url_three[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO5Rnt3QlWFTdf-50IUp7bBg&key=" + browserKey + "&maxResults=50","3"};
+
+        String[] url_NINE={  "https://app.careerguide.com/api/main/videos_NINE","1"};//url and fetchCode used in switch
+        String[] url_TEN= {  "https://app.careerguide.com/api/main/videos_TEN","2"};
+        String[] url_ELEVEN = {"https://app.careerguide.com/api/main/videos_ELEVEN","3"};
+        String[] url_TWELVE = {"https://app.careerguide.com/api/main/videos_TWELVE","4"};
+        String[] url_GRADUATE ={ "https://app.careerguide.com/api/main/videos_GRADUATE","5"};
+        String[] url_POSTGRA = {"https://app.careerguide.com/api/main/videos_POSTGRA","6"};
+        String[] url_WORKING = {"https://app.careerguide.com/api/main/videos_WORKING","7"};
+
+        new TaskFetch1_2_3().execute(url_one);
+        new TaskFetch1_2_3().execute(url_two);
+        new TaskFetch1_2_3().execute(url_three);
+
+        new TaskFetch().execute(url_NINE);
+        new TaskFetch().execute(url_TEN);
+        new TaskFetch().execute(url_ELEVEN);
+        new TaskFetch().execute(url_TWELVE);
+        new TaskFetch().execute(url_GRADUATE);
+        new TaskFetch().execute(url_POSTGRA);
+        new TaskFetch().execute(url_WORKING);
+
         new TaskBlog().execute();
     }
 
@@ -455,7 +455,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequests);
 
     }
-
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
@@ -775,9 +774,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
-
-
-
 //  @Override
 // public void onBackPressed(){
 //        try{
@@ -955,16 +951,12 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
 
-
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -990,24 +982,21 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-
-    private class Task1 extends AsyncTask<Void, Void, Void> {
+    private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
         Videos displaylist;
         ArrayList<Videos> displaylistArray = new ArrayList<>();
 
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
+        int fetchCode=0;//default
+
 
         @Override
-        protected Void doInBackground(Void... params) {
-            
+        protected ArrayList<Videos> doInBackground(String... params) {
+
+            fetchCode=Integer.parseInt(params[1]);
 
             try {
-                String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50";
-                String response = Utility.getUrlString(url);
+
+                String response = Utility.getUrlString(params[0]);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray = json.getJSONArray("items");
                 int jsonArrayLen=jsonArray.length();
@@ -1015,8 +1004,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 Random rand = new Random();
                 int tempRandom;
 
+                int i;//control i depending on the items present default is 6
+                if(jsonArrayLen<7){
+                    i=7-jsonArrayLen;
+                }else {
+                    i=0;
+                }
 
-                for (int i = jsonArrayLen-1; i >= jsonArrayLen-6; i--) {
+                for (; i < 7; i++) {
 
                     while(true) {//loop until no duplicate is found.
                         tempRandom = rand.nextInt(jsonArrayLen);
@@ -1038,164 +1033,55 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     displaylistArray.add(displaylist);
 
                 }
-                Log.e("#First","-->");
+                Log.e("#First","--->"+params[1]);
             }catch(Exception e1)
             {
                 e1.printStackTrace();
             }
-            return null;
-
+            return displaylistArray;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(ArrayList<Videos> result) {
             CGPlayListViewModel viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
-            viewModelProvider.setDisplaylistArray(displaylistArray);
-        }
-    }
 
-    private class Task2 extends AsyncTask<Void, Void, Void> {
-
-        Videos displaylist;
-        List<Videos> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_two = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO7H9GCU_aZbZTK-G064Mcgd&key=" + browserKey + "&maxResults=50";
-                String response_two = Utility.getUrlString(url_two);
-                JSONObject json_two = new JSONObject(response_two);
-                JSONArray jsonArray_two = json_two.getJSONArray("items");
-                int jsonArrayLen=jsonArray_two.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = jsonArrayLen-1; i >=0; i--) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject jsonObject_two = jsonArray_two.getJSONObject(i);
-                    JSONObject video_two = jsonObject_two.getJSONObject("snippet").getJSONObject("resourceId");
-                    String title_two = jsonObject_two.getJSONObject("snippet").getString("title");
-                    String Desc_two = jsonObject_two.getJSONObject("snippet").getString("description");
-                    String id_two = video_two.getString("videoId");
-                    Log.e("inside","-->" +id_two);
-                    String thumbUrl_two = jsonObject_two.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    displaylist = new Videos(title_two, thumbUrl_two ,id_two , Desc_two);
-                    displaylistArray.add(displaylist);
+            switch (fetchCode) {
+                case 1: {
+                    viewModelProvider.setDisplaylistArray(result);
+                    break;
                 }
-                Log.e("#Second","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_two(displaylistArray);
-        }
-    }
-
-    private class Task3 extends AsyncTask<Void, Void, Void> {
-
-        Videos displaylist;
-        List<Videos> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_three = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO5Rnt3QlWFTdf-50IUp7bBg&key=" + browserKey + "&maxResults=50";
-                String response_three = Utility.getUrlString(url_three);
-                JSONObject json_three = new JSONObject(response_three);
-                JSONArray jsonArray_three = json_three.getJSONArray("items");
-                int jsonArrayLen=jsonArray_three.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject jsonObject_three = jsonArray_three.getJSONObject(tempRandom);
-                    JSONObject video_three = jsonObject_three.getJSONObject("snippet").getJSONObject("resourceId");
-                    String title_three = jsonObject_three.getJSONObject("snippet").getString("title");
-                    String Desc_three = jsonObject_three.getJSONObject("snippet").getString("description");
-                    String id_three = video_three.getString("videoId");
-                    String thumbUrl_three = jsonObject_three.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    displaylist = new Videos(title_three, thumbUrl_three, id_three, Desc_three);
-                    displaylistArray.add(displaylist);
+                case 2: {
+                    viewModelProvider.setDisplaylistArray_two(result);
+                    break;
                 }
-                Log.e("#Three","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
+                case 3: {
+                    viewModelProvider.setDisplaylistArray_three(result);
+                    break;
+                }
             }
-            return null;
-
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_three(displaylistArray);
+        protected void onCancelled() {
+            super.onCancelled();
         }
+
     }
 
-
-    private class Task9 extends AsyncTask<Void, Void, Void> {
+    private class TaskFetch extends AsyncTask<String, Void, List<CommonEducationModel>> {
 
         CommonEducationModel displaylist;
         List<CommonEducationModel> displaylistArray = new ArrayList<>();
 
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
+        int fetchCode=0;//default
 
         @Override
-        protected Void doInBackground(Void... params) {
-            
+        protected List<CommonEducationModel> doInBackground(String... params) {
+
+            fetchCode=Integer.parseInt(params[1]);
 
             try {
-                String url_NINE = "https://app.careerguide.com/api/main/videos_NINE";
-                String response = Utility.getUrlString(url_NINE);
+                String response = Utility.getUrlString(params[0]);
                 JSONObject json = new JSONObject(response);
                 JSONArray jsonArray= json.optJSONArray("videos");
                 int jsonArrayLen=jsonArray.length();
@@ -1203,7 +1089,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 Random rand = new Random();
                 int tempRandom;
 
-                for (int i = 0; i < jsonArrayLen; i++) {
+                int i;//control i depending on the items present default is 6
+                if(jsonArrayLen<7){
+                    i=7-jsonArrayLen;
+                }else {
+                    i=0;
+                }
+
+                for (; i < 7; i++) {
 
                     while(true) {//loop until no duplicate is found.
                         tempRandom = rand.nextInt(jsonArrayLen);
@@ -1226,19 +1119,50 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
                     displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
                     displaylistArray.add(displaylist);
+
                 }
-                Log.e("#Nine","-->");
+                Log.e("#First","-->"+params[1]);
             }catch(Exception e1)
             {
                 e1.printStackTrace();
             }
-            return null;
+            return displaylistArray;
 
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_NINE(displaylistArray);
+        protected void onPostExecute(List<CommonEducationModel> result) {//is needed don't delete
+
+            switch (fetchCode){
+                case 1:{
+                    viewModelProvider.setDisplaylistArray_NINE(result);
+                    break;
+                }
+                case 2:{
+                    viewModelProvider.setDisplaylistArray_TEN(result);
+                    break;
+                }
+                case 3:{
+                    viewModelProvider.setDisplaylistArray_ELEVEN(result);
+                    break;
+                }
+                case 4:{
+                    viewModelProvider.setDisplaylistArray_TWELVE(result);
+                    break;
+                }
+                case 5:{
+                    viewModelProvider.setDisplaylistArray_GRADUATE(result);
+                    break;
+                }
+                case 6:{
+                    viewModelProvider.setDisplaylistArray_POSTGRA(result);
+                    break;
+                }
+                case 7:{
+                    viewModelProvider.setDisplaylistArray_WORKING(result);
+                    break;
+                }
+            }
         }
 
         @Override
@@ -1248,390 +1172,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
-    private class Task10 extends AsyncTask<Void, Void, Void> {
-
-        CommonEducationModel displaylist;
-        List<CommonEducationModel> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_TEN = "https://app.careerguide.com/api/main/videos_TEN";
-                String response = Utility.getUrlString(url_TEN);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray= json.optJSONArray("videos");
-                int jsonArrayLen=jsonArray.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
-                    String email = JsonObject.optString("email");
-                    String name = JsonObject.optString("Name");
-                    String img_url = JsonObject.optString("img_url");
-                    String title = JsonObject.optString("title");
-                    String video_url = JsonObject.optString("video_url");
-                    String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    Log.e("#views" , "-->" +video_views);
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
-                    displaylistArray.add(displaylist);
-                }
-                Log.e("#Ten","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_TEN(displaylistArray);
-        }
-    }
-
-
-    private class Task11 extends AsyncTask<Void, Void, Void> {
-
-        CommonEducationModel displaylist;
-        List<CommonEducationModel> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_ELEVEN = "https://app.careerguide.com/api/main/videos_ELEVEN";
-                String response = Utility.getUrlString(url_ELEVEN);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray= json.optJSONArray("videos");
-                int jsonArrayLen=jsonArray.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
-                    String email = JsonObject.optString("email");
-                    String name = JsonObject.optString("Name");
-                    String img_url = JsonObject.optString("img_url");
-                    String title = JsonObject.optString("title");
-                    String video_url = JsonObject.optString("video_url");
-                    String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
-                    displaylistArray.add(displaylist);
-                }
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_ELEVEN(displaylistArray);
-        }
-    }
-
-
-    private class Task12 extends AsyncTask<Void, Void, Void> {
-
-        CommonEducationModel displaylist;
-        List<CommonEducationModel> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_TWELVE = "https://app.careerguide.com/api/main/videos_TWELVE";
-                String response = Utility.getUrlString(url_TWELVE);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray= json.optJSONArray("videos");
-                int jsonArrayLen=jsonArray.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
-                    String email = JsonObject.optString("email");
-                    String name = JsonObject.optString("Name");
-                    String img_url = JsonObject.optString("img_url");
-                    String title = JsonObject.optString("title");
-                    String video_url = JsonObject.optString("video_url");
-                    String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
-                    displaylistArray.add(displaylist);
-                }
-                Log.e("#Twelve","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_TWELVE(displaylistArray);
-        }
-    }
-
-
-
-    private class TaskGrad extends AsyncTask<Void, Void, Void> {
-
-        CommonEducationModel displaylist;
-        List<CommonEducationModel> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_GRADUATE = "https://app.careerguide.com/api/main/videos_GRADUATE";
-                String response = Utility.getUrlString(url_GRADUATE);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray= json.optJSONArray("videos");
-                int jsonArrayLen=jsonArray.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
-                    String email = JsonObject.optString("email");
-                    String name = JsonObject.optString("Name");
-                    String img_url = JsonObject.optString("img_url");
-                    String title = JsonObject.optString("title");
-                    String video_url = JsonObject.optString("video_url");
-                    String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
-                    displaylistArray.add(displaylist);
-                }
-                Log.e("#Graduate","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_GRADUATE(displaylistArray);
-        }
-    }
-
-
-    private class TaskPostGrad extends AsyncTask<Void, Void, Void> {
-
-        CommonEducationModel displaylist;
-        List<CommonEducationModel> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_POSTGRA = "https://app.careerguide.com/api/main/videos_POSTGRA";
-                String response = Utility.getUrlString(url_POSTGRA);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray= json.optJSONArray("videos");
-                int jsonArrayLen=jsonArray.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
-                    String email = JsonObject.optString("email");
-                    String name = JsonObject.optString("Name");
-                    String img_url = JsonObject.optString("img_url");
-                    String title = JsonObject.optString("title");
-                    String video_url = JsonObject.optString("video_url");
-                    String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
-                    displaylistArray.add(displaylist);
-                }
-                Log.e("#PostGra","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_POSTGRA(displaylistArray);
-        }
-    }
-
-
-    private class TaskWorking extends AsyncTask<Void, Void, Void> {
-
-        CommonEducationModel displaylist;
-        List<CommonEducationModel> displaylistArray = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            
-
-            try {
-                String url_WORKING = "https://app.careerguide.com/api/main/videos_WORKING";
-                String response = Utility.getUrlString(url_WORKING);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray= json.optJSONArray("videos");
-                int jsonArrayLen=jsonArray.length();
-                List<Integer> randomIndexList = new ArrayList<Integer>();
-                Random rand = new Random();
-                int tempRandom;
-
-                for (int i = 0; i < jsonArrayLen; i++) {
-
-                    while(true) {//loop until no duplicate is found.
-                        tempRandom = rand.nextInt(jsonArrayLen);
-                        if (randomIndexList.contains(tempRandom)) {
-                            continue;//duplicate number,hence skip
-                        } else {
-                            randomIndexList.add(tempRandom);
-                            break;
-                        }
-                    }
-
-                    JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
-                    String email = JsonObject.optString("email");
-                    String name = JsonObject.optString("Name");
-                    String img_url = JsonObject.optString("img_url");
-                    String title = JsonObject.optString("title");
-                    String video_url = JsonObject.optString("video_url");
-                    String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
-                    displaylistArray.add(displaylist);
-                }
-                Log.e("#Working","-->");
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            viewModelProvider.setDisplaylistArray_WORKING(displaylistArray);
-        }
-    }
-
     private class TaskBlog extends AsyncTask<Void, Void, Void> {
 
         DataMembers displaylist;
@@ -1640,13 +1180,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Categories categories;
         Bundle bundle = getIntent().getExtras();
         List<CategoryDetails> categoryDetails;
-
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -1787,7 +1320,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
     void startWebViewActivity(){
-
         Intent intent1 = new Intent(activity, WebViewActivity.class);
         intent1.putExtra("pdfName", "Psychometric_Report.pdf");
         intent1.putExtra("toolBarTitle","Psychometric Report");
@@ -1801,7 +1333,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         unregisterReceiver(onDownloadComplete);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -1814,6 +1345,4 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 break;
         }
     }
-
-
 }

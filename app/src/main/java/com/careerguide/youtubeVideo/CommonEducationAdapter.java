@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +33,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name , desc,title;
         ImageView imageView;
-        LinearLayout ll_story;
+        CardView ll_story;
 
         MyViewHolder(View view) {
             super(view);
@@ -52,7 +52,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
                 (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 int width = displayMetrics.widthPixels;
                 //int height = displayMetrics.heightPixels;
-                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.WRAP_CONTENT);
+                CardView.LayoutParams params = new CardView.LayoutParams((int)(width/1.25), CardView.LayoutParams.WRAP_CONTENT);
                 params.setMargins(50, 5, 50, 5);
                 ll_story.setLayoutParams(params);
             }
