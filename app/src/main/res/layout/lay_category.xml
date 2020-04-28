@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:visibility="gone"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +20,7 @@
         app:srcCompat="@drawable/ic_placeholder" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="#000000"
         android:id="@+id/id_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +29,7 @@
         android:paddingEnd="16sp"
         android:text="3D Animation"
         android:textAlignment="textStart"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,15 +38,16 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/id_desc"
+        android:textColor="#000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16sp"
+        android:paddingStart="18sp"
         android:paddingTop="4sp"
         android:paddingEnd="16sp"
         android:paddingBottom="16sp"
         android:text="3D Animation"
         android:textAlignment="textStart"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="normal"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
