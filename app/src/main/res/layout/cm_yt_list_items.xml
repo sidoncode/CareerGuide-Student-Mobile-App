@@ -1,48 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/ll_story"
+<androidx.cardview.widget.CardView
+    android:id="@+id/ll_story"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    android:orientation="vertical"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="6dp">
 
-
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/placeholder" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="6dp"
-        android:textSize="14sp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Complete course on Modern Indian History for UPSC CSE"/>
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/placeholder" />
+
+        <TextView
+            android:layout_marginStart="3dp"
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="6dp"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="Complete course on Modern Indian History for UPSC CSE"/>
 
 
         <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="3dp"
             android:id="@+id/desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:maxLines="2"/>
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/app_blue"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:text="CareerGuide.com" />
-</LinearLayout>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="3dp"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_blue"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:text="CareerGuide.com" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

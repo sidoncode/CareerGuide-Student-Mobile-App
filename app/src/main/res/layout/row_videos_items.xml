@@ -1,111 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/ll_story"
+<androidx.cardview.widget.CardView
+    android:id="@+id/ll_story"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    android:orientation="vertical">
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="6dp">
 
-
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="10dp">
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/placeholder" />
+
+        <LinearLayout
+            android:layout_marginStart="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/tv_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ENGLISH"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                android:background="@drawable/language_bg"/>
+
+            <TextView
+                android:id="@+id/tv_topic_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PCM"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlue"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/tv_topic_group_name"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_gravity="left"-->
+        <!--        android:layout_marginTop="6dp"-->
+        <!--        android:text="Class 9th"-->
+        <!--        android:textColor="#1167fa"-->
+        <!--        android:textSize="12sp" />-->
 
         <TextView
-            android:id="@+id/tv_language"
+            android:layout_marginStart="3dp"
+            android:id="@+id/count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ENGLISH"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:textSize="12sp"
-            android:background="@drawable/language_bg"/>
-
-        <TextView
-            android:id="@+id/tv_topic_group_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PCM"
-            android:textStyle="bold"
-            android:textColor="@color/lightBlue"
-            android:maxLines="1"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="6dp"
+            android:textSize="14sp"
+            android:maxLines="2"
             android:ellipsize="end"
-            android:textSize="12sp"
-            android:layout_marginStart="10dp"/>
+            android:text="Complete course on Modern Indian History for UPSC CSE"/>
+
+        <!--    <LinearLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:gravity="left"-->
+        <!--        android:layout_marginTop="8dp"-->
+        <!--        android:orientation="horizontal">-->
+
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_starts_on"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textSize="12sp"-->
+        <!--            android:text="Starts on March 12, 9:00 AM" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_bullet"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textSize="12sp"-->
+        <!--            android:text="\u2022"-->
+        <!--            android:layout_marginStart="10dp"/>-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_lessons"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textSize="12sp"-->
+        <!--            android:text="37 lessons"-->
+        <!--            android:layout_marginStart="10dp"/>-->
+        <!--    </LinearLayout>-->
+        <TextView
+            android:layout_marginStart="3dp"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_blue"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:text="Abhishek Srivastava" />
     </LinearLayout>
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_topic_group_name"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="left"-->
-<!--        android:layout_marginTop="6dp"-->
-<!--        android:text="Class 9th"-->
-<!--        android:textColor="#1167fa"-->
-<!--        android:textSize="12sp" />-->
-
-    <TextView
-        android:id="@+id/count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="6dp"
-        android:textSize="14sp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Complete course on Modern Indian History for UPSC CSE"/>
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="left"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:orientation="horizontal">-->
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_starts_on"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="12sp"-->
-<!--            android:text="Starts on March 12, 9:00 AM" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_bullet"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="12sp"-->
-<!--            android:text="\u2022"-->
-<!--            android:layout_marginStart="10dp"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_lessons"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="12sp"-->
-<!--            android:text="37 lessons"-->
-<!--            android:layout_marginStart="10dp"/>-->
-<!--    </LinearLayout>-->
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/app_blue"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:text="Abhishek Srivastava" />
-</LinearLayout>
+</androidx.cardview.widget.CardView>

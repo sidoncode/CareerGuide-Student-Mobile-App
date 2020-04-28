@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -27,7 +28,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
     private Context mContext;
     private List<Album> albumList;
-    private LinearLayout ll_story;
+    private CardView ll_story;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title, count , tv_topic_group_name;
@@ -47,7 +48,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             ((Activity)mContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.MATCH_PARENT);
+            CardView.LayoutParams params = new CardView.LayoutParams((int)(width/1.25), CardView.LayoutParams.MATCH_PARENT);
             params.setMargins(30, 5, 20, 5);
             ll_story.setLayoutParams(params);
         }
