@@ -3,6 +3,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name , desc;
         ImageView imageView;
-        LinearLayout ll_story;
+        CardView ll_story;
 
         MyViewHolder(View view) {
             super(view);
@@ -56,7 +57,7 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
                 (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 int width = displayMetrics.widthPixels;
                 int height = displayMetrics.heightPixels;
-                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int) (width / 1.25), RecyclerView.LayoutParams.MATCH_PARENT);
+                CardView.LayoutParams params = new CardView.LayoutParams((int) (width / 1.25), CardView.LayoutParams.MATCH_PARENT);
                 params.setMargins(50, 5, 50, 5);
                 ll_story.setLayoutParams(params);
             }
