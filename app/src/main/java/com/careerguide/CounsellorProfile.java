@@ -53,13 +53,18 @@ public class CounsellorProfile extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ((TextView)findViewById(R.id.host_name)).setText(getIntent().getStringExtra("host_name"));
         tv_feed_title.setText(getIntent().getStringExtra("host_name") +"'s Feed");
-        Glide.with(this).load(getIntent().getStringExtra("host_img")).into((ImageView) findViewById(R.id.profileImage));
         recyclerView = findViewById(R.id.recycler_view);
         albumList = new ArrayList<>();
         adapter = new AlbumadapterProfile(this, albumList);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        if(getIntent().getStringExtra("host_img").contains("null"))
+            fetchAndApplyImage();
+        else
+            Glide.with(this).load(getIntent().getStringExtra("host_img")).into((ImageView) findViewById(R.id.profileImage));
+
         getLiveSession();
 
     }
@@ -149,5 +154,32 @@ public class CounsellorProfile extends AppCompatActivity {
                 followingTik.setVisibility(View.GONE);
             }
         }, 300);
+    }
+
+    private void fetchAndApplyImage(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/counsellor/fetch_counsellor_detail",
+                response -> {
+                    JSONObject responseObject = null;
+                    try {
+                        responseObject = new JSONObject(response);
+                        JSONArray jsonArray = responseObject.getJSONArray("counsellors");
+                        JSONObject counsellor = (JSONObject) jsonArray.get(0);
+                        String hostPicUrl = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
+                        Glide.with(this).load(hostPicUrl).into((ImageView) findViewById(R.id.profileImage));
+                        Log.d("#HOSTPIC :", hostPicUrl);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("save_report_url_error","error"))
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("email" ,getIntent().getStringExtra("host_email"));
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 }

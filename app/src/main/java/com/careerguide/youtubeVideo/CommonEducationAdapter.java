@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.careerguide.CounsellorProfile;
 import com.careerguide.R;
 import com.careerguide.Video_player;
 
@@ -31,17 +31,17 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
     boolean seeAllMode = false;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name , desc;
+        TextView name , desc,title;
         ImageView imageView;
         CardView ll_story;
 
         MyViewHolder(View view) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
-
             name = view.findViewById(R.id.name);
             desc = view.findViewById(R.id.desc);
             ll_story = view.findViewById(R.id.ll_story);
+            title= view.findViewById(R.id.title);
             name.setOnClickListener(v -> {
             });
 
@@ -82,6 +82,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
         holder.name.setText(video.getTitle());
 //        holder.desc.setTypeface(font_desc);
         holder.desc.setVisibility(View.GONE);
+        holder.title.setText(video.getFullName());
         //holder.desc.setText(video.getDesc());
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -92,7 +93,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
                 .dontAnimate()
                 .dontTransform();
         Glide.with(activity).load(video.getImgurl() ).apply(options).into(holder.imageView);
-        holder.itemView.setOnClickListener(v -> {
+        holder.imageView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , Video_player.class);
             intent.putExtra("id" , video.getId());
             intent.putExtra("live_video_url" , video.getVideourl());
@@ -104,7 +105,26 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
             v.getContext().startActivity(intent);
         });
 
+        holder.title.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext() , Video_player.class);
+            intent.putExtra("id" , video.getId());
+            intent.putExtra("live_video_url" , video.getVideourl());
+            intent.putExtra("Fullname" , video.getFullName());
+            intent.putExtra("imgurl" , video.getImgurl());
+            intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("video_views" , video.getVideoViews());
+            v.getContext().startActivity(intent);
+        });
 
+        holder.title.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext() , CounsellorProfile.class);
+            intent.putExtra("id"  , video.getId());
+            intent.putExtra("host_name" , video.getFullName());
+            intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("host_img" , "null");
+            intent.putExtra("imgurl" , video.getImgurl());
+            v.getContext().startActivity(intent);
+        });
 
     }
 

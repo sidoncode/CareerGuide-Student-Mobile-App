@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -96,7 +95,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             });*/
         holder.itemView.setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
-            Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
+            Intent intent = new Intent(view.getContext() , Video_player.class);
             intent.putExtra("id" , album.getId());
             intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
             intent.putExtra("title" , album.getlive_caption());
