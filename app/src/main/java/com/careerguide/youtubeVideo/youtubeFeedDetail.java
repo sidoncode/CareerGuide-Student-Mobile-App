@@ -42,6 +42,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
 
     private boolean isFullScreen = false;
     private YouTubePlayer youTubePlayer;
+    List<String> videoList = new ArrayList<>();
 
 
     @Override
@@ -98,7 +99,43 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
           player.setOnFullscreenListener(b -> {
               isFullScreen = b;
           });
-          
+
+          player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+              @Override
+              public void onLoading() {
+
+              }
+
+              @Override
+              public void onLoaded(String s) {
+
+              }
+
+              @Override
+              public void onAdStarted() {
+
+              }
+
+              @Override
+              public void onVideoStarted() {
+
+              }
+
+              @Override
+              public void onVideoEnded() {
+
+                      if(videoList!=null && videoList.size()>0)
+                      {
+                          player.loadVideos(videoList);
+                          videoList.remove(0);
+                      }
+              }
+
+              @Override
+              public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+              }
+          });
         }
     }
 
@@ -161,6 +198,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
                     displaylistArray.add(displaylist);
                 }
                 mVideoAdapter.notifyDataSetChanged();
+                addVideosInVideoList();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -182,4 +220,15 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
             super.onBackPressed();
         }
     }
+
+
+    void addVideosInVideoList()
+    {
+        if(displaylistArray!=null && displaylistArray.size()>0) {
+            for (Videos video : displaylistArray) {
+                videoList.add(video.getVideoID());
+            }
+        }
+    }
+
 }
