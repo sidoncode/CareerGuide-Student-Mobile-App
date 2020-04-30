@@ -80,7 +80,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginRight="10dp"
-                                android:background="#707070"></RelativeLayout>
+                                android:background="#707070" />
 
                             <RelativeLayout
 
@@ -88,7 +88,7 @@
                                 android:layout_height="30dp"
                                 android:layout_marginStart="30dp"
                                 android:layout_marginTop="20dp"
-                                android:background="#707070"></RelativeLayout>
+                                android:background="#707070" />
 
                             <RelativeLayout
 
@@ -98,7 +98,7 @@
                                 android:layout_marginTop="20dp"
                                 android:background="#707070"
 
-                                ></RelativeLayout>
+                                />
                         </LinearLayout>
 
                     </com.facebook.shimmer.ShimmerFrameLayout>

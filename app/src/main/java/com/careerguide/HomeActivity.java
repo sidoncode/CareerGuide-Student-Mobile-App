@@ -1340,7 +1340,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted.");
                 } else {
-                    Log.e("value", "Permission Denied, You cannot save reports/Ebooks .");
+                    Log.e("value", "Permission Denied, You cannot save reports/E-Books .");
                 }
                 break;
         }

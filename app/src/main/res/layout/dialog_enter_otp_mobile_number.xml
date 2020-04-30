@@ -153,7 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Did not recieved the code yet? "/>
+            android:text="Did not received the code yet? "/>
         <TextView
             android:id="@+id/resend"
             android:layout_width="wrap_content"

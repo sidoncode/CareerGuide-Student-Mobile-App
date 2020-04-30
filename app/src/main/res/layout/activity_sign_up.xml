@@ -460,7 +460,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="hgcj ghfj"
+                    android:text=""
                     android:textColor="#e9397b"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="30dp"/>

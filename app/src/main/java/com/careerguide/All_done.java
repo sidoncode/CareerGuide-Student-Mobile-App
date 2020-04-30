@@ -27,7 +27,7 @@ public class All_done extends AppCompatActivity {
         });
 
         TextView tv= findViewById(R.id.tv);
-        String text= "You are expected to complete the ‘CareerGuide Certification Course for Guiding Students’, post which you will gain a 6 character access code (UAC) to help you log in the cousellor app.";
+        String text= "You are expected to complete the ‘CareerGuide Certification Course for Guiding Students’, post which you will gain a 6 character access code (UAC) to help you log in the counsellor app.";
         SpannableString ss = new SpannableString(text);
         ClickableSpan clickableSpan1= new ClickableSpan() {
             @Override

@@ -150,12 +150,13 @@
                 android:visibility="gone">
                 <TableRow
                     android:padding="5dp">
+
                     <TextView
                         android:layout_column="1"
                         android:text="•"
                         android:textColor="@android:color/black"
                         android:textSize="25sp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -176,7 +177,7 @@
                         android:text="•"
                         android:textColor="@android:color/black"
                         android:textSize="25sp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -192,18 +193,19 @@
 
                 <TableRow
                     android:padding="5dp">
+
                     <TextView
                         android:layout_column="1"
                         android:text="•"
                         android:textColor="@android:color/black"
                         android:textSize="25sp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_column="2"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="Complete course on Modern Indian History for UPSC CSE hbh jhbjkm ubiub kbhkihb ,m kbhkj n"
+                        android:text="Complete course on Modern Indian History for UPSC CSE"
                         android:textColor="@android:color/black"
                         android:textSize="15sp">
 
