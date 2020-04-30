@@ -40,6 +40,10 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
     int cornerRadius = 5;
     int videoTxtColor = Color.parseColor("#000000");
 
+    private boolean isFullScreen = false;
+    private YouTubePlayer youTubePlayer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +94,14 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
         if (!wasRestored) {
           //   player.cueVideo(getIntent().getStringExtra("data_id"));
           player.loadVideo(getIntent().getStringExtra("data_id"));
+          youTubePlayer = player;
+          player.setOnFullscreenListener(b -> {
+              isFullScreen = b;
+          });
+          
         }
     }
+
 
 
     @Override
@@ -164,4 +174,12 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if (youTubePlayer != null && isFullScreen){
+            youTubePlayer.setFullscreen(false);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
