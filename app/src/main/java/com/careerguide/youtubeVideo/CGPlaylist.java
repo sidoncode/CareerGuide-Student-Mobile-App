@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,13 +20,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.careerguide.Book_Appoinment.BookCounsellor;
 import com.careerguide.CGPlayListViewModel;
 import com.careerguide.PlanActivity;
 import com.careerguide.PsychometricTestsActivity;
 import com.careerguide.R;
+import com.careerguide.adapters.CounsellorAdapter;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.adapter.CatDetailAdapter;
 import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.models.Counsellor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,7 @@ public class CGPlaylist extends Fragment {
     private List<CommonEducationModel> displaylistArray_WORKING = new ArrayList<>();
     private List<DataMembers> displaylistArray_Blog = new ArrayList<>();
     private List<CategoryDetails> categoryDetails = new ArrayList<>();
+    List<Counsellor> counsellorList = new ArrayList<>();
 
     private YT_recycler_adapter mVideoAdapter;
     private YT_recycler_adapter mVideoAdapter_two;
@@ -57,6 +62,7 @@ public class CGPlaylist extends Fragment {
     private CommonEducationAdapter mVideoAdapter_POSTGRA;
     private CommonEducationAdapter mVideoAdapter_WORKING;
     private CatDetailAdapter mVideoAdapter_Blog;
+    private CounsellorAdapter counsellor_adapter;
 
     private Context context;
     private String loadMsg;
@@ -97,7 +103,8 @@ public class CGPlaylist extends Fragment {
             shimmer_view_container_cat_7,
             shimmer_view_container_cat_8,
             shimmer_view_container_cat_9,
-            shimmer_view_container_cat_10;
+            shimmer_view_container_cat_10,
+            shimmer_view_container_counsellors;
 
     private RelativeLayout  comingSoonCat_1,
                             comingSoonCat_2,
@@ -110,6 +117,7 @@ public class CGPlaylist extends Fragment {
                             comingSoonCat_9,
                             comingSoonCat_10,
                             comingSoonCat_Blog;
+
 
 
     //onCreateView...
@@ -150,6 +158,7 @@ public class CGPlaylist extends Fragment {
         shimmer_view_container_cat_9=thisScreensView.findViewById(R.id.shimmer_view_container_cat_9);
         shimmer_view_container_cat_10=thisScreensView.findViewById(R.id.shimmer_view_container_cat_10);
         shimmer_view_container_cat_Blog=thisScreensView.findViewById(R.id.shimmer_view_container_cat_Blog);
+        shimmer_view_container_counsellors = thisScreensView.findViewById(R.id.shimmer_view_container_counsellors);
 
         comingSoonCat_1=thisScreensView.findViewById(R.id.comingSoonCat_1);
         comingSoonCat_2=thisScreensView.findViewById(R.id.comingSoonCat_2);
@@ -218,6 +227,7 @@ public class CGPlaylist extends Fragment {
         RecyclerView mVideoRecyclerView_POSTGRA = thisScreensView.findViewById(R.id.yt_recycler_view_POSTGRA);//category_8
         RecyclerView mVideoRecyclerView_WORKING = thisScreensView.findViewById(R.id.yt_recycler_view_WORKING);//category_9
         RecyclerView mVideoRecyclerView_Blog = thisScreensView.findViewById(R.id.yt_recycler_view_Blog);
+        RecyclerView recycler_counsellor = thisScreensView.findViewById(R.id.recycler_counsellor);
 
 
         mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -231,6 +241,7 @@ public class CGPlaylist extends Fragment {
         mLayoutManager_POSTGRA = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManager_WORKING = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager mLayoutManager_Blog = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager counsellorLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
 
         mVideoRecyclerView.setLayoutManager(mLayoutManager);
@@ -244,7 +255,7 @@ public class CGPlaylist extends Fragment {
         mVideoRecyclerView_POSTGRA.setLayoutManager(mLayoutManager_POSTGRA);
         mVideoRecyclerView_WORKING.setLayoutManager(mLayoutManager_WORKING);
         mVideoRecyclerView_Blog.setLayoutManager(mLayoutManager_Blog);
-
+        recycler_counsellor.setLayoutManager(counsellorLayoutManager);
 
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_two = new YT_recycler_adapter(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
@@ -257,6 +268,8 @@ public class CGPlaylist extends Fragment {
         mVideoAdapter_POSTGRA = new CommonEducationAdapter(displaylistArray_POSTGRA, getActivity());
         mVideoAdapter_WORKING = new CommonEducationAdapter(displaylistArray_WORKING, getActivity());
         mVideoAdapter_Blog = new CatDetailAdapter(getActivity() , categoryDetails);
+        counsellor_adapter = new CounsellorAdapter(getContext(), counsellorList);
+
 
 
         mVideoRecyclerView.setAdapter(mVideoAdapter);
@@ -270,9 +283,12 @@ public class CGPlaylist extends Fragment {
         mVideoRecyclerView_POSTGRA.setAdapter(mVideoAdapter_POSTGRA);
         mVideoRecyclerView_WORKING.setAdapter(mVideoAdapter_WORKING);
         mVideoRecyclerView_Blog.setAdapter(mVideoAdapter_Blog);
+        recycler_counsellor.setAdapter(counsellor_adapter);
 
 
-
+        thisScreensView.findViewById(R.id.counsellor_see_all).setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), BookCounsellor.class));
+        });
 
             return thisScreensView;
     }
@@ -431,6 +447,16 @@ public class CGPlaylist extends Fragment {
             }
             shimmer_view_container_cat_10.setVisibility(View.GONE);
 
+        });
+
+        channelLiveModel.getCounsellorList().observe(getActivity(), counsellors -> {
+            counsellorList.clear();
+            counsellorList.addAll(counsellors);
+            if(counsellorList.size()>0)
+            {
+                counsellor_adapter.notifyDataSetChanged();
+                shimmer_view_container_counsellors.setVisibility(View.GONE);
+            }
         });
 
     }
