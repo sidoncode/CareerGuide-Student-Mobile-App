@@ -834,7 +834,7 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Engineering \nBracnch Selector Test"
+                                    android:text="Engineering \nBranch Selector Test"
                                     android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"

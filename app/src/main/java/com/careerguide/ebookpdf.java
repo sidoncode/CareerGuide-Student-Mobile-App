@@ -80,7 +80,7 @@ public class ebookpdf extends Fragment {
                 if (Utility.checkFileExist(ebook1))
                     startActivity(goToNextScreen);
                 else {
-                    downloadID = Utility.downloadPdf(ebook1, ebook1_URL, "Self Career Ebook", "Downloading...", getActivity());
+                    downloadID = Utility.downloadPdf(ebook1, ebook1_URL, "Self Career E-Book", "Downloading...", getActivity());
                     showProgressBar();
                 }
             }
@@ -98,7 +98,7 @@ public class ebookpdf extends Fragment {
                 if (Utility.checkFileExist(ebook1))
                     startActivity(goToNextScreen);
                 else {
-                    downloadID = Utility.downloadPdf(ebook1, ebook1_URL, "Self Career Ebook", "Downloading...", getActivity());
+                    downloadID = Utility.downloadPdf(ebook1, ebook1_URL, "Self Career E-Book", "Downloading...", getActivity());
                     showProgressBar();
                 }
             }
@@ -114,7 +114,7 @@ public class ebookpdf extends Fragment {
                 if (Utility.checkFileExist(ebook2))
                     startActivity(goToNextScreen);
                 else {
-                    downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age Ebook", "Downloading...", getActivity());
+                    downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age E-Book", "Downloading...", getActivity());
                     showProgressBar();
                 }
             }
@@ -128,7 +128,7 @@ public class ebookpdf extends Fragment {
                 if (Utility.checkFileExist(ebook2))
                     startActivity(intent);
                 else {
-                    downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age Ebook", "Downloading...", getActivity());
+                    downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age E-Book", "Downloading...", getActivity());
                     showProgressBar();
                 }
             }

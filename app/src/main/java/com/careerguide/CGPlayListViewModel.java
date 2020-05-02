@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
 
@@ -26,6 +27,9 @@ public class CGPlayListViewModel extends ViewModel {
     private MutableLiveData<List<DataMembers>> displaylistArray_Blog;
     private MutableLiveData<List<CategoryDetails>> displaylistArray_categoryDetails;
 
+    private MutableLiveData<List<Counsellor>> counsellorList;
+
+
     public CGPlayListViewModel() {
         displaylistArray = new MutableLiveData<>();
         displaylistArray_two = new MutableLiveData<>();
@@ -39,6 +43,8 @@ public class CGPlayListViewModel extends ViewModel {
         displaylistArray_WORKING = new MutableLiveData<>();
         displaylistArray_Blog = new MutableLiveData<>();
         displaylistArray_categoryDetails = new MutableLiveData<>();
+
+        counsellorList = new MutableLiveData<>();
 
     }
 
@@ -138,4 +144,14 @@ public class CGPlayListViewModel extends ViewModel {
     void setDisplaylistArray_categoryDetails(List<CategoryDetails> displaylistArray_categoryDetails) {
         this.displaylistArray_categoryDetails.setValue(displaylistArray_categoryDetails);
     }
+
+
+    public MutableLiveData<List<Counsellor>> getCounsellorList() {
+        return counsellorList;
+    }
+
+    public void setCounsellorList(List<Counsellor> counsellorList) {
+        this.counsellorList.setValue(counsellorList);
+    }
+
 }

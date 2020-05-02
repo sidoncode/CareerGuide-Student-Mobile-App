@@ -40,6 +40,11 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
     int cornerRadius = 5;
     int videoTxtColor = Color.parseColor("#000000");
 
+    private boolean isFullScreen = false;
+    private YouTubePlayer youTubePlayer;
+    List<String> videoList = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +95,50 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
         if (!wasRestored) {
           //   player.cueVideo(getIntent().getStringExtra("data_id"));
           player.loadVideo(getIntent().getStringExtra("data_id"));
+          youTubePlayer = player;
+          player.setOnFullscreenListener(b -> {
+              isFullScreen = b;
+          });
+
+          player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+              @Override
+              public void onLoading() {
+
+              }
+
+              @Override
+              public void onLoaded(String s) {
+
+              }
+
+              @Override
+              public void onAdStarted() {
+
+              }
+
+              @Override
+              public void onVideoStarted() {
+
+              }
+
+              @Override
+              public void onVideoEnded() {
+
+                      if(videoList!=null && videoList.size()>0)
+                      {
+                          player.loadVideos(videoList);
+                          videoList.remove(0);
+                      }
+              }
+
+              @Override
+              public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+              }
+          });
         }
     }
+
 
 
     @Override
@@ -151,6 +198,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
                     displaylistArray.add(displaylist);
                 }
                 mVideoAdapter.notifyDataSetChanged();
+                addVideosInVideoList();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -163,5 +211,24 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (youTubePlayer != null && isFullScreen){
+            youTubePlayer.setFullscreen(false);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    void addVideosInVideoList()
+    {
+        if(displaylistArray!=null && displaylistArray.size()>0) {
+            for (Videos video : displaylistArray) {
+                videoList.add(video.getVideoID());
+            }
+        }
+    }
 
 }

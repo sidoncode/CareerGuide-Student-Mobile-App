@@ -324,7 +324,7 @@ public class SignUpActivity extends AppCompatActivity
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() < 6)
                 {
-                    ((TextView)findViewById(R.id.passwordErrorReset)).setText("Password should contain atleast 6 characters.");
+                    ((TextView)findViewById(R.id.passwordErrorReset)).setText("Password should contain at least 6 characters.");
                     findViewById(R.id.passwordErrorReset).setVisibility(View.VISIBLE);
                     validCreatePassword = false;
                 }
@@ -639,7 +639,7 @@ public class SignUpActivity extends AppCompatActivity
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() < 6)
                 {
-                    ((TextView)findViewById(R.id.passwordErrorLogin)).setText("Password should contain atleast 6 characters.");
+                    ((TextView)findViewById(R.id.passwordErrorLogin)).setText("Password should contain at least 6 characters.");
                     findViewById(R.id.passwordErrorLogin).setVisibility(View.VISIBLE);
                     validPasswordLogin = false;
                 }
@@ -802,7 +802,7 @@ public class SignUpActivity extends AppCompatActivity
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() < 6)
                 {
-                    ((TextView)findViewById(R.id.passwordError)).setText("Password should contain atleast 6 characters.");
+                    ((TextView)findViewById(R.id.passwordError)).setText("Password should contain at least 6 characters.");
                     findViewById(R.id.passwordError).setVisibility(View.VISIBLE);
                     validPasswordSignUp = false;
                 }

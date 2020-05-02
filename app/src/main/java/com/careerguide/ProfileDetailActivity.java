@@ -415,7 +415,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
             androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(activity).create();
             alertDialog.setTitle("Enable Location");
             alertDialog.setMessage("Please enable GPS from settings.");
-            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, "Cencel", new DialogInterface.OnClickListener() {
+            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -500,7 +500,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                     JSONObject jsonObject = new JSONObject(response);
                     boolean status = jsonObject.optBoolean("status",false);
                     String msg = jsonObject.optString("msg");
-                    if(status && (msg.equals("Registration Successful") || msg.equals("Updation Successful")))
+                    if(status && (msg.equals("Registration Successful") || msg.equals("Update Successful")))
                     {
                         JSONObject userJsonObject = jsonObject.optJSONObject("user");
                         String id = userJsonObject.optString("id");

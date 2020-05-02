@@ -53,7 +53,7 @@ public class AboutUsFragment extends Fragment {
         });
 
         mgmtIcon.setOnClickListener(v -> {
-            currentTabTextView.setText("Managemant Team");
+            currentTabTextView.setText("Management Team");
             infoIcon.setImageResource(R.drawable.ic_about_unselected);
             mgmtIcon.setImageResource(R.drawable.ic_mgmt_team_selected);
             try {

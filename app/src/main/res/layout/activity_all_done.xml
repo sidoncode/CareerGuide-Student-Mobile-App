@@ -48,7 +48,7 @@
             android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are expected to complete the ‘CareerGuide Certification Course for Guiding Students’, post which you will gain a 6 character access code (UAC) to help you log in the cousellor app."
+            android:text="You are expected to complete the ‘CareerGuide Certification Course for Guiding Students’, post which you will gain a 6 character access code (UAC) to help you log in the counsellor app."
             android:autoLink="web"/>
 
         <TextView

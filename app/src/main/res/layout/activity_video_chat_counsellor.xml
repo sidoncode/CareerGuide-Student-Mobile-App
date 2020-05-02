@@ -60,7 +60,7 @@
             android:background="#14bef1"
             android:text="Start a new chat"
             android:textColor="@color/white"
-            android:textStyle="bold"></Button>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

@@ -20,6 +20,7 @@ import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.activity.CatDetailActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
+import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
 import com.google.android.material.navigation.NavigationView;
@@ -342,6 +343,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         new TaskFetch().execute(url_WORKING);
 
         new TaskBlog().execute();
+        getcounsellor();
     }
 
     private void showReport() {
@@ -1244,6 +1246,49 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
     }
 
+
+
+    private void getcounsellor() {
+        List<Counsellor> counsellorList = new ArrayList<>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
+            Log.e("all_coun_res_counsellor", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status", false);
+                if (status) {
+                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
+                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                        String id = counselorJsonObject.optString("co_id");
+                        String firstName = counselorJsonObject.optString("first_name");
+                        String lastName = counselorJsonObject.optString("last_name");
+                        String picUrl = counselorJsonObject.optString("profile_pic");
+                        String email = counselorJsonObject.optString("email");
+                        counsellorList.add(new com.careerguide.models.Counsellor(id, email, firstName, lastName, picUrl, 27));
+                    }
+
+                    viewModelProvider.setCounsellorList(counsellorList);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            Log.e("all_coun_rerror", "error");
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<>();
+                //params.put("user_education", Utility.getUserEducationUid(getActivity()));
+                Log.e("all_coun_req", params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
     public void onSeeAllClick(View v)
     {
         int mode =0;
@@ -1340,7 +1385,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted.");
                 } else {
-                    Log.e("value", "Permission Denied, You cannot save reports/Ebooks .");
+                    Log.e("value", "Permission Denied, You cannot save reports/E-Books .");
                 }
                 break;
         }

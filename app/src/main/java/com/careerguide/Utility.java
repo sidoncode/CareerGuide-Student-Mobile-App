@@ -600,7 +600,7 @@ public class Utility extends Application
         public static void requestPermission (Activity activity){
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                Toast.makeText(activity, "Write External Storage permission allows us to do store reports/Ebooks. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Write External Storage permission allows us to do store reports/E-Books. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
             } else {
                 ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
             }

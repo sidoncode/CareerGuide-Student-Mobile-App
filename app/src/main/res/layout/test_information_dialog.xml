@@ -95,7 +95,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
-                            android:text="If you are feeling that your present career is not providing you a sense of fulfillment and leaving you frustrated then take an Ideal Career Test and find your true calling.\n\nIdeal career Test is sutiable for person of any age group who is interested to discovering the right career options. The test report will help you to identify and explore career in order to get started in career search or change of career, it helps to identify strengths and potential weaknesses for the career search. To plan career goals and action steps."/>
+                            android:text="If you are feeling that your present career is not providing you a sense of fulfillment and leaving you frustrated then take an Ideal Career Test and find your true calling.\n\nIdeal career Test is satiable for person of any age group who is interested to discovering the right career options. The test report will help you to identify and explore career in order to get started in career search or change of career, it helps to identify strengths and potential weaknesses for the career search. To plan career goals and action steps."/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
