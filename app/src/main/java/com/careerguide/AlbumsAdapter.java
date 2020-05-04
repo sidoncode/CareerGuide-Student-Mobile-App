@@ -93,7 +93,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 intent.putExtra("host_email" , album.gethost_email());
                 v.getContext().startActivity(intent);
             });*/
-        holder.itemView.setOnClickListener(view -> {
+        holder.thumbnail.setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , Video_player.class);
             intent.putExtra("id" , album.getId());
@@ -104,6 +104,17 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             intent.putExtra("imgurl" , album.getThumbnail());
             intent.putExtra("host_email" , album.gethost_email());
             intent.putExtra("video_views" , album.getVideoViews());
+            view.getContext().startActivity(intent);
+        });
+
+        holder.title.setOnClickListener(view ->{
+            Log.e("#emailis","--> "+album.gethost_email());
+            Intent intent = new Intent(view.getContext() , CounsellorProfile.class);
+            intent.putExtra("id"  , album.getId());
+            intent.putExtra("host_name" , album.getName());
+            intent.putExtra("host_email" , album.gethost_email());
+            intent.putExtra("host_img" , "null");
+            intent.putExtra("imgurl" , album.getThumbnail());
             view.getContext().startActivity(intent);
         });
     }

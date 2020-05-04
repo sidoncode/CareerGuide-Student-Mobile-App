@@ -1,10 +1,12 @@
 package com.careerguide;
+import android.accessibilityservice.AccessibilityService;
 import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -44,11 +46,27 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     private String Fname;
     private String Lname;
 
+    /*private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
+        @Override
+        public void onSuccess(Void aVoid) {
+            Log.e(TAG, "sendMessage onSuccess");
+        }
+
+        @Override
+        public void onFailure(ErrorInfo errorInfo) {
+            Log.e(TAG, "sendMessage onFailure : " + errorInfo);
+        }
+    };*/
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fullscreenStausBar();
         setContentView(R.layout.activity_living);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);//adjust softkeyboard
+
         initView();
         initRtcEngine();
         initRtmClient();
@@ -62,6 +80,8 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     protected abstract int getRtcUid();
     protected abstract String getchannelid();
     protected abstract void livePrepare(RtcEngine engine);
+
+
     private void initRtcEngine() {
         Log.e("#inside engine","ewkjbewjkfb");
         mRtcEngine = RtcEngineManager.getInstance().getRtcEngine();
@@ -87,7 +107,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         mRtmClient.login("", String.valueOf(getRtcUid()), new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.e(TAG, "rtmClient login success");
+                Log.e(TAG, "rtmClient login success"+"___uidd:"+getRtcUid());
             }
 
             @Override
@@ -96,7 +116,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             }
         });
         mRtmEventListener = new RtmEnventCallback(getchannelid(), this);
-        //checkChannelEnable();
+        checkChannelEnable();
         if (null == mRtmClient) {
             showToast(R.string.toast_create_channel_error);
         }
@@ -104,36 +124,32 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
     @Override
     public void onRtmConnected() {
-        if (isFinishing() || !checkChannelEnable() || mIsMsgChannelEnable) {
-            return;
-        }
-        mRtmChannel.join(new ResultCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                mIsMsgChannelEnable = true;
-                Log.e(TAG, "rtmClient join channel success");
-                showToast(R.string.toast_msg_service_ready);
-            }
-
-            @Override
-            public void onFailure(ErrorInfo errorInfo) {
-                mIsMsgChannelEnable = false;
-                Log.e(TAG, "rtmClient join channel fail : " + errorInfo);
-            }
-        });
+        //this method never gets called
     }
 
     private boolean checkChannelEnable() {
-//        if (null == mRtmChannel) {
-//           // mRtmChannel = mRtmClient.createChannel(getchannelid(), mRtmEventListener);
-//            RtmClientManager.getInstance().setRtmClientListener(mRtmEventListener);
-//            return false;
-//        }
+        if (null == mRtmChannel) {
+            mRtmChannel = mRtmClient.createChannel(getchannelid(), mRtmEventListener);
+
+            mRtmChannel.join(new ResultCallback<Void>() {//join the channel to post messages
+                @Override
+                public void onSuccess(Void aVoid) {
+                    mIsMsgChannelEnable = true;
+                    Log.e(TAG, "rtmClient join channel success");
+                }
+
+                @Override
+                public void onFailure(ErrorInfo errorInfo) {
+                    mIsMsgChannelEnable = false;
+                    Log.e(TAG, "rtmClient join channel fail : " + errorInfo);
+                }
+            });
+        }
         return true;
     }
 
     private void doSendMsg() {
-        if (!checkChannelEnable()) {
+        if (!mIsMsgChannelEnable) {
             showToast(R.string.toast_msg_service_error_and_retry);
             return;
         }
@@ -142,94 +158,97 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             showToast(R.string.toast_msg_is_empty);
             return;
         }
-        sendMsg(msg, new ResultCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                hideSoftKeyboard(etChatMsg);
-                Log.e(TAG, "sendMessage onSuccess");
-            }
-
-            @Override
-            public void onFailure(ErrorInfo errorInfo) {
-                Log.e(TAG, "sendMessage onFailure : " + errorInfo);
-            }
-        });
+        sendMsg(msg);
         etChatMsg.setText("");
     }
+
+
+
     protected void sendMsg(String msg) {
-        sendMsg(msg, null);
-    }
-    protected void sendMsg(String msg, ResultCallback<Void> callback) {
         RtmMessage rtmMessage = mRtmClient.createMessage();
         rtmMessage.setText(msg);
-        if (null == callback) {
-            callback = mDefMsgSendCallback;
-        }
-        mRtmChannel.sendMessage(rtmMessage, callback);
-        if (!TextUtils.isEmpty(msg) && msg.startsWith(MSG_PREFIX_DIRECT_DISPLAY)) {
-            mMsgContainer.addMessage(new LiveChatMessage(" ", msg.replace(MSG_PREFIX_DIRECT_DISPLAY, " ")));
-        } else {
-            String finalMsg = msg.replace(MSG_PREFIX_QUESTION, " ").replace(MSG_PREFIX_QUESTION_RESULT, " ");
-            mMsgContainer.addMessage(new LiveChatMessage(getUserName(getRtcUid()), finalMsg));
-        }
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try{
+                    mRtmChannel.sendMessage(rtmMessage,new ResultCallback<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.e(TAG, "sendMessage onSuccess");
+                            runOnUiThread(()->{
+                                hideSoftKeyboard(etChatMsg);
+                                showToast("Message sent");
+                                if (!TextUtils.isEmpty(msg) && msg.startsWith(MSG_PREFIX_DIRECT_DISPLAY)) {
+                                    mMsgContainer.addMessage(new LiveChatMessage(" ", msg.replace(MSG_PREFIX_DIRECT_DISPLAY, " ")));
+                                } else {
+                                    String finalMsg = msg.replace(MSG_PREFIX_QUESTION, " ").replace(MSG_PREFIX_QUESTION_RESULT, " ");
+                                    mMsgContainer.addMessage(new LiveChatMessage(getUserName(getRtcUid()), finalMsg));
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(ErrorInfo errorInfo) {
+                            runOnUiThread(()-> {
+                                showToast("Message was not sent due to some error!");
+                            });
+                            Log.e(TAG, "sendMessage onFailure : " + errorInfo+"_____:"+errorInfo.getErrorDescription()+"    errorcode:"+errorInfo.getErrorCode()+"  chanel id:"+mRtmChannel.getId());
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();//run the send message on the background thread
+
+
     }
 
-    private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
-        @Override
-        public void onSuccess(Void aVoid) {
-            Log.e(TAG, "sendMessage onSuccess");
-        }
-
-        @Override
-        public void onFailure(ErrorInfo errorInfo) {
-            Log.e(TAG, "sendMessage onFailure : " + errorInfo);
-        }
-    };
 
     @Override
     public void onUserJoined(final int uid, final int elapsed) {
-        runOnUiThread(() -> {
-            //getUserName(Integer.parseInt(uid));
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/" + "get_user_name", response -> {
-                JSONObject jobj = null;
-                try {
-                    jobj = new JSONObject(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.e("user_name","-->" +response);
-                Fname = jobj.optString("first_name");
-                Lname= jobj.optString("last_name");
-                Log.e("user_name","-->" +Fname+" "+Lname);
-                runOnUiThread(() -> {
-                    Random rand = new Random();
-                    user_count++;
-                    findViewById(R.id.live_msg).setVisibility(TextView.VISIBLE);
-                    TextView textView2 = findViewById(R.id.live_user);
-                    textView2.setText(String.valueOf(user_count) );
-                    Log.e("uid on join","-->"+uid);
-                    // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " +"Joined"));
-                });
-            }, error -> Log.e("ussr_name_error","error"))
-            {
-                @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String,String> params = new HashMap<>();
-                    params.put("id" ,String.valueOf(uid));
-                    Log.e("#line_status_request",params.toString());
-                    return params;
-                }
-            };
-            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+        //getUserName(Integer.parseInt(uid));
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/" + "get_user_name", response -> {
+            JSONObject jobj = null;
             try {
-                Thread.sleep(1000); //1000 milliseconds is one second.
-            }
-            catch (InterruptedException e)
-            {
+                jobj = new JSONObject(response);
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-        });
+            Log.e("user_name", "-->" + response);
+            Fname = jobj.optString("first_name");
+            Lname = jobj.optString("last_name");
+            Log.e("user_name", "-->" + Fname + " " + Lname);
+
+            Random rand = new Random();
+            user_count++;
+
+
+            runOnUiThread(() -> {
+                findViewById(R.id.live_msg).setVisibility(TextView.VISIBLE);
+                TextView textView2 = findViewById(R.id.live_user);
+                textView2.setText(String.valueOf(user_count));
+                Log.e("uid on join", "-->" + uid);
+                // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " +"Joined"));
+            });
+        }, error -> Log.e("ussr_name_error","error"))
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("id" ,String.valueOf(uid));
+                Log.e("#line_status_request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
     }
 
 
@@ -240,7 +259,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             user_count = user_count-1;
             TextView textView2 = findViewById(R.id.live_user);
             textView2.setText(String.valueOf(user_count) );
-           // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " + "Left"));
+            // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " + "Left"));
         });
     }
 
@@ -252,46 +271,38 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             return;
         }
 
-        runOnUiThread(() -> {
-            //getUserName(Integer.parseInt(uid));
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/" + "get_user_name", response -> {
-                JSONObject jobj = null;
-                try {
-                    jobj = new JSONObject(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.e("user_name","-->" +response);
-                Fname = jobj.optString("first_name");
-                Lname= jobj.optString("last_name");
-                Log.e("user_name","-->" +Fname+" "+Lname);
-                handleMessageReceived(isChannelMsg, uid, message);
+        //getUserName(Integer.parseInt(uid));
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/" + "get_user_name", response -> {
+            JSONObject jobj = null;
+            try {
+                jobj = new JSONObject(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.e("user_name","-->" +response);
+            Fname = jobj.optString("first_name");
+            Lname= jobj.optString("last_name");
+            Log.e("user_name","-->" +Fname+" "+Lname);
+            handleMessageReceived(isChannelMsg, uid, message);
 //                        runOnUiThread(new Runnable() {
 //                            @Override
 //                            public void run() {
 //                                handleMessageReceived(isChannelMsg, uid, message);
 //                            }
 //                        });
-            }, error -> Log.e("ussr_name_error","error"))
-            {
-                @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String,String> params = new HashMap<>();
-                    params.put("id" ,uid);
-                    Log.e("#line_status_request",params.toString());
-                    return params;
-                }
-            };
-            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-            try {
-                Thread.sleep(1000); //1000 milliseconds is one second.
+        }, error -> Log.e("ussr_name_error","error"))
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("id" ,uid);
+                Log.e("#line_status_request",params.toString());
+                return params;
             }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        });
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
 
     }
 
@@ -303,7 +314,9 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             mMsgContainer.addMessage(new LiveChatMessage("", message.replace(MSG_PREFIX_DIRECT_DISPLAY, "")));
         } else {
             try {
-                mMsgContainer.addMessage(new LiveChatMessage(Fname+ " " +Lname +": ", message));
+                runOnUiThread(() -> {
+                    mMsgContainer.addMessage(new LiveChatMessage(Fname + " " + Lname + ": ", message));
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

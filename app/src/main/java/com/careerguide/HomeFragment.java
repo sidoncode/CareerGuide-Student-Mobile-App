@@ -4,14 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.core.widget.NestedScrollView;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -679,7 +676,7 @@ public class HomeFragment extends Fragment
                         for(int i = 0; i<size;i++){
                             //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
                             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-                            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
+                            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getEmail() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
                             albumList.add(a);
 
                         }
