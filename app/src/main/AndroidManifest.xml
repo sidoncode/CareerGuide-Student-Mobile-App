@@ -35,6 +35,8 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".newsfeed.FeedViewActivity"/>
+        <activity android:name=".newsfeed.NewsFeedActivity" />
         <activity
             android:name=".Book_Appoinment.BookingTime"
             android:theme="@style/AppTheme.NoActionBar" />

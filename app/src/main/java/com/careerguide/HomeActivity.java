@@ -21,8 +21,10 @@ import com.careerguide.blog.activity.CatDetailActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
+import com.careerguide.newsfeed.notifier.MyWorker;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -54,6 +56,8 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import android.widget.Toast;
 import com.android.volley.Request;
@@ -72,11 +76,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -311,9 +317,65 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         });
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
    */
-
+        registerGoogleFeedNotification();
+        registerBottomNavBar();
 
         executeAllTasks();
+    }
+
+    private void registerBottomNavBar() {
+        BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                if(menuItem.getItemId()==R.id.nav_home)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_homeFragment);
+                }
+
+                if(menuItem.getItemId()==R.id.nav_feed)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_feedFragment);
+                }
+
+                if(menuItem.getItemId()==R.id.nav_account)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_profileFragment);
+                }
+
+                return true;
+            }
+        });
+
+    }
+
+    private void registerGoogleFeedNotification() {
+
+        Calendar currentDate = Calendar.getInstance();
+        Calendar dueDate = Calendar.getInstance();
+
+        dueDate.set(Calendar.HOUR_OF_DAY, 15);
+        dueDate.set(Calendar.MINUTE, 0);
+        dueDate.set(Calendar.SECOND, 0);
+
+        if (dueDate.before(currentDate)) {
+            dueDate.add(Calendar.HOUR_OF_DAY, 24);
+        }
+        long timeDiff = dueDate.getTimeInMillis()-currentDate.getTimeInMillis();
+
+        OneTimeWorkRequest feedSync =
+                new OneTimeWorkRequest.Builder(MyWorker.class)
+                        .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+                        .addTag("NEWS_WORK")
+                        .build();
+
+
+        WorkManager.getInstance(this).enqueue(feedSync);
+
     }
 
     private void executeAllTasks(){

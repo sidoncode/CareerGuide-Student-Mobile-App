@@ -69,8 +69,29 @@
 
 
     <action
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
         android:id="@+id/nav_to_profileFragment"
         app:destination="@id/class_cat" />
+
+
+    <action
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        android:id="@+id/nav_to_feedFragment"
+        app:destination="@id/feed_fragment"/>
+
+    <action
+        android:id="@+id/nav_to_homeFragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:destination="@id/home_fragment"/>
+
+    <fragment android:id="@+id/feed_fragment"
+        android:name="com.careerguide.newsfeed.NewsFragment"
+        android:label="News Feed"
+        tools:layout="@layout/fragment_news"/>
+
 
 
     <fragment
