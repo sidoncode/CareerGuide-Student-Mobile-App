@@ -93,6 +93,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
         if (!wasRestored) {
+            Log.e("dataId","-->" +getIntent().getStringExtra("data_id"));
           //   player.cueVideo(getIntent().getStringExtra("data_id"));
           player.loadVideo(getIntent().getStringExtra("data_id"));
           youTubePlayer = player;

@@ -33,6 +33,10 @@ public class live_counsellor_session implements Serializable {
         return picUrl;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
     public String getTitle() {
         return title;
     }
