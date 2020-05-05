@@ -3,8 +3,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name , desc;
         ImageView imageView;
-        LinearLayout ll_story;
+        CardView ll_story;
 
         MyViewHolder(View view) {
             super(view);
@@ -55,7 +57,7 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
                 (activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 int width = displayMetrics.widthPixels;
                 int height = displayMetrics.heightPixels;
-                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int) (width / 1.25), RecyclerView.LayoutParams.MATCH_PARENT);
+                CardView.LayoutParams params = new CardView.LayoutParams((int) (width / 1.25), CardView.LayoutParams.MATCH_PARENT);
                 params.setMargins(50, 5, 50, 5);
                 ll_story.setLayoutParams(params);
             }
@@ -88,8 +90,16 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
         Typeface font_desc = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-Regular.ttf");
         holder.name.setTypeface(font);
         holder.name.setText(video.getTitle());
-        holder.desc.setTypeface(font_desc);
-        holder.desc.setText(video.getDesc());
+
+        if(video.getDesc().isEmpty()){
+            holder.desc.setVisibility(View.GONE);
+            Log.e("isempty","-->");
+        }
+        else {
+            Log.e("else","-->");
+            holder.desc.setTypeface(font_desc);
+            holder.desc.setText(video.getDesc());
+        }
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.loading)
@@ -107,14 +117,14 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
            // activity.startActivityForResult(videoIntent, REQ_PLAYER_CODE);
         });
 
-
-
     }
 
     @Override
     public int getItemCount() {
         return videoList.size();
     }
+
+
     public void setSeeAllMode(boolean b)
     {
         this.seeAllMode = b;

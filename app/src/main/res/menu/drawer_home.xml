@@ -47,7 +47,7 @@
         <item
             android:id="@+id/Blog"
             android:icon="@drawable/ic_nav_psyc_test"
-            android:title="Blogs" />
+            android:title="Blog" />
 
         <item
             android:id="@+id/about_fragment"

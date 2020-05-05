@@ -169,7 +169,7 @@ public class exoplayerActivity extends AppCompatActivity {
     private void getLiveSession() {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Facebook_Live_video", response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "AllVideos", response -> {
             Log.e("all_coun_res", response);
             try {
                 JSONObject jsonObject = new JSONObject(response);

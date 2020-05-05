@@ -118,8 +118,10 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     }
                     stateString = "ExoPlayer.STATE_READY     -";
                     break;
-                case Player.STATE_ENDED:
+                case Player.STATE_ENDED: {
                     stateString = "ExoPlayer.STATE_ENDED     -";
+                    ((Activity)mContext).finish();
+                    }
                     break;
                 default:
                     stateString = "UNKNOWN_STATE             -";
@@ -273,6 +275,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             simpleExoPlayer.setPlayWhenReady(currPlayWhenReady);
             simpleExoPlayer.seekTo(currentWindow, playbackPosition);
             simpleExoPlayer.addListener(componentListener);
+
         }
     }
 

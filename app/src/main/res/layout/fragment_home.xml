@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -318,28 +317,38 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:paddingStart="10dp"
-                    android:text="Playlist 1"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/p1_see_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="See all"
+                    android:text=""
                     android:textColor="@color/app_blue"
                     android:textSize="15sp"
-                    android:visibility="visible" />-->
+                    android:visibility="visible" />
             </LinearLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/p1_recycler_view"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/shimmer_view_p1"
+                    layout="@layout/shimmer_cgpaylist_single_category_loading"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/p1_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
 
             <!-- Playlist 2-->
@@ -357,27 +366,37 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:paddingStart="10dp"
-                    android:text="Playlist 2"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/p2_see_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="See all"
+                    android:text=""
                     android:textColor="@color/app_blue"
                     android:textSize="15sp"
-                    android:visibility="visible" />-->
+                    android:visibility="visible" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/p2_recycler_view"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/shimmer_view_p2"
+                    layout="@layout/shimmer_cgpaylist_single_category_loading"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/p2_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
 
 
@@ -397,29 +416,39 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:paddingStart="10dp"
-                    android:text="Playlist 3"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/p3_see_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="See all"
+                    android:text=""
                     android:textColor="@color/app_blue"
                     android:textSize="15sp"
-                    android:visibility="visible" />-->
+                    android:visibility="visible" />
             </LinearLayout>
 
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/p3_recycler_view"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/shimmer_view_p3"
+                    layout="@layout/shimmer_cgpaylist_single_category_loading"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/p3_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
 
             <LinearLayout
@@ -805,7 +834,7 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginRight="25dp"
-                                    android:text="Engineering \nBracnch Selector Test"
+                                    android:text="Engineering \nBranch Selector Test"
                                     android:gravity="center"
                                     android:textColor="#000"
                                     android:textSize="18sp"

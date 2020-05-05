@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.careerguide.HomeActivity;
+import com.careerguide.MainActivity;
 import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
@@ -23,6 +26,7 @@ import java.util.Map;
 
 public class Activity_class extends AppCompatActivity {
     Activity activity =this;
+    private final static int SUB_CAT_REQ = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,7 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","NINE");
         intent.putExtra("cat_title","Class 9th");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
     }
 
     public void card_click_ten(View view) {
@@ -85,7 +89,7 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","TEN");
         intent.putExtra("cat_title","Class 10th");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
     }
 
     public void card_click_ele(View view) {
@@ -95,7 +99,7 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","ELEVEN");
         intent.putExtra("cat_title","Class 11th");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
     }
 
     public void card_click_twe(View view) {
@@ -105,7 +109,7 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","TWELVE");
         intent.putExtra("cat_title","Class 12th");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
     }
 
     public void card_click_gra(View view) {
@@ -115,7 +119,7 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","GRADUATE");
         intent.putExtra("cat_title","Graduates");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
     }
 
     public void card_click_postgra(View view) {
@@ -125,7 +129,7 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","POSTGRA");
         intent.putExtra("   cat_title","Postgraduates");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
     }
 
     public void card_click_working(View view) {
@@ -135,6 +139,27 @@ public class Activity_class extends AppCompatActivity {
         intent.putExtra("type","updatecat");
         intent.putExtra("cat_uid","WORKING");
         intent.putExtra("cat_title","Working Professional");
-        startActivity(intent);
+        startActivityForResult(intent,SUB_CAT_REQ);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SUB_CAT_REQ && resultCode == RESULT_OK && data!=null)
+        {
+
+            Utility.setUserEducation(this,data.getStringExtra("parent_cat_title"));
+            Utility.setEducationUid(this, data.getStringExtra("subcat_uid"));
+            Utility.setIcon_url(this,data.getStringExtra("icon_url"));
+
+            Intent homeIntent = new Intent(Activity_class.this,HomeActivity.class);
+            homeIntent.putExtra("parent_cat_title",data.getStringExtra("parent_cat_title"));
+            homeIntent.putExtra("subcat_uid",data.getStringExtra("subcat_uid"));
+            homeIntent.putExtra("icon_url",data.getStringExtra("icon_url"));
+            startActivity(homeIntent);
+            finish();
+        }
     }
 }

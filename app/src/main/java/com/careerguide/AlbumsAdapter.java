@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -27,7 +27,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
     private Context mContext;
     private List<Album> albumList;
-    private LinearLayout ll_story;
+    private CardView ll_story;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title, count , tv_topic_group_name;
@@ -47,7 +47,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             ((Activity)mContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.MATCH_PARENT);
+            CardView.LayoutParams params = new CardView.LayoutParams((int)(width/1.25), CardView.LayoutParams.MATCH_PARENT);
             params.setMargins(30, 5, 20, 5);
             ll_story.setLayoutParams(params);
         }
@@ -93,9 +93,9 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 intent.putExtra("host_email" , album.gethost_email());
                 v.getContext().startActivity(intent);
             });*/
-        holder.itemView.setOnClickListener(view -> {
+        holder.thumbnail.setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
-            Intent intent = new Intent(view.getContext() , feedDetailActivity.class);
+            Intent intent = new Intent(view.getContext() , Video_player.class);
             intent.putExtra("id" , album.getId());
             intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
             intent.putExtra("title" , album.getlive_caption());
@@ -104,6 +104,17 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             intent.putExtra("imgurl" , album.getThumbnail());
             intent.putExtra("host_email" , album.gethost_email());
             intent.putExtra("video_views" , album.getVideoViews());
+            view.getContext().startActivity(intent);
+        });
+
+        holder.title.setOnClickListener(view ->{
+            Log.e("#emailis","--> "+album.gethost_email());
+            Intent intent = new Intent(view.getContext() , CounsellorProfile.class);
+            intent.putExtra("id"  , album.getId());
+            intent.putExtra("host_name" , album.getName());
+            intent.putExtra("host_email" , album.gethost_email());
+            intent.putExtra("host_img" , "null");
+            intent.putExtra("imgurl" , album.getThumbnail());
             view.getContext().startActivity(intent);
         });
     }

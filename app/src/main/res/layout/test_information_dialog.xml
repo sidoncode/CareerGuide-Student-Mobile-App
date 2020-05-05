@@ -1,191 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimary">
-        <TextView
+        android:layout_height="match_parent">
+
+        <!--progressbar-->
+        <RelativeLayout
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/close"
-            android:gravity="center_vertical"
-            android:textColor="#fff"
-            android:paddingStart="15dp"
-            android:text="About Ideal Career Test"/>
-        <TextView
-            android:id="@+id/close"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="X"
-            android:textColor="#fff"
-            android:layout_alignParentEnd="true"/>
+            android:background="#B3000000"
+            android:elevation="2dp"
+            android:clickable="true"
+            android:visibility="invisible"
+            >
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:padding="5dp"
+                android:visibility="visible"
+                android:elevation="2dp"
+                android:layout_centerInParent="true"
+                >
 
-    </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <ProgressBar
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:text="Fetching..."
+                    android:layout_marginTop="20dp"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp">
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="#fff"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="25dp">
+                android:layout_height="40dp"
+                android:background="@color/colorPrimary">
+
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="If you are feeling that your present career is not providing you a sense of fulfillment and leaving you frustrated then take an Ideal Career Test and find your true calling.\n\nIdeal career Test is sutiable for person of any age group who is interested to discovering the right career options. The test report will help you to identify and explore career in order to get started in career search or change of career, it helps to identify strengths and potential weaknesses for the career search. To plan career goals and action steps."/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Approximate Test Duration: "
-                        android:textStyle="bold"
-                        android:textColor="#4c4949"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="60 Minutes"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total No. of Questions: "
-                        android:textStyle="bold"
-                        android:textColor="#4c4949"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="182"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pricing: "
-                        android:textStyle="bold"
-                        android:textColor="#4c4949"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Free"/>
-                </LinearLayout>
-            </LinearLayout>
-            <FrameLayout
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/close"
+                    android:gravity="center_vertical"
+                    android:textColor="#fff"
+                    android:paddingStart="15dp"
+                    android:text="About Ideal Career Test"/>
+                <TextView
+                    android:id="@+id/close"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="X"
+                    android:textColor="#fff"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/payNow"
-                        android:layout_width="120dp"
+                    android:orientation="vertical"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingEnd="30dp"
-                        android:paddingStart="30dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="6dp"
-                        android:background="#ff4081"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:text="Pay now"
-                        android:textColor="#fff"/>
-                    <TextView
-                        android:id="@+id/proceed"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="15dp"
+                        android:orientation="vertical"
+                        android:background="#fff"
                         android:paddingStart="15dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="6dp"
-                        android:background="#e3e3e3"
-                        android:gravity="center"
-                        android:layout_marginStart="7dp"
-                        android:textSize="13sp"
-                        android:text="I'll do it later"
-                        android:textColor="#000"/>
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="25dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:text="If you are feeling that your present career is not providing you a sense of fulfillment and leaving you frustrated then take an Ideal Career Test and find your true calling.\n\nIdeal career Test is satiable for person of any age group who is interested to discovering the right career options. The test report will help you to identify and explore career in order to get started in career search or change of career, it helps to identify strengths and potential weaknesses for the career search. To plan career goals and action steps."/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Approximate Test Duration: "
+                                android:textStyle="bold"
+                                android:textColor="#4c4949"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60 Minutes"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total No. of Questions: "
+                                android:textStyle="bold"
+                                android:textColor="#4c4949"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="182"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pricing: "
+                                android:textStyle="bold"
+                                android:textColor="#4c4949"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Free"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/payNow"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="30dp"
+                                android:paddingStart="30dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="6dp"
+                                android:background="#ff4081"
+                                android:gravity="center"
+                                android:textSize="13sp"
+                                android:text="Pay now"
+                                android:textColor="#fff"/>
+                            <TextView
+                                android:id="@+id/proceed"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="15dp"
+                                android:paddingStart="15dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="6dp"
+                                android:background="#e3e3e3"
+                                android:gravity="center"
+                                android:layout_marginStart="7dp"
+                                android:textSize="13sp"
+                                android:text="I'll do it later"
+                                android:textColor="#000"/>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center">
+                            <TextView
+                                android:id="@+id/start"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="30dp"
+                                android:paddingStart="30dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="6dp"
+                                android:background="#ff4081"
+                                android:gravity="center"
+                                android:textSize="13sp"
+                                android:text="Start"
+                                android:textColor="#fff"/>
+                            <TextView
+                                android:id="@+id/resume"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="15dp"
+                                android:paddingStart="15dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="6dp"
+                                android:background="#e3e3e3"
+                                android:gravity="center"
+                                android:layout_marginStart="7dp"
+                                android:textSize="13sp"
+                                android:text="Resume"
+                                android:textColor="#000"/>
+
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sampleReport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="#888"
+                            android:text="See sample Ideal Career Test report"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#888"/>
+                    </LinearLayout>
 
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/start"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="30dp"
-                        android:paddingStart="30dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="6dp"
-                        android:background="#ff4081"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:text="Start"
-                        android:textColor="#fff"/>
-                    <TextView
-                        android:id="@+id/resume"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="6dp"
-                        android:background="#e3e3e3"
-                        android:gravity="center"
-                        android:layout_marginStart="7dp"
-                        android:textSize="13sp"
-                        android:text="Resume"
-                        android:textColor="#000"/>
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/sampleReport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#888"
-                    android:text="See sample Ideal Career Test report"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#888"/>
-            </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
-    </ScrollView>
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -35,7 +34,7 @@
                 android:textSize="15sp"
                 android:ellipsize="end"
                 android:textColor="#000"
-                android:text="Pranav Bhatia is a seasoned entrepreneur and investor and has been involved with startups for more than a decade.\n\nPreviously, Pranav worked with a few educational test prep startups and took the plunge to start his own venture ZIGEDU Learning Solutions to leverage technology in educational methods used in colleges across the globe. Later, ZIGEDU acquired the Indian operation of a UK- based group, and Pranav founded Lemon Interactive Inc, which provided tech solutions and developed internal proprietary products.\n\nWith over seven years of experience in educational ventures and guiding more than 20,000 students across classrooms, Pranav strongly felt the lack of platforms which help grow and nurture early entrepreneurial minds, creatives and freelancers, and launched Stirring Minds - a co-working space-cum-incubator for startups in Delhi (NCR).\n\nAs an investor and advisor, Pranav brings to CareerGuide his years of experience and differential thinking coupled with a 'do-now' mantra that has helped CareerGuide scale fast with minimal risk."/>
+                android:text="Pranav Bhatia is a seasoned entrepreneur and investor and has been involved with startups for more than a decade.\n\nPreviously, Pranav worked with a few educational test prep startups and took the plunge to start his own venture ZIGEDU Learning Solutions to leverage technology in educational methods used in colleges across the globe. Later, ZIGEDU acquired the Indian operation of a UK- based group, and Pranav founded Lemon Interactive Inc, which provided tech solutions and developed internal proprietary products.\n\nWith over seven years of experience in educational ventures and guiding more than 20,000 students across classrooms, Pranav strongly felt the lack of platforms which help grow and nurture early entrepreneurial minds, creatives and freelancers, and launched Stirring Minds - a co-working space-cum-incubator for startups in Delhi (NCR).\n\nAs an investor and adviser, Pranav brings to CareerGuide his years of experience and differential thinking coupled with a 'do-now' mantra that has helped CareerGuide scale fast with minimal risk."/>
             <TextView
                 android:id="@+id/prnvMore"
                 android:layout_width="wrap_content"

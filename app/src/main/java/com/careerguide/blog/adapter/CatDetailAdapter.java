@@ -24,10 +24,14 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import static com.careerguide.R.layout.lay_cat_detail;
+
 public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.ViewHolder> {
     private Context ctx;
     private List<CategoryDetails> categoryDetails;
     private Intent intent;
+    private boolean seeAllMode=false;
+
 
     public CatDetailAdapter(Context ctx, List<CategoryDetails> categoryDetails) {
         this.ctx = ctx;
@@ -39,7 +43,7 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lay_cat_detail, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(lay_cat_detail, parent, false);
         return new ViewHolder(v);
     }
 
@@ -72,13 +76,23 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
             id_title = itemView.findViewById(R.id.id_title);
             id_desc = itemView.findViewById(R.id.id_desc);
 
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            ((Activity)ctx).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int width = displayMetrics.widthPixels;
-            int height = displayMetrics.heightPixels;
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.WRAP_CONTENT);
-            params.setMargins(30, 5, 20, 5);
-            lay_cv.setLayoutParams(params);
+
+            if(!seeAllMode) {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                ((Activity) ctx).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int width = displayMetrics.widthPixels;
+                int height = displayMetrics.heightPixels;
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int) (width / 1.25), RecyclerView.LayoutParams.WRAP_CONTENT);
+                params.setMargins(30, 5, 20, 5);
+                lay_cv.setLayoutParams(params);
+            }
         }
     }
+
+
+    public void setSeeAllMode(boolean b)
+    {
+        this.seeAllMode = b;
+    }
+
 }

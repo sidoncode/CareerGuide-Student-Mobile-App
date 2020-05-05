@@ -49,7 +49,7 @@
             android:layout_marginLeft="25dp"
             android:lineSpacingExtra="7dp"
             android:gravity="center"
-            android:text="jhg ghj gej ggv gehf jgv gjv ge gev ghv ge gjve gve gj gjeev geve gev g gv g"/>
+            android:text="Description goes here"/>
     </LinearLayout>
 
 </FrameLayout>
