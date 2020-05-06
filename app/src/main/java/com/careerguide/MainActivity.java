@@ -10,17 +10,11 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.careerguide.blog.activity.CatNotifiActivity;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.onesignal.OSNotificationOpenResult;
-import com.onesignal.OneSignal;
-
-import org.json.JSONObject;
-
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
@@ -59,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
         FirebaseApp.initializeApp(activity);
-        FirebaseMessaging.getInstance().subscribeToTopic("mytest");
+      //  FirebaseMessaging.getInstance().subscribeToTopic("youtube");
+         FirebaseMessaging.getInstance().subscribeToTopic("mytest");
         Log.d("AndroidBash", "Subscribed");
         //Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
         //https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf

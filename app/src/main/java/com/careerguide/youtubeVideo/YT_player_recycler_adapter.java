@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class YT_player_recycler_adapter extends RecyclerView.Adapter<YT_player_r
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name , desc;
         ImageView imageView;
-        LinearLayout ll_story;
+        CardView ll_story;
 
         MyViewHolder(View view) {
             super(view);

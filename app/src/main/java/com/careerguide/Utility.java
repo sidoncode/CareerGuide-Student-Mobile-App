@@ -2,16 +2,31 @@ package com.careerguide;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PermissionChecker;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -57,6 +73,8 @@ public class Utility extends Application
 {
     public static final String PRIVATE_SERVER = "https://app.careerguide.com/api/main/";
 
+    //storage permission code
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     public static ArrayList<QuestionAndOptions> questionAndOptionses = new ArrayList<>();
     public static ArrayList<String> paragraphs = new ArrayList<>();
@@ -475,4 +493,131 @@ public class Utility extends Application
         return imgurl;
     }
 
+    //check in Downloads folder only
+    public static Boolean checkFileExist(String fileName){
+        String filename = "/Download/"+fileName;
+        File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+        if(!f1.exists() && !f1.isDirectory()){
+            return  false;
+        }else {
+            return true;
+        }
+    }
+
+    //Download file to Downloads folder, returns the id(long) of the file being downloaded
+    public static long downloadPdf(String fileName,String url,String downloadTitle,String downloadDescription,Activity currentActivity){
+        try {
+            DownloadManager downloadmanager = (DownloadManager)currentActivity.getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse(url);
+
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setTitle(downloadTitle);
+            request.setDescription(downloadDescription);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setVisibleInDownloadsUi(true);
+            File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
+            request.setDestinationUri(Uri.fromFile(file));
+            return (downloadmanager.enqueue(request));
+
+        }catch (Exception e){
+            Toast.makeText(currentActivity.getApplicationContext(), "Couldn't download file, Try again!",
+                    Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            return (-1);
+        }
+
+
+
+
+    }
+
+    public static boolean getStoragePermissionFromUser(Activity activity){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermission(activity))
+            {
+                return  true;
+            } else {
+                requestPermission(activity); // Code for permission
+                return checkPermission(activity);
+            }
+        }else
+        {
+                if(checkPermissionLess22API(activity)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+        }
+
+    }
+
+
+    public static boolean checkPermissionLess22API(Activity activity) {
+        String permissionToCheck = "android.permission.WRITE_EXTERNAL_STORAGE";
+
+        int permission = PermissionChecker.checkSelfPermission(activity.getApplicationContext(), permissionToCheck);
+
+        if (permission == PermissionChecker.PERMISSION_GRANTED) {
+            return true;
+        } else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity.getApplicationContext());
+
+            builder.setTitle("Permission")
+                    .setMessage("Grant storage permission")
+                    .setCancelable(false)
+                    .setPositiveButton("Go to settings", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent settingsIntent = new Intent(Settings.ACTION_SETTINGS);//open wifi settings
+                            activity.startActivity(settingsIntent);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //  Action for 'NO' Button
+                            dialog.cancel();
+                            Toast.makeText(activity.getApplicationContext(), "You have not granted permission!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .create()
+                    .show();
+            return false;
+        }
+    }
+
+
+        public static boolean checkPermission (Activity activity){
+            int result = ContextCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (result == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static void requestPermission (Activity activity){
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(activity, "Write External Storage permission allows us to do store reports/E-Books. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            }
+        }
+
+        public static boolean deleteOldReport(String fileName){
+
+            File oldReport=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+fileName);
+                if (oldReport.delete()) {
+                    System.out.println("Report Deleted");
+                    return true;
+                } else {
+                    System.out.println("Report not Deleted");
+                    return false;
+                }
+            }
 }
+
+
+

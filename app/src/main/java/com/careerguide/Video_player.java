@@ -66,27 +66,38 @@ public class Video_player extends AppCompatActivity {
                         Log.e("deeplink --> " , "" +deepLink);
                     }
                     else{
+                        videoId=getIntent().getStringExtra("id");
                         String img_url= getIntent().getStringExtra("imgurl");
-                        Log.e("img","" +img_url);
                         String name= getIntent().getStringExtra("Fullname");
-                        Log.e("name", "" +name);
                         String title= getIntent().getStringExtra("title");
-                        Log.e("title","--> "+ title);
-                        // String url = getIntent().getStringExtra("live_video_  url");
-                        andExoPlayerView.setName(getIntent().getStringExtra("Fullname"));
                         hostEmail = getIntent().getStringExtra("host_email");
+                        String url = getIntent().getStringExtra("live_video_url");
+                        hostPicUrl = getIntent().getStringExtra("host_img");
+
+                        Log.d("VIDEO_PLAYER","img url: " +img_url);
+                        Log.d("VIDEO_PLAYER", "name: " +name);
+                        Log.d("VIDEO_PLAYER", "email: " +hostEmail);
+                        Log.d("VIDEO_PLAYER","title--> "+ title);
+                        Log.d("VIDEO_PLAYER","#views video-->" +getIntent().getStringExtra("video_views"));
+                        Log.d("VIDEO_PLAYER","host img url: " +hostPicUrl);
+                        Log.d("VIDEO_PLAYER","live video url: " +url);
+
+
+                        andExoPlayerView.setName(name);
                         andExoPlayerView.sethost_email(hostEmail);
 
-//                        if(!getIntent().getStringExtra("video_views").contains("null"))//if value is not null set updated value
-//                            andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
+                        if(getIntent().getStringExtra("video_views")!=null)//if value is not null set updated value
+                            andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
 
-                        videoId=getIntent().getStringExtra("id");
                         new TaskUpdateViewCounter().execute();
 
+                        if(hostPicUrl!=null && hostPicUrl.length()>0)
+                            andExoPlayerView.setImg(hostPicUrl);
+                        else
                         fetchAndApplyImage();
 
                         new DownloadFile( ).execute (img_url, title);
-                        load_url( getIntent().getStringExtra("live_video_url"));
+                        load_url(url);
                     }
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
@@ -183,8 +194,8 @@ public class Video_player extends AppCompatActivity {
         return bitmap;
     }
     public void video_share(View view) {
-        String img_url= hostPicUrl;
-        Log.e("img", hostPicUrl);
+        String img_url = getIntent().getStringExtra("imgurl");
+        Log.e("img", ""+hostPicUrl);
         String name= getIntent().getStringExtra("Fullname");
         Log.e("name",name);
         String title= getIntent().getStringExtra("title");
@@ -222,17 +233,17 @@ public class Video_player extends AppCompatActivity {
                         Log.e("main","short Link" + flowchartLink);
                         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                         StrictMode.setVmPolicy(builder.build());
-                        File imgFile = new File ( Environment.getExternalStorageDirectory ( ) + "/com.careerguide/" + fileName );
+                        File imgFile = new File ( Environment.getExternalStorageDirectory ( ).getAbsolutePath() + "/com.careerguide/" + fileName );
                         Uri path = Uri.fromFile ( imgFile );
                         Log.e("#path",":" + path);
-                        Intent shareIntent = new Intent();
-                        shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
                         shareIntent.setType ( "image/*" );
-                        shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                        shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+                        //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                        //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
                         String shareMessage = "\nLet me recommend this video from CareerGuide- Must watch for you\n" + title +" by Guide "+name+"\n";
                         shareMessage = shareMessage + shortLink ;
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, path );
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
                         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage );
                         startActivity(Intent.createChooser(shareIntent, "Choose an app"));
                     } else

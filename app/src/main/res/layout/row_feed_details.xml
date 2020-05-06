@@ -56,29 +56,29 @@
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="left"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:orientation="horizontal">-->
 
-        <TextView
-            android:id="@+id/tv_starts_on"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Starts on March 12, 9:00 AM"
-            android:textSize="12sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_starts_on"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:text="Starts on March 12, 9:00 AM"-->
+<!--            android:textSize="12sp" />-->
 
-        <TextView
-            android:id="@+id/tv_lessons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="37 lessons"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/tv_lessons"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="12sp"-->
+<!--            android:text="37 lessons"-->
+<!--            android:layout_marginStart="10dp"/>-->
+<!--    </LinearLayout>-->
 
     <TextView
         android:id="@+id/title"

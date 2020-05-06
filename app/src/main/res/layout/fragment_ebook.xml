@@ -1,140 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <RelativeLayout
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#B3000000"
+        android:elevation="2dp"
+        android:clickable="true"
+        android:visibility="invisible"
         >
+
         <LinearLayout
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:visibility="visible"
+            android:elevation="2dp"
             android:layout_centerInParent="true"
-            android:visibility="invisible"
-            android:elevation="1dp">
+            >
+
+            <ProgressBar
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="5dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="24dp"
+                android:textSize="20dp"
                 android:text="Fetching..."
-                android:padding="5dp"/>
-
-            <ProgressBar
-                android:layout_width="250dp"
-                android:layout_height="90dp"
-                />
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
+    </RelativeLayout>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
-
-        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="8dp">
+            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="30dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:text="Self Career Counselling E-Book"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-
-                <ImageView
-                    android:id="@+id/imageViewSelfCareer"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="218dp"
-                    android:layout_marginTop="6dp"
-                    app:srcCompat="@drawable/selfcareer" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="30dp"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp">
 
-                <Button
-                    android:id="@+id/buttonSelfCareer"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="115dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="115dp"
-                    android:background="#e91e63"
-                    android:text="View"
-                    android:textAllCaps="false"
-                    android:textColor="#fff" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:text="Self Career Counselling E-Book"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp">
+                    <ImageView
+                        android:id="@+id/imageViewSelfCareer"
+                        android:layout_width="match_parent"
+                        android:layout_height="218dp"
+                        android:layout_marginTop="6dp"
+                        app:srcCompat="@drawable/selfcareer" />
 
-            <LinearLayout
+                    <Button
+                        android:id="@+id/buttonSelfCareer"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="115dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="115dp"
+                        android:background="#e91e63"
+                        android:text="View"
+                        android:textAllCaps="false"
+                        android:textColor="#fff" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="30dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:text="New Age Career E-Book"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-
-                <ImageView
-                    android:id="@+id/imageViewNewAge"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/agecareer_c"
+                    android:layout_height="match_parent"
+                    android:layout_margin="30dp"
+                    android:orientation="vertical">
 
-                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:text="New Age Career E-Book"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/buttonNewAge"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="115dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="115dp"
-                    android:background="#e91e63"
-                    android:text="View"
-                    android:textAllCaps="false"
-                    android:textColor="#fff" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+                    <ImageView
+                        android:id="@+id/imageViewNewAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        android:layout_marginTop="10dp"
+                        app:srcCompat="@drawable/agecareer_c"
+
+                        />
+
+                    <Button
+                        android:id="@+id/buttonNewAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="115dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="115dp"
+                        android:background="#e91e63"
+                        android:text="View"
+                        android:textAllCaps="false"
+                        android:textColor="#fff" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,5 +1,4 @@
 # CareerGuide-Student-Mobile-App
-
 <br/>Android App for Career Guidance by professional Counsellors
 <br/>
 <br/>The app is built in Java and uses volley/retrofit to send get and post request from the careerguide.com API using RESTful api calls

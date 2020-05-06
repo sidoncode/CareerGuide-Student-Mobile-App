@@ -188,7 +188,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() < 6)
                 {
-                    ((TextView) dialog.findViewById(R.id.passwordErrorReset)).setText("Password should contain atleast 6 characters.");
+                    ((TextView) dialog.findViewById(R.id.passwordErrorReset)).setText("Password should contain at least 6 characters.");
                     dialog.findViewById(R.id.passwordErrorReset).setVisibility(View.VISIBLE);
                     valid[0] = false;
                 }
@@ -376,7 +376,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() < 6)
                 {
-                    ((TextView) dialog.findViewById(R.id.passwordErrorReset)).setText("Password should contain atleast 6 characters.");
+                    ((TextView) dialog.findViewById(R.id.passwordErrorReset)).setText("Password should contain at least 6 characters.");
                     dialog.findViewById(R.id.passwordErrorReset).setVisibility(View.VISIBLE);
                     valid[0] = false;
                 }

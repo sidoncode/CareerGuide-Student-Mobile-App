@@ -99,7 +99,7 @@ public class exoplayerActivity extends AppCompatActivity {
     private void prepareAlbums() {
         for(int i = 0; i<size;i++){
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId(),Utility.getUserEducation(activity), counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
+            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getEmail(),Utility.getUserEducation(activity), counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
             albumList.add(a);
 
         }
@@ -169,7 +169,7 @@ public class exoplayerActivity extends AppCompatActivity {
     private void getLiveSession() {
         final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "Facebook_Live_video", response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "AllVideos", response -> {
             Log.e("all_coun_res", response);
             try {
                 JSONObject jsonObject = new JSONObject(response);

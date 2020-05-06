@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.careerguide.youtubeVideo.youtubeFeedDetail;
@@ -51,7 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String title = remoteMessage.getData().get("title");
             //imageUri will contain URL of the image to be displayed with Notification
             String imageUri = remoteMessage.getData().get("image");
-            if(imageUri == ""){
+            if(TextUtils.isEmpty(imageUri)){
                 imageUri = "https://www.careerguide.com/images-mcg/counselling1.jpg";
             }
             String activity = remoteMessage.getData().get("Activity");
@@ -59,7 +61,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e("#msgt" , "ff" +data_id);
             Log.e("#imageurl" , "ff" +imageUri);
             bitmap = getBitmapfromUrl(imageUri);
-            sendNotification(title , message, bitmap, activity , data_id);
+            if(TextUtils.isEmpty(title)){
+                return;
+            }
+            else
+                sendNotification(title , message, bitmap, activity , data_id);
         }
 
         if (remoteMessage.getNotification() != null) {
@@ -77,11 +83,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendNotification(String title, String messageBody,  Bitmap image, String activity , String data_id) {
-        Intent intent = new Intent(this, youtubeFeedDetail.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("data_id", data_id);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent;
+
+        if (activity.contains("youtubeFeedDetail")){
+            Intent intent = new Intent(this, youtubeFeedDetail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Log.e("dataIdnoti" , "--> " +data_id);
+            intent.putExtra("data_id", data_id);
+            pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        }
+
+        else{
+            Intent intent = new Intent(this, exoplayerActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("data_id", data_id);
+            pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        }
+
 
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, 500, 200 , true);
         Bitmap bitmap_image = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
