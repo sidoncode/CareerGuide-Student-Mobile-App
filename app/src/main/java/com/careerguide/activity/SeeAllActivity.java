@@ -113,14 +113,15 @@ public class SeeAllActivity extends AppCompatActivity {
                 for (int i = 0; i < jsonArrayLen ; i++) {
 
                     JSONObject JsonObject = jsonArray.optJSONObject(i);
+                    String user_id = JsonObject.optString("user_id");
                     String email = JsonObject.optString("email");
                     String name = JsonObject.optString("Name");
                     String img_url = JsonObject.optString("img_url");
                     String title = JsonObject.optString("title");
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-                    CommonEducationModel commonEducationModel = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
+                    String video_id = JsonObject.optString("id");
+                    CommonEducationModel commonEducationModel = new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id);
                     educationList.add(commonEducationModel);
                 }
                 adapter.notifyDataSetChanged();
