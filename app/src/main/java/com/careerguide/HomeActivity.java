@@ -1111,15 +1111,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     }
 
                     JSONObject JsonObject = jsonArray.optJSONObject(tempRandom);
+                    String user_id = JsonObject.optString("user_id");
                     String email = JsonObject.optString("email");
                     String name = JsonObject.optString("Name");
                     String img_url = JsonObject.optString("img_url");
                     String title = JsonObject.optString("title");
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
-                    String id = JsonObject.optString("id");
-
-                    displaylist = new CommonEducationModel(id,email, name, img_url, video_url, title, "",video_views);
+                    String video_id = JsonObject.optString("id");
+                    displaylist  = new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id);
                     displaylistArray.add(displaylist);
 
                 }

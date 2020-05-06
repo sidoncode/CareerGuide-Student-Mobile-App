@@ -66,7 +66,7 @@ public class Video_player extends AppCompatActivity {
                         Log.e("deeplink --> " , "" +deepLink);
                     }
                     else{
-                        videoId=getIntent().getStringExtra("id");
+                        videoId=getIntent().getStringExtra("video_id");
                         String img_url= getIntent().getStringExtra("imgurl");
                         String name= getIntent().getStringExtra("Fullname");
                         String title= getIntent().getStringExtra("title");
@@ -359,21 +359,25 @@ public class Video_player extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/UpdateViews",
+            Log.i("video id",videoId);
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    "https://app.careerguide.com/api/main/UpdateViews",
                     response -> {
                         Log.i("Updated_video_counter",response);
                     },
-                    error -> Log.e("error","error"))
+                    error -> Log.e("error",error.getMessage()))
             {
                 @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String,String> params = new HashMap<>();
+                public Map<String, String> getParams() {
+                    HashMap<String, String> params = new HashMap<>();
                     params.put("video_id" ,videoId);
                     return params;
                 }
             };
-            VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+
+
+            VolleySingleton.getInstance(context).addToRequestQueue(request);
 
             return null;
         }

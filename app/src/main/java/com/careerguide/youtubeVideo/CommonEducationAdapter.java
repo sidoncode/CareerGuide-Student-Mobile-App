@@ -95,7 +95,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
         Glide.with(activity).load(video.getImgurl() ).apply(options).into(holder.imageView);
         holder.imageView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , Video_player.class);
-            intent.putExtra("id" , video.getId());
+            intent.putExtra("video_id" , video.getVideoId());
             intent.putExtra("live_video_url" , video.getVideourl());
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());
@@ -107,10 +107,11 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
 
         holder.title.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , Video_player.class);
-            intent.putExtra("id" , video.getId());
+            intent.putExtra("video_id" , video.getVideoId());
             intent.putExtra("live_video_url" , video.getVideourl());
             intent.putExtra("Fullname" , video.getFullName());
             intent.putExtra("imgurl" , video.getImgurl());
+            intent.putExtra("title" , video.getTitle());
             intent.putExtra("host_email" , video.getEmail());
             intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
@@ -118,13 +119,18 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
 
         holder.title.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , CounsellorProfile.class);
-            intent.putExtra("id"  , video.getId());
+            intent.putExtra("id"  , video.getUserId());
             intent.putExtra("host_name" , video.getFullName());
             intent.putExtra("host_email" , video.getEmail());
             intent.putExtra("host_img" , "null");
             intent.putExtra("imgurl" , video.getImgurl());
+            intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
         });
+
+    }
+
+    private void startVideoPlay(){
 
     }
 

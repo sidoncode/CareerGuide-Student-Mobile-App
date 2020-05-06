@@ -218,7 +218,8 @@ public class CM_youtubePlaylist extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             // TODO Auto-generated method stub
 
-            try
+           /*this activity is not used any where must be deleted by rachit
+           try
             {
                 String url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO5Fye2aPKAOmc7FZcsZC9cX&key=" + browserKey + "&maxResults=50";
                 String response = getUrlString(url);
@@ -413,7 +414,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
             catch(Exception e1)
             {
                 e1.printStackTrace();
-            }
+            }*/
             return null;
         }
 
