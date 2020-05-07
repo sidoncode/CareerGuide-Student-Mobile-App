@@ -45,31 +45,41 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // When the user taps on the notification they are returned to the app. Messages containing both notification
         // and data payloads are treated as notification messages. The Firebase console always sends notification
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            String message = remoteMessage.getData().get("message");
-            String title = remoteMessage.getData().get("title");
-            //imageUri will contain URL of the image to be displayed with Notification
-            String imageUri = remoteMessage.getData().get("image");
-            if(TextUtils.isEmpty(imageUri)){
-                imageUri = "https://www.careerguide.com/images-mcg/counselling1.jpg";
-            }
-            String activity = remoteMessage.getData().get("Activity");
-            String data_id = remoteMessage.getData().get("id");
-            Log.e("#msgt" , "ff" +data_id);
-            Log.e("#imageurl" , "ff" +imageUri);
-            bitmap = getBitmapfromUrl(imageUri);
-            if(TextUtils.isEmpty(title)){
-                return;
-            }
-            else
-                sendNotification(title , message, bitmap, activity , data_id);
-        }
+
 
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
+            Log.d(TAG, "From: " + remoteMessage.getFrom());
+            // Check if message contains a data payload.
+            if (remoteMessage.getData().size() > 0) {
+                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+                String message = remoteMessage.getData().get("message");
+                String title = remoteMessage.getData().get("title");
+                //imageUri will contain URL of the image to be displayed with Notification
+                String imageUri = remoteMessage.getData().get("image");
+                if(TextUtils.isEmpty(imageUri)){
+                    imageUri = "https://www.careerguide.com/images-mcg/counselling1.jpg";
+                }
+                String activity = remoteMessage.getData().get("Activity");
+                String data_id = remoteMessage.getData().get("id");
+                Log.e("#id" , "ff" +data_id);
+                Log.e("#message" , "ff" +message);
+                Log.e("#title" , "ff" +title);
+                Log.e("#imageurl" , "ff" +imageUri);
+                Log.e("#activity" , "ff" +activity);
+                bitmap = getBitmapfromUrl(imageUri);
+                if(TextUtils.isEmpty(title)||title==null||message==null||activity==null||data_id==null){
+                    Log.i("Notification has","null values");
+                    return;
+                }
+                else
+                    sendNotification(title , message, bitmap, activity , data_id);
+            }
+
+
+        }else{
+            Log.d(TAG,"notification body is null");
         }
 
 

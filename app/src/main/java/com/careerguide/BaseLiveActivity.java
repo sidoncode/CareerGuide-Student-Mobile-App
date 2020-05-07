@@ -1,11 +1,15 @@
 package com.careerguide;
 import android.accessibilityservice.AccessibilityService;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -64,8 +68,6 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         super.onCreate(savedInstanceState);
         fullscreenStausBar();
         setContentView(R.layout.activity_living);
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);//adjust softkeyboard
 
         initView();
         initRtcEngine();
@@ -333,15 +335,30 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
     @Override
     public void onBackPressed() {
-        if (mRtcEngine != null) {
-            mRtcEngine.leaveChannel();
-        }
 
-        mRtcEngine.setupRemoteVideo(null);
-        RtcEngine.destroy();
-        mRtcEngine = null;
-        finish();
-        super.onBackPressed();
-    }
+        final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+        final View dialog = getLayoutInflater().inflate(R.layout.dialog_log_out,null);//using the same logout dialog
+
+        ((TextView)dialog.findViewById(R.id.textViewLogoutTitle)).setText("Do you want to leave the live stream?");
+
+        dialog.findViewById(R.id.no).setOnClickListener(v1 -> alertDialog.dismiss());
+        dialog.findViewById(R.id.yes).setOnClickListener(v12 -> {
+
+            if (mRtcEngine != null) {
+                mRtcEngine.leaveChannel();
+            }
+
+            mRtcEngine.setupRemoteVideo(null);
+            RtcEngine.destroy();
+            mRtcEngine = null;
+
+
+            finish();
+            super.onBackPressed();
+        });
+
+        alertDialog.setView(dialog);
+        alertDialog.show();
+        }
 
 }
