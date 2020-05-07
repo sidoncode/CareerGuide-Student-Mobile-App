@@ -3,7 +3,7 @@ package com.careerguide.youtubeVideo;
 import java.io.Serializable;
 
 public class CommonEducationModel  implements Serializable {
-    private String id;
+    private String userid;
     private String email;
     private String picUrl;
     private String title;
@@ -11,10 +11,11 @@ public class CommonEducationModel  implements Serializable {
     private String imgurl;
     private String videourl;
     String videoviews;
+    private String videoid;
 
 
-    public CommonEducationModel(String videoid,String email, String name, String imgurl, String videourl, String title , String picUrl,String videoviews) {
-        this.id=id;
+    public CommonEducationModel(String id,String email, String name, String imgurl, String videourl, String title , String picUrl,String videoviews,String videoid) {
+        this.userid=id;
         this.email = email;
         this.name = name;
         this.imgurl = imgurl;
@@ -22,11 +23,12 @@ public class CommonEducationModel  implements Serializable {
         this.title = title;
         this.picUrl = picUrl;
         this.videoviews=videoviews;
+        this.videoid=videoid;
 
     }
 
 
-    public String getId() { return videoviews; }
+    public String getUserId() { return userid; }
 
     public String getPicUrl() {
         return picUrl;
@@ -53,6 +55,8 @@ public class CommonEducationModel  implements Serializable {
     }
 
     public String getVideoViews() { return videoviews; }
+
+    public String getVideoId() { return videoid; }
 
 
 }
