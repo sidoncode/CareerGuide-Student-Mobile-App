@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.careerguide.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.prof.rssparser.Article;
 
@@ -44,6 +48,9 @@ public class NewsFragment extends Fragment{
     private ProgressBar progressBar;
     private MainViewModel viewModel;
     private LinearLayout relativeLayout;
+
+    private NavController navController;
+    private BottomNavigationView bottomNavigationView;
 
     public NewsFragment(){}
 
@@ -69,10 +76,28 @@ public class NewsFragment extends Fragment{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
-
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_container);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
         relativeLayout = view.findViewById(R.id.root_layout);
 
+       view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
 
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_homeFragment);
+                    bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                    return true;
+                }
+                return false;
+            }
+        } );
 
 
         FeedRepo feedRepo =new FeedRepo();

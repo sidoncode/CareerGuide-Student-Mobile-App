@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -68,8 +72,8 @@ public class ProfileFragment extends Fragment {
     private TextView userNameTextView;
     private TextView userLocationTextView;
     private Drawable edittextDrawable = null;
-
-
+    private NavController navController;
+    private BottomNavigationView bottomNavigationView;
     private View view;
     private TextView dialogImageInitial;
 
@@ -212,6 +216,28 @@ public class ProfileFragment extends Fragment {
         });
 
         setUpCardView();
+
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_container);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_homeFragment);
+                    bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                    return true;
+                }
+                return false;
+            }
+        } );
+
         return view;
     }
 

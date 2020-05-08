@@ -40,6 +40,7 @@ import com.careerguide.models.PlayList;
 import com.careerguide.models.topics_model;
 import com.careerguide.youtubeVideo.Videos;
 import com.careerguide.youtubeVideo.YT_recycler_adapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -113,6 +114,7 @@ public class HomeFragment extends Fragment
     TextView p1Title,p2Title,p3Title;
     TextView p1SeeAll,p2SeeAll,p3SeeAll;
 
+
     View shimmer_p1,shimmer_p2,shimmer_p3;
 
     private List<PlayList> playList;
@@ -143,9 +145,11 @@ public class HomeFragment extends Fragment
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         progressDialog = new ProgressDialog(getActivity());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
