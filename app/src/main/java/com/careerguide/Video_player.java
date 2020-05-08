@@ -66,27 +66,38 @@ public class Video_player extends AppCompatActivity {
                         Log.e("deeplink --> " , "" +deepLink);
                     }
                     else{
+                        videoId=getIntent().getStringExtra("video_id");
                         String img_url= getIntent().getStringExtra("imgurl");
-                        Log.e("img","" +img_url);
                         String name= getIntent().getStringExtra("Fullname");
-                        Log.e("name", "" +name);
                         String title= getIntent().getStringExtra("title");
-                        Log.e("title","--> "+ title);
-                        // String url = getIntent().getStringExtra("live_video_  url");
-                        andExoPlayerView.setName(getIntent().getStringExtra("Fullname"));
                         hostEmail = getIntent().getStringExtra("host_email");
+                        String url = getIntent().getStringExtra("live_video_url");
+                        hostPicUrl = getIntent().getStringExtra("host_img");
+
+                        Log.d("VIDEO_PLAYER","img url: " +img_url);
+                        Log.d("VIDEO_PLAYER", "name: " +name);
+                        Log.d("VIDEO_PLAYER", "email: " +hostEmail);
+                        Log.d("VIDEO_PLAYER","title--> "+ title);
+                        Log.d("VIDEO_PLAYER","#views video-->" +getIntent().getStringExtra("video_views"));
+                        Log.d("VIDEO_PLAYER","host img url: " +hostPicUrl);
+                        Log.d("VIDEO_PLAYER","live video url: " +url);
+
+
+                        andExoPlayerView.setName(name);
                         andExoPlayerView.sethost_email(hostEmail);
-                        Log.e("#views video" , "-->" +getIntent().getStringExtra("video_views"));
+
                         if(getIntent().getStringExtra("video_views")!=null)//if value is not null set updated value
                             andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
 
-                        videoId=getIntent().getStringExtra("id");
                         new TaskUpdateViewCounter().execute();
 
+                        if(hostPicUrl!=null && hostPicUrl.length()>0)
+                            andExoPlayerView.setImg(hostPicUrl);
+                        else
                         fetchAndApplyImage();
 
                         new DownloadFile( ).execute (img_url, title);
-                        load_url( getIntent().getStringExtra("live_video_url"));
+                        load_url(url);
                     }
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
@@ -183,8 +194,8 @@ public class Video_player extends AppCompatActivity {
         return bitmap;
     }
     public void video_share(View view) {
-        String img_url= getIntent().getStringExtra("imgurl");
-        Log.e("img", hostPicUrl);
+        String img_url = getIntent().getStringExtra("imgurl");
+        Log.e("img", ""+hostPicUrl);
         String name= getIntent().getStringExtra("Fullname");
         Log.e("name",name);
         String title= getIntent().getStringExtra("title");
@@ -348,21 +359,25 @@ public class Video_player extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/UpdateViews",
+            Log.i("video id",videoId);
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    "https://app.careerguide.com/api/main/UpdateViews",
                     response -> {
                         Log.i("Updated_video_counter",response);
                     },
-                    error -> Log.e("error","error"))
+                    error -> Log.e("error",error.getMessage()))
             {
                 @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String,String> params = new HashMap<>();
+                public Map<String, String> getParams() {
+                    HashMap<String, String> params = new HashMap<>();
                     params.put("video_id" ,videoId);
                     return params;
                 }
             };
-            VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+
+
+            VolleySingleton.getInstance(context).addToRequestQueue(request);
 
             return null;
         }

@@ -40,6 +40,8 @@ public class CounsellorProfile extends AppCompatActivity {
     ImageView followingTik;
     LinearLayoutManager mLayoutManager;
 
+    String hostPic,hostEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,20 +62,25 @@ public class CounsellorProfile extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        if(getIntent().getStringExtra("host_img").contains("null"))
-            fetchAndApplyImage();
+        hostPic = getIntent().getStringExtra("host_img");
+        hostEmail = getIntent().getStringExtra("host_email");
+        Log.d("COUNSELLOR_PROFILE", "host_img: "+hostPic);
+        if(hostPic!=null)
+            Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
         else
-            Glide.with(this).load(getIntent().getStringExtra("host_img")).into((ImageView) findViewById(R.id.profileImage));
+            fetchAndApplyImage();
+
 
         getLiveSession();
 
     }
 
     private void prepareAlbums() {
+        albumList.clear();
         for(int i = 0; i<size;i++){
             String imgurl = "";
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
-            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(activity) , getIntent().getStringExtra("host_img"),getIntent().getStringExtra("video_views"));
+            Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , hostEmail , Utility.getUserEducation(activity) , hostPic,getIntent().getStringExtra("video_views"));
             albumList.add(a);
         }
         adapter.notifyDataSetChanged();
@@ -92,7 +99,7 @@ public class CounsellorProfile extends AppCompatActivity {
                     pb_loading.setVisibility(View.GONE);
                     for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
                         JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String email = counselorJsonObject.optString("id");
+                        //String email = counselorJsonObject.optString("id");
                         String name = counselorJsonObject.optString("Name");
                         Log.e("name--> ", "==> " + name);
                         String img_url = counselorJsonObject.optString("img_url");
@@ -100,7 +107,7 @@ public class CounsellorProfile extends AppCompatActivity {
                         String video_url = counselorJsonObject.optString("video_url");
                         String video_views = counselorJsonObject.optString("video_views");
                         String id = counselorJsonObject.optString("id");
-                        counsellors.add(new live_counsellor_session(id,email, name, img_url, video_url, title, "",video_views));
+                        counsellors.add(new live_counsellor_session(id,hostEmail, name, img_url, video_url, title, hostPic,video_views));
                     }
                     size = counsellors.size();
                     prepareAlbums();
@@ -163,10 +170,17 @@ public class CounsellorProfile extends AppCompatActivity {
                     try {
                         responseObject = new JSONObject(response);
                         JSONArray jsonArray = responseObject.getJSONArray("counsellors");
-                        JSONObject counsellor = (JSONObject) jsonArray.get(0);
-                        String hostPicUrl = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
-                        Glide.with(this).load(hostPicUrl).into((ImageView) findViewById(R.id.profileImage));
-                        Log.d("#HOSTPIC :", hostPicUrl);
+                        if(jsonArray.length()>0)
+                        {
+                            JSONObject counsellor = (JSONObject) jsonArray.get(0);
+                            if(jsonArray.length()>0)
+                            {
+                                hostPic = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
+                                Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
+                                prepareAlbums();
+                                Log.d("#HOSTPIC :", hostPic);
+                            }
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
