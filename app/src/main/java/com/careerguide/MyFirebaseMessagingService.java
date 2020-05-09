@@ -112,8 +112,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     PendingIntent.FLAG_ONE_SHOT);
         }
 
+        Bitmap scaledBitmap;
+        try {
+            scaledBitmap = Bitmap.createScaledBitmap(image, 500, 200 , true);//if this fails use default image
+        }catch (Exception e){
+            e.printStackTrace();
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, 500, 200 , true);
+            Bitmap temp= BitmapFactory.decodeResource(getResources(), R.mipmap.career_counsellors_in_india);
+            scaledBitmap = Bitmap.createScaledBitmap(temp, 500, 200 , true);
+        }
+
+
         Bitmap bitmap_image = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

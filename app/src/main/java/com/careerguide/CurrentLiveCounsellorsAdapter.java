@@ -33,7 +33,7 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
     }
 
 
-    CurrentLiveCounsellorsAdapter(Context mContext, List<CurrentLiveCounsellorsModel> listDataModels) {
+    public CurrentLiveCounsellorsAdapter(Context mContext, List<CurrentLiveCounsellorsModel> listDataModels) {
         this.mContext = mContext;
         Log.e("#adapter" , "-->" +listDataModels);
         this.listDataModels = listDataModels;

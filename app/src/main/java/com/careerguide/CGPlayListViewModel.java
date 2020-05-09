@@ -14,6 +14,7 @@ import java.util.List;
 
 public class CGPlayListViewModel extends ViewModel {
 
+    private MutableLiveData<List<CurrentLiveCounsellorsModel>> currentLiveCounsellorsList;
     private MutableLiveData<ArrayList<Videos>> displaylistArray;
     private MutableLiveData<List<Videos>> displaylistArray_two;
     private MutableLiveData<List<Videos>> displaylistArray_three;
@@ -31,6 +32,7 @@ public class CGPlayListViewModel extends ViewModel {
 
 
     public CGPlayListViewModel() {
+        currentLiveCounsellorsList = new MutableLiveData<>();
         displaylistArray = new MutableLiveData<>();
         displaylistArray_two = new MutableLiveData<>();
         displaylistArray_three = new MutableLiveData<>();
@@ -43,9 +45,16 @@ public class CGPlayListViewModel extends ViewModel {
         displaylistArray_WORKING = new MutableLiveData<>();
         displaylistArray_Blog = new MutableLiveData<>();
         displaylistArray_categoryDetails = new MutableLiveData<>();
-
         counsellorList = new MutableLiveData<>();
 
+    }
+
+    public void setDisplaylistArrayLiveCounsellors(List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList){
+        this.currentLiveCounsellorsList.setValue(currentLiveCounsellorsList);
+    }
+
+    public MutableLiveData<List<CurrentLiveCounsellorsModel>> getDisplaylistArrayLiveCounsellors() {
+        return currentLiveCounsellorsList;
     }
 
 
