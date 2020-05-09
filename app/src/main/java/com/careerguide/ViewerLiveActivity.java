@@ -79,14 +79,7 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                 findViewById(R.id.live_surfaceview).setVisibility(TextView.GONE);
                 tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
                 tvNoSurfaceNotice.setText(R.string.living_anchor_offline);
-                if (mRtcEngine != null) {
-                    mRtcEngine.leaveChannel();
-                }
-                mRtcEngine.setupRemoteVideo(null);
-                RtcEngine.destroy();
-                mRtcEngine = null;
-                Intent intent = new Intent(activity , HomeActivity.class);
-                startActivity(intent);
+                finish();
             });
         }
     }

@@ -14,10 +14,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyViewHolder> {
+public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentLiveCounsellorsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<DataModels> listDataModels;
+    private List<CurrentLiveCounsellorsModel> listDataModels;
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -33,7 +33,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     }
 
 
-    MyCustomAdapter(Context mContext, List<DataModels> listDataModels) {
+    CurrentLiveCounsellorsAdapter(Context mContext, List<CurrentLiveCounsellorsModel> listDataModels) {
         this.mContext = mContext;
         Log.e("#adapter" , "-->" +listDataModels);
         this.listDataModels = listDataModels;
@@ -51,15 +51,15 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
 
-        DataModels objDataModels = listDataModels.get(position);
-        holder.txtRestaurantName.setText(objDataModels.getRestaurantName());
+        CurrentLiveCounsellorsModel objDataModels = listDataModels.get(position);
+        holder.txtRestaurantName.setText(objDataModels.getCounsellorName());
         holder.txtdesc.setText("Live Now");
         Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.img);
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext() , ViewerLiveActivity.class);
             Log.e("name-->","" +objDataModels.getchannelname());
             intent.putExtra("Channel_name" , objDataModels.getchannelname());
-            intent.putExtra("name" , objDataModels.getRestaurantName());
+            intent.putExtra("name" , objDataModels.getCounsellorName());
             view.getContext().startActivity(intent);
 
         });
