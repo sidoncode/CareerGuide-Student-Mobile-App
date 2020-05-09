@@ -330,7 +330,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         String[] url_POSTGRA = {"https://app.careerguide.com/api/main/videos_POSTGRA","6"};
         String[] url_WORKING = {"https://app.careerguide.com/api/main/videos_WORKING","7"};
 
-        new TaskFetchLiveCounsellors().execute();
 
         new TaskFetch1_2_3().execute(url_one);
         new TaskFetch1_2_3().execute(url_two);
@@ -768,6 +767,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     @Override
     protected void onResume() {
         super.onResume();
+        new TaskFetchLiveCounsellors().execute();
         Utility.handleOnlineStatus(this, "idle");
     }
 
