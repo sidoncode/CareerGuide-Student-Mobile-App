@@ -45,7 +45,7 @@ public class Video_player extends AppCompatActivity {
     private AndExoPlayerView andExoPlayerView;
    // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
     private int req_code = 129;
-    private String videoId="";
+    private String videoId="1";
     Context context=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

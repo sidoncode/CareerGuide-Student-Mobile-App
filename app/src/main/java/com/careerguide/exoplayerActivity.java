@@ -15,10 +15,13 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.careerguide.youtubeVideo.CommonEducationModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,14 +36,19 @@ import java.util.Objects;
 public class exoplayerActivity extends AppCompatActivity {
     Activity activity = this;
 
-    private com.careerguide.adapters.LivesessionAdapter adapter;
-    private com.careerguide.MyCustomAdapter adapter_new;
-    private List<Album> albumList;
-    private List<DataModels> albumList_new;
+    private com.careerguide.adapters.LivesessionAdapter allPastLiveSessionAdapter;
+    private List<CommonEducationModel> allPastLiveSessionList;//used the same educationmodel from cgplaylist
+
+    private CurrentLiveCounsellorsAdapter currentLiveCounsellorsAdapter;
+    private List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList;
+
+    LinearLayout currentLiveCounsellorsShimmer,pastLiveSessionsShimmer;
+
     private int size;
     private int size_new;
+    /*
     private ArrayList<live_counsellor_session> counsellors = new ArrayList<>();
-    private ArrayList<Counsellor> counsellors_new = new ArrayList<>();
+    private ArrayList<Counsellor> counsellors_new = new ArrayList<>();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,35 +57,36 @@ public class exoplayerActivity extends AppCompatActivity {
         setContentView(R.layout.exoplayer_play_activity);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle("Live Sessions");
-        RecyclerView recyclerView_new = findViewById(R.id.recyclerView_new);
-        albumList_new = new ArrayList<>();
-        adapter_new = new com.careerguide.MyCustomAdapter(this, albumList_new);
-        recyclerView_new.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(this);
+
+        currentLiveCounsellorsShimmer=findViewById(R.id.currentLiveCounsellorsShimmer);
+        pastLiveSessionsShimmer=findViewById(R.id.pastLiveSessionsShimmer);
+
+        RecyclerView recyclerViewCurrentLiveCounsellor = findViewById(R.id.recyclerView_new);
+
+        currentLiveCounsellorsList = new ArrayList<>();
+        currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(this, currentLiveCounsellorsList);
+
+        recyclerViewCurrentLiveCounsellor.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         //mLayoutManager_new.setOrientation(LinearLayout.HORIZONTAL);
-        recyclerView_new.setLayoutManager(mLayoutManager_new);
-        recyclerView_new.setAdapter(adapter_new);
+        recyclerViewCurrentLiveCounsellor.setLayoutManager(mLayoutManager_new);
+        recyclerViewCurrentLiveCounsellor.setAdapter(currentLiveCounsellorsAdapter);
 
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        albumList = new ArrayList<>();
-        adapter = new com.careerguide.adapters.LivesessionAdapter(this, albumList);
+        RecyclerView recyclerViewPastLiveCounsellor = findViewById(R.id.recycler_view);
+
+        allPastLiveSessionList = new ArrayList<CommonEducationModel>();
+        allPastLiveSessionAdapter = new com.careerguide.adapters.LivesessionAdapter(this, allPastLiveSessionList);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
 //        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerViewPastLiveCounsellor.setLayoutManager(mLayoutManager);
 //        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
+        recyclerViewPastLiveCounsellor.setAdapter(allPastLiveSessionAdapter);
 
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        getvideoSession();
-        Handler handler = new Handler();
-        handler.postDelayed(() -> progressDialog.dismiss(), 1000);
-
+        getCurrentLiveCounsellors();
+        getPastLiveSessions();
     }
 
 
@@ -96,30 +105,30 @@ public class exoplayerActivity extends AppCompatActivity {
      * Adding few albums for testing
      */
 
-    private void prepareAlbums() {
+    /*public void prepareCurrentLiveCousellorsAlbum() {
+        Log.e("#name" , "==> " +counsellors_new.get(0).picUrl);
+        for(int i=0;i<size_new;i++){
+            Log.e("#nameww" , "==> " +counsellors_new.get(0).picUrl);
+            CurrentLiveCounsellorsModel dm = new CurrentLiveCounsellorsModel();
+            Log.e("#name" , "==> " +counsellors_new.get(i).picUrl);
+            dm.setRestaurantName(counsellors_new.get(i).firstName + " "+counsellors_new.get(i).lastName);
+            dm.setImgSrc(counsellors_new.get(i).picUrl);
+            dm.setchannelname(counsellors_new.get(i).getchannel());
+            currentLiveCounsellorsList.add(dm);
+        }
+        currentLiveCounsellorsAdapter.notifyDataSetChanged();
+    }
+
+    private void preparePastLiveCounsellorsAlbum() {
         for(int i = 0; i<size;i++){
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
             Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getEmail(),Utility.getUserEducation(activity), counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
             albumList.add(a);
 
         }
-        adapter.notifyDataSetChanged();
+        allPastLiveSessionAdapter.notifyDataSetChanged();
     }
-
-    public void listArray() {
-        Log.e("#name" , "==> " +counsellors_new.get(0).picUrl);
-        for(int i=0;i<size_new;i++){
-            Log.e("#nameww" , "==> " +counsellors_new.get(0).picUrl);
-            DataModels dm = new DataModels();
-            Log.e("#name" , "==> " +counsellors_new.get(i).picUrl);
-            dm.setRestaurantName(counsellors_new.get(i).firstName + " "+counsellors_new.get(i).lastName);
-            dm.setImgSrc(counsellors_new.get(i).picUrl);
-            dm.setchannelname(counsellors_new.get(i).getchannel());
-            albumList_new.add(dm);
-        }
-        adapter_new.notifyDataSetChanged();
-    }
-
+    */
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
@@ -166,58 +175,11 @@ public class exoplayerActivity extends AppCompatActivity {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
-    private void getLiveSession() {
-        final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
-        progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "AllVideos", response -> {
-            Log.e("all_coun_res", response);
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                boolean status = jsonObject.optBoolean("status", false);
-                if (status)
-                {
-                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-
-                    Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
-                    for (int i = 0; i < counsellorsJsonArray.length(); i++)
-                    {
-                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String email = counselorJsonObject.optString("email");
-                        String name = counselorJsonObject.optString("Name");
-                        Log.e("name--> " , "==> " +name );
-                        String img_url = counselorJsonObject.optString("img_url");
-                        String title = counselorJsonObject.optString("title");
-                        String video_url = counselorJsonObject.optString("video_url");
-                        String video_views = counselorJsonObject.optString("video_views");
-                        String id = counselorJsonObject.optString("id");
-                        counsellors.add(new live_counsellor_session(id,email,name,img_url,video_url,title,"",video_views));
-                    }
-                    size = counsellors.size();
-                    prepareAlbums();
-                    Log.e("size " , "==> " +counsellors );
-                 //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                } else {
-                    Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
-                }
-                progressDialog.dismiss();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }, error -> {
-            progressDialog.dismiss();
-            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-            Log.e("all_coun_rerror","error");
-        });
-        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-    }
-    private void getvideoSession() {
-        final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
-        progressDialog.show();
+    private void getCurrentLiveCounsellors() {
+        showcurrentLiveCounsellorsShimmer();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
             Log.e("all_coun_res", response);
             try {
-                getLiveSession();
                 JSONObject jsonObject = new JSONObject(response);
                 boolean status = jsonObject.optBoolean("status", false);
                 if (status)
@@ -233,26 +195,28 @@ public class exoplayerActivity extends AppCompatActivity {
                         String picUrl = counselorJsonObject.optString("profile_pic");
                         String channel_name = counselorJsonObject.optString("channel_name");
                         Log.e("name-1->","" +channel_name);
-                        counsellors_new.add(new Counsellor(id,firstName,lastName,picUrl,channel_name,"",4.5f, new ArrayList<>()));
+                        currentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name));
                         Log.e("#inside" ,"for" +picUrl);
-                        Log.e("size live" , "==> " +counsellors_new.get(0).firstName);
+
                     }
-                    size_new = counsellors_new.size();
+                    size_new = currentLiveCounsellorsList.size();
                     Log.e("size live" , "==> " +size_new );
-                    if(size_new>0){
-                        listArray();
+                    if(size_new>0){//if counsellers are live notify the adapter
+                        currentLiveCounsellorsAdapter.notifyDataSetChanged();
                     }
-                   // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                 } else {
                     Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
                 }
-                progressDialog.dismiss();
+                //hideProgressBar();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
+            hidecurrentLiveCounsellorsShimmer();
+
         }, error -> {
-            progressDialog.dismiss();
+            hidecurrentLiveCounsellorsShimmer();
             Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
             Log.e("all_coun_rerror","error");
         })
@@ -267,6 +231,79 @@ public class exoplayerActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+    }
+
+    private void getPastLiveSessions() {
+        final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
+        showPastLiveCounsellorsShimmer();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "AllVideos", response -> {
+            Log.e("all_coun_res", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status", false);
+                if (status)
+                {
+                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+
+                    Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
+                    for (int i = 0; i < counsellorsJsonArray.length(); i++)
+                    {
+
+                        JSONObject JsonObject = counsellorsJsonArray.optJSONObject(i);
+                        String user_id = JsonObject.optString("user_id");
+                        String email = JsonObject.optString("email");
+                        String name = JsonObject.optString("Name");
+                        String img_url = JsonObject.optString("img_url");
+                        String title = JsonObject.optString("title");
+                        String video_url = JsonObject.optString("video_url");
+                        String video_views=JsonObject.optString("views");
+                        String video_id = JsonObject.optString("id");
+                        allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id));
+
+
+                    }
+
+                    allPastLiveSessionAdapter.notifyDataSetChanged();
+
+                 //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                } else {
+                    Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                }
+                progressDialog.dismiss();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            hidePastLiveCounsellorsShimmer();
+
+        }, error -> {
+            hidePastLiveCounsellorsShimmer();
+            progressDialog.dismiss();
+            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror","error");
+        });
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+    }
+
+    void showcurrentLiveCounsellorsShimmer(){
+        currentLiveCounsellorsShimmer.setEnabled(false);
+        currentLiveCounsellorsShimmer.setVisibility (View.VISIBLE);
+
+    }
+    void hidecurrentLiveCounsellorsShimmer(){
+
+        currentLiveCounsellorsShimmer.setVisibility (View.GONE);
+
+    }
+
+    void showPastLiveCounsellorsShimmer(){
+        pastLiveSessionsShimmer.setEnabled(false);
+        pastLiveSessionsShimmer.setVisibility (View.VISIBLE);
+
+    }
+    void hidePastLiveCounsellorsShimmer(){
+
+        pastLiveSessionsShimmer.setVisibility (View.GONE);
+
     }
 
 }
