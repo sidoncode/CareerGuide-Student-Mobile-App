@@ -78,9 +78,9 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
         else
             holder.count.setText("Views:"+video.getVideoViews());
 
-        //String formatedDate=getPublishedDays(video.getVideourl().substring(video.getVideourl().indexOf("+")+1,video.getVideourl().indexOf("+")+10));
-        //holder.tv_published.setText(formatedDate);
-        holder.tv_published.setText("2 days ago");//pending, not complete
+        String formatedDate=getPublishedDays(video.getVideourl().substring(video.getVideourl().indexOf("+")+1,video.getVideourl().indexOf("+")+11));
+        holder.tv_published.setText(formatedDate);
+        //holder.tv_published.setText("2 days ago");//pending, not complete
 
         // loading album cover using Glide library
         Glide.with(mContext).load(video.getImgurl()).into(holder.thumbnail);
@@ -112,22 +112,26 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
             long diff = date1.getTime() - date2.getTime();
             days=TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
             Log.i("dddddd",days+"");
+
+            Log.i("dddeddd",days+"");
+            if(days==0){
+                return "Today";
+            }else{
+                if(days<31)
+                    return days+" day(s) ago";
+                else
+                if(days>31&days<366){
+                    return days/31+" month(s) ago";
+                }else
+                    return days/365+" year(s) ago";
+            }
+
         } catch (ParseException e) {
             e.printStackTrace();
+            return "Long ago ";
         }
 
-        Log.i("dddeddd",days+"");
-        if(days==0){
-            return "Today";
-        }else{
-            if(days<28)
-                return days+" day(s) ago";
-            else
-            if(days>28&&days<366){
-                return days%28+" month(s) ago";
-            }else
-            return days%365+" year(s) ago";
-        }
+
 
     }
 

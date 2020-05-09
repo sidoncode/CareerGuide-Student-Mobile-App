@@ -67,7 +67,7 @@ public class exoplayerActivity extends AppCompatActivity {
         currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(this, currentLiveCounsellorsList);
 
         recyclerViewCurrentLiveCounsellor.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         //mLayoutManager_new.setOrientation(LinearLayout.HORIZONTAL);
         recyclerViewCurrentLiveCounsellor.setLayoutManager(mLayoutManager_new);
         recyclerViewCurrentLiveCounsellor.setAdapter(currentLiveCounsellorsAdapter);
