@@ -1047,45 +1047,51 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
     private void getLiveVideos() {
-        String LIVE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&type=video&eventtype=live&key=" + browserKey;
+
+        String LIVE_URL = "https://www.googleapis.com/youtube/v3/search?key="+browserKey+"&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&forUsername=s6EVBxMpm9S3a2RpbAIp1w&part=snippet,id&order=date&maxResults=20";
         ArrayList<Videos> liveVideos = new ArrayList<>();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, LIVE_URL, response -> {
+        StringRequest liveRequest = new StringRequest(Request.Method.GET, LIVE_URL, response -> {
             try {
                 JSONObject json = new JSONObject(response);
+                boolean status = json.optBoolean("status", false);
+                if (status) {
                 JSONArray jsonArray = json.getJSONArray("items");
                 if (jsonArray.length() > 0) {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
-                        String title = jsonObject.getJSONObject("snippet").getString("title");
-                        String Desc = jsonObject.getJSONObject("snippet").getString("description");
-                        String id = video.getString("videoId");
-                        String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                        Videos liveVideo = new Videos(title, thumbUrl, id, Desc);
-                        liveVideos.add(liveVideo);
+                        String liveBroadcastContent = jsonObject.getJSONObject("snippet").getString("liveBroadcastContent");
+                        if (liveBroadcastContent.equals("live") || liveBroadcastContent.equals("upcoming")) {
+                            JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
+                            String title = jsonObject.getJSONObject("snippet").getString("title");
+                            String Desc = jsonObject.getJSONObject("snippet").getString("description");
+                            String id = video.getString("videoId");
+                            String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
+                            Videos liveVideo = new Videos(title, thumbUrl, id, Desc);
+                            liveVideos.add(liveVideo);
+                        }
                     }
                     viewModelProvider.setLiveVideosList(liveVideos);
                 }
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("LIVE_VIDEOS", "error: "+e.toString());
+
             }
 
         }, error -> {
             Log.e("LIVE_VIDEOS", "error: "+error.toString());
-        }) {
+        }){
             @Override
-            protected Map<String, String> getParams() {
+            protected Map<String, String> getParams()
+            {
                 return new HashMap<>();
             }
         };
-        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(liveRequest);
     }
 
     private class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
-
-
-
 
         int fetchCode=0;//default
 

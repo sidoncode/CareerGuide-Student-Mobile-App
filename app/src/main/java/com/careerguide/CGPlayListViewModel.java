@@ -62,7 +62,7 @@ public class CGPlayListViewModel extends ViewModel {
 
 
     public MutableLiveData<ArrayList<Videos>> getLiveVideosList() {
-        return displaylistArray;
+        return liveVideosList;
     }
 
     public void setLiveVideosList(ArrayList<Videos> liveVideosList) {

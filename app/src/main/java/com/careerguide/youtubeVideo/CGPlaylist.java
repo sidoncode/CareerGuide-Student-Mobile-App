@@ -309,6 +309,7 @@ public class CGPlaylist extends Fragment {
             startActivity(new Intent(getActivity(), BookCounsellor.class));
         });
 
+        liveLayout.setVisibility(View.GONE);
             return thisScreensView;
     }
 
@@ -331,9 +332,9 @@ public class CGPlaylist extends Fragment {
         });
 
 
-        channelLiveModel.getLiveVideosList().observe(getActivity(), videos -> {
+        channelLiveModel.getLiveVideosList().observe(getActivity(), liveVideos -> {
             liveVideosList.clear();
-            liveVideosList.addAll(videos);
+            liveVideosList.addAll(liveVideos);
             if(liveVideosList.size()>0)
             {
                 mLiveAdapter.notifyDataSetChanged();
