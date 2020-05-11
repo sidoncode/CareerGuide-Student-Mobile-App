@@ -41,7 +41,6 @@ public class ebookpdf extends Fragment {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
                 hideProgressBar();
                 startActivity(goToNextScreen);
             }

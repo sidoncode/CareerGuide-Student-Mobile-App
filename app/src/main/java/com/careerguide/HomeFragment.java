@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment
         RecyclerView recyclerViewPastLiveCounsellor = view.findViewById(R.id.recycler_view);
         allPastLiveSessionList = new ArrayList<CommonEducationModel>();
         allPastLiveSessionAdapter = new CommonEducationAdapter( allPastLiveSessionList,getActivity());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL, false);
         recyclerViewPastLiveCounsellor.setLayoutManager(mLayoutManager);
         recyclerViewPastLiveCounsellor.setAdapter(allPastLiveSessionAdapter);
 
@@ -424,33 +424,25 @@ public class HomeFragment extends Fragment
 
     /*
     private void prepareAlbums() {
-
-
         for (int i =0 ; i<topicSize ; i++){
             Log.e("name in prepare" , "-->" +topics.get(i).getName());
             topics_model topicModel = new topics_model(topics.get(i).getUid() , topics.get(i).getName() , 27);
             topiclist.add(topicModel);
         }
         topic_adapter.notifyDataSetChanged();
-
         for (int i =0 ; i<Counsellors_profile_size ; i++){
             Log.e("name in prepare" , "-->" +Counsellors_profile.get(i).getUsername());
-
             Counsellor counsellor_model = new Counsellor(Counsellors_profile.get(i).getUid() , Counsellors_profile.get(i).getUsername() , Counsellors_profile.get(i).getFirst_name(),Counsellors_profile.get(i).getLast_name(),Counsellors_profile.get(i).getAvatar(),23);
             counsellorlist.add(counsellor_model);
         }
         counsellor_adapter.notifyDataSetChanged();
-
         for(int i = 0; i<size;i++){
             //Log.e("#profile" , "-->" +Counsellors_profile.get(i).getAvatar());
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
             Album a = new Album(counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getId() , Utility.getUserEducation(getActivity()) , counsellors.get(i).getPicUrl());
             albumList.add(a);
-
         }
         adapter.notifyDataSetChanged();
-
-
         Log.e("LoadingStatus","Done");
         progressDialog.dismiss();
     }
@@ -875,7 +867,7 @@ public class HomeFragment extends Fragment
                 if(category.equals("NINE") || category.equals("TEN"))
                     params.put("sub_cat", category);
                 else
-                params.put("sub_cat" , subCat);
+                    params.put("sub_cat" , subCat);
 
                 return params;
             }
@@ -984,89 +976,89 @@ public class HomeFragment extends Fragment
                 response -> {
                     //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
 
-            try {
-                //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
-                JSONObject json = new JSONObject(response);
-                JSONArray jsonArray = json.getJSONArray("items");
-                int jsonArrayLen = jsonArray.length();
+                    try {
+                        //Log.d("#PLAYLIST", "fetchPlayListData: "+ response);
+                        JSONObject json = new JSONObject(response);
+                        JSONArray jsonArray = json.getJSONArray("items");
+                        int jsonArrayLen = jsonArray.length();
 
-                for (int i = jsonArrayLen - 1; i >= 0; i--) {
+                        for (int i = jsonArrayLen - 1; i >= 0; i--) {
 
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    JSONObject video_json = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
-                    String title = jsonObject.getJSONObject("snippet").getString("title");
-                    String Desc = jsonObject.getJSONObject("snippet").getString("description");
-                    String id = video_json.getString("videoId");
-                    Log.e("inside", "video ID-->" + id);
-                    String thumbUrl_two = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                    Videos video = new Videos(title, thumbUrl_two, id, Desc);
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            JSONObject video_json = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
+                            String title = jsonObject.getJSONObject("snippet").getString("title");
+                            String Desc = jsonObject.getJSONObject("snippet").getString("description");
+                            String id = video_json.getString("videoId");
+                            Log.e("inside", "video ID-->" + id);
+                            String thumbUrl_two = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
+                            Videos video = new Videos(title, thumbUrl_two, id, Desc);
 
-                    switch (mCase)
+                            switch (mCase)
+                            {
+                                case 1:
+                                    p1List.add(video);
+                                    break;
+                                case 2:
+                                    p2List.add(video);
+                                    break;
+                                case 3:
+                                    p3List.add(video);
+                                    break;
+                            }
+
+                        }
+                        switch (mCase)
+                        {
+                            case 1:
+                                if(p1List.size()>0) {
+                                    p1SeeAll.setText("See all");
+                                    adapterP1.notifyDataSetChanged();
+                                    shimmer_p1.setVisibility(View.INVISIBLE);
+                                }
+                                else
+                                {
+                                    p1Title.setVisibility(View.GONE);
+                                    playList1Recv.setVisibility(View.GONE);
+                                    shimmer_p1.setVisibility(View.GONE);
+                                }
+                                break;
+
+                            case 2:
+                                if(p2List.size()>0) {
+                                    p2SeeAll.setText("See all");
+                                    adapterP2.notifyDataSetChanged();
+                                    shimmer_p2.setVisibility(View.INVISIBLE);
+
+                                }
+                                else
+                                {
+                                    p2Title.setVisibility(View.GONE);
+                                    playList2Recv.setVisibility(View.GONE);
+                                    shimmer_p2.setVisibility(View.GONE);
+
+                                }
+                                break;
+
+                            case 3:
+                                if(p3List.size()>0) {
+                                    p3SeeAll.setText("See all");
+                                    adapterP3.notifyDataSetChanged();
+                                    shimmer_p3.setVisibility(View.INVISIBLE);
+
+                                }
+                                else
+                                {
+                                    p3Title.setVisibility(View.GONE);
+                                    playList3Recv.setVisibility(View.GONE);
+                                    shimmer_p3.setVisibility(View.GONE);
+
+                                }
+                                break;
+                        }
+                    }catch (Exception e)
                     {
-                        case 1:
-                            p1List.add(video);
-                            break;
-                        case 2:
-                            p2List.add(video);
-                            break;
-                        case 3:
-                            p3List.add(video);
-                            break;
+                        e.printStackTrace();
                     }
-
-                }
-                switch (mCase)
-                {
-                    case 1:
-                        if(p1List.size()>0) {
-                            p1SeeAll.setText("See all");
-                            adapterP1.notifyDataSetChanged();
-                            shimmer_p1.setVisibility(View.INVISIBLE);
-                        }
-                        else
-                        {
-                            p1Title.setVisibility(View.GONE);
-                            playList1Recv.setVisibility(View.GONE);
-                            shimmer_p1.setVisibility(View.GONE);
-                        }
-                        break;
-
-                    case 2:
-                        if(p2List.size()>0) {
-                            p2SeeAll.setText("See all");
-                            adapterP2.notifyDataSetChanged();
-                            shimmer_p2.setVisibility(View.INVISIBLE);
-
-                        }
-                        else
-                        {
-                            p2Title.setVisibility(View.GONE);
-                            playList2Recv.setVisibility(View.GONE);
-                            shimmer_p2.setVisibility(View.GONE);
-
-                        }
-                        break;
-
-                    case 3:
-                        if(p3List.size()>0) {
-                            p3SeeAll.setText("See all");
-                            adapterP3.notifyDataSetChanged();
-                            shimmer_p3.setVisibility(View.INVISIBLE);
-
-                        }
-                        else
-                        {
-                            p3Title.setVisibility(View.GONE);
-                            playList3Recv.setVisibility(View.GONE);
-                            shimmer_p3.setVisibility(View.GONE);
-
-                        }
-                        break;
-                }
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
 
                 },error -> {
             Log.d("#PLAYLIST", "error: "+ error.toString());
@@ -1103,21 +1095,15 @@ private void getcounsellor() {
                     }
                     Counsellors_profile_size = Counsellors_profile.size();
                     //prepareAlbums();
-
                     for (int i =0 ; i<Counsellors_profile_size ; i++){
                         Log.e("name in prepare" , "-->" +Counsellors_profile.get(i).getUsername());
-
                         Counsellor counsellor_model = new Counsellor(Counsellors_profile.get(i).getUid() , Counsellors_profile.get(i).getUsername() , Counsellors_profile.get(i).getFirst_name(),Counsellors_profile.get(i).getLast_name(),Counsellors_profile.get(i).getAvatar(),23);
                         counsellorlist.add(counsellor_model);
                     }
                     counsellor_adapter.notifyDataSetChanged();
-
-
                     Log.e("size ", "==> " + size);
                     // Log.e("size1 ", "==> " + counsellors.get(0).getPicUrl());
                 } else {
-
-
                     Toast.makeText(getActivity(), "Something went wrong.", Toast.LENGTH_LONG).show();
                 }
                 //progressDialog.dismiss();
@@ -1139,5 +1125,4 @@ private void getcounsellor() {
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-
  */

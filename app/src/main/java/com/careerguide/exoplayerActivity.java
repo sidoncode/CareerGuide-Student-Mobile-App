@@ -305,7 +305,6 @@ public class exoplayerActivity extends AppCompatActivity {
         pastLiveSessionsShimmer.setVisibility (View.GONE);
 
     }
-
     @Override
     protected void onResume() {
         super.onResume();

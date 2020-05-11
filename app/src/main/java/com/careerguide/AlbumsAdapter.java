@@ -102,6 +102,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             intent.putExtra("class_cat",album.getClass_cat());
             intent.putExtra("Fullname" , album.getName());
             intent.putExtra("imgurl" , album.getThumbnail());
+            intent.putExtra("video_id" , album.getVideoId());
             intent.putExtra("host_email" , album.gethost_email());
             intent.putExtra("video_views" , album.getVideoViews());
             view.getContext().startActivity(intent);
@@ -114,6 +115,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             intent.putExtra("host_name" , album.getName());
             intent.putExtra("host_email" , album.gethost_email());
             intent.putExtra("host_img" , "null");
+            intent.putExtra("video_id" , album.getVideoId());
             intent.putExtra("imgurl" , album.getThumbnail());
             view.getContext().startActivity(intent);
         });

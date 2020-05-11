@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +7,9 @@
     tools:context=".PlanActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/toolBar"
         android:layout_height="?attr/actionBarSize"
         android:gravity="center_vertical"
         android:background="@color/white">
@@ -21,20 +22,21 @@
             android:layout_marginEnd="20dp"
             android:onClick="back_onClick"
             android:contentDescription="TODO" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolBar"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
+            android:text="Certified Counsellor Online Now"
             android:textColor="@color/black"
-            android:textSize="17sp"
-            android:text="Certified Counsellor Online Now"/>
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,43 +48,43 @@
                 android:id="@+id/profileImage"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/surabhi"/>
+                android:src="@drawable/surabhi" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/pranav"/>
+                android:src="@drawable/pranav" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/surabhi"/>
+                android:src="@drawable/surabhi" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage3"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/pranav"/>
+                android:src="@drawable/pranav" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="17sp"
                 android:layout_marginStart="10dp"
-                android:text="+150"/>
+                android:text="+150"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
+            android:text="One of them will speak to you shortly."
             android:textColor="@color/black"
-            android:textSize="17sp"
-            android:text="One of them will speak to you shortly."/>
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,18 +105,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
+                android:text="93% of Users Found online counselling helpful"
                 android:textColor="@color/black"
-                android:textSize="17sp"
-                android:text="93% of Users Found online counselling helpful"/>
+                android:textSize="17sp" />
         </LinearLayout>
-        <View
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:alpha="0.4"
-            android:background="@android:color/darker_gray" />
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/news_progress_bar"
+                style="@android:style/Widget.Holo.Light.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/dark_blue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:alpha="0.4"
+                android:background="@android:color/darker_gray" />
+
+        </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -126,10 +143,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:text="Single online counselling"
-                />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -142,8 +158,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="10dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
@@ -151,12 +167,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:textColor="@color/black"
                 android:text="Chat, Audio for 45 mins."
-                />
+                android:textColor="@color/black" />
         </LinearLayout>
-
-
 
 
         <View
@@ -172,8 +185,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_alignParentBottom="true"
+            android:background="@color/white"
             android:padding="10dp">
 
             <Button
@@ -181,16 +194,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#14bef1"
-                android:textColor="@color/white"
                 android:text="Continue to Paymennt"
-                android:textStyle="bold">
-            </Button>
+                android:textColor="@color/white"
+                android:textStyle="bold"></Button>
 
         </LinearLayout>
 
+
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
 
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->
