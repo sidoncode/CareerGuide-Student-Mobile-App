@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.adapters.AlbumadapterProfile;
+import com.careerguide.youtubeVideo.CommonEducationModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,12 @@ public class CounsellorProfile extends AppCompatActivity {
     private int size;
     ProgressBar pb_loading;
     private ArrayList<live_counsellor_session> counsellors = new ArrayList<>();
+
+
+    private com.careerguide.adapters.LivesessionAdapter allPastLiveSessionAdapter;
+    private List<CommonEducationModel> allPastLiveSessionList;//used the same educationmodel from cgplaylist
+
+
     TextView tv_follow, tv_feed_title;
     ImageView followingTik;
     LinearLayoutManager mLayoutManager;
@@ -52,15 +59,20 @@ public class CounsellorProfile extends AppCompatActivity {
         followingTik = findViewById(R.id.followingTik);
         tv_feed_title = findViewById(R.id.tv_feed_title);
 
+
+        RecyclerView recyclerViewPastLiveCounsellor = findViewById(R.id.recycler_view);
+
+        allPastLiveSessionList = new ArrayList<CommonEducationModel>();
+        allPastLiveSessionAdapter = new com.careerguide.adapters.LivesessionAdapter(this, allPastLiveSessionList);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerViewPastLiveCounsellor.setLayoutManager(mLayoutManager);
+        recyclerViewPastLiveCounsellor.setAdapter(allPastLiveSessionAdapter);
+
+
         setSupportActionBar(toolbar);
         ((TextView)findViewById(R.id.host_name)).setText(getIntent().getStringExtra("host_name"));
         tv_feed_title.setText(getIntent().getStringExtra("host_name") +"'s Feed");
-        recyclerView = findViewById(R.id.recycler_view);
-        albumList = new ArrayList<>();
-        adapter = new AlbumadapterProfile(this, albumList);
-        mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(adapter);
 
         hostPic = getIntent().getStringExtra("host_img");
         hostEmail = getIntent().getStringExtra("host_email");
@@ -71,23 +83,23 @@ public class CounsellorProfile extends AppCompatActivity {
             fetchAndApplyImage();
 
 
-        getLiveSession();
+        getPassLiveSession();
 
     }
 
-    private void prepareAlbums() {
-        albumList.clear();
+    /*private void prepareAlbums() {
+        allPastLiveSessionList.clear();
         for(int i = 0; i<size;i++){
             String imgurl = "";
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
             Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , hostEmail , Utility.getUserEducation(activity) , hostPic,getIntent().getStringExtra("video_views"));
-            albumList.add(a);
+            allPastLiveSessionList.add(a);
         }
         adapter.notifyDataSetChanged();
-    }
+    }*/
 
 
-    private void getLiveSession() {
+    private void getPassLiveSession() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/counsellor/Facebook_Live_video", response -> {
             Log.e("all_coun_res", response);
             try {
@@ -100,19 +112,27 @@ public class CounsellorProfile extends AppCompatActivity {
                     for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
                         JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
                         //String email = counselorJsonObject.optString("id");
-                        String name = counselorJsonObject.optString("Name");
-                        Log.e("name--> ", "==> " + name);
-                        String img_url = counselorJsonObject.optString("img_url");
-                        String title = counselorJsonObject.optString("title");
-                        String video_url = counselorJsonObject.optString("video_url");
-                        String video_views = counselorJsonObject.optString("video_views");
-                        String id = counselorJsonObject.optString("id");
-                        counsellors.add(new live_counsellor_session(id,hostEmail, name, img_url, video_url, title, hostPic,video_views));
+
+                        JSONObject JsonObject = counsellorsJsonArray.optJSONObject(i);
+                        String user_id = JsonObject.optString("user_id");
+                        String email = JsonObject.optString("email");
+                        String name = JsonObject.optString("Name");
+                        String img_url = JsonObject.optString("img_url");
+                        String title = JsonObject.optString("title");
+                        String video_url = JsonObject.optString("video_url");
+                        String video_views=JsonObject.optString("views");
+                        String video_id = JsonObject.optString("id");
+
+                        if(video_views.contains("null")){
+                            video_views="1";
+                        }
+
+                        allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id));
+
                     }
                     size = counsellors.size();
-                    prepareAlbums();
-                    Log.e("size ", "==> " + size);
-                    //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    allPastLiveSessionAdapter.notifyDataSetChanged();
+
                 } else {
                     pb_loading.setVisibility(View.GONE);
                     Toast.makeText(activity, "Something went wrong.", Toast.LENGTH_LONG).show();
@@ -177,7 +197,7 @@ public class CounsellorProfile extends AppCompatActivity {
                             {
                                 hostPic = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
                                 Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
-                                prepareAlbums();
+                                //prepareAlbums();
                                 Log.d("#HOSTPIC :", hostPic);
                             }
                         }
