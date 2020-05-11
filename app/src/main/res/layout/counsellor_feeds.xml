@@ -75,7 +75,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="2 days ago"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -115,6 +115,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginTop="6dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -132,16 +133,21 @@
                 android:background="@drawable/language_bg"/>
 
             <TextView
-                android:id="@+id/tv_collection_name"
+                android:id="@+id/session_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PCM"
+                android:text="title"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="2dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textColor="@color/lightBlue"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textSize="12sp"
-                android:layout_marginStart="10dp"/>
+                android:inputType="textMultiLine"
+                android:paddingBottom="2dp"
+                android:textSize="16sp"
+                />
+
+
         </LinearLayout>
 
 
@@ -153,14 +159,14 @@
             android:weightSum="4">
 
 
-                <TextView
-                    android:id="@+id/count"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="(Hindi) World Geography through Maps Islands of the world: UPSC"
-                    android:textColor="@color/app_blue"
-                    android:textSize="14sp" />
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="1 day ago"
+                android:textColor="@color/app_blue"
+                android:textSize="14sp" />
 
 <!--                <LinearLayout-->
 <!--                    android:id="@+id/ll_type4"-->

@@ -19,7 +19,7 @@ public class ChatMessage implements Serializable{
         IMAGE;
     }
 
-    public ChatMessage(String co_id, String msgId,  String message, String image, ChatType chatType, Date date, boolean isReceived) {
+    ChatMessage(String co_id, String msgId, String message, String image, ChatType chatType, Date date, boolean isReceived) {
         this.co_id = co_id;
         this.msgId = msgId;
         this.message = message;
@@ -45,7 +45,7 @@ public class ChatMessage implements Serializable{
         return image;
     }
 
-    public ChatType getChatType() {
+    ChatType getChatType() {
         return chatType;
     }
 

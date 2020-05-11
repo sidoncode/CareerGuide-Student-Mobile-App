@@ -1,0 +1,75 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:padding="22dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    app:cardElevation="2dp"
+
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="14dp">
+
+    <LinearLayout
+        android:foreground="@drawable/ripple"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/color_view_feed"
+            android:background="@color/app_blue"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"/>
+
+
+        <LinearLayout
+
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="8dp"
+
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="3"
+
+                android:textColor="#5E5757"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="This is simply a fake title to show news in an android card view" />
+
+            <TextView
+                android:id="@+id/pubDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="12sp"
+                android:textColor="#8A3A3434"
+
+                tools:text="15 December 2018" />
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+</androidx.cardview.widget.CardView>

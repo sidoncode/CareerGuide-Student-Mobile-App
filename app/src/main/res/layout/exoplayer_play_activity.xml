@@ -7,6 +7,10 @@
     android:background="@android:color/white"
     android:fitsSystemWindows="true">
 
+
+
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -23,12 +27,27 @@
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <include layout="@layout/horizontal_view" />
+            <include layout="@layout/shimmer_exoplayeractivity_current_live_counsellors_loading"
+                android:id="@+id/currentLiveCounsellorsShimmer"/>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
+    <LinearLayout
+        android:id="@+id/pastLiveSessionsShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="210dp">
+
+        <include layout="@layout/shimmer_cgpaylist_single_category_loading" />
+        <include layout="@layout/shimmer_cgpaylist_single_category_loading" />
+
+    </LinearLayout>
+
 
 
 

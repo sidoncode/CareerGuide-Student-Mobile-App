@@ -29,31 +29,35 @@ public class ebookpdf extends Fragment {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
 
-    BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
+    private BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             //Fetching the download id received with the broadcast
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             //Checking if the received broadcast is for our enqueued download by matching download id
             if (downloadID == id) {
-                Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
+                try{
+                    Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 hideProgressBar();
                 startActivity(goToNextScreen);
             }
         }
     };
 
-    Intent goToNextScreen;
+    private Intent goToNextScreen;
 
-    long downloadID;
+    private long downloadID;
 
 
-    String ebook1="self-career-counselling-ebook.pdf";
-    String ebook1_URL="https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf";
-    String ebook2="new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf";
-    String ebook2_URL="https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf";
-    String toolBarTitle="Career EBook";
-    RelativeLayout progressBar;
+    private String ebook1="self-career-counselling-ebook.pdf";
+    private String ebook1_URL="https://www.careerguide.com/career/wp-content/uploads/2019/09/self-career-counselling-ebook.pdf";
+    private String ebook2="new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf";
+    private String ebook2_URL="https://www.careerguide.com/career/wp-content/uploads/2019/05/new-age-careers-careers-that-didnt-exist-20-yr-ago.pdf";
+    private String toolBarTitle="Career EBook";
+    private RelativeLayout progressBar;
 
     public ebookpdf() {
         // Required empty public constructor
@@ -68,7 +72,12 @@ public class ebookpdf extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ebook, container, false);
         progressBar=view.findViewById(R.id.progressBar);
 
-        getActivity().registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        try {
+            getActivity().registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
 
         view.findViewById(R.id.imageViewSelfCareer).setOnClickListener(v -> {
@@ -90,7 +99,6 @@ public class ebookpdf extends Fragment {
 
         view.findViewById(R.id.buttonSelfCareer).setOnClickListener(v -> {
             goToNextScreen = new Intent(getActivity(), WebViewActivity.class);
-
             goToNextScreen.putExtra("pdfName", ebook1);
             goToNextScreen.putExtra("toolBarTitle",toolBarTitle);
 
@@ -120,13 +128,13 @@ public class ebookpdf extends Fragment {
             }
         });
         view.findViewById(R.id.buttonNewAge).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WebViewActivity.class);
-            intent.putExtra("pdfName", ebook2);
-            intent.putExtra("toolBarTitle",toolBarTitle);
+            goToNextScreen = new Intent(getActivity(), WebViewActivity.class);
+            goToNextScreen.putExtra("pdfName", ebook2);
+            goToNextScreen.putExtra("toolBarTitle",toolBarTitle);
 
             if(Utility.getStoragePermissionFromUser(getActivity())) {//file already downloaded
                 if (Utility.checkFileExist(ebook2))
-                    startActivity(intent);
+                    startActivity(goToNextScreen);
                 else {
                     downloadID = Utility.downloadPdf(ebook2, ebook2_URL, "New Age E-Book", "Downloading...", getActivity());
                     showProgressBar();
@@ -142,12 +150,12 @@ public class ebookpdf extends Fragment {
         Utility.getStoragePermissionFromUser(getActivity());
     }
 
-    void showProgressBar(){
+    private void showProgressBar(){
 
         progressBar.setVisibility (View.VISIBLE);
 
     }
-    void hideProgressBar(){
+    private void hideProgressBar(){
 
         progressBar.setVisibility (View.INVISIBLE);
 

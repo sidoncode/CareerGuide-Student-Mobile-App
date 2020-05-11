@@ -23,6 +23,7 @@ import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,8 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import android.widget.Toast;
 import com.android.volley.Request;
@@ -72,11 +75,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -312,8 +317,64 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
    */
 
-
+        registerGoogleFeedNotification();
+        registerBottomNavBar();
         executeAllTasks();
+    }
+
+    private void registerBottomNavBar() {
+        BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                if(menuItem.getItemId()==R.id.nav_home)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_homeFragment);
+                }
+
+                if(menuItem.getItemId()==R.id.nav_feed)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_feedFragment);
+                }
+
+                if(menuItem.getItemId()==R.id.nav_account)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_profileFragment);
+                }
+
+                return true;
+            }
+        });
+
+    }
+
+    private void registerGoogleFeedNotification() {
+
+        Calendar currentDate = Calendar.getInstance();
+        Calendar dueDate = Calendar.getInstance();
+
+        dueDate.set(Calendar.HOUR_OF_DAY, 15);
+        dueDate.set(Calendar.MINUTE, 0);
+        dueDate.set(Calendar.SECOND, 0);
+
+        if (dueDate.before(currentDate)) {
+            dueDate.add(Calendar.HOUR_OF_DAY, 24);
+        }
+        long timeDiff = dueDate.getTimeInMillis()-currentDate.getTimeInMillis();
+
+        OneTimeWorkRequest feedSync =
+                new OneTimeWorkRequest.Builder(com.careerguide.newsfeed.notifier.MyWorker.class)
+                        .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+                        .addTag("NEWS_WORK")
+                        .build();
+
+
+        WorkManager.getInstance(this).enqueue(feedSync);
+
     }
 
     private void executeAllTasks(){
@@ -767,6 +828,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     @Override
     protected void onResume() {
         super.onResume();
+        new TaskFetchLiveCounsellors().execute();
         Utility.handleOnlineStatus(this, "idle");
     }
 
@@ -1020,6 +1082,82 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    private class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+
+
+
+
+        int fetchCode=0;//default
+
+        @Override
+        protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
+                Log.e("all_coun_res", response);
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        Log.e("name-2->","" +counsellorsJsonArray);
+                        List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList = new ArrayList<>();
+
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
+                        {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String channel_name = counselorJsonObject.optString("channel_name");
+                            Log.e("name-1->","" +channel_name);
+                            currentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name));
+                            Log.e("#inside" ,"for" +picUrl+"__"+currentLiveCounsellorsList.get(0).getCounsellorName());
+
+                        }
+                        //CGPlayListViewModel viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
+                        viewModelProvider.setDisplaylistArrayLiveCounsellors(currentLiveCounsellorsList);
+
+                        // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                    //hideProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }, error -> {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    Log.e("all_coun_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(List<CurrentLiveCounsellorsModel> result) {//is needed don't delete
+
+            //viewModelProvider.setDisplaylistArrayLiveCounsellors(result);
+            //Log.i("sssss",result.get(0).getCounsellorName());
+        }
+    }
+
 
         private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
         Videos displaylist;
@@ -1082,7 +1220,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPostExecute(ArrayList<Videos> result) {
-            CGPlayListViewModel viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
+            // viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
 
             switch (fetchCode) {
                 case 1: {

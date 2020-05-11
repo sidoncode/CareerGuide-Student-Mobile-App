@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,8 @@ public class SignUpActivity extends AppCompatActivity
     private String resetCode;
     private String resetEmail;
 
+    private RelativeLayout progressBar;
+
     private boolean loginError = false;
 
     private enum screenType
@@ -89,6 +92,8 @@ public class SignUpActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        progressBar=findViewById(R.id.progressBar);
 
         // Facebook Start
         /*
@@ -399,86 +404,89 @@ public class SignUpActivity extends AppCompatActivity
         continueButtonReset.setOnClickListener(v -> {
             //final String email = createPassword.getText().toString().trim();
             final String password = createPassword.getText().toString().trim();
-            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-            progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "change_password", response -> {
-                progressDialog.dismiss();
-                Log.e("reset_response",response);
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status",false);
-                    String msg = jsonObject.optString("msg");
-                    if(status && msg.equals("password updated successfully"))
-                    {
-                        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.remove("otp");
-                        editor.remove("resetEmail");
-                        editor.apply();
-                        JSONObject userJsonObject = jsonObject.optJSONObject("user_detail");
-                        String id = userJsonObject.optString("id");
-                        String email = userJsonObject.optString("email");
-                        String firstName = userJsonObject.optString("first_name");
-                        String lastName = userJsonObject.optString("last_name");
-                        String profilePic = userJsonObject.optString("profile_pic");
-                        String dob = userJsonObject.optString("dob");
-                        String gender = userJsonObject.optString("gender");
-                        String city = userJsonObject.optString("city");
-                        String mobile = userJsonObject.optString("mobile_number");
-                        String educationLevel = userJsonObject.optString("education_level");
-                        boolean activated = userJsonObject.optString("activated").equals("1");
-                        Utility.setUserId(activity,id);
-                        Utility.setUserFirstName(activity,firstName);
-                        Utility.setUserLasstName(activity,lastName);
-                        Utility.setUserPic(activity,profilePic);
-                        Utility.setUserCity(activity,city);
-                        Utility.setUserDOB(activity,dob);
-                        Utility.setUserEmail(activity, email);
-                        Utility.setUserGender(activity,gender);
-                        Utility.setUserMobile(activity,mobile);
-                        Utility.setUserEducation(activity,educationLevel);
-                        Utility.setUserActivated(activity,activated);
-                        Intent intent = new Intent(activity,HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else
-                    {
-                        switch (msg)
-                        {
-                            case "user does not exist":
-                                ((TextView) findViewById(R.id.emailErrorLogin)).setText("Email doesn't exist");
-                                findViewById(R.id.emailErrorLogin).setVisibility(View.VISIBLE);
-                                break;
-                            case "Incorrect password":
-                                ((TextView) findViewById(R.id.passwordErrorLogin)).setText("Incorrect password");
-                                findViewById(R.id.passwordErrorLogin).setVisibility(View.VISIBLE);
-                                break;
-                            default:
-                                Toast.makeText(activity, "Something went wrong.", Toast.LENGTH_LONG).show();
-                                break;
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }, error -> {
-                progressDialog.dismiss();
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("login_error123","error" +error.getMessage());
-            })
-            {
-                @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String,String> params = new HashMap<>();
-                    params.put("email",resetEmail);
-                    params.put("password",password);
-                    Log.e("request",params.toString());
-                    return params;
-                }
-            };
+            showProgressBar();
+            StringRequest stringRequest = new StringRequest(
+                    Request.Method.POST,
+                    Utility.PRIVATE_SERVER + "change_password",
+                    response -> {
+                        hideProgressBar();
+                        Log.e("reset_response",response);
+                    try
+                    {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean status = jsonObject.optBoolean("status",false);
+                        String msg = jsonObject.optString("msg");
+                        if(status && msg.equals("password updated successfully"))
+                        {
+                            SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.remove("otp");
+                            editor.remove("resetEmail");
+                            editor.apply();
+                            JSONObject userJsonObject = jsonObject.optJSONObject("user_detail");
+                            String id = userJsonObject.optString("id");
+                            String email = userJsonObject.optString("email");
+                            String firstName = userJsonObject.optString("first_name");
+                            String lastName = userJsonObject.optString("last_name");
+                            String profilePic = userJsonObject.optString("profile_pic");
+                            String dob = userJsonObject.optString("dob");
+                            String gender = userJsonObject.optString("gender");
+                            String city = userJsonObject.optString("city");
+                            String mobile = userJsonObject.optString("mobile_number");
+                            String educationLevel = userJsonObject.optString("education_level");
+                            boolean activated = userJsonObject.optString("activated").equals("1");
+                            Utility.setUserId(activity,id);
+                            Utility.setUserFirstName(activity,firstName);
+                            Utility.setUserLasstName(activity,lastName);
+                            Utility.setUserPic(activity,profilePic);
+                            Utility.setUserCity(activity,city);
+                            Utility.setUserDOB(activity,dob);
+                            Utility.setUserEmail(activity, email);
+                            Utility.setUserGender(activity,gender);
+                            Utility.setUserMobile(activity,mobile);
+                            Utility.setUserEducation(activity,educationLevel);
+                            Utility.setUserActivated(activity,activated);
+                            Intent intent = new Intent(activity,HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            switch (msg)
+                            {
+                                case "user does not exist":
+                                    ((TextView) findViewById(R.id.emailErrorLogin)).setText("Email doesn't exist");
+                                    findViewById(R.id.emailErrorLogin).setVisibility(View.VISIBLE);
+                                    break;
+                                case "Incorrect password":
+                                    ((TextView) findViewById(R.id.passwordErrorLogin)).setText("Incorrect password");
+                                    findViewById(R.id.passwordErrorLogin).setVisibility(View.VISIBLE);
+                                    break;
+                                default:
+                                    Toast.makeText(activity, "Something went wrong.", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    }, error -> {
+                        hideProgressBar();
+                        Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                        Log.e("login_error123","error" +error.getMessage());
+                    })
+                    {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            HashMap<String,String> params = new HashMap<>();
+                            params.put("email",resetEmail);
+                            params.put("password",password);
+                            Log.e("request",params.toString());
+                            return params;
+                        }
+                    };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
     }
@@ -518,74 +526,75 @@ public class SignUpActivity extends AppCompatActivity
 
         continueButton.setOnClickListener(v -> {
             final String email = emailEditText.getText().toString().trim();
-            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-            progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "forget_password", response -> {
-                progressDialog.dismiss();
-                Log.e("forget_response",response);
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status",false);
-                    String msg = jsonObject.optString("msg");
-                    if(status && msg.equals("otp send successfully"))
-                    {
-                        resetEmail = email;
-                        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("resetEmail",email);
-                        editor.apply();
-                        stack.pop();
-                        signUpLayout.setVisibility(View.GONE);
-                        customSignUpLayout.setVisibility(View.GONE);
-                        loginLayout.setVisibility(View.GONE);
-                        forgotPasswordLayout.setVisibility(View.GONE);
-                        resetPasswordLayout.setVisibility(View.GONE);
-                        forgotPasswordMessageLayout.setVisibility(View.VISIBLE);
-                        stack.push(screenType.FORGOT_OTP);
-                        initializeForgotPasswordOTP();
-                    }
-                    else
-                    {
-                        if (msg.equals("user does not exist"))
+            showProgressBar();
+            StringRequest stringRequest = new StringRequest(
+                    Request.Method.POST, Utility.PRIVATE_SERVER + "forget_password",
+                    response -> {
+                        hideProgressBar();
+                        Log.e("forget_response",response);
+                        try
                         {
-                            ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
-                            findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean status = jsonObject.optBoolean("status",false);
+                            String msg = jsonObject.optString("msg");
+                            if(status && msg.equals("otp send successfully"))
+                            {
+                                resetEmail = email;
+                                SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("resetEmail",email);
+                                editor.apply();
+                                stack.pop();
+                                signUpLayout.setVisibility(View.GONE);
+                                customSignUpLayout.setVisibility(View.GONE);
+                                loginLayout.setVisibility(View.GONE);
+                                forgotPasswordLayout.setVisibility(View.GONE);
+                                resetPasswordLayout.setVisibility(View.GONE);
+                                forgotPasswordMessageLayout.setVisibility(View.VISIBLE);
+                                stack.push(screenType.FORGOT_OTP);
+                                initializeForgotPasswordOTP();
+                            }
+                            else
+                            {
+                                if (msg.equals("user does not exist"))
+                                {
+                                    ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
+                                    findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                                }
+                                else if (msg.equals("user account is not activated yet!"))
+                                {
+                                    ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
+                                    findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                                }
+                                else if (msg.equals("user not registered with custom"))
+                                {
+                                    ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
+                                    findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                                }
+                                /*  else
+                                {
+                                    Toast.makeText(activity, "Something went wrong.",Toast.LENGTH_LONG).show();
+                                }*/
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        else if (msg.equals("user account is not activated yet!"))
-                        {
-                            ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
-                            findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
-                        }
-                        else if (msg.equals("user not registered with custom"))
-                        {
-                            ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
-                            findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
-                        }
-                        /*  else
-                        {
-                            Toast.makeText(activity, "Something went wrong.",Toast.LENGTH_LONG).show();
-                        }*/
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }, error -> {
-                progressDialog.dismiss();
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("forget_error","error");
-            })
-            {
-                @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String,String> params = new HashMap<>();
-                    params.put("email",email);
-                    params.put("otp",generateOTP());
-                    Log.e("request",params.toString());
-                    return params;
-                }
-            };
+                        }, error -> {
+                            hideProgressBar();
+                            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                            Log.e("forget_error","error");
+                        })
+                        {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                HashMap<String,String> params = new HashMap<>();
+                                params.put("email",email);
+                                params.put("otp",generateOTP());
+                                Log.e("request",params.toString());
+                                return params;
+                            }
+                        };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
     }
@@ -667,10 +676,9 @@ public class SignUpActivity extends AppCompatActivity
         loginButton.setOnClickListener(v -> {
             final String email = emailEditText.getText().toString().trim();
             final String password = passwordEditText.getText().toString().trim();
-            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-            progressDialog.show();
+            showProgressBar();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "login", response -> {
-                progressDialog.dismiss();
+                hideProgressBar();
                 Log.e("login_response",response);
                 try
                 {
@@ -735,7 +743,7 @@ public class SignUpActivity extends AppCompatActivity
                 }
 
             }, error -> {
-                progressDialog.dismiss();
+                hideProgressBar();
                 Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
                 Log.e("login_error","error" +error.getMessage());
             })
@@ -829,10 +837,9 @@ public class SignUpActivity extends AppCompatActivity
         signUpButton.setOnClickListener(v -> {
             final String email = emailEditText.getText().toString().trim();
             final String password = passwordEditText.getText().toString().trim();
-            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-            progressDialog.show();
+            showProgressBar();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "user_exist", response -> {
-                progressDialog.dismiss();
+                hideProgressBar();
                 Log.e("user_exist_response",response);
 
                 try
@@ -899,7 +906,7 @@ public class SignUpActivity extends AppCompatActivity
                 }
 
             }, error -> {
-                progressDialog.dismiss();
+                hideProgressBar();
                 Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
                 Log.e("user_exist_error","error");
             })
@@ -1153,10 +1160,9 @@ Log.e("result code" , "resultcode:"+resultCode);
         }
         else
         {
-            final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
-            progressDialog.show();
+            hideProgressBar();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "social_login", response -> {
-                progressDialog.dismiss();
+                showProgressBar();
                 Log.e("scl_lgn_response",response);
                 try
                 {
@@ -1211,7 +1217,7 @@ Log.e("result code" , "resultcode:"+resultCode);
                 }
 
             }, error -> {
-                progressDialog.dismiss();
+                hideProgressBar();
                 Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
                 Log.e("scl_lgn_error","error");
             })
@@ -1227,5 +1233,16 @@ Log.e("result code" , "resultcode:"+resultCode);
             };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         }
+    }
+
+    private void showProgressBar(){
+        progressBar.setEnabled(false);
+        progressBar.setVisibility (View.VISIBLE);
+
+    }
+    private void hideProgressBar(){
+
+        progressBar.setVisibility (View.INVISIBLE);
+
     }
 }

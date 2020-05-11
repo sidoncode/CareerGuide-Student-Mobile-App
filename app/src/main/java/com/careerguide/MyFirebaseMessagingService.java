@@ -47,8 +47,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
 
 
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
             Log.d(TAG, "From: " + remoteMessage.getFrom());
             // Check if message contains a data payload.
@@ -69,20 +67,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Log.e("#imageurl" , "ff" +imageUri);
                 Log.e("#activity" , "ff" +activity);
                 bitmap = getBitmapfromUrl(imageUri);
-                if(TextUtils.isEmpty(title)||title==null||message==null||activity==null||data_id==null){
-                    Log.i("Notification has","null values");
+                if(TextUtils.isEmpty(title)||title==null) {
+                    Log.i("Notification has", "null values");
                     return;
+                }
+                if (remoteMessage.getNotification() != null) {
+                    Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
                 }
                 else
                     sendNotification(title , message, bitmap, activity , data_id);
-            }
+
 
 
         }else{
             Log.d(TAG,"notification body is null");
         }
-
-
 
     }
 
@@ -95,7 +94,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(String title, String messageBody,  Bitmap image, String activity , String data_id) {
         PendingIntent pendingIntent;
 
-        if (activity.contains("youtubeFeedDetail")){
+
+        if (activity!=null && activity.contains("youtubeFeedDetail")){
             Intent intent = new Intent(this, youtubeFeedDetail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             Log.e("dataIdnoti" , "--> " +data_id);
@@ -112,8 +112,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     PendingIntent.FLAG_ONE_SHOT);
         }
 
+        Bitmap scaledBitmap;
+        try {
+            scaledBitmap = Bitmap.createScaledBitmap(image, 500, 200 , true);//if this fails use default image
+        }catch (Exception e){
+            e.printStackTrace();
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, 500, 200 , true);
+            Bitmap temp= BitmapFactory.decodeResource(getResources(), R.mipmap.career_counsellors_in_india);
+            scaledBitmap = Bitmap.createScaledBitmap(temp, 500, 200 , true);
+        }
+
+
         Bitmap bitmap_image = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
