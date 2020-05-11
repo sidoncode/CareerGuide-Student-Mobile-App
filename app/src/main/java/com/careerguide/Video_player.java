@@ -90,7 +90,14 @@ public class Video_player extends AppCompatActivity {
                         andExoPlayerView.sethost_email(hostEmail);
 
                         if(getIntent().getStringExtra("video_views")!=null)//if value is not null set updated value
-                            andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
+                        {
+                            if(getIntent().getStringExtra("video_views").contains("null"))
+                                andExoPlayerView.setVideoViews("1");
+                            else
+                                andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
+
+
+                        }
 
                         new TaskUpdateViewCounter().execute();
                         logEventForFirebase("v_"+title.trim(),name.trim());
