@@ -200,6 +200,43 @@
 
 
 
+                <!--cat_Live-->
+                <LinearLayout
+                    android:id="@+id/live_lyt"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="3dp">
+
+                        <TextView
+                            android:id="@+id/Cat_live"
+                            android:visibility="visible"
+                            android:text="Live"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_live"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible" />
+                </LinearLayout>
+
+
                 <!--cat_1-->
                 <LinearLayout
                     android:orientation="vertical"

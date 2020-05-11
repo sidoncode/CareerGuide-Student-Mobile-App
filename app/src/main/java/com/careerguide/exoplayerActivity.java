@@ -101,7 +101,6 @@ public class exoplayerActivity extends AppCompatActivity {
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
             Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getEmail(),Utility.getUserEducation(activity), counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
             albumList.add(a);
-
         }
         adapter.notifyDataSetChanged();
     }
