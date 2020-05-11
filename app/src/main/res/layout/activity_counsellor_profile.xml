@@ -218,7 +218,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
                             android:textStyle="bold"
-                            android:text="Book Session"/>
+                            android:text="Follow"/>
                         <ImageView
                             android:id="@+id/followingTik"
                             android:layout_width="13dp"

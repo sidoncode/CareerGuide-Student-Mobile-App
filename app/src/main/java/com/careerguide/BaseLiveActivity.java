@@ -262,6 +262,16 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             TextView textView2 = findViewById(R.id.live_user);
             textView2.setText(String.valueOf(user_count) );
             // mMsgContainer.addMessage(new LiveChatMessage("", getUserName(uid) + " " + "Left"));
+            if (mRtcEngine != null) {
+                mRtcEngine.leaveChannel();
+
+
+            mRtcEngine.setupRemoteVideo(null);
+            RtcEngine.destroy();
+            mRtcEngine = null;
+
+            }
+            finish();
         });
     }
 

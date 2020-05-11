@@ -14,6 +14,7 @@ import java.util.List;
 
 public class CGPlayListViewModel extends ViewModel {
 
+    private MutableLiveData<List<CurrentLiveCounsellorsModel>> currentLiveCounsellorsList;
     private MutableLiveData<ArrayList<Videos>> displaylistArray;
     private MutableLiveData<List<Videos>> displaylistArray_two;
     private MutableLiveData<List<Videos>> displaylistArray_three;
@@ -31,6 +32,7 @@ public class CGPlayListViewModel extends ViewModel {
 
 
     public CGPlayListViewModel() {
+        currentLiveCounsellorsList = new MutableLiveData<>();
         displaylistArray = new MutableLiveData<>();
         displaylistArray_two = new MutableLiveData<>();
         displaylistArray_three = new MutableLiveData<>();
@@ -43,9 +45,16 @@ public class CGPlayListViewModel extends ViewModel {
         displaylistArray_WORKING = new MutableLiveData<>();
         displaylistArray_Blog = new MutableLiveData<>();
         displaylistArray_categoryDetails = new MutableLiveData<>();
-
         counsellorList = new MutableLiveData<>();
 
+    }
+
+    void setDisplaylistArrayLiveCounsellors(List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList){
+        this.currentLiveCounsellorsList.setValue(currentLiveCounsellorsList);
+    }
+
+    public MutableLiveData<List<CurrentLiveCounsellorsModel>> getDisplaylistArrayLiveCounsellors() {
+        return currentLiveCounsellorsList;
     }
 
 
@@ -53,7 +62,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray;
     }
 
-    public void setDisplaylistArray(ArrayList<Videos> displaylistArray) {
+    void setDisplaylistArray(ArrayList<Videos> displaylistArray) {
         this.displaylistArray.setValue(displaylistArray);
     }
 
@@ -61,7 +70,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_two;
     }
 
-    public void setDisplaylistArray_two(List<Videos> displaylistArray_two) {
+    void setDisplaylistArray_two(List<Videos> displaylistArray_two) {
         this.displaylistArray_two.setValue(displaylistArray_two);
     }
 
@@ -69,7 +78,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_three;
     }
 
-    public void setDisplaylistArray_three(List<Videos> displaylistArray_three) {
+    void setDisplaylistArray_three(List<Videos> displaylistArray_three) {
         this.displaylistArray_three.setValue(displaylistArray_three);
     }
 
@@ -77,7 +86,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_NINE;
     }
 
-    public void setDisplaylistArray_NINE(List<CommonEducationModel> displaylistArray_NINE) {
+    void setDisplaylistArray_NINE(List<CommonEducationModel> displaylistArray_NINE) {
         this.displaylistArray_NINE.setValue(displaylistArray_NINE);
     }
 
@@ -85,7 +94,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_TEN;
     }
 
-    public void setDisplaylistArray_TEN(List<CommonEducationModel> displaylistArray_TEN) {
+    void setDisplaylistArray_TEN(List<CommonEducationModel> displaylistArray_TEN) {
         this.displaylistArray_TEN.setValue(displaylistArray_TEN);
     }
 
@@ -93,7 +102,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_ELEVEN;
     }
 
-    public void setDisplaylistArray_ELEVEN(List<CommonEducationModel> displaylistArray_ELEVEN) {
+    void setDisplaylistArray_ELEVEN(List<CommonEducationModel> displaylistArray_ELEVEN) {
         this.displaylistArray_ELEVEN.setValue(displaylistArray_ELEVEN);
     }
 
@@ -101,7 +110,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_TWELVE;
     }
 
-    public void setDisplaylistArray_TWELVE(List<CommonEducationModel> displaylistArray_TWELVE) {
+    void setDisplaylistArray_TWELVE(List<CommonEducationModel> displaylistArray_TWELVE) {
         this.displaylistArray_TWELVE.setValue(displaylistArray_TWELVE);
     }
 
@@ -109,7 +118,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_GRADUATE;
     }
 
-    public void setDisplaylistArray_GRADUATE(List<CommonEducationModel> displaylistArray_GRADUATE) {
+    void setDisplaylistArray_GRADUATE(List<CommonEducationModel> displaylistArray_GRADUATE) {
         this.displaylistArray_GRADUATE.setValue(displaylistArray_GRADUATE);
     }
 
@@ -117,7 +126,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_POSTGRA;
     }
 
-    public void setDisplaylistArray_POSTGRA(List<CommonEducationModel> displaylistArray_POSTGRA) {
+    void setDisplaylistArray_POSTGRA(List<CommonEducationModel> displaylistArray_POSTGRA) {
         this.displaylistArray_POSTGRA.setValue(displaylistArray_POSTGRA);
     }
 
@@ -125,7 +134,7 @@ public class CGPlayListViewModel extends ViewModel {
         return displaylistArray_WORKING;
     }
 
-    public void setDisplaylistArray_WORKING(List<CommonEducationModel> displaylistArray_WORKING) {
+    void setDisplaylistArray_WORKING(List<CommonEducationModel> displaylistArray_WORKING) {
         this.displaylistArray_WORKING.setValue(displaylistArray_WORKING);
     }
 
@@ -150,7 +159,7 @@ public class CGPlayListViewModel extends ViewModel {
         return counsellorList;
     }
 
-    public void setCounsellorList(List<Counsellor> counsellorList) {
+    void setCounsellorList(List<Counsellor> counsellorList) {
         this.counsellorList.setValue(counsellorList);
     }
 

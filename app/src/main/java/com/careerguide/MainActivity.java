@@ -86,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     finish();
             }
         },interval);
-
-
-
     }
 
     @Override
