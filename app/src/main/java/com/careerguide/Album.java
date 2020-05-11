@@ -16,12 +16,13 @@ public class Album {
     private String class_cat;
     private String Counsellor_Avatar;
     private String videoviews;
+    private String videoid;
     private String[] strArray;
     ArrayList<live_counsellor_session> videourls = new ArrayList<>();
     public Album() {
     }
 
-    Album(String id,String name, String live_caption, String thumbnail, String channel_name, ArrayList<live_counsellor_session> videourls, String host_email, String class_cat, String Counsellor_Avatar,String videoviews) {
+    Album(String id,String name, String live_caption, String thumbnail, String channel_name, ArrayList<live_counsellor_session> videourls, String host_email, String class_cat, String Counsellor_Avatar,String videoviews,String videoid) {
         this.id=id;
         this.name = name;
         this.host_email = host_email;
@@ -32,6 +33,7 @@ public class Album {
         this.class_cat = class_cat;
         this.Counsellor_Avatar = Counsellor_Avatar;
         this.videoviews=videoviews;
+        this.videoid=videoid;
     }
 
     public  String getId(){return  id;}
@@ -89,4 +91,6 @@ public class Album {
     }
 
     public String getVideoViews(){ return videoviews; }
+
+    public String getVideoId() { return videoid; }
 }

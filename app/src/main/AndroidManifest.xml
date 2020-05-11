@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
 
     <application
         tools:ignore="LockedOrientationActivity"
@@ -237,6 +237,8 @@
         <activity
             android:name=".blog.activity.CatDetailWoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".newsfeed.FeedViewActivity"/>
+        <activity android:name=".newsfeed.NewsFeedActivity" />
         <activity
             android:name=".Video_player"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"

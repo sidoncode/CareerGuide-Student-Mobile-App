@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.careerguide.exoplayer.AndExoPlayerView;
 import com.careerguide.exoplayer.utils.PathUtil;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -41,7 +42,7 @@ public class Video_player extends AppCompatActivity {
 
     private String hostEmail;
     private String hostPicUrl;
-
+    private FirebaseAnalytics mFirebaseAnalytics;
     private AndExoPlayerView andExoPlayerView;
    // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
     private int req_code = 129;
@@ -54,6 +55,8 @@ public class Video_player extends AppCompatActivity {
         }
 
         setContentView ( R.layout.video_player );
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         andExoPlayerView = findViewById ( R.id.andExoPlayerView );
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -90,6 +93,7 @@ public class Video_player extends AppCompatActivity {
                             andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
 
                         new TaskUpdateViewCounter().execute();
+                        logEventForFirebase("v_"+title.trim(),name.trim());
 
                         if(hostPicUrl!=null && hostPicUrl.length()>0)
                             andExoPlayerView.setImg(hostPicUrl);
@@ -104,6 +108,32 @@ public class Video_player extends AppCompatActivity {
 
     }
 
+
+    private void logEventForFirebase(String title,String name) {
+
+
+        //Logic to convert title into valid variable for proper analytics logging
+        String cutString=title;
+        if(title.length()>20)
+            cutString = title.substring(0, 20);
+        StringBuilder sb = new StringBuilder();
+        if(!Character.isJavaIdentifierStart(cutString.charAt(0))) {
+            sb.append("_");
+        }
+        for (char c : cutString.toCharArray()) {
+            if(!Character.isJavaIdentifierPart(c)) {
+                sb.append("_");
+            } else {
+                sb.append(c);
+            }
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(sb.toString(),true);
+        bundle.putString("by",name);
+        mFirebaseAnalytics.logEvent("live_video_watched_from_app",bundle);
+
+    }
 
 
     private void load_url(String s_url) {

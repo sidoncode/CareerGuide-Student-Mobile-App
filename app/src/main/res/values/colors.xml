@@ -31,4 +31,11 @@
     <color name="profileBackground">#fff</color>
     <color name="post_details">#747474</color>
     <color name="coming_soon_relative_layout_background">#c4ffc4</color>
+    <color name="fire_violet">#673ab7</color>
+    <color name="fire_green">#197d4a</color>
+    <color name="fire_grey">#44535a</color>
+    <color name="fire_yellow">#ffb608</color>
+    <color name="fire_blue">#085b9c</color>
+    <color name="fire_red">#800000</color>
+    <color name="fire_sky">#00BCD4</color>
 </resources>

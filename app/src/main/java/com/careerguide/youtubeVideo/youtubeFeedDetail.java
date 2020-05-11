@@ -19,6 +19,8 @@ import com.careerguide.youtubePlayer.DeveloperKey;
 import com.careerguide.youtubePlayer.YouTubeFailureRecoveryActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,8 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
     TextView count , desc;
     ImageView downimage;
     int flag =0;
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private String titleForAnalytics="";
 
     List<Videos> displaylistArray = new ArrayList<>();
     Videos displaylist ;
@@ -50,6 +54,8 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube_feed_detail);
         Log.e("dataid","-->" +getIntent().getStringExtra("data_id"));
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         YouTubePlayerView youTubeView = findViewById(R.id.youtube_view);
         youTubeView.initialize(DeveloperKey.DEVELOPER_KEY, this);
         count = findViewById(R.id.count);
@@ -120,6 +126,26 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
               @Override
               public void onVideoStarted() {
 
+                  //Logic to convert title to valid variable for proper analytics logging
+                  String cutString=titleForAnalytics;
+                  if(titleForAnalytics.length()>20)
+                      cutString = titleForAnalytics.substring(0, 20);
+                  StringBuilder sb = new StringBuilder();
+                  if(!Character.isJavaIdentifierStart(cutString.charAt(0))) {
+                      sb.append("_");
+                  }
+                  for (char c : cutString.toCharArray()) {
+                      if(!Character.isJavaIdentifierPart(c)) {
+                          sb.append("_");
+                      } else {
+                          sb.append(c);
+                      }
+                  }
+
+                  Bundle bundle = new Bundle();
+                  bundle.putBoolean(sb.toString(),true);
+                  mFirebaseAnalytics.logEvent("youtube_video_watched_from_app",bundle);
+
               }
 
               @Override
@@ -160,6 +186,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String title = jsonObject.getJSONObject("snippet").getString("title");
+                        titleForAnalytics = title;
                         String Desc = jsonObject.getJSONObject("snippet").getString("description");
                         count.setText(title);
                         desc.setText(Desc);
