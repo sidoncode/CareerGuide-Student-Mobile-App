@@ -89,7 +89,7 @@
 
     <fragment android:id="@+id/feed_fragment"
         android:name="com.careerguide.newsfeed.NewsFragment"
-        android:label="News Feed"
+        android:label="Articles"
         tools:layout="@layout/fragment_news"/>
 
 

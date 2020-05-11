@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class NewsUtility {
-    public static final String NEWS_URL="https://news.google.com/rss/search?q=career+choices+student+india+-mindler+-idreamcareer+-careers360+-collegedunia+-shiksha+-naukri+-univariety+-leverageedu+-dheya+-edumilestone+-jagranjosh";
+    public static final String NEWS_URL="https://news.google.com/rss/search?q=education+-mindler+-idreamcareer+-careers360+-collegedunia+-shiksha+-naukri+-univariety+-leverageedu+-dheya+-edumilestone+-jagranjosh";
 
     public static class CustomComparator implements Comparator<Article> {
         @Override

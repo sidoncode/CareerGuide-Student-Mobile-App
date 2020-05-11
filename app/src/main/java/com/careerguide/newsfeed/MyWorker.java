@@ -1,4 +1,4 @@
-package com.careerguide.newsfeed.notifier;
+package com.careerguide.newsfeed;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,9 +16,6 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.careerguide.R;
-import com.careerguide.newsfeed.FeedRepo;
-import com.careerguide.newsfeed.NewsFeedActivity;
-import com.careerguide.newsfeed.NewsUtility;
 import com.prof.rssparser.Article;
 import com.prof.rssparser.OnTaskCompleted;
 import com.prof.rssparser.Parser;
