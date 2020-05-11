@@ -36,7 +36,12 @@ public class ebookpdf extends Fragment {
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             //Checking if the received broadcast is for our enqueued download by matching download id
             if (downloadID == id) {
-                Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
+                try{
+                    Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 hideProgressBar();
                 startActivity(goToNextScreen);
             }
