@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_tabs"
         app:labelVisibilityMode="labeled"
         android:enabled="true"
-        android:title="Feeds" />
+        android:title="Articles" />
 
 
 

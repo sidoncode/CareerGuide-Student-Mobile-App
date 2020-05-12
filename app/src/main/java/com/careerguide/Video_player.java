@@ -99,7 +99,6 @@ public class Video_player extends AppCompatActivity {
 
                         }
 
-
                         new TaskUpdateViewCounter().execute();
                         logEventForFirebase("v_"+title.trim(),name.trim());
 
