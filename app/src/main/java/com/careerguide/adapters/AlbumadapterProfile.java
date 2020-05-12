@@ -69,6 +69,7 @@ public class AlbumadapterProfile extends RecyclerView.Adapter<AlbumadapterProfil
         holder.itemView.findViewById(R.id.ll_single_course).setOnClickListener(view -> {
             Log.e("urls" , "==> " +album.getVideourls().get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , Video_player.class);
+            intent.putExtra("video_id" , album.getVideoId());
             intent.putExtra("id" , album.getId());
             intent.putExtra("live_video_url" , album.getVideourls().get(position).getVideourl());
             intent.putExtra("Fullname" , album.getName());
