@@ -46,9 +46,11 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     private MessageContainer mMsgContainer;
     private RtmEnventCallback mRtmEventListener;
     private boolean mIsMsgChannelEnable;
-    private int user_count =1;
+    private int user_count =0;
     private String Fname;
     private String Lname;
+
+    private AlertDialog alertDialog;
 
     /*private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
         @Override
@@ -346,9 +348,8 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     @Override
     public void onBackPressed() {
 
-        final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+        alertDialog = new AlertDialog.Builder(activity).create();
         final View dialog = getLayoutInflater().inflate(R.layout.dialog_log_out,null);//using the same logout dialog
-
         ((TextView)dialog.findViewById(R.id.textViewLogoutTitle)).setText("Do you want to leave the live stream?");
 
         dialog.findViewById(R.id.no).setOnClickListener(v1 -> alertDialog.dismiss());
@@ -356,13 +357,12 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
             if (mRtcEngine != null) {
                 mRtcEngine.leaveChannel();
+                mRtcEngine.setupRemoteVideo(null);
+                RtcEngine.destroy();
+                mRtcEngine = null;
             }
-
-            mRtcEngine.setupRemoteVideo(null);
-            RtcEngine.destroy();
-            mRtcEngine = null;
-
-
+            RtmClientManager.getInstance().setRtmClientListener(null);
+            RtcEngineManager.destory();
             finish();
             super.onBackPressed();
         });
@@ -371,4 +371,13 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         alertDialog.show();
         }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(alertDialog!=null){
+            alertDialog.dismiss();
+            alertDialog=null;
+        }
+
+    }
 }
