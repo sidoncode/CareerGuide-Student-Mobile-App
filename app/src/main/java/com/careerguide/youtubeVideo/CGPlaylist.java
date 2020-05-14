@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,8 +41,7 @@ import java.util.Objects;
 public class CGPlaylist extends Fragment {
 
 
-
-
+    private List<Videos> liveVideosList = new ArrayList<>();
     private List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList=new ArrayList<>();
     private List<Videos> displaylistArray = new ArrayList<>();
     private List<Videos> displaylistArray_two = new ArrayList<>();
@@ -58,6 +58,7 @@ public class CGPlaylist extends Fragment {
     List<Counsellor> counsellorList = new ArrayList<>();
 
     private CurrentLiveCounsellorsAdapter currentLiveCounsellorsAdapter;
+    private YT_recycler_adapter mLiveAdapter;
     private YT_recycler_adapter mVideoAdapter;
     private YT_recycler_adapter mVideoAdapter_two;
     private YT_recycler_adapter mVideoAdapter_three;
@@ -126,6 +127,7 @@ public class CGPlaylist extends Fragment {
                             comingSoonCat_Blog;
 
 
+    private LinearLayout liveLayout;
 
     //onCreateView...
     @Override
@@ -144,6 +146,7 @@ public class CGPlaylist extends Fragment {
         Cat_10 = thisScreensView.findViewById(R.id.Cat_10);
         Cat_Blog = thisScreensView.findViewById(R.id.Cat_Blog);
         Cat_test = thisScreensView.findViewById(R.id.Cat_test);
+        liveLayout = thisScreensView.findViewById(R.id.live_lyt);
 
         thisScreensView.findViewById(R.id.tests).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
@@ -224,6 +227,7 @@ public class CGPlaylist extends Fragment {
 
 
         RecyclerView recyclerViewCurrentLiveCounsellor = thisScreensView.findViewById(R.id.recyclerView_new);
+        RecyclerView liveVideoRecyclerView = thisScreensView.findViewById(R.id.yt_recycler_view_live);//category_live
         RecyclerView mVideoRecyclerView = thisScreensView.findViewById(R.id.yt_recycler_view_one);//category_1
         RecyclerView mVideoRecyclerView_two = thisScreensView.findViewById(R.id.yt_recycler_view_two);//category_2
         RecyclerView mVideoRecyclerView_three = thisScreensView.findViewById(R.id.yt_recycler_view_three);//category_10
@@ -238,6 +242,7 @@ public class CGPlaylist extends Fragment {
         RecyclerView recycler_counsellor = thisScreensView.findViewById(R.id.recycler_counsellor);
 
         LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLiveLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManager_two = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManager_three = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -252,6 +257,7 @@ public class CGPlaylist extends Fragment {
         LinearLayoutManager counsellorLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         recyclerViewCurrentLiveCounsellor.setLayoutManager(mLayoutManager_new);
+        liveVideoRecyclerView.setLayoutManager(mLiveLayoutManager);
         mVideoRecyclerView.setLayoutManager(mLayoutManager);
         mVideoRecyclerView_two.setLayoutManager(mLayoutManager_two);
         mVideoRecyclerView_three.setLayoutManager(mLayoutManager_three);
@@ -267,6 +273,7 @@ public class CGPlaylist extends Fragment {
 
 
         currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(getContext(), currentLiveCounsellorsList);
+        mLiveAdapter = new YT_recycler_adapter(liveVideosList,browserKey,getActivity(),cornerRadius,videoTxtColor);
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_two = new YT_recycler_adapter(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_three = new YT_recycler_adapter(displaylistArray_three, browserKey, getActivity(), cornerRadius, videoTxtColor);
@@ -282,6 +289,8 @@ public class CGPlaylist extends Fragment {
 
 
         recyclerViewCurrentLiveCounsellor.setAdapter(currentLiveCounsellorsAdapter);
+
+        liveVideoRecyclerView.setAdapter(mLiveAdapter);
         mVideoRecyclerView.setAdapter(mVideoAdapter);
         mVideoRecyclerView_two.setAdapter(mVideoAdapter_two);
         mVideoRecyclerView_three.setAdapter(mVideoAdapter_three);
@@ -300,6 +309,7 @@ public class CGPlaylist extends Fragment {
             startActivity(new Intent(getActivity(), BookCounsellor.class));
         });
 
+        liveLayout.setVisibility(View.GONE);
             return thisScreensView;
     }
 
@@ -319,6 +329,19 @@ public class CGPlaylist extends Fragment {
                 Log.i("aaaaa","aaa");
 
 
+        });
+
+
+        channelLiveModel.getLiveVideosList().observe(getActivity(), liveVideos -> {
+            liveVideosList.clear();
+            liveVideosList.addAll(liveVideos);
+            if(liveVideosList.size()>0)
+            {
+                mLiveAdapter.notifyDataSetChanged();
+                liveLayout.setVisibility(View.VISIBLE);
+            }else {
+                liveLayout.setVisibility(View.GONE);
+            }
         });
 
 

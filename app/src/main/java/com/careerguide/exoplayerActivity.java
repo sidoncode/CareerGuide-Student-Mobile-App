@@ -246,6 +246,9 @@ public class exoplayerActivity extends AppCompatActivity {
                     JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
 
                     Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
+
+                    currentLiveCounsellorsList.clear();//clear all the old data and fetch new data
+
                     for (int i = 0; i < counsellorsJsonArray.length(); i++)
                     {
 
