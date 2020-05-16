@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +17,7 @@ import java.util.Objects;
 public class FeedViewActivity extends AppCompatActivity {
 
     WebView webView;
-    SpinKitView webSpinKit;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class FeedViewActivity extends AppCompatActivity {
         String url = getIntent().getStringExtra("news_url");
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        webSpinKit = findViewById(R.id.spin_kit_wv);
+        progressBar = findViewById(R.id.progress_wv);
         webView = (WebView) findViewById(R.id.web_view_1);
 
         webView.getSettings().setSupportZoom(true);
@@ -41,8 +42,8 @@ public class FeedViewActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                if (webView.getProgress() == 100) {
-                    webSpinKit.setVisibility(View.GONE);
+                if (webView.getProgress() == 50) {
+                    progressBar.setVisibility(View.GONE);
                     webView.setVisibility(View.VISIBLE);
                 }
 

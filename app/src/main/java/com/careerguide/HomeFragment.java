@@ -6,14 +6,20 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -85,6 +91,7 @@ public class HomeFragment extends Fragment
     private String mParam1;
     private String mParam2;
 
+    private DrawerLayout mDrawer;
     private List<topics_model> topiclist;
     private ArrayList<topics_model> topics = new ArrayList<>();
     private int topicSize;
@@ -155,7 +162,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
         progressDialog = new ProgressDialog(getActivity());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -169,8 +176,14 @@ public class HomeFragment extends Fragment
         // Inflate the layout for this fragment
         final View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        mDrawer = getActivity().findViewById(R.id.drawer_layout);
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-
+     /*   toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawer.openDrawer(GravityCompat.START);
+            }
+        });*/
         subCat = toolbar.getSubtitle().toString();
 
         Log.e("inside","-->edu" +Utility.getUserEducation(getActivity()));
@@ -1071,6 +1084,7 @@ public class HomeFragment extends Fragment
 
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
+
 }
 
 

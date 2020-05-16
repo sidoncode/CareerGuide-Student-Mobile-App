@@ -89,7 +89,7 @@ public class MyWorker extends Worker {
     private void rescheduleForNextDay(){
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
-        dueDate.set(Calendar.HOUR_OF_DAY, 15);
+        dueDate.set(Calendar.HOUR_OF_DAY, 10);
         dueDate.set(Calendar.MINUTE, 0);
         dueDate.set(Calendar.SECOND, 0);
         if (dueDate.before(currentDate)) {

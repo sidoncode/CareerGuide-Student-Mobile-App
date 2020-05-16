@@ -157,6 +157,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         NavigationUI.setupActionBarWithNavController(this, navController,mAppBarConfiguration);
         NavigationUI.setupWithNavController (toolbar, navController, mDrawer);
+
         NavigationUI.setupWithNavController(navigationView, navController);
 
         onDownloadComplete = new BroadcastReceiver() {
@@ -320,6 +321,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
                 if(menuItem.getItemId()==R.id.nav_home)
                 {
+
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_homeFragment);
                 }
@@ -335,6 +337,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_profileFragment);
                 }
+                setSupportActionBar(toolbar);
+                getSupportActionBar().show();
 
                 return true;
             }
@@ -347,7 +351,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 15);
+        dueDate.set(Calendar.HOUR_OF_DAY, 10);
         dueDate.set(Calendar.MINUTE, 0);
         dueDate.set(Calendar.SECOND, 0);
 
@@ -741,9 +745,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
-            case android.R.id.home:
+           /* case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
-                return true;
+                return true;*/
             /* case R.id.notification:
              *//*FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.popBackStack();
