@@ -48,7 +48,7 @@
     <string name="voice_input_to_cancel">cancel sending</string>
 
     <string name="living_anchor_offline">Counsellor is offline Now</string>
-    <string name="living_no_surfaceview">No screen yet</string>
+    <string name="living_no_surfaceview">Connecting...</string>
 
     <string name="online">online</string>
     <string name="offline">offline</string>

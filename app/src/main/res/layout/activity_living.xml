@@ -6,6 +6,20 @@
     android:gravity="center"
     android:background="@color/black">
 
+    <!--watermark-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="15dp"
+            android:text="CareerGuide.com"
+            android:textColor="@color/grey"
+            android:elevation="4dp"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+
 
     <FrameLayout
         android:id="@+id/live_surfaceview"

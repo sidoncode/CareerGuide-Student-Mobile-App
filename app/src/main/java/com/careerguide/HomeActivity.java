@@ -21,7 +21,6 @@ import com.careerguide.blog.activity.CatDetailActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
-import com.careerguide.newsfeed.MyWorker;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,6 +36,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -67,13 +68,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -81,7 +91,7 @@ import io.reactivex.schedulers.Schedulers;
 import com.careerguide.blog.model.Categories;
 
 
-public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
+public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener {
 
     //storage permission code
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -122,7 +132,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressDialog=new ProgressDialog ( this);
@@ -157,7 +166,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         NavigationUI.setupActionBarWithNavController(this, navController,mAppBarConfiguration);
         NavigationUI.setupWithNavController (toolbar, navController, mDrawer);
-
         NavigationUI.setupWithNavController(navigationView, navController);
 
         onDownloadComplete = new BroadcastReceiver() {
@@ -307,9 +315,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         });
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
    */
+
         registerGoogleFeedNotification();
         registerBottomNavBar();
-
         executeAllTasks();
     }
 
@@ -321,7 +329,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
                 if(menuItem.getItemId()==R.id.nav_home)
                 {
-
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_homeFragment);
                 }
@@ -337,8 +344,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_profileFragment);
                 }
-                setSupportActionBar(toolbar);
-                getSupportActionBar().show();
 
                 return true;
             }
@@ -351,7 +356,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 10);
+        dueDate.set(Calendar.HOUR_OF_DAY, 15);
         dueDate.set(Calendar.MINUTE, 0);
         dueDate.set(Calendar.SECOND, 0);
 
@@ -361,7 +366,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         long timeDiff = dueDate.getTimeInMillis()-currentDate.getTimeInMillis();
 
         OneTimeWorkRequest feedSync =
-                new OneTimeWorkRequest.Builder(MyWorker.class)
+                new OneTimeWorkRequest.Builder(com.careerguide.newsfeed.notifier.MyWorker.class)
                         .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
                         .addTag("NEWS_WORK")
                         .build();
@@ -385,6 +390,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         String[] url_POSTGRA = {"https://app.careerguide.com/api/main/videos_POSTGRA","6"};
         String[] url_WORKING = {"https://app.careerguide.com/api/main/videos_WORKING","7"};
 
+        new TaskFetchLiveCounsellors().execute();
+        new TaskFetchLiveFacebookCounsellors().execute();
         new TaskFetch1_2_3().execute(url_one);
         new TaskFetch1_2_3().execute(url_two);
         new TaskFetch1_2_3().execute(url_three);
@@ -398,7 +405,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         new TaskFetch().execute(url_WORKING);
 
         new TaskBlog().execute();
-        getcounsellor();
+        new TaskFetchAllCounsellors().execute();
     }
 
     private void showReport() {
@@ -745,9 +752,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
-           /* case android.R.id.home:
+            case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
-                return true;*/
+                return true;
             /* case R.id.notification:
              *//*FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.popBackStack();
@@ -821,6 +828,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     @Override
     protected void onResume() {
         super.onResume();
+        new TaskFetchLiveCounsellors().execute();
         Utility.handleOnlineStatus(this, "idle");
     }
 
@@ -1039,7 +1047,135 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
 
 
-    private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
+    private class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+
+        int fetchCode=0;//default
+
+        @Override
+        protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
+                Log.e("all_coun_res", response);
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        Log.e("name-2->","" +counsellorsJsonArray);
+                        List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList = new ArrayList<>();
+
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
+                        {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String channel_name = counselorJsonObject.optString("channel_name");
+                            Log.e("name-1->","" +channel_name);
+                            currentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name));
+                            Log.e("#inside" ,"for" +picUrl+"__"+currentLiveCounsellorsList.get(0).getCounsellorName());
+
+                        }
+                        //CGPlayListViewModel viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
+                        viewModelProvider.setDisplaylistArrayLiveCounsellors(currentLiveCounsellorsList);
+
+                        // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                    //hideProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }, error -> {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    Log.e("all_coun_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(List<CurrentLiveCounsellorsModel> result) {//is needed don't delete
+
+            //viewModelProvider.setDisplaylistArrayLiveCounsellors(result);
+            //Log.i("sssss",result.get(0).getCounsellorName());
+        }
+    }
+
+
+    private class TaskFetchLiveFacebookCounsellors extends AsyncTask<Void, Void, Void> {
+
+        String LIVE_URL = "https://www.googleapis.com/youtube/v3/search?key="+browserKey+"&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&forUsername=s6EVBxMpm9S3a2RpbAIp1w&part=snippet,id&order=date&maxResults=20";
+        ArrayList<Videos> liveVideos = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            StringRequest liveRequest = new StringRequest(Request.Method.GET, LIVE_URL, response -> {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    boolean status = json.optBoolean("status", false);
+                    if (status) {
+                        JSONArray jsonArray = json.getJSONArray("items");
+                        if (jsonArray.length() > 0) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                String liveBroadcastContent = jsonObject.getJSONObject("snippet").getString("liveBroadcastContent");
+                                if (liveBroadcastContent.equals("live") || liveBroadcastContent.equals("upcoming")) {
+                                    JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
+                                    String title = jsonObject.getJSONObject("snippet").getString("title");
+                                    String Desc = jsonObject.getJSONObject("snippet").getString("description");
+                                    String id = video.getString("videoId");
+                                    String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
+                                    Videos liveVideo = new Videos(title, thumbUrl, id, Desc);
+                                    liveVideos.add(liveVideo);
+                                }
+                            }
+                            viewModelProvider.setLiveVideosList(liveVideos);
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("LIVE_VIDEOS", "error: "+e.toString());
+
+                }
+
+            }, error -> {
+                Log.e("LIVE_VIDEOS", "error: "+error.toString());
+            }){
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    return new HashMap<>();
+                }
+            };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(liveRequest);
+            return null;
+
+        }
+
+
+    }
+
+
+        private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
         Videos displaylist;
         ArrayList<Videos> displaylistArray = new ArrayList<>();
 
@@ -1100,7 +1236,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPostExecute(ArrayList<Videos> result) {
-            CGPlayListViewModel viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
+            // viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
 
             switch (fetchCode) {
                 case 1: {
@@ -1302,45 +1438,53 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
+    private class TaskFetchAllCounsellors extends AsyncTask<Void, Void, Void> {
 
-    private void getcounsellor() {
-        List<Counsellor> counsellorList = new ArrayList<>();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
-            Log.e("all_coun_res_counsellor", response);
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                boolean status = jsonObject.optBoolean("status", false);
-                if (status) {
-                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
-                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String id = counselorJsonObject.optString("co_id");
-                        String firstName = counselorJsonObject.optString("first_name");
-                        String lastName = counselorJsonObject.optString("last_name");
-                        String picUrl = counselorJsonObject.optString("profile_pic");
-                        String email = counselorJsonObject.optString("email");
-                        counsellorList.add(new com.careerguide.models.Counsellor(id, email, firstName, lastName, picUrl, 27));
+        @Override
+        protected Void doInBackground(Void... params) {
+            List<Counsellor> counsellorList = new ArrayList<>();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
+                Log.e("all_coun_res_counsellor", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status) {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String email = counselorJsonObject.optString("email");
+                            counsellorList.add(new com.careerguide.models.Counsellor(id, email, firstName, lastName, picUrl, 27));
+                        }
+
+                        viewModelProvider.setCounsellorList(counsellorList);
+
                     }
-
-                    viewModelProvider.setCounsellorList(counsellorList);
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            Log.e("all_coun_rerror", "error");
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                HashMap<String, String> params = new HashMap<>();
-                //params.put("user_education", Utility.getUserEducationUid(getActivity()));
-                Log.e("all_coun_req", params.toString());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+            }, error -> {
+                Log.e("all_coun_rerror", "error");
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String, String> params = new HashMap<>();
+                    //params.put("user_education", Utility.getUserEducationUid(getActivity()));
+                    Log.e("all_coun_req", params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+            return null;
+
+        }
+
+
     }
 
 
