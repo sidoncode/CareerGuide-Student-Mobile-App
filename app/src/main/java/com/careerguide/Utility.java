@@ -161,7 +161,8 @@ public class Utility extends Application
     {
         SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("id", id).apply();
+        editor.putString("id", id).commit();
+        Log.i("sharedpreid",sharedPreferences.getString("id","0"));
         FirebaseApp.initializeApp(activity);
         FirebaseMessaging.getInstance().subscribeToTopic("cgs" + id);
     }
