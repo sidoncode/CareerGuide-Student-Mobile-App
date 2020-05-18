@@ -375,7 +375,7 @@ public class CircleDisplay extends View implements GestureDetector.OnGestureList
 
     /**
      * set the drawing of the center text to be enabled or not
-     *
+     *F
      * @param enabled
      */
     public void setDrawText(boolean enabled) {

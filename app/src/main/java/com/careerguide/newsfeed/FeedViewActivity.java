@@ -1,16 +1,22 @@
 package com.careerguide.newsfeed;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.careerguide.R;
+import com.github.ybq.android.spinkit.SpinKitView;
+
+import java.util.Objects;
 
 public class FeedViewActivity extends AppCompatActivity {
 
     WebView webView;
+    SpinKitView webSpinKit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,13 +24,28 @@ public class FeedViewActivity extends AppCompatActivity {
 
         String url = getIntent().getStringExtra("news_url");
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        webSpinKit = findViewById(R.id.spin_kit_wv);
+        webView = (WebView) findViewById(R.id.web_view_1);
 
-        webView = (WebView) findViewById(R.id.webView1);
+        webView.getSettings().setSupportZoom(true);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(
-                url);
+        webView.loadUrl(url);
+
+
+
 
         webView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (webView.getProgress() == 100) {
+                    webSpinKit.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                }
+
+            }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url){
@@ -33,5 +54,16 @@ public class FeedViewActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
