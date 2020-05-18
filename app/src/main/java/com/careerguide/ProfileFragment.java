@@ -25,19 +25,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.careerguide.payment.PaymentDetailAdapter;
+import com.careerguide.payment.PaymentDetailModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -78,7 +84,11 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    private List<PaymentDetailModel> paymentlist;
+    private ArrayList<PaymentDetailModel> payments = new ArrayList<>();
+    private int paymentCount;
+    private PaymentDetailAdapter payment_adapter;
+    private LinearLayoutManager mLayoutManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,6 +103,13 @@ public class ProfileFragment extends Fragment {
         userLocationTextView.setText(Utility.getUserCity(getActivity()));
 
         profilePic = view.findViewById(R.id.profilePic);
+
+        RecyclerView recycler_payment = view.findViewById(R.id.recycler_payment);
+        paymentlist = new ArrayList<>();
+        payment_adapter = new PaymentDetailAdapter(getContext(), paymentlist);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recycler_payment.setLayoutManager(mLayoutManager);
+        recycler_payment.setAdapter(payment_adapter);
 
         String picUrl = Utility.getUserPic(getActivity());
         if (picUrl.isEmpty())
@@ -212,7 +229,60 @@ public class ProfileFragment extends Fragment {
         });
 
         setUpCardView();
+        getPaymentDetail();
         return view;
+    }
+    private void getPaymentDetail(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "GetPayment", response -> {
+            Log.e("all_payment_res", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                boolean status = jsonObject.optBoolean("status", false);
+                if (status)
+                {
+                    JSONArray Payments = jsonObject.optJSONArray("payments");
+                    Log.e("Payments","-->" +Payments);
+                    for (int i = 0; Payments != null && i < Payments.length(); i++) {
+                        JSONObject PaymentsJsonObject = Payments.optJSONObject(i);
+                        String name = PaymentsJsonObject.optString("firstname");
+                        String email = PaymentsJsonObject.optString("email");
+                        String order_id = PaymentsJsonObject.optString("OrderId");
+                        String amount = PaymentsJsonObject.optString("amount");
+                        String payment_status = PaymentsJsonObject.optString("status");
+                        String datetime = PaymentsJsonObject.optString("datetime");
+                        String validate_till = PaymentsJsonObject.optString("validate_till");
+                        Log.e("@name" ,"-->" +name);
+                        payments.add(new PaymentDetailModel(name, email, order_id, amount, payment_status, datetime,validate_till));
+                    }
+                    paymentCount = payments.size();
+                    for (int i =0 ; i<paymentCount ; i++){
+                        Log.e("@paymentCount" ,"-->" +i);
+                        PaymentDetailModel paymentModel = new PaymentDetailModel(payments.get(i).getName() , payments.get(i).getemail(), payments.get(i).getOrder_id(), payments.get(i).getAmount(), payments.get(i).getPayment_status(), payments.get(i).getDatetime(), payments.get(i).getValidate_till());
+                        paymentlist.add(paymentModel);
+                    }
+                    payment_adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }, error -> {
+            //Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity)),Toast.LENGTH_LONG).show();
+            Log.e("all_coun_rerror","error");
+        })
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("user_id",Utility.getUserId(getActivity()));
+                Log.e("all_coun_req",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
     private void setUpCardView() {
@@ -220,14 +290,17 @@ public class ProfileFragment extends Fragment {
         final View personalDetails = view.findViewById(R.id.personalDetails);
         final View eduDetails = view.findViewById(R.id.educationDetails);
         final View accDetails = view.findViewById(R.id.accountDetails);
+        final View paymentDetails = view.findViewById(R.id.paymentDetails);
 
         View personalRL = view.findViewById(R.id.personalRelativeL);
         View eduRL = view.findViewById(R.id.educationalRelativeL);
         View accountRL = view.findViewById(R.id.accountRelativeL);
+        View paymentRelativeL = view.findViewById(R.id.paymentRelativeL);
 
         final ImageView arrowPersonalImageView = view.findViewById(R.id.arrowPersonal);
         final ImageView arrowEduImageView = view.findViewById(R.id.arrowEducational);
         final ImageView arrowAccountImageView = view.findViewById(R.id.arrowAccount);
+        final ImageView arrowpayment = view.findViewById(R.id.arrowpayment);
 
         personalRL.setOnClickListener(v -> {
             if (personalDetails.getVisibility() == View.VISIBLE)
@@ -244,6 +317,26 @@ public class ProfileFragment extends Fragment {
             accDetails.setVisibility(View.GONE);
             arrowEduImageView.setImageResource(R.drawable.ic_expand);
             arrowAccountImageView.setImageResource(R.drawable.ic_expand);
+        });
+
+
+        paymentRelativeL.setOnClickListener(v -> {
+            if (paymentDetails.getVisibility() == View.VISIBLE)
+            {
+                paymentDetails.setVisibility(View.GONE);
+                arrowpayment.setImageResource(R.drawable.ic_expand);
+            }
+            else
+            {
+                paymentDetails.setVisibility(View.VISIBLE);
+                arrowpayment.setImageResource(R.drawable.ic_collapse);
+            }
+            eduDetails.setVisibility(View.GONE);
+            accDetails.setVisibility(View.GONE);
+            personalDetails.setVisibility(View.GONE);
+            arrowEduImageView.setImageResource(R.drawable.ic_expand);
+            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
+            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
         });
 
         eduRL.setOnClickListener(v -> {

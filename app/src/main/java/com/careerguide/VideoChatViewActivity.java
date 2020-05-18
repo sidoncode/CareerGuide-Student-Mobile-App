@@ -247,14 +247,14 @@ public class VideoChatViewActivity extends AppCompatActivity {
         mRtcEngine.joinChannel(token, getIntent().getStringExtra("channel_video_name"), "Extra Optional Data", 0);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (!mCallEnd) {
-            leaveChannel();
-        }
-        RtcEngine.destroy();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (!mCallEnd) {
+//            leaveChannel();
+//        }
+//        RtcEngine.destroy();
+//    }
 
     private void leaveChannel() {
         mRtcEngine.leaveChannel();
