@@ -15,6 +15,7 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.careerguide.HomeActivity;
 import com.careerguide.R;
 import com.prof.rssparser.Article;
 import com.prof.rssparser.OnTaskCompleted;
@@ -67,7 +68,7 @@ public class MyWorker extends Worker {
                         shortList.add(list.get(i));
                     }
                     feedRepo.saveFeeds(getApplicationContext(), shortList,"");
-                    showNotification(shortList.get(0).getTitle());
+                    showNotification(shortList.get(0).getTitle(),shortList.get(0).getLink());
                     rescheduleForNextDay();
                 }
 
@@ -105,9 +106,11 @@ public class MyWorker extends Worker {
                 .enqueue(dailyWorkRequest);
     }
 
-    private void showNotification(String title){
-        Intent intent = new Intent(getApplicationContext(), NewsFeedActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    private void showNotification(String title,String url){
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+     //   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("feed_url", url);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
 

@@ -28,6 +28,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,14 +110,19 @@ public class NewsFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         blogCard = view.findViewById(R.id.cgblog_btn);
         googleCard = view.findViewById(R.id.google_btn);
+        String url=" ";
+
+
+        if(getArguments() != null) {
+
+            url = getArguments().getString("url1");
+        }
+
 
         blogCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                googleCard.setBackgroundResource(R.drawable.article_button_border);
-                googleCard.setTextColor(getResources().getColor(R.color.app_blue));
-                blogCard.setBackgroundResource(R.drawable.article_button_border_selected);
-                blogCard.setTextColor(getResources().getColor(R.color.white));
+
                 loadBlogPosts();
             }
         });
@@ -123,10 +130,7 @@ public class NewsFragment extends Fragment {
         googleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                blogCard.setBackgroundResource(R.drawable.article_button_border);
-                blogCard.setTextColor(getResources().getColor(R.color.app_blue));
-                googleCard.setBackgroundResource(R.drawable.article_button_border_selected);
-                googleCard.setTextColor(getResources().getColor(R.color.white));
+
                 loadGoogleFeeds();
             }
         });
@@ -167,7 +171,16 @@ public class NewsFragment extends Fragment {
 
         blogCard.setBackgroundResource(R.drawable.article_button_border_selected);
         blogCard.setTextColor(getResources().getColor(R.color.white));
-        loadBlogPosts();
+
+
+
+
+
+            if(url.equals(" "))
+                loadBlogPosts();
+            else loadGoogleFeeds();
+
+
 
         return view;
     }
@@ -178,6 +191,12 @@ public class NewsFragment extends Fragment {
     }
 
     private void loadGoogleFeeds(){
+
+        blogCard.setBackgroundResource(R.drawable.article_button_border);
+        blogCard.setTextColor(getResources().getColor(R.color.app_blue));
+        googleCard.setBackgroundResource(R.drawable.article_button_border_selected);
+        googleCard.setTextColor(getResources().getColor(R.color.white));
+
         FeedRepo feedRepo =new FeedRepo();
         List<Article> cached= new List<Article>() {
             @Override
@@ -364,6 +383,12 @@ public class NewsFragment extends Fragment {
     int page_no = 1, past_visible_count, visible_count, total_Count;
 
     private void loadBlogPosts(){
+        progressBar.setVisibility(View.VISIBLE);
+        googleCard.setBackgroundResource(R.drawable.article_button_border);
+        googleCard.setTextColor(getResources().getColor(R.color.app_blue));
+        blogCard.setBackgroundResource(R.drawable.article_button_border_selected);
+        blogCard.setTextColor(getResources().getColor(R.color.white));
+
 
         disposable = new CompositeDisposable();
         Bundle bundle = getActivity().getIntent().getExtras();
@@ -414,7 +439,7 @@ public class NewsFragment extends Fragment {
 
     private void get_data() {
         loading = true;
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         if (categories != null && categories.getId() != null) {
             disposable.add(Utils.get_api().get_specific_cat_detail(categories.getId(), "8", String.valueOf(page_no))
                     .subscribeOn(Schedulers.io())

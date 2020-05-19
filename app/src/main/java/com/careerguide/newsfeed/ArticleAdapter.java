@@ -122,13 +122,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                 navController.popBackStack();
                 navController.navigate(R.id.nav_to_feedViewFragment,args);
 
-               /* FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.nav_host_fragment_container, new FeedViewFragment(url));
-                transaction.commit();
-*/
 
             }
         });

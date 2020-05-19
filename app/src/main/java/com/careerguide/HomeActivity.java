@@ -2,6 +2,9 @@ package com.careerguide;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +31,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,6 +40,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -50,6 +56,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -315,14 +322,30 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         });
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
    */
-
-        registerGoogleFeedNotification();
         registerBottomNavBar();
+        registerGoogleFeedNotification();
+        checkGoogleFeedNotification();
         executeAllTasks();
     }
 
+    private void checkGoogleFeedNotification() {
+
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("feed_url");
+            if(url != null){
+                Bundle args = new Bundle();
+                args.putString("url1",url);
+                navController.popBackStack();
+                navController.navigate(R.id.nav_to_feedFragment,args);
+            }else{
+                Log.d("Google News Feed", "Intent was null");
+
+    }}
+
+
+    BottomNavigationView bnv;
     private void registerBottomNavBar() {
-        BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+       bnv=findViewById(R.id.bottom_navigation);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -356,8 +379,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 15);
-        dueDate.set(Calendar.MINUTE, 0);
+        dueDate.set(Calendar.HOUR_OF_DAY, 0);
+        dueDate.set(Calendar.MINUTE, 10);
         dueDate.set(Calendar.SECOND, 0);
 
         if (dueDate.before(currentDate)) {
@@ -366,7 +389,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         long timeDiff = dueDate.getTimeInMillis()-currentDate.getTimeInMillis();
 
         OneTimeWorkRequest feedSync =
-                new OneTimeWorkRequest.Builder(com.careerguide.newsfeed.notifier.MyWorker.class)
+                new OneTimeWorkRequest.Builder(com.careerguide.newsfeed.MyWorker.class)
                         .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
                         .addTag("NEWS_WORK")
                         .build();
@@ -375,6 +398,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         WorkManager.getInstance(this).enqueue(feedSync);
 
     }
+
 
     private void executeAllTasks(){
 
