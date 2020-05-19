@@ -17,114 +17,274 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_margin="10dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp">
                     <TextView
-                        android:id="@+id/planName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="@color/app_blue"
-                        android:textSize="17sp"
-                        android:text="CareerGuide Bronze Plan"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000"
-                        android:layout_below="@id/planName"
-                        android:layout_marginTop="5dp"
-                        android:text="(includes 4 services)"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_marginRight="10dp"
-                        android:layout_alignParentRight="true">
-                        <ImageView
-                            android:id="@+id/tick_image"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_edit_correct"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:textColor="#000"
-                            android:text="\u20b91999"/>
-
-                    </LinearLayout>
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/app_blue"
-                android:text="Other Recommended Services"/>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp">
-                    <TextView
-                        android:id="@+id/serviceName"
+                        android:id="@+id/Name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/app_blue"
-                        android:textSize="17sp"
-                        android:text="CareerGuide Bronze Plan"/>
+                        android:textSize="12sp"
+                        android:text="Name :"/>
                     <TextView
-                        android:id="@+id/shortDesc"
+                        android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000"
-                        android:layout_below="@id/serviceName"
-                        android:layout_marginTop="5dp"
-                        android:text="Extra 10 minutes of counselling time"/>
+                        android:textColor="@color/app_blue"
+                        android:textSize="12sp"
+                        android:layout_below="@id/Name"
+                        android:layout_marginTop="10dp"
+                        android:text="Price :"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/app_blue"
                         android:textSize="12sp"
-                        android:text="Get 10 minutes call with a..."
-                        android:layout_below="@id/shortDesc"/>
+                        android:text="Email :"
+                        android:layout_below="@id/price"/>
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/app_blue"
+                        android:textSize="12sp"
+                        android:text="Email :"
+                        android:layout_below="@id/price"/>
+
+                    <TextView
+                        android:id="@+id/orderId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/app_blue"
+                        android:textSize="12sp"
+                        android:text="Order Id :"
+                        android:layout_below="@id/email"/>
+
+                    <TextView
+                        android:id="@+id/statusbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/app_blue"
+                        android:textSize="12sp"
+                        android:text="Status :"
+                        android:layout_below="@id/orderId"/>
+
+                    <TextView
+                        android:id="@+id/paid_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/app_blue"
+                        android:textSize="12sp"
+                        android:text="Date :"
+                        android:layout_below="@id/statusbar"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/app_blue"
+                        android:textSize="12sp"
+                        android:text="Validate Till :"
+                        android:layout_below="@id/paid_date"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true">
-                        <ImageView
-                            android:id="@+id/add_image"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_edit_correct"/>
+
                         <TextView
+                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:textColor="#000"
-                            android:text="\u20b999"/>
+                            android:textSize="12sp"
+                            android:text="Rachit Gupta"/>
+
+                        <TextView
+                            android:id="@+id/amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="\u20b999 /-"/>
+
+                        <TextView
+                            android:id="@+id/payment_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="Rachit@careerguide.com"/>
+
+                        <TextView
+                            android:id="@+id/orderIdValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="#Order897624jbdkjj"/>
+
+                        <TextView
+                            android:id="@+id/status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="Success"/>
+
+
+                        <TextView
+                            android:id="@+id/paidon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="paidon"/>
+
+                        <TextView
+                            android:id="@+id/validTill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#000"
+                            android:textSize="12sp"
+                            android:text="validtill"/>
 
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:text="Pay"
-        android:background="@color/app_pink"/>
 </LinearLayout>
+
+    <!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="12dp">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/planName"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/app_blue"-->
+<!--                        android:textSize="17sp"-->
+<!--                        android:text="CareerGuide Bronze Plan"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColor="#000"-->
+<!--                        android:layout_below="@id/planName"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:text="(includes 4 services)"/>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_alignParentRight="true">-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/tick_image"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:src="@drawable/ic_edit_correct"/>-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="3dp"-->
+<!--                            android:textColor="#000"-->
+<!--                            android:text="\u20b91999"/>-->
+
+<!--                    </LinearLayout>-->
+<!--                </RelativeLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="12dp"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textColor="@color/app_blue"-->
+<!--                android:text="Other Recommended Services"/>-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="10dp">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="12dp">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/serviceName"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColor="@color/app_blue"-->
+<!--                        android:textSize="17sp"-->
+<!--                        android:text="CareerGuide Bronze Plan"/>-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/shortDesc"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColor="#000"-->
+<!--                        android:layout_below="@id/serviceName"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:text="Extra 10 minutes of counselling time"/>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:text="Get 10 minutes call with a..."-->
+<!--                        android:layout_below="@id/shortDesc"/>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_alignParentRight="true">-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/add_image"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:src="@drawable/ic_edit_correct"/>-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="3dp"-->
+<!--                            android:textColor="#000"-->
+<!--                            android:text="\u20b999"/>-->
+
+<!--                    </LinearLayout>-->
+<!--                </RelativeLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="40dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:textColor="#fff"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:text="Pay"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:background="@color/app_pink"/>&ndash;&gt;-->
+<!--</LinearLayout>-->

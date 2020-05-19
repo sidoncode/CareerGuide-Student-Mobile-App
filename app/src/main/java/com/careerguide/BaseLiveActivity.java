@@ -58,7 +58,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     Map<Integer,BaseLiveCurrentUsersModel> currentUsersList;//holds all the current users
 
 
-    /*private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
+    private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
         @Override
         public void onSuccess(Void aVoid) {
             Log.e(TAG, "sendMessage onSuccess");
@@ -68,7 +68,8 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         public void onFailure(ErrorInfo errorInfo) {
             Log.e(TAG, "sendMessage onFailure : " + errorInfo);
         }
-    };*/
+    };
+
 
 
     @Override
@@ -156,7 +157,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
                 }
             });
         }
-        }
+    }
 
 
     private void doSendMsg() {
@@ -245,15 +246,13 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             textView2.setText(String.valueOf(user_count) );
             mMsgContainer.addMessage(new LiveChatMessage("", getUserNameRemotelyJoined(uid) + " " + "Left"));
             removeUser(uid);//remove the user from the currentUserList
-            if (mRtcEngine != null) {
+            if (uid==ANCHOR_UID) {//only when the host leaves we need to finish the activity and release all the resources
                 mRtcEngine.leaveChannel();
-
-            //mRtcEngine.setupRemoteVideo(null);
-            //RtcEngine.destroy();
-            //mRtcEngine = null;
-
+                mRtcEngine.setupRemoteVideo(null);
+                RtcEngine.destroy();
+                mRtcEngine = null;
+                finish();
             }
-            finish();
         });
     }
 
@@ -319,7 +318,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
         alertDialog.setView(dialog);
         alertDialog.show();
-        }
+    }
 
     @Override
     protected void onDestroy() {
