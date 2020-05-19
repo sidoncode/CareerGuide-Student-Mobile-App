@@ -118,13 +118,11 @@ public class exoplayerActivity extends AppCompatActivity {
         }
         currentLiveCounsellorsAdapter.notifyDataSetChanged();
     }
-
     private void preparePastLiveCounsellorsAlbum() {
         for(int i = 0; i<size;i++){
             Log.e("url in exo" , "-->" +counsellors.get(i).getVideourl());
             Album a = new Album(counsellors.get(i).getId(),counsellors.get(i).getFullName(), counsellors.get(i).title, counsellors.get(i).getImgurl() , counsellors.get(i).getVideourl() , counsellors , counsellors.get(i).getEmail(),Utility.getUserEducation(activity), counsellors.get(i).getPicUrl(),counsellors.get(i).getVideoviews());
             albumList.add(a);
-
         }
         allPastLiveSessionAdapter.notifyDataSetChanged();
     }
@@ -271,7 +269,7 @@ public class exoplayerActivity extends AppCompatActivity {
 
                     allPastLiveSessionAdapter.notifyDataSetChanged();
 
-                 //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                 } else {
                     Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
                 }

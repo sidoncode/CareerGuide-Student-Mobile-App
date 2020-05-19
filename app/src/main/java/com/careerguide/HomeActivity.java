@@ -91,7 +91,7 @@ import io.reactivex.schedulers.Schedulers;
 import com.careerguide.blog.model.Categories;
 
 
-public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener {
+public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
 
     //storage permission code
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -138,7 +138,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         progressDialog.setTitle("Downloading...");
         progressDialog.setCancelable(false);
         /*
-
          * Tutorial
          * https://guides.codepath.com/android/fragment-navigation-drawer
          *
@@ -268,7 +267,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             Utility.setEducationUid(activity , getIntent().getStringExtra("subcat_uid"));
             Log.e("uidis" , " " + getIntent().getStringExtra("subcat_uid"));
             updateProfile("education_level",getIntent().getStringExtra("parent_cat_title"),null,null,null);
-
         }
         if(getIntent().getStringExtra("icon_url") == null){
             Glide.with(this).load(Utility.getIcon_url(activity)).into(classimg);
@@ -277,7 +275,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         else{
             Glide.with(this).load(getIntent().getStringExtra("icon_url")).into(classimg);
         }
-
         */
 
         headerLayout.findViewById(R.id.class_cat).setOnClickListener(v -> startActivityForResult(new Intent(activity,GoalsActivity.class),REQUEST_CATEGORY_CODE));
@@ -366,7 +363,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         long timeDiff = dueDate.getTimeInMillis()-currentDate.getTimeInMillis();
 
         OneTimeWorkRequest feedSync =
-                new OneTimeWorkRequest.Builder(com.careerguide.newsfeed.notifier.MyWorker.class)
+                new OneTimeWorkRequest.Builder(com.careerguide.newsfeed.MyWorker.class)
                         .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
                         .addTag("NEWS_WORK")
                         .build();
@@ -548,10 +545,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
         else if(menuItem.getItemId()==R.id.refer_a_friend)
         {
-
             startActivity(new Intent(activity, Refer_a_friend.class));
             mDrawer.closeDrawers();
-
             return;
         }
         else if(menuItem.getItemId()==R.id.rate_us)
@@ -573,8 +568,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
-
-
         else if(menuItem.getItemId()==R.id.livecounsellor)
         {
             final ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -629,7 +622,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
-
         Fragment fragment = null;
         Class fragmentClass = HomeFragment.class;
         switch(menuItem.getItemId()) {
@@ -651,7 +643,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             case R.id.counsellorSignUp:
                 fragmentClass = CounsellorSignUpFragment.class;
                 break;
-
             case R.id.counsellorCorner:
                 fragmentClass = CounsellorCornerFragment.class;
                 break;
@@ -671,7 +662,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 //                        String test = "";
                     String reporturl = jobj.optString("Report_url");
                     Log.e("#homeurl","report " +reporturl.length());
-
                     if(reporturl.length() > 4) {
                         setTitle("Home");
                         Log.e("Urltrst", "myurl" + reporturl);
@@ -690,7 +680,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         alertDialog.setView(dialog);
                         alertDialog.show();
                         //setTitle("Home");
-
                         dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
                             startActivity(new Intent(activity,PsychometricTestsActivity.class));
                             //  alertDialog.dismiss();
@@ -708,7 +697,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 };
                 VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest_new);
                 break;
-
             case R.id.videocallcounsellor:
 //                    openchat();
                 Log.e("#talkinswitch" , "menuitem:"+menuItem.getItemId());
@@ -718,27 +706,22 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             default:
                 fragmentClass = CGPlaylist.class;
         }
-
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(menuItem.getTitle().toString()).commit();
-
         // Highlight the selected item has been done by NavigationView
         //menuItem.setChecked(true);
         // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
-
     }
-
     */
 
 
@@ -761,7 +744,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 fragmentManager.beginTransaction().replace(R.id.flContent, new NotificationFragment()).addToBackStack("Notifications").commit();
                 setTitle("Notifications");*//*
                 navController.navigate(R.id.action_home_fragment_to_notificationFragment);
-
                 return true;*/
             case R.id.action_settings:
                 startActivity(new Intent(activity, SettingActivity.class));
@@ -908,20 +890,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     }
                 }
             }
-
             if(getSupportFragmentManager().getFragments().size() <= 1)
                 setTitle("Home");
-
             Log.d("#####",getSupportFragmentManager().getBackStackEntryCount()+" is fragemnt count");
-
-
             switch (getSupportFragmentManager().getBackStackEntryCount()){
                 case 0:
-
                     final androidx.appcompat.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
                     final View dialog = getLayoutInflater().inflate(R.layout.dialog_exit, null);
                     //setTitle("Home");
-
                     dialog.findViewById(R.id.no).setOnClickListener(v -> alertDialog.dismiss());
                     dialog.findViewById(R.id.yes).setOnClickListener(v -> HomeActivity.super.onBackPressed());
                     alertDialog.setView(dialog);
@@ -1377,9 +1353,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         @Override
         protected Void doInBackground(Void... params) {
             disposable = new CompositeDisposable();
-            
+
             categoryDetails = new ArrayList<>();
-         //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
+            //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
             disposable.add(Utils.get_api().get_cat_detail("10", "1")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -1431,8 +1407,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPostExecute(Void result) {
-      //      viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
-           viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
+            //      viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
+            viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
 
         }
     }
