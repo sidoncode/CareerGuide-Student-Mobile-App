@@ -29,13 +29,13 @@ import java.util.List;
 
 public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     Activity activity = this;
     String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
     TextView count , desc;
     ImageView downimage;
-    int flag =0;
-    private FirebaseAnalytics mFirebaseAnalytics;
     private String titleForAnalytics="";
+    int flag =0;
 
     List<Videos> displaylistArray = new ArrayList<>();
     Videos displaylist ;
@@ -55,7 +55,6 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
         setContentView(R.layout.activity_youtube_feed_detail);
         Log.e("dataid","-->" +getIntent().getStringExtra("data_id"));
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
         YouTubePlayerView youTubeView = findViewById(R.id.youtube_view);
         youTubeView.initialize(DeveloperKey.DEVELOPER_KEY, this);
         count = findViewById(R.id.count);
@@ -145,6 +144,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
                   Bundle bundle = new Bundle();
                   bundle.putBoolean(sb.toString(),true);
                   mFirebaseAnalytics.logEvent("youtube_video_watched_from_app",bundle);
+
 
               }
 

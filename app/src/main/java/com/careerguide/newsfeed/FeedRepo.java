@@ -60,4 +60,4 @@ public class FeedRepo {
 
         return (ArrayList<Article>) favorites;
     }
-} 
+}

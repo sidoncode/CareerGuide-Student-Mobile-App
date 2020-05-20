@@ -2,6 +2,9 @@ package com.careerguide;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +31,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,6 +40,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -50,6 +56,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -91,7 +98,7 @@ import io.reactivex.schedulers.Schedulers;
 import com.careerguide.blog.model.Categories;
 
 
-public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
+public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener {
 
     //storage permission code
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -132,13 +139,13 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressDialog=new ProgressDialog ( this);
         progressDialog.setTitle("Downloading...");
         progressDialog.setCancelable(false);
         /*
+
          * Tutorial
          * https://guides.codepath.com/android/fragment-navigation-drawer
          *
@@ -268,6 +275,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             Utility.setEducationUid(activity , getIntent().getStringExtra("subcat_uid"));
             Log.e("uidis" , " " + getIntent().getStringExtra("subcat_uid"));
             updateProfile("education_level",getIntent().getStringExtra("parent_cat_title"),null,null,null);
+
         }
         if(getIntent().getStringExtra("icon_url") == null){
             Glide.with(this).load(Utility.getIcon_url(activity)).into(classimg);
@@ -276,6 +284,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         else{
             Glide.with(this).load(getIntent().getStringExtra("icon_url")).into(classimg);
         }
+
         */
 
         headerLayout.findViewById(R.id.class_cat).setOnClickListener(v -> startActivityForResult(new Intent(activity,GoalsActivity.class),REQUEST_CATEGORY_CODE));
@@ -313,14 +322,30 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         });
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
    */
-
-        registerGoogleFeedNotification();
         registerBottomNavBar();
+        registerGoogleFeedNotification();
+        checkGoogleFeedNotification();
         executeAllTasks();
     }
 
+    private void checkGoogleFeedNotification() {
+
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("feed_url");
+            if(url != null){
+                Bundle args = new Bundle();
+                args.putString("url1",url);
+                navController.popBackStack();
+                navController.navigate(R.id.nav_to_feedFragment,args);
+            }else{
+                Log.d("Google News Feed", "Intent was null");
+
+    }}
+
+
+    BottomNavigationView bnv;
     private void registerBottomNavBar() {
-        BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+       bnv=findViewById(R.id.bottom_navigation);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -354,8 +379,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 15);
-        dueDate.set(Calendar.MINUTE, 0);
+        dueDate.set(Calendar.HOUR_OF_DAY, 0);
+        dueDate.set(Calendar.MINUTE, 10);
         dueDate.set(Calendar.SECOND, 0);
 
         if (dueDate.before(currentDate)) {
@@ -374,6 +399,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     }
 
+
     private void executeAllTasks(){
 
         String url_one[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50","1"};
@@ -388,7 +414,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         String[] url_POSTGRA = {"https://app.careerguide.com/api/main/videos_POSTGRA","6"};
         String[] url_WORKING = {"https://app.careerguide.com/api/main/videos_WORKING","7"};
 
-
+        new TaskFetchLiveCounsellors().execute();
+        new TaskFetchLiveFacebookCounsellors().execute();
         new TaskFetch1_2_3().execute(url_one);
         new TaskFetch1_2_3().execute(url_two);
         new TaskFetch1_2_3().execute(url_three);
@@ -402,7 +429,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         new TaskFetch().execute(url_WORKING);
 
         new TaskBlog().execute();
-        getcounsellor();
+        new TaskFetchAllCounsellors().execute();
     }
 
     private void showReport() {
@@ -545,8 +572,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
         else if(menuItem.getItemId()==R.id.refer_a_friend)
         {
+
             startActivity(new Intent(activity, Refer_a_friend.class));
             mDrawer.closeDrawers();
+
             return;
         }
         else if(menuItem.getItemId()==R.id.rate_us)
@@ -568,6 +597,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
+
+
         else if(menuItem.getItemId()==R.id.livecounsellor)
         {
             final ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -622,6 +653,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
+
         Fragment fragment = null;
         Class fragmentClass = HomeFragment.class;
         switch(menuItem.getItemId()) {
@@ -643,6 +675,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             case R.id.counsellorSignUp:
                 fragmentClass = CounsellorSignUpFragment.class;
                 break;
+
             case R.id.counsellorCorner:
                 fragmentClass = CounsellorCornerFragment.class;
                 break;
@@ -662,6 +695,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 //                        String test = "";
                     String reporturl = jobj.optString("Report_url");
                     Log.e("#homeurl","report " +reporturl.length());
+
                     if(reporturl.length() > 4) {
                         setTitle("Home");
                         Log.e("Urltrst", "myurl" + reporturl);
@@ -680,6 +714,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         alertDialog.setView(dialog);
                         alertDialog.show();
                         //setTitle("Home");
+
                         dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
                             startActivity(new Intent(activity,PsychometricTestsActivity.class));
                             //  alertDialog.dismiss();
@@ -697,6 +732,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 };
                 VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest_new);
                 break;
+
             case R.id.videocallcounsellor:
 //                    openchat();
                 Log.e("#talkinswitch" , "menuitem:"+menuItem.getItemId());
@@ -706,22 +742,27 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             default:
                 fragmentClass = CGPlaylist.class;
         }
+
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(menuItem.getTitle().toString()).commit();
+
         // Highlight the selected item has been done by NavigationView
         //menuItem.setChecked(true);
         // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
+
     }
+
     */
 
 
@@ -744,6 +785,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 fragmentManager.beginTransaction().replace(R.id.flContent, new NotificationFragment()).addToBackStack("Notifications").commit();
                 setTitle("Notifications");*//*
                 navController.navigate(R.id.action_home_fragment_to_notificationFragment);
+
                 return true;*/
             case R.id.action_settings:
                 startActivity(new Intent(activity, SettingActivity.class));
@@ -890,14 +932,20 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     }
                 }
             }
+
             if(getSupportFragmentManager().getFragments().size() <= 1)
                 setTitle("Home");
+
             Log.d("#####",getSupportFragmentManager().getBackStackEntryCount()+" is fragemnt count");
+
+
             switch (getSupportFragmentManager().getBackStackEntryCount()){
                 case 0:
+
                     final androidx.appcompat.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
                     final View dialog = getLayoutInflater().inflate(R.layout.dialog_exit, null);
                     //setTitle("Home");
+
                     dialog.findViewById(R.id.no).setOnClickListener(v -> alertDialog.dismiss());
                     dialog.findViewById(R.id.yes).setOnClickListener(v -> HomeActivity.super.onBackPressed());
                     alertDialog.setView(dialog);
@@ -905,6 +953,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 default:
                     getSupportFragmentManager().popBackStack();
             }
+
         }
         catch (Exception ex)
         {
@@ -1021,10 +1070,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
+
     private class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
-
-
-
 
         int fetchCode=0;//default
 
@@ -1098,7 +1145,61 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
-    private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
+    private class TaskFetchLiveFacebookCounsellors extends AsyncTask<Void, Void, Void> {
+
+        String LIVE_URL = "https://www.googleapis.com/youtube/v3/search?key="+browserKey+"&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&forUsername=s6EVBxMpm9S3a2RpbAIp1w&part=snippet,id&order=date&maxResults=20";
+        ArrayList<Videos> liveVideos = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            StringRequest liveRequest = new StringRequest(Request.Method.GET, LIVE_URL, response -> {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    boolean status = json.optBoolean("status", false);
+                    if (status) {
+                        JSONArray jsonArray = json.getJSONArray("items");
+                        if (jsonArray.length() > 0) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                String liveBroadcastContent = jsonObject.getJSONObject("snippet").getString("liveBroadcastContent");
+                                if (liveBroadcastContent.equals("live") || liveBroadcastContent.equals("upcoming")) {
+                                    JSONObject video = jsonObject.getJSONObject("snippet").getJSONObject("resourceId");
+                                    String title = jsonObject.getJSONObject("snippet").getString("title");
+                                    String Desc = jsonObject.getJSONObject("snippet").getString("description");
+                                    String id = video.getString("videoId");
+                                    String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
+                                    Videos liveVideo = new Videos(title, thumbUrl, id, Desc);
+                                    liveVideos.add(liveVideo);
+                                }
+                            }
+                            viewModelProvider.setLiveVideosList(liveVideos);
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("LIVE_VIDEOS", "error: "+e.toString());
+
+                }
+
+            }, error -> {
+                Log.e("LIVE_VIDEOS", "error: "+error.toString());
+            }){
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    return new HashMap<>();
+                }
+            };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(liveRequest);
+            return null;
+
+        }
+
+
+    }
+
+
+        private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
         Videos displaylist;
         ArrayList<Videos> displaylistArray = new ArrayList<>();
 
@@ -1300,9 +1401,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         @Override
         protected Void doInBackground(Void... params) {
             disposable = new CompositeDisposable();
-
+            
             categoryDetails = new ArrayList<>();
-            //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
+         //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
             disposable.add(Utils.get_api().get_cat_detail("10", "1")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -1354,52 +1455,60 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPostExecute(Void result) {
-            //      viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
-            viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
+      //      viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
+           viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
 
         }
     }
 
 
+    private class TaskFetchAllCounsellors extends AsyncTask<Void, Void, Void> {
 
-    private void getcounsellor() {
-        List<Counsellor> counsellorList = new ArrayList<>();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
-            Log.e("all_coun_res_counsellor", response);
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                boolean status = jsonObject.optBoolean("status", false);
-                if (status) {
-                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                    for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
-                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String id = counselorJsonObject.optString("co_id");
-                        String firstName = counselorJsonObject.optString("first_name");
-                        String lastName = counselorJsonObject.optString("last_name");
-                        String picUrl = counselorJsonObject.optString("profile_pic");
-                        String email = counselorJsonObject.optString("email");
-                        counsellorList.add(new com.careerguide.models.Counsellor(id, email, firstName, lastName, picUrl, 27));
+        @Override
+        protected Void doInBackground(Void... params) {
+            List<Counsellor> counsellorList = new ArrayList<>();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
+                Log.e("all_coun_res_counsellor", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status) {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String email = counselorJsonObject.optString("email");
+                            counsellorList.add(new com.careerguide.models.Counsellor(id, email, firstName, lastName, picUrl, 27));
+                        }
+
+                        viewModelProvider.setCounsellorList(counsellorList);
+
                     }
-
-                    viewModelProvider.setCounsellorList(counsellorList);
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            Log.e("all_coun_rerror", "error");
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                HashMap<String, String> params = new HashMap<>();
-                //params.put("user_education", Utility.getUserEducationUid(getActivity()));
-                Log.e("all_coun_req", params.toString());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+            }, error -> {
+                Log.e("all_coun_rerror", "error");
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String, String> params = new HashMap<>();
+                    //params.put("user_education", Utility.getUserEducationUid(getActivity()));
+                    Log.e("all_coun_req", params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+            return null;
+
+        }
+
+
     }
 
 

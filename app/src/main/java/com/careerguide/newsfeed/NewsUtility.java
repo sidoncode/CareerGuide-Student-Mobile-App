@@ -10,6 +10,7 @@ import java.util.Locale;
 
 public class NewsUtility {
     public static final String NEWS_URL="https://news.google.com/rss/search?q=education+-mindler+-idreamcareer+-careers360+-collegedunia+-shiksha+-naukri+-univariety+-leverageedu+-dheya+-edumilestone+-jagranjosh";
+
     public static class CustomComparator implements Comparator<Article> {
         @Override
         public int compare(Article o1, Article o2) {
@@ -34,3 +35,5 @@ public class NewsUtility {
     }
 
 }
+
+
