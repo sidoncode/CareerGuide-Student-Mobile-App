@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.careerguide.R;
+import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
 import com.careerguide.youtubePlayer.DeveloperKey;
@@ -31,7 +32,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
     Activity activity = this;
-    String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+    private String browserKey = Utility.browserKey;
     TextView count , desc;
     ImageView downimage;
     private String titleForAnalytics="";
@@ -208,7 +209,7 @@ public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
     }
 
     private void fetchAllVideo() {
-        String url = "https://www.googleapis.com/youtube/v3/search?key=AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&part=snippet,id&order=date&maxResults=30";
+        String url = "https://www.googleapis.com/youtube/v3/search?key="+Utility.browserKey+"&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&part=snippet,id&order=date&maxResults=30";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Log.e("all_coun_res", response);
             try {

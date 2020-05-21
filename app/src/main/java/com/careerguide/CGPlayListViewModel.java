@@ -1,16 +1,38 @@
 package com.careerguide;
 
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.model.Categories;
 import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class CGPlayListViewModel extends ViewModel {
 
@@ -50,6 +72,7 @@ public class CGPlayListViewModel extends ViewModel {
         counsellorList = new MutableLiveData<>();
 
     }
+
 
     void setDisplaylistArrayLiveCounsellors(List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList){
         this.currentLiveCounsellorsList.setValue(currentLiveCounsellorsList);
@@ -174,5 +197,7 @@ public class CGPlayListViewModel extends ViewModel {
     void setCounsellorList(List<Counsellor> counsellorList) {
         this.counsellorList.setValue(counsellorList);
     }
+
+
 
 }

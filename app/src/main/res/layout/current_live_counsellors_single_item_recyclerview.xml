@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/backgroundLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/imgCounsellor"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/grey"
+            android:background="@drawable/ic_no_live_counsellor_foreground"
+            android:scaleType="fitXY"/>
+
+
+        <TextView
+                android:id="@+id/txtCounsellorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:inputType="textMultiLine"
+                android:text="Counsellor Name"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+
+        <TextView
+            android:id="@+id/txtDesc"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:inputType="textMultiLine"
+            android:text="Live Now"
+            android:textSize="12sp" />
+
+        <TextView
+
+            android:layout_marginStart="3dp"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_blue"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:text="CareerGuide.com" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

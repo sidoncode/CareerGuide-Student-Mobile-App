@@ -2,6 +2,8 @@
 
 package com.careerguide.youtubePlayer;
 
+import com.careerguide.Utility;
+
 /**
  * Static container class for holding a reference to your YouTube Developer Key.
  */
@@ -13,6 +15,6 @@ public class DeveloperKey {
    * <a href="https://console.developers.google.com/">Google Developers Console</a>
    * to register a new developer key.
    */
-  public static final String DEVELOPER_KEY = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+  public static final String DEVELOPER_KEY = Utility.browserKey;
 
 }

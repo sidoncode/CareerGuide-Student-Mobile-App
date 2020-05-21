@@ -131,7 +131,8 @@ public class HomeFragment extends Fragment
     View shimmer_p1,shimmer_p2,shimmer_p3;
 
     private List<PlayList> playList;
-    private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+    //private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";//rachit api key for youtube
+    private String browserKey = Utility.browserKey;
 
 
     private CGPlayListViewModel viewModel;

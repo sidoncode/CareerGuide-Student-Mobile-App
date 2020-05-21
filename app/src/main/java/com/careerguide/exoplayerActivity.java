@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -40,7 +41,12 @@ public class exoplayerActivity extends AppCompatActivity {
     private List<CommonEducationModel> allPastLiveSessionList;//used the same educationmodel from cgplaylist
 
     private CurrentLiveCounsellorsAdapter currentLiveCounsellorsAdapter;
-    private List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList;
+
+
+    ArrayList<CurrentLiveCounsellorsModel> finalList=new ArrayList<>();
+    ArrayList<CurrentLiveCounsellorsModel> tempCurrentLiveCounsellorsList = new ArrayList<>();
+    ArrayList<CurrentLiveCounsellorsModel> tempPostLiveCounsellorsList = new ArrayList<>();
+
 
     LinearLayout currentLiveCounsellorsShimmer,pastLiveSessionsShimmer;
 
@@ -58,14 +64,15 @@ public class exoplayerActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle("Live Sessions");
 
+        tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("Checking...","","","",""));
+
         currentLiveCounsellorsShimmer=findViewById(R.id.currentLiveCounsellorsShimmer);
         pastLiveSessionsShimmer=findViewById(R.id.pastLiveSessionsShimmer);
 
-        RecyclerView recyclerViewCurrentLiveCounsellor = findViewById(R.id.recyclerView_new);
+        RecyclerView recyclerViewCurrentLiveCounsellor = findViewById(R.id.recyclerViewCurrentLiveCounsellor);
 
-        currentLiveCounsellorsList = new ArrayList<>();
-        currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(this, currentLiveCounsellorsList);
 
+        currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(getApplicationContext(), finalList);
         recyclerViewCurrentLiveCounsellor.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         //mLayoutManager_new.setOrientation(LinearLayout.HORIZONTAL);
@@ -84,8 +91,6 @@ public class exoplayerActivity extends AppCompatActivity {
 //        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerViewPastLiveCounsellor.setAdapter(allPastLiveSessionAdapter);
-
-        getCurrentLiveCounsellors();
         getPastLiveSessions();
     }
 
@@ -174,64 +179,10 @@ public class exoplayerActivity extends AppCompatActivity {
     }
 
     private void getCurrentLiveCounsellors() {
-        showcurrentLiveCounsellorsShimmer();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
-            Log.e("all_coun_res", response);
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                boolean status = jsonObject.optBoolean("status", false);
-                if (status)
-                {
-                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                    Log.e("name-2->","" +counsellorsJsonArray);
+        //showcurrentLiveCounsellorsShimmer();
+        hidecurrentLiveCounsellorsShimmer();
+        new TaskFetchLiveCounsellors().execute();
 
-                    currentLiveCounsellorsList.clear();//clear all the old data and fetch new data
-
-                    for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
-                    {
-                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String id = counselorJsonObject.optString("co_id");
-                        String firstName = counselorJsonObject.optString("first_name");
-                        String lastName = counselorJsonObject.optString("last_name");
-                        String picUrl = counselorJsonObject.optString("profile_pic");
-                        String channel_name = counselorJsonObject.optString("channel_name");
-                        Log.e("name-1->","" +channel_name);
-                        currentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name));
-                        Log.e("#inside" ,"for" +picUrl);
-
-                    }
-                    size_new = currentLiveCounsellorsList.size();
-                    Log.e("size live" , "==> " +size_new );
-                    if(size_new>0){//if counsellers are live notify the adapter
-                        currentLiveCounsellorsAdapter.notifyDataSetChanged();
-                    }
-                    // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                } else {
-                    Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
-                }
-                //hideProgressBar();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            hidecurrentLiveCounsellorsShimmer();
-
-        }, error -> {
-            hidecurrentLiveCounsellorsShimmer();
-            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-            Log.e("all_coun_rerror","error");
-        })
-        {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("user_id",Utility.getUserId(activity));
-                Log.e("all_coun_req",params.toString());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
 
     private void getPastLiveSessions() {
@@ -314,4 +265,169 @@ public class exoplayerActivity extends AppCompatActivity {
         super.onResume();
         getCurrentLiveCounsellors();
     }
+
+    public class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+
+
+        @Override
+        protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
+
+            tempCurrentLiveCounsellorsList.clear();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
+                Log.e("all_coun_res", response);
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+                        Log.e("name-2->","" +counsellorsJsonArray);
+
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
+                        {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("co_id");
+                            String firstName = counselorJsonObject.optString("first_name");
+                            String lastName = counselorJsonObject.optString("last_name");
+                            String picUrl = counselorJsonObject.optString("profile_pic");
+                            String channel_name = counselorJsonObject.optString("channel_name");
+                            String scheduleDescrpition = "LIVE NOW, Session on "+counselorJsonObject.optString("topic");
+                            Log.e("name-1->","" +channel_name);
+                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name,scheduleDescrpition));
+                            Log.e("#inside" ,"for" +picUrl+"__"+tempCurrentLiveCounsellorsList.get(0).getCounsellorName());
+
+                        }
+
+
+                        if(tempCurrentLiveCounsellorsList.size()==0){
+                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("No one is Live","","","",""));
+                        }
+                        runOnUiThread(()->{
+                            finalList.clear();
+                            finalList.addAll(tempCurrentLiveCounsellorsList);
+                            finalList.addAll(tempPostLiveCounsellorsList);
+                            currentLiveCounsellorsAdapter.notifyDataSetChanged();
+                        });
+                        new TaskFetchPostLiveCounsellors().execute();
+
+
+                        // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                    //hideProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }, error -> {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    Log.e("all_coun_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+
+            return null;
+
+        }
+
+    }
+
+    public class TaskFetchPostLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+
+
+        @Override
+        protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
+            tempPostLiveCounsellorsList.clear();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/fetch_session", response -> {
+                Log.e("postlive_coun_res", response);
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellor");
+                        Log.e("name-2->","" +counsellorsJsonArray);
+
+
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
+                        {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("userId");
+                            String firstName = counselorJsonObject.optString("co_FirstName");
+                            String lastName = counselorJsonObject.optString("co_LastName");
+                            String picUrl = counselorJsonObject.optString("co_img");
+                            String channel_name = counselorJsonObject.optString("channel_name");
+                            String scheduleDescrpition = "LIVE AT "+counselorJsonObject.optString("time")+" on "+counselorJsonObject.optString("formatteddate")+". Topic: "+counselorJsonObject.optString("topic")+".";
+                            Log.e("name-desc->","" +scheduleDescrpition);
+                            Log.e("name-1->","" +channel_name);
+                            tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name,scheduleDescrpition));//use the same model for postlive sessions
+                            Log.e("#inside" ,"for" +picUrl+"__"+tempPostLiveCounsellorsList.get(0).getCounsellorName());
+
+                        }
+
+                        runOnUiThread(()->{
+                            finalList.clear();
+                            finalList.addAll(tempCurrentLiveCounsellorsList);
+                            finalList.addAll(tempPostLiveCounsellorsList);
+                            currentLiveCounsellorsAdapter.notifyDataSetChanged();
+                        });
+                        // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                    //hideProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }, error -> {
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    Log.e("all_coun_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(List<CurrentLiveCounsellorsModel> result) {//is needed don't delete
+
+            //setDisplaylistArrayLiveCounsellors(result);
+            //Log.i("sssss",result.get(0).getCounsellorName());
+        }
+    }
+
+
 }

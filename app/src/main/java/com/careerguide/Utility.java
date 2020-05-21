@@ -73,6 +73,10 @@ public class Utility extends Application
 {
     public static final String PRIVATE_SERVER = "https://app.careerguide.com/api/main/";
 
+    //public static final String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";//rachit api key for youtube
+    public static final String browserKey = "AIzaSyBHsYVOxUjVlLhTbZwA7FgWqjUIjjfOld8";//albino api key for youtube
+
+
     //storage permission code
     private static final int PERMISSION_REQUEST_CODE = 1;
 
