@@ -2,12 +2,12 @@ package com.careerguide.blog;
 
 public class DataMembers {
 
-    int postId;
-    String postTitle;
-    String postCode;
-    String imgurl;
-    String posturl;
-    String postDesc;
+    public  int postId;
+   public String postTitle;
+   public String postCode;
+   public String imgurl;
+   public String posturl;
+   public String postDesc;
 
     public DataMembers(int postId, String postTitle, String postCode, String imgurl, String posturl , String postDesc){
         this.postId = postId;

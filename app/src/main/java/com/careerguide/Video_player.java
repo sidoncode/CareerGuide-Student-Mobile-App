@@ -46,7 +46,7 @@ public class Video_player extends AppCompatActivity {
     private AndExoPlayerView andExoPlayerView;
    // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
     private int req_code = 129;
-    private String videoId="1";
+    private String videoId="";
     Context context=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,6 @@ public class Video_player extends AppCompatActivity {
 
         setContentView ( R.layout.video_player );
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
         andExoPlayerView = findViewById ( R.id.andExoPlayerView );
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -100,6 +99,7 @@ public class Video_player extends AppCompatActivity {
                         }
 
                         new TaskUpdateViewCounter().execute();
+
                         logEventForFirebase("v_"+title.trim(),name.trim());
 
                         if(hostPicUrl!=null && hostPicUrl.length()>0)
@@ -114,7 +114,6 @@ public class Video_player extends AppCompatActivity {
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
 
     }
-
 
     private void logEventForFirebase(String title,String name) {
 

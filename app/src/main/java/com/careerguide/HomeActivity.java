@@ -2,6 +2,9 @@ package com.careerguide;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +31,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,6 +40,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -50,6 +56,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -155,6 +162,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         executeAllTasks();
 
         /*
+
          * Tutorial
          * https://guides.codepath.com/android/fragment-navigation-drawer
          *
@@ -283,6 +291,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             Utility.setEducationUid(activity , getIntent().getStringExtra("subcat_uid"));
             Log.e("uidis" , " " + getIntent().getStringExtra("subcat_uid"));
             updateProfile("education_level",getIntent().getStringExtra("parent_cat_title"),null,null,null);
+
         }
         if(getIntent().getStringExtra("icon_url") == null){
             Glide.with(this).load(Utility.getIcon_url(activity)).into(classimg);
@@ -291,6 +300,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         else{
             Glide.with(this).load(getIntent().getStringExtra("icon_url")).into(classimg);
         }
+
         */
 
         headerLayout.findViewById(R.id.class_cat).setOnClickListener(v -> startActivityForResult(new Intent(activity,GoalsActivity.class),REQUEST_CATEGORY_CODE));
@@ -328,13 +338,30 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         });
         findViewById(R.id.setting).setOnClickListener(v -> startActivity(new Intent(activity, SettingActivity.class)));
    */
-
-        registerGoogleFeedNotification();
         registerBottomNavBar();
+        registerGoogleFeedNotification();
+        checkGoogleFeedNotification();
+
     }
 
+    private void checkGoogleFeedNotification() {
+
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("feed_url");
+            if(url != null){
+                Bundle args = new Bundle();
+                args.putString("url1",url);
+                navController.popBackStack();
+                navController.navigate(R.id.nav_to_feedFragment,args);
+            }else{
+                Log.d("Google News Feed", "Intent was null");
+
+    }}
+
+
+    BottomNavigationView bnv;
     private void registerBottomNavBar() {
-        BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+       bnv=findViewById(R.id.bottom_navigation);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -368,8 +395,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 15);
-        dueDate.set(Calendar.MINUTE, 0);
+        dueDate.set(Calendar.HOUR_OF_DAY, 0);
+        dueDate.set(Calendar.MINUTE, 10);
         dueDate.set(Calendar.SECOND, 0);
 
         if (dueDate.before(currentDate)) {
@@ -530,8 +557,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
         else if(menuItem.getItemId()==R.id.refer_a_friend)
         {
+
             startActivity(new Intent(activity, Refer_a_friend.class));
             mDrawer.closeDrawers();
+
             return;
         }
         else if(menuItem.getItemId()==R.id.rate_us)
@@ -607,6 +636,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
+
         Fragment fragment = null;
         Class fragmentClass = HomeFragment.class;
         switch(menuItem.getItemId()) {
@@ -628,6 +658,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             case R.id.counsellorSignUp:
                 fragmentClass = CounsellorSignUpFragment.class;
                 break;
+
             case R.id.counsellorCorner:
                 fragmentClass = CounsellorCornerFragment.class;
                 break;
@@ -647,6 +678,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 //                        String test = "";
                     String reporturl = jobj.optString("Report_url");
                     Log.e("#homeurl","report " +reporturl.length());
+
                     if(reporturl.length() > 4) {
                         setTitle("Home");
                         Log.e("Urltrst", "myurl" + reporturl);
@@ -665,6 +697,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         alertDialog.setView(dialog);
                         alertDialog.show();
                         //setTitle("Home");
+
                         dialog.findViewById(R.id.start_test).setOnClickListener(v -> {
                             startActivity(new Intent(activity,PsychometricTestsActivity.class));
                             //  alertDialog.dismiss();
@@ -682,6 +715,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 };
                 VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest_new);
                 break;
+
             case R.id.videocallcounsellor:
 //                    openchat();
                 Log.e("#talkinswitch" , "menuitem:"+menuItem.getItemId());
@@ -691,22 +725,27 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             default:
                 fragmentClass = CGPlaylist.class;
         }
+
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(menuItem.getTitle().toString()).commit();
+
         // Highlight the selected item has been done by NavigationView
         //menuItem.setChecked(true);
         // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
+
     }
+
     */
 
 
@@ -729,6 +768,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 fragmentManager.beginTransaction().replace(R.id.flContent, new NotificationFragment()).addToBackStack("Notifications").commit();
                 setTitle("Notifications");*//*
                 navController.navigate(R.id.action_home_fragment_to_notificationFragment);
+
                 return true;*/
             case R.id.action_settings:
                 startActivity(new Intent(activity, SettingActivity.class));
@@ -875,14 +915,20 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     }
                 }
             }
+
             if(getSupportFragmentManager().getFragments().size() <= 1)
                 setTitle("Home");
+
             Log.d("#####",getSupportFragmentManager().getBackStackEntryCount()+" is fragemnt count");
+
+
             switch (getSupportFragmentManager().getBackStackEntryCount()){
                 case 0:
+
                     final androidx.appcompat.app.AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
                     final View dialog = getLayoutInflater().inflate(R.layout.dialog_exit, null);
                     //setTitle("Home");
+
                     dialog.findViewById(R.id.no).setOnClickListener(v -> alertDialog.dismiss());
                     dialog.findViewById(R.id.yes).setOnClickListener(v -> HomeActivity.super.onBackPressed());
                     alertDialog.setView(dialog);
@@ -1188,19 +1234,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 }
             };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-
-
-
             return null;
 
         }
 
-        @Override
-        protected void onPostExecute(List<CurrentLiveCounsellorsModel> result) {//is needed don't delete
-
-            //setDisplaylistArrayLiveCounsellors(result);
-            //Log.i("sssss",result.get(0).getCounsellorName());
-        }
     }
 
     private class TaskFetchLiveFacebookCounsellors extends AsyncTask<Void, Void, Void> {
@@ -1459,7 +1496,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             disposable = new CompositeDisposable();
 
             categoryDetails = new ArrayList<>();
-            //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
+         //   categories = new Gson().fromJson(bundle.getString("data"), Categories.class);
             disposable.add(Utils.get_api().get_cat_detail("10", "1")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
