@@ -106,6 +106,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private static TextView locationTextView;
     private static View headerLayout;
 
+    CGPlayListViewModel viewModelProvider;
+
     ProgressDialog progressDialog;
     BroadcastReceiver onDownloadComplete;
     long downloadID;
@@ -121,8 +123,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private String mActivityTitle;
     private String apiKey = "1befd9d8922089646809507c9b51320c61dfa227";
 
-    private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
-    CGPlayListViewModel viewModelProvider;
+
+    private String browserKey = Utility.browserKey;
+
+
+    ArrayList<CurrentLiveCounsellorsModel> finalList=new ArrayList<>();
+    ArrayList<CurrentLiveCounsellorsModel> tempCurrentLiveCounsellorsList = new ArrayList<>();
+    ArrayList<CurrentLiveCounsellorsModel> tempPostLiveCounsellorsList = new ArrayList<>();
+
 
     public void openchat(){
 
@@ -137,6 +145,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         progressDialog=new ProgressDialog ( this);
         progressDialog.setTitle("Downloading...");
         progressDialog.setCancelable(false);
+
+        tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("Checking...","","","",""));
+
+        viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
+
+        viewModelProvider.setDisplaylistArrayLiveCounsellors(tempCurrentLiveCounsellorsList);
+
+        executeAllTasks();
+
         /*
          * Tutorial
          * https://guides.codepath.com/android/fragment-navigation-drawer
@@ -216,7 +233,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             }
         });
 
-        viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
 
 
         String version = "";
@@ -315,7 +331,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         registerGoogleFeedNotification();
         registerBottomNavBar();
-        executeAllTasks();
     }
 
     private void registerBottomNavBar() {
@@ -373,37 +388,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     }
 
-    private void executeAllTasks(){
 
-        String url_one[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50","1"};
-        String url_two[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO7H9GCU_aZbZTK-G064Mcgd&key=" + browserKey + "&maxResults=50","2"};
-        String url_three[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO5Rnt3QlWFTdf-50IUp7bBg&key=" + browserKey + "&maxResults=50","3"};
-
-        String[] url_NINE={  "https://app.careerguide.com/api/main/videos_NINE","1"};//url and fetchCode used in switch
-        String[] url_TEN= {  "https://app.careerguide.com/api/main/videos_TEN","2"};
-        String[] url_ELEVEN = {"https://app.careerguide.com/api/main/videos_ELEVEN","3"};
-        String[] url_TWELVE = {"https://app.careerguide.com/api/main/videos_TWELVE","4"};
-        String[] url_GRADUATE ={ "https://app.careerguide.com/api/main/videos_GRADUATE","5"};
-        String[] url_POSTGRA = {"https://app.careerguide.com/api/main/videos_POSTGRA","6"};
-        String[] url_WORKING = {"https://app.careerguide.com/api/main/videos_WORKING","7"};
-
-        new TaskFetchLiveCounsellors().execute();
-        new TaskFetchLiveFacebookCounsellors().execute();
-        new TaskFetch1_2_3().execute(url_one);
-        new TaskFetch1_2_3().execute(url_two);
-        new TaskFetch1_2_3().execute(url_three);
-
-        new TaskFetch().execute(url_NINE);
-        new TaskFetch().execute(url_TEN);
-        new TaskFetch().execute(url_ELEVEN);
-        new TaskFetch().execute(url_TWELVE);
-        new TaskFetch().execute(url_GRADUATE);
-        new TaskFetch().execute(url_POSTGRA);
-        new TaskFetch().execute(url_WORKING);
-
-        new TaskBlog().execute();
-        new TaskFetchAllCounsellors().execute();
-    }
 
     private void showReport() {
         final ProgressDialog progressDialog2 = new ProgressDialog(activity);
@@ -1022,13 +1007,46 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     }
 
 
+    public void executeAllTasks(){
 
-    private class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+        String url_one[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO6uJ0ID2pCegbt2iXJ_pyFS&key=" + browserKey + "&maxResults=50","1"};
+        String url_two[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO7H9GCU_aZbZTK-G064Mcgd&key=" + browserKey + "&maxResults=50","2"};
+        String url_three[] = {"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLnnMTbSs_SO5Rnt3QlWFTdf-50IUp7bBg&key=" + browserKey + "&maxResults=50","3"};
 
-        int fetchCode=0;//default
+        String[] url_NINE={  "https://app.careerguide.com/api/main/videos_NINE","1"};//url and fetchCode used in switch
+        String[] url_TEN= {  "https://app.careerguide.com/api/main/videos_TEN","2"};
+        String[] url_ELEVEN = {"https://app.careerguide.com/api/main/videos_ELEVEN","3"};
+        String[] url_TWELVE = {"https://app.careerguide.com/api/main/videos_TWELVE","4"};
+        String[] url_GRADUATE ={ "https://app.careerguide.com/api/main/videos_GRADUATE","5"};
+        String[] url_POSTGRA = {"https://app.careerguide.com/api/main/videos_POSTGRA","6"};
+        String[] url_WORKING = {"https://app.careerguide.com/api/main/videos_WORKING","7"};
+
+        //new TaskFetchLiveCounsellors().execute();
+        new TaskFetchLiveFacebookCounsellors().execute();
+        new TaskFetch1_2_3().execute(url_one);
+        new TaskFetch1_2_3().execute(url_two);
+        new TaskFetch1_2_3().execute(url_three);
+
+        new TaskFetch().execute(url_NINE);
+        new TaskFetch().execute(url_TEN);
+        new TaskFetch().execute(url_ELEVEN);
+        new TaskFetch().execute(url_TWELVE);
+        new TaskFetch().execute(url_GRADUATE);
+        new TaskFetch().execute(url_POSTGRA);
+        new TaskFetch().execute(url_WORKING);
+
+        new TaskBlog().execute();
+        new TaskFetchAllCounsellors().execute();
+    }
+
+
+    public class TaskFetchLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+
 
         @Override
         protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
+
+            tempCurrentLiveCounsellorsList.clear();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
                 Log.e("all_coun_res", response);
@@ -1041,7 +1059,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     {
                         JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
                         Log.e("name-2->","" +counsellorsJsonArray);
-                        List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList = new ArrayList<>();
 
                         for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
                         {
@@ -1051,13 +1068,25 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             String lastName = counselorJsonObject.optString("last_name");
                             String picUrl = counselorJsonObject.optString("profile_pic");
                             String channel_name = counselorJsonObject.optString("channel_name");
+                            String scheduleDescrpition = "LIVE NOW, Session on "+counselorJsonObject.optString("topic");
                             Log.e("name-1->","" +channel_name);
-                            currentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name));
-                            Log.e("#inside" ,"for" +picUrl+"__"+currentLiveCounsellorsList.get(0).getCounsellorName());
+                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name,scheduleDescrpition));
+                            Log.e("#inside" ,"for" +picUrl+"__"+tempCurrentLiveCounsellorsList.get(0).getCounsellorName());
 
                         }
-                        //CGPlayListViewModel viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
-                        viewModelProvider.setDisplaylistArrayLiveCounsellors(currentLiveCounsellorsList);
+
+
+                        if(tempCurrentLiveCounsellorsList.size()==0){
+                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("No one is Live","","","",""));
+                        }
+                        runOnUiThread(()->{
+                            finalList.clear();
+                            finalList.addAll(tempCurrentLiveCounsellorsList);
+                            finalList.addAll(tempPostLiveCounsellorsList);
+                            viewModelProvider.setDisplaylistArrayLiveCounsellors(finalList);
+                        });
+                        new TaskFetchPostLiveCounsellors().execute();
+
 
                         // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                     } else {
@@ -1084,6 +1113,84 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                 }
             };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+
+            return null;
+
+        }
+
+    }
+
+    public class TaskFetchPostLiveCounsellors extends AsyncTask<String, Void, List<CurrentLiveCounsellorsModel>> {
+
+
+        @Override
+        protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
+            tempPostLiveCounsellorsList.clear();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/fetch_session", response -> {
+                Log.e("postlive_coun_res", response);
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellor");
+                        Log.e("name-2->","" +counsellorsJsonArray);
+
+
+                        for (int i = 0; counsellorsJsonArray != null && i<counsellorsJsonArray.length(); i++)
+                        {
+                            JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String id = counselorJsonObject.optString("userId");
+                            String firstName = counselorJsonObject.optString("co_FirstName");
+                            String lastName = counselorJsonObject.optString("co_LastName");
+                            String picUrl = counselorJsonObject.optString("co_img");
+                            String channel_name = counselorJsonObject.optString("channel_name");
+                            String scheduleDescrpition = "LIVE AT "+counselorJsonObject.optString("time")+" on "+counselorJsonObject.optString("formatteddate")+". Topic:  "+counselorJsonObject.optString("topic");
+                            Log.e("name-1->","" +channel_name);
+                            tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name,scheduleDescrpition));//use the same model for postlive sessions
+                            Log.e("#inside" ,"for" +picUrl+"__"+tempPostLiveCounsellorsList.get(0).getCounsellorName());
+
+                        }
+
+                        runOnUiThread(()->{
+                            finalList.clear();
+                            finalList.addAll(tempCurrentLiveCounsellorsList);
+                            finalList.addAll(tempPostLiveCounsellorsList);
+                            viewModelProvider.setDisplaylistArrayLiveCounsellors(finalList);
+                        });
+                        // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+                    //hideProgressBar();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }, error -> {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror","error");
+            })
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    HashMap<String,String> params = new HashMap<>();
+                    params.put("user_id",Utility.getUserId(activity));
+                    Log.e("all_coun_req",params.toString());
+                    return params;
+                }
+            };
+            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+
             return null;
 
         }
@@ -1091,11 +1198,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         @Override
         protected void onPostExecute(List<CurrentLiveCounsellorsModel> result) {//is needed don't delete
 
-            //viewModelProvider.setDisplaylistArrayLiveCounsellors(result);
+            //setDisplaylistArrayLiveCounsellors(result);
             //Log.i("sssss",result.get(0).getCounsellorName());
         }
     }
-
 
     private class TaskFetchLiveFacebookCounsellors extends AsyncTask<Void, Void, Void> {
 
@@ -1150,8 +1256,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     }
 
-
-        private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
+    private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
         Videos displaylist;
         ArrayList<Videos> displaylistArray = new ArrayList<>();
 
@@ -1212,7 +1317,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPostExecute(ArrayList<Videos> result) {
-            // viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
+            viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
 
             switch (fetchCode) {
                 case 1: {
@@ -1340,7 +1445,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
     }
 
-
     private class TaskBlog extends AsyncTask<Void, Void, Void> {
 
         DataMembers displaylist;
@@ -1407,12 +1511,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         @Override
         protected void onPostExecute(Void result) {
-            //      viewModelProvider.setDisplaylistArray_Blog(displaylistArray);
+            //      setDisplaylistArray_Blog(displaylistArray);
             viewModelProvider.setDisplaylistArray_categoryDetails(categoryDetails);
 
         }
     }
-
 
     private class TaskFetchAllCounsellors extends AsyncTask<Void, Void, Void> {
 

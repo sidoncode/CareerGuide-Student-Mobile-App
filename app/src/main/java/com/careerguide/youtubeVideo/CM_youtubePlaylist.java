@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.careerguide.R;
+import com.careerguide.Utility;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.RecyclerAdapter;
 
@@ -59,7 +60,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
     Context context;
     private String playlist_id;
     Activity activity = this;
-    private String browserKey;
+    private String browserKey = Utility.browserKey;
     String loadMsg;
     String loadTitle;
     LinearLayoutManager mLayoutManager , mLayoutManager_two, mLayoutManager_three, mLayoutManager_NINE , mLayoutManager_TEN , mLayoutManager_ELEVEN, mLayoutManager_TWELVE , mLayoutManager_GRADUATE ,mLayoutManager_POSTGRA ,mLayoutManager_WORKING, mLayoutManager_Blog;
@@ -110,7 +111,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
 
         loadTitle = "Loading...";
         loadMsg = "Loading your videos...";
-        browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+
         playlist_id = getIntent().getStringExtra("playlist_id");
         int cornerRadius = 5;
         int videoTxtColor = Color.parseColor("#000000");

@@ -9,19 +9,17 @@ public class CurrentLiveCounsellorsModel {
     private String desc = "";
     private String imgSrc;
     private String channel_name;
+    private String scheduleDescrpition;
 
 
-    public CurrentLiveCounsellorsModel(String counsellorName,String desc,String imgSrc,String channel_name){
+    public CurrentLiveCounsellorsModel(String counsellorName,String desc,String imgSrc,String channel_name,String scheduleDescrpition){
         this.counsellorName=counsellorName;
         this.desc=desc;
         this.imgSrc=imgSrc;
         this.channel_name=channel_name;
+        this.scheduleDescrpition=scheduleDescrpition;
     }
 
-    public void setRestaurantName(String CounsellorName) {
-        this.counsellorName = CounsellorName;
-        Log.e("#name123","===>" +CounsellorName);
-    }
 
     public String getCounsellorName() {
         return this.counsellorName;
@@ -44,4 +42,9 @@ public class CurrentLiveCounsellorsModel {
         return this.imgSrc;
 
     }
+
+    public String getscheduleDescription(){
+        return scheduleDescrpition;
+    }
+
 }

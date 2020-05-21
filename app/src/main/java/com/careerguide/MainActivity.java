@@ -3,20 +3,32 @@ package com.careerguide;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.careerguide.blog.DataMembers;
+import com.careerguide.blog.model.Categories;
+import com.careerguide.blog.model.CategoryDetails;
+import com.careerguide.blog.util.Utils;
+import com.careerguide.models.Counsellor;
+import com.careerguide.youtubeVideo.CommonEducationModel;
+import com.careerguide.youtubeVideo.Videos;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.List;
-
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         }
         FirebaseApp.initializeApp(activity);
       //  FirebaseMessaging.getInstance().subscribeToTopic("youtube");
-         FirebaseMessaging.getInstance().subscribeToTopic("mytest");
-        Log.d("AndroidBash", "Subscribed");
+         FirebaseMessaging.getInstance().subscribeToTopic("notification");
+        Log.d("notification", "Subscribed");
         //Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
         //https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf
         /*String url  = "https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf";
@@ -97,5 +109,4 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
     }
-
 }

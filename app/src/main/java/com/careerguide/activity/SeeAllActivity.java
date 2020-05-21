@@ -42,7 +42,7 @@ public class SeeAllActivity extends AppCompatActivity {
     CommonEducationAdapter adapter;
     YT_recycler_adapter yt_recycler_adapter;
 
-    private String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+    private String browserKey = Utility.browserKey;
     String URL_EDUCATION = "https://app.careerguide.com/api/main/";
     String playlistKEY="";
     String URL_YOUTUBE = "";
