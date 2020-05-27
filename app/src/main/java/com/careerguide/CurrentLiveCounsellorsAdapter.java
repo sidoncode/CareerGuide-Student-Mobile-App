@@ -69,6 +69,7 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
             holder.txtdesc.setTextColor(Color.BLACK);
         }
         Log.i("desssss",holder.txtdesc.getText().toString()+"___"+objDataModels.getscheduleDescription());
+
         if(!objDataModels.getscheduleDescription().equals("")) {//handle if now counsellor is not live
             Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.imgCounsellor);
             holder.backgroundLayout.setOnClickListener(view -> {

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,6 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CounsellorProfile extends AppCompatActivity {
 
     Activity activity = this;
@@ -37,13 +42,18 @@ public class CounsellorProfile extends AppCompatActivity {
     private int size;
     ProgressBar pb_loading;
     private ArrayList<live_counsellor_session> counsellors = new ArrayList<>();
+    private int totalSessionsTaken=0;
 
+
+    private List<CounsellorProfileExpertLevelModel> student_education_level_list;
+    private CounsellorProfileExpertLevelAdapter counsellorProfileExpertLevelAdapter;
+    private LinearLayoutManager expertLevelLayoutManager;
 
     private com.careerguide.adapters.LivesessionAdapter allPastLiveSessionAdapter;
     private List<CommonEducationModel> allPastLiveSessionList;//used the same educationmodel from cgplaylist
 
 
-    TextView tv_follow, tv_feed_title;
+    TextView tv_followers_count, tv_feed_title,tv_session_conducted_count,tv_follow;
     ImageView followingTik;
     LinearLayoutManager mLayoutManager;
 
@@ -55,20 +65,26 @@ public class CounsellorProfile extends AppCompatActivity {
         setContentView(R.layout.activity_counsellor_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         pb_loading = findViewById(R.id.pb_loading);
+        tv_session_conducted_count=findViewById(R.id.tv_session_conducted_count);
+        tv_followers_count = findViewById(R.id.tv_followers_count);
         tv_follow = findViewById(R.id.tv_follow);
         followingTik = findViewById(R.id.followingTik);
         tv_feed_title = findViewById(R.id.tv_feed_title);
 
-
+        RecyclerView recyclerViewExpertLevel = findViewById(R.id.recyclerViewExpertLevel);
         RecyclerView recyclerViewPastLiveCounsellor = findViewById(R.id.recycler_view);
 
         allPastLiveSessionList = new ArrayList<CommonEducationModel>();
         allPastLiveSessionAdapter = new com.careerguide.adapters.LivesessionAdapter(this, allPastLiveSessionList);
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerViewPastLiveCounsellor.setLayoutManager(mLayoutManager);
         recyclerViewPastLiveCounsellor.setAdapter(allPastLiveSessionAdapter);
 
+        student_education_level_list=new ArrayList<>();
+        counsellorProfileExpertLevelAdapter = new CounsellorProfileExpertLevelAdapter(this, student_education_level_list);
+        expertLevelLayoutManager= new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewExpertLevel.setLayoutManager(expertLevelLayoutManager);
+        recyclerViewExpertLevel.setAdapter(counsellorProfileExpertLevelAdapter);
 
         setSupportActionBar(toolbar);
         ((TextView)findViewById(R.id.host_name)).setText(getIntent().getStringExtra("host_name"));
@@ -77,13 +93,10 @@ public class CounsellorProfile extends AppCompatActivity {
         hostPic = getIntent().getStringExtra("host_img");
         hostEmail = getIntent().getStringExtra("host_email");
         Log.d("COUNSELLOR_PROFILE", "host_img: "+hostPic);
-        if(hostPic!=null)
-            Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
-        else
-            fetchAndApplyImage();
 
+        fetchAndApplyImage();
 
-        getPassLiveSession();
+        getPastLiveSession();
 
     }
 
@@ -99,7 +112,7 @@ public class CounsellorProfile extends AppCompatActivity {
     }*/
 
 
-    private void getPassLiveSession() {
+    private void getPastLiveSession() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/counsellor/Facebook_Live_video", response -> {
             Log.e("all_coun_res", response);
             try {
@@ -109,6 +122,11 @@ public class CounsellorProfile extends AppCompatActivity {
                     JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
                     Log.e("lengthname--> ", "==> " + counsellorsJsonArray.length());
                     pb_loading.setVisibility(View.GONE);
+
+                    totalSessionsTaken=counsellorsJsonArray.length();
+                    tv_session_conducted_count.setText(totalSessionsTaken+"");
+
+
                     for (int i = 0; counsellorsJsonArray != null && i < counsellorsJsonArray.length(); i++) {
                         JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(i);
                         //String email = counselorJsonObject.optString("id");
@@ -189,12 +207,22 @@ public class CounsellorProfile extends AppCompatActivity {
                     JSONObject responseObject = null;
                     try {
                         responseObject = new JSONObject(response);
+                        Log.i("resppp",response);
                         JSONArray jsonArray = responseObject.getJSONArray("counsellors");
                         if(jsonArray.length()>0)
                         {
                             JSONObject counsellor = (JSONObject) jsonArray.get(0);
-                            if(jsonArray.length()>0)
+                            Log.i("respprrp",counsellor+"");
+                            if(counsellor.length()>0)
                             {
+                                JSONArray student_education_level_array=new JSONArray(counsellor.get("student_education_level")+"");
+
+                                for(int j=0;j<student_education_level_array.length();j++){
+                                    student_education_level_list.add(new CounsellorProfileExpertLevelModel(((JSONObject)student_education_level_array.get(j)).get("expertLevel").toString()));
+                                    Log.i("expertLevel"+j,student_education_level_list.get(j).getExpertLevel());
+                                }
+                                counsellorProfileExpertLevelAdapter.notifyDataSetChanged();
+
                                 hostPic = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
                                 Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
                                 //prepareAlbums();

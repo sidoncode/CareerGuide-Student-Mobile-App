@@ -29,7 +29,7 @@
 
         <TextView
             android:layout_marginStart="3dp"
-            android:id="@+id/name"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
@@ -39,25 +39,56 @@
             android:ellipsize="end"
             android:text="Complete course on Modern Indian History for UPSC CSE"/>
 
-
         <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="3dp"
             android:id="@+id/desc"
+            android:layout_marginLeft="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:maxLines="2"/>
 
+
         <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="3dp"
-            android:id="@+id/title"
+            android:id="@+id/counsellorName"
+            android:layout_marginLeft="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/app_blue"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="CareerGuide.com" />
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="By:Name"
+            android:maxLines="2"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/app_blue"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:text="CareerGuide.com" />
+
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/videoViews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="Views:10"
+                    android:padding="4dp"
+                    android:textColor="@color/colorPrimary"
+                    />
+
+
+        </RelativeLayout>
+
+
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

@@ -31,20 +31,19 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
     boolean seeAllMode = false;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name , desc,title;
+        TextView title,counsellorName,videoViews,desc;
         ImageView imageView;
         CardView ll_story;
 
         MyViewHolder(View view) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
-            name = view.findViewById(R.id.name);
-            desc = view.findViewById(R.id.desc);
+            desc=view.findViewById(R.id.desc);
+            desc.setVisibility(View.GONE);
+            title = view.findViewById(R.id.title);
+            counsellorName=view.findViewById(R.id.counsellorName);
+            videoViews=view.findViewById(R.id.videoViews);
             ll_story = view.findViewById(R.id.ll_story);
-            title= view.findViewById(R.id.title);
-            name.setOnClickListener(v -> {
-            });
-
             if(seeAllMode) {
                 ll_story.setPadding(0,32,0,32);
             }else {
@@ -77,12 +76,14 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
     public void onBindViewHolder(MyViewHolder holder, int position) {
         CommonEducationModel video = videoList.get(position);
         Typeface font = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-SemiBold.ttf");
-        Typeface font_desc = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-Regular.ttf");
-        holder.name.setTypeface(font);
-        holder.name.setText(video.getTitle());
+        Typeface font_title = Typeface.createFromAsset(activity.getAssets() , "fonts/Montserrat-Regular.ttf");
+        holder.counsellorName.setTypeface(font);
+        holder.title.setTypeface(font_title);
+        holder.title.setText(video.getTitle());
 //        holder.desc.setTypeface(font_desc);
-        holder.desc.setVisibility(View.GONE);
-        holder.title.setText(video.getFullName());
+
+        holder.counsellorName.setText("By:"+video.getFullName());
+        holder.videoViews.setText("Views:"+video.getVideoViews());
         //holder.desc.setText(video.getDesc());
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -117,7 +118,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
             v.getContext().startActivity(intent);
         });
 
-        holder.title.setOnClickListener(v -> {
+        holder.counsellorName.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext() , CounsellorProfile.class);
             intent.putExtra("id"  , video.getUserId());
             intent.putExtra("host_name" , video.getFullName());
