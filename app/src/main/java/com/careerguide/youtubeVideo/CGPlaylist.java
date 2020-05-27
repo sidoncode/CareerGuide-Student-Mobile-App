@@ -41,7 +41,7 @@ import java.util.Objects;
 public class CGPlaylist extends Fragment {
 
 
-    private List<Videos> liveVideosList = new ArrayList<>();
+    private List<CurrentLiveCounsellorsModel> liveVideosList = new ArrayList<>();
     private List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList=new ArrayList<>();
     private List<CurrentLiveCounsellorsModel> postLiveCounsellorsList=new ArrayList<>();
     private List<Videos> displaylistArray = new ArrayList<>();
@@ -59,7 +59,7 @@ public class CGPlaylist extends Fragment {
     List<Counsellor> counsellorList = new ArrayList<>();
 
     private CurrentLiveCounsellorsAdapter currentLiveCounsellorsAdapter;
-    private YT_recycler_adapter mLiveAdapter;
+    private CurrentLiveCounsellorsAdapter mLiveAdapter;
     private YT_recycler_adapter mVideoAdapter;
     private YT_recycler_adapter mVideoAdapter_two;
     private YT_recycler_adapter mVideoAdapter_three;
@@ -275,7 +275,7 @@ public class CGPlaylist extends Fragment {
 
 
         currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(getContext(), currentLiveCounsellorsList);
-        mLiveAdapter = new YT_recycler_adapter(liveVideosList,browserKey,getActivity(),cornerRadius,videoTxtColor);
+        mLiveAdapter = new CurrentLiveCounsellorsAdapter(getContext(),liveVideosList);
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_two = new YT_recycler_adapter(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_three = new YT_recycler_adapter(displaylistArray_three, browserKey, getActivity(), cornerRadius, videoTxtColor);

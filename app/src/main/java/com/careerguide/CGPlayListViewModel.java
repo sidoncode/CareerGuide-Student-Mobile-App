@@ -37,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CGPlayListViewModel extends ViewModel {
 
     private MutableLiveData<List<CurrentLiveCounsellorsModel>> currentLiveCounsellorsList;
-    private MutableLiveData<ArrayList<Videos>> liveVideosList;
+    private MutableLiveData<ArrayList<CurrentLiveCounsellorsModel>> liveVideosList;
     private MutableLiveData<ArrayList<Videos>> displaylistArray;
     private MutableLiveData<List<Videos>> displaylistArray_two;
     private MutableLiveData<List<Videos>> displaylistArray_three;
@@ -84,11 +84,11 @@ public class CGPlayListViewModel extends ViewModel {
 
 
 
-    public MutableLiveData<ArrayList<Videos>> getLiveVideosList() {
+    public MutableLiveData<ArrayList<CurrentLiveCounsellorsModel>> getLiveVideosList() {
         return liveVideosList;
     }
 
-    public void setLiveVideosList(ArrayList<Videos> liveVideosList) {
+    public void setLiveVideosList(ArrayList<CurrentLiveCounsellorsModel> liveVideosList) {
         this.liveVideosList.setValue(liveVideosList);
     }
 
