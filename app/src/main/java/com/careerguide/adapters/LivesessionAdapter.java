@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.careerguide.Album;
 import com.careerguide.R;
@@ -30,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Rachit
+ * Updated by Albino
  */
 public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.MyViewHolder> {
 
@@ -46,7 +49,7 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
             count =  view.findViewById(R.id.count);
             tv_published=view.findViewById(R.id.tv_published);
             civ_user_profile_pc=view.findViewById(R.id.civ_user);
-             session_title=view.findViewById(R.id.session_title);
+            session_title=view.findViewById(R.id.session_title);
             thumbnail =  view.findViewById(R.id.thumbnail);
             overflow = view.findViewById(R.id.overflow);
         }
@@ -84,7 +87,7 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
 
         // loading album cover using Glide library
         Glide.with(mContext).load(video.getImgurl()).into(holder.thumbnail);
-        Glide.with(mContext).load(video.getImgurl()).into(holder.civ_user_profile_pc);
+        Glide.with(mContext).load(video.getProfilePicUrl()).into(holder.civ_user_profile_pc);
         holder.thumbnail.setOnClickListener(view -> {
             Log.e("urls" , "==> " +albumList.get(position).getVideourl());
             Intent intent = new Intent(view.getContext() , Video_player.class);
@@ -95,6 +98,7 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
             intent.putExtra("title" , video.getTitle());
             intent.putExtra("host_email" , video.getEmail());
             intent.putExtra("video_views" , video.getVideoViews());
+            intent.putExtra("host_img" , video.getProfilePicUrl());
             view.getContext().startActivity(intent);
         });
     }
@@ -174,5 +178,11 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
     public int getItemCount() {
         Log.e("#adapteree" , "-->" +albumList.size());
         return albumList.size();
+    }
+
+
+    public void updateList(List<CommonEducationModel> newvideoList){
+        this.albumList.clear();
+        this.albumList=newvideoList;
     }
 }

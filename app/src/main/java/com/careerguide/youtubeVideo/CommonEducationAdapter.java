@@ -103,6 +103,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
             intent.putExtra("title" , video.getTitle());
             intent.putExtra("host_email" , video.getEmail());
             intent.putExtra("video_views" , video.getVideoViews());
+            intent.putExtra("host_img" , video.getProfilePicUrl());
             v.getContext().startActivity(intent);
         });
 
@@ -114,6 +115,7 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
             intent.putExtra("imgurl" , video.getImgurl());
             intent.putExtra("title" , video.getTitle());
             intent.putExtra("host_email" , video.getEmail());
+            intent.putExtra("host_img" , video.getProfilePicUrl());
             intent.putExtra("video_views" , video.getVideoViews());
             v.getContext().startActivity(intent);
         });
@@ -123,9 +125,10 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
             intent.putExtra("id"  , video.getUserId());
             intent.putExtra("host_name" , video.getFullName());
             intent.putExtra("host_email" , video.getEmail());
-            intent.putExtra("host_img" , "null");
+            intent.putExtra("host_img" , video.getProfilePicUrl());
             intent.putExtra("imgurl" , video.getImgurl());
             intent.putExtra("video_views" , video.getVideoViews());
+            intent.putExtra("host_img" , video.getProfilePicUrl());
             v.getContext().startActivity(intent);
         });
 
@@ -144,4 +147,5 @@ public class CommonEducationAdapter extends RecyclerView.Adapter<CommonEducation
     {
         this.seeAllMode = b;
     }
+
 }

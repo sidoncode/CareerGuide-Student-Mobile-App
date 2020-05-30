@@ -33,6 +33,7 @@ public class feedDetailActivity extends AppCompatActivity {
             intent.putExtra("imgurl" , getIntent().getStringExtra("imgurl"));
             intent.putExtra("host_email" , getIntent().getStringExtra("host_email"));
             intent.putExtra("video_views" , getIntent().getStringExtra("video_views"));
+            intent.putExtra("host_img" , "");
             view.getContext().startActivity(intent);
         });
     }

@@ -1433,7 +1433,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
                     String video_id = JsonObject.optString("id");
-                    displaylist  = new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id);
+                    String video_category=JsonObject.optString("Video_category");
+                    String profile_pic="https://app.careerguide.com/api/user_dir/"+JsonObject.optString("profile_pic");
+                    displaylist  = new CommonEducationModel(user_id,email, name, img_url, video_url, title,profile_pic ,video_views,video_id,video_category);
                     displaylistArray.add(displaylist);
 
                 }

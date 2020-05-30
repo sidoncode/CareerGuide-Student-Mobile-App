@@ -688,10 +688,11 @@ public class HomeFragment extends Fragment
                             String video_url = JsonObject.optString("video_url");
                             String video_views=JsonObject.optString("views");
                             String video_id = JsonObject.optString("id");
+                            String video_category=JsonObject.optString("Video_category");
                             if(video_views.contains("null")){
                                 video_views="1";
                             }
-                            allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id));
+                            allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id,video_category));
                         }
 
                         //gettopic();

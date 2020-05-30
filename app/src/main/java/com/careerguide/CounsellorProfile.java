@@ -81,7 +81,7 @@ public class CounsellorProfile extends AppCompatActivity {
         recyclerViewPastLiveCounsellor.setAdapter(allPastLiveSessionAdapter);
 
         student_education_level_list=new ArrayList<>();
-        counsellorProfileExpertLevelAdapter = new CounsellorProfileExpertLevelAdapter(this, student_education_level_list);
+        counsellorProfileExpertLevelAdapter = new CounsellorProfileExpertLevelAdapter(this, student_education_level_list,allPastLiveSessionAdapter);
         expertLevelLayoutManager= new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewExpertLevel.setLayoutManager(expertLevelLayoutManager);
         recyclerViewExpertLevel.setAdapter(counsellorProfileExpertLevelAdapter);
@@ -91,6 +91,7 @@ public class CounsellorProfile extends AppCompatActivity {
         tv_feed_title.setText(getIntent().getStringExtra("host_name") +"'s Feed");
 
         hostPic = getIntent().getStringExtra("host_img");
+        Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
         hostEmail = getIntent().getStringExtra("host_email");
         Log.d("COUNSELLOR_PROFILE", "host_img: "+hostPic);
 
@@ -140,14 +141,18 @@ public class CounsellorProfile extends AppCompatActivity {
                         String video_url = JsonObject.optString("video_url");
                         String video_views=JsonObject.optString("views");
                         String video_id = JsonObject.optString("id");
+                        String video_category=JsonObject.optString("Video_category");
+                        String profile_pic=hostPic;
 
                         if(video_views.contains("null")){
                             video_views="1";
                         }
 
-                        allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id));
+                        allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, profile_pic,video_views,video_id,video_category));
 
                     }
+                    counsellorProfileExpertLevelAdapter.setListOfPastSession(allPastLiveSessionList);//used for sorting in the CounsellorProfileExpertLevelAdapter on click of the expert level
+
                     size = counsellors.size();
                     allPastLiveSessionAdapter.notifyDataSetChanged();
 
@@ -191,12 +196,14 @@ public class CounsellorProfile extends AppCompatActivity {
                 tv_follow.setText("Following");
                 tv_follow.setTextColor(Color.parseColor("#4e59ad"));
                 followingTik.setVisibility(View.VISIBLE);
+                tv_followers_count.setText("1");
             }
             else{
                 tv_follow_layout.setBackgroundResource(R.drawable.save_post_bg);
                 tv_follow.setText("Follow");
                 tv_follow.setTextColor(Color.parseColor("#ffffff"));
                 followingTik.setVisibility(View.GONE);
+                tv_followers_count.setText("0");
             }
         }, 300);
     }
@@ -217,14 +224,14 @@ public class CounsellorProfile extends AppCompatActivity {
                             {
                                 JSONArray student_education_level_array=new JSONArray(counsellor.get("student_education_level")+"");
 
+
+                                student_education_level_list.add(new CounsellorProfileExpertLevelModel("All"));
                                 for(int j=0;j<student_education_level_array.length();j++){
                                     student_education_level_list.add(new CounsellorProfileExpertLevelModel(((JSONObject)student_education_level_array.get(j)).get("expertLevel").toString()));
                                     Log.i("expertLevel"+j,student_education_level_list.get(j).getExpertLevel());
                                 }
                                 counsellorProfileExpertLevelAdapter.notifyDataSetChanged();
 
-                                hostPic = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
-                                Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
                                 //prepareAlbums();
                                 Log.d("#HOSTPIC :", hostPic);
                             }

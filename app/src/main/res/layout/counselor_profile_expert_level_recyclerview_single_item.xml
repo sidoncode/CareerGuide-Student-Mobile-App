@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentRelativeLayout"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_corner_grey"
+    >
 
     <TextView
         android:id="@+id/textViewExpertLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Working Professionals"
-        android:textColor="@color/white"
+        android:text="9th"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="12sp"
+        android:layout_centerInParent="true"
         android:layout_marginRight="7dp"
-        android:layout_marginLeft="4dp"
-        android:padding="3dp"
-        android:background="@drawable/round_corner_blue"/>
+        android:padding="6dp"
+        />
 
 </RelativeLayout>
