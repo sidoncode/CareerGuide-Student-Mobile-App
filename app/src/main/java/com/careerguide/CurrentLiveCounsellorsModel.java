@@ -6,15 +6,15 @@ import android.widget.ImageView;
 public class CurrentLiveCounsellorsModel {
 
     private String counsellorName = "";
-    private String desc = "";
+    private String title = "";
     private String imgSrc;
     private String channel_name;
     private String scheduleDescrpition;
 
 
-    public CurrentLiveCounsellorsModel(String counsellorName,String desc,String imgSrc,String channel_name,String scheduleDescrpition){
+    public CurrentLiveCounsellorsModel(String counsellorName,String title,String imgSrc,String channel_name,String scheduleDescrpition){
         this.counsellorName=counsellorName;
-        this.desc=desc;
+        this.title=title;
         this.imgSrc=imgSrc;
         this.channel_name=channel_name;
         this.scheduleDescrpition=scheduleDescrpition;
@@ -47,4 +47,7 @@ public class CurrentLiveCounsellorsModel {
         return scheduleDescrpition;
     }
 
+    public String getTitle() {
+        return title;
+    }
 }

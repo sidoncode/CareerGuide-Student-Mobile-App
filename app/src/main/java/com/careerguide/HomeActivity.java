@@ -1243,12 +1243,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private class TaskFetchLiveFacebookCounsellors extends AsyncTask<Void, Void, Void> {
 
         String LIVE_URL = "https://www.googleapis.com/youtube/v3/search?key="+browserKey+"&channelId=UCs6EVBxMpm9S3a2RpbAIp1w&forUsername=s6EVBxMpm9S3a2RpbAIp1w&part=snippet,id&order=date&maxResults=20";
-        ArrayList<Videos> liveVideos = new ArrayList<>();
+        ArrayList<CurrentLiveCounsellorsModel> liveVideos = new ArrayList<>();
+
 
         @Override
         protected Void doInBackground(Void... params) {
 
-            StringRequest liveRequest = new StringRequest(Request.Method.GET, LIVE_URL, response -> {
+
+          StringRequest liveRequest = new StringRequest(Request.Method.GET, LIVE_URL, response -> {
                 try {
                     JSONObject json = new JSONObject(response);
                     boolean status = json.optBoolean("status", false);
@@ -1264,11 +1266,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                                     String Desc = jsonObject.getJSONObject("snippet").getString("description");
                                     String id = video.getString("videoId");
                                     String thumbUrl = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-                                    Videos liveVideo = new Videos(title, thumbUrl, id, Desc);
+                                    CurrentLiveCounsellorsModel liveVideo = new CurrentLiveCounsellorsModel("FaceBook.com","", thumbUrl, id,"LIVE Stream, Session on  "+title);//FaceBook is a key word in the CurrentLiveCounsellorsAdapter
                                     liveVideos.add(liveVideo);
                                 }
                             }
-                            viewModelProvider.setLiveVideosList(liveVideos);
                         }
                     }
                 } catch (Exception e) {
@@ -1290,7 +1291,11 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         }
 
-
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            viewModelProvider.setLiveVideosList(liveVideos);
+        }
     }
 
     private class TaskFetch1_2_3 extends AsyncTask<String, Void, ArrayList<Videos>> {
@@ -1428,7 +1433,9 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
                     String video_id = JsonObject.optString("id");
-                    displaylist  = new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id);
+                    String video_category=JsonObject.optString("Video_category");
+                    String profile_pic="https://app.careerguide.com/api/user_dir/"+JsonObject.optString("profile_pic");
+                    displaylist  = new CommonEducationModel(user_id,email, name, img_url, video_url, title,profile_pic ,video_views,video_id,video_category);
                     displaylistArray.add(displaylist);
 
                 }

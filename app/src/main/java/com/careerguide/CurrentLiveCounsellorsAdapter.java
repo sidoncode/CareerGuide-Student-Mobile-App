@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.careerguide.youtubeVideo.youtubeFeedDetail;
 
 import java.util.List;
 
@@ -69,16 +70,27 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
             holder.txtdesc.setTextColor(Color.BLACK);
         }
         Log.i("desssss",holder.txtdesc.getText().toString()+"___"+objDataModels.getscheduleDescription());
-        if(!objDataModels.getscheduleDescription().equals("")) {//handle if now counsellor is not live
+
+        if(objDataModels.getCounsellorName().contains("FaceBook.com")) {//handles facebook live
             Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.imgCounsellor);
             holder.backgroundLayout.setOnClickListener(view -> {
-                Intent intent = new Intent(view.getContext() , ViewerLiveActivity.class);
-                Log.e("name-->","" +objDataModels.getchannelname());
-                intent.putExtra("Channel_name" , objDataModels.getchannelname());
-                intent.putExtra("name" , objDataModels.getCounsellorName());
+                Intent intent = new Intent(view.getContext() , youtubeFeedDetail.class);
+                intent.putExtra("data_id" , objDataModels.getchannelname());//gets the channel id
                 view.getContext().startActivity(intent);
-
             });
+        }else {
+
+            if (!objDataModels.getscheduleDescription().equals("")) {//handle if now counsellor is not live
+                Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.imgCounsellor);
+                holder.backgroundLayout.setOnClickListener(view -> {
+                    Intent intent = new Intent(view.getContext(), ViewerLiveActivity.class);
+                    Log.e("name-->", "" + objDataModels.getchannelname());
+                    intent.putExtra("Channel_name", objDataModels.getchannelname());
+                    intent.putExtra("name", objDataModels.getCounsellorName());
+                    view.getContext().startActivity(intent);
+
+                });
+            }
         }
 
     }

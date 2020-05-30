@@ -104,8 +104,6 @@ public class Video_player extends AppCompatActivity {
 
                         if(hostPicUrl!=null && hostPicUrl.length()>0)
                             andExoPlayerView.setImg(hostPicUrl);
-                        else
-                        fetchAndApplyImage();
 
                         new DownloadFile( ).execute (img_url, title);
                         load_url(url);
@@ -333,32 +331,6 @@ public class Video_player extends AppCompatActivity {
         andExoPlayerView.setPlayWhenReady(true);
     }
 
-    private void fetchAndApplyImage(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/counsellor/fetch_counsellor_detail",
-                response -> {
-                    Log.d("#HOSTEMAIL Response",response);
-                    try {
-                        JSONObject responseObject = new JSONObject(response);
-                        JSONArray jsonArray = responseObject.getJSONArray("counsellors");
-                        JSONObject counsellor = (JSONObject) jsonArray.get(0);
-                        hostPicUrl = "https://app.careerguide.com/api/user_dir/"+ counsellor.get("profile_pic");
-                        Log.d("#HOSTPIC :", hostPicUrl);
-                        andExoPlayerView.setImg(hostPicUrl);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> Log.e("host_pic__error","error"))
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("email" ,hostEmail);
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-    }
 
     private class TaskUpdateVideoView extends AsyncTask<Void, Void, Void> {
 

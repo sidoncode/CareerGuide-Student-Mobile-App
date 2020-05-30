@@ -1,6 +1,7 @@
 package com.careerguide.youtubeVideo;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -43,10 +44,11 @@ public class YT_recycler_adapter extends RecyclerView.Adapter<YT_recycler_adapte
 //            CardView cardView = view.findViewById(R.id.card_view);
 //            cardView.setCardBackgroundColor(cardColor);
 //            cardView.setRadius(cornerRadius);
-            name = view.findViewById(R.id.name);
+            view.findViewById(R.id.videoViews).setVisibility(View.GONE);//not need in youtube category
+            name = view.findViewById(R.id.counsellorName);
             desc = view.findViewById(R.id.desc);
             ll_story = view.findViewById(R.id.ll_story);
-            name.setTextColor(textColor);
+            name.setTextColor(Color.BLACK);
             name.setOnClickListener(v -> {
             });
 

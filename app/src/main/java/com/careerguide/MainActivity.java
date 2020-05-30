@@ -65,19 +65,10 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
         FirebaseApp.initializeApp(activity);
-      //  FirebaseMessaging.getInstance().subscribeToTopic("youtube");
-         FirebaseMessaging.getInstance().subscribeToTopic("notification");
+         //FirebaseMessaging.getInstance().subscribeToTopic("notification");//comment this for local testing
+         FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
         Log.d("notification", "Subscribed");
-        //Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
-        //https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf
-        /*String url  = "https://s3-ap-southeast-1.amazonaws.com/fal-careerguide/id-la/67148.pdf";
-        Intent intent = new Intent(activity,WebViewActivity.class);
-        intent.putExtra("url",url);
-        startActivity(intent);
-        finish();*/
-        /*Intent intent = new Intent(activity,SplashActivity.class);
-        startActivity(intent);
-        finish();*/
+
 
         int interval = 800;
         if (getIntent().getBooleanExtra("hideSplash",false))
