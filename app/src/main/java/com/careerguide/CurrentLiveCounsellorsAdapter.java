@@ -87,6 +87,10 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
                     Log.e("name-->", "" + objDataModels.getchannelname());
                     intent.putExtra("Channel_name", objDataModels.getchannelname());
                     intent.putExtra("name", objDataModels.getCounsellorName());
+                    intent.putExtra("imgurl" , objDataModels.getImgSrc());
+                    intent.putExtra("title" , objDataModels.getTitle());
+                    intent.putExtra("scheduledesc" , objDataModels.getscheduleDescription());
+                    intent.putExtra("channel_link" , objDataModels.getchannelname());
                     view.getContext().startActivity(intent);
 
                 });

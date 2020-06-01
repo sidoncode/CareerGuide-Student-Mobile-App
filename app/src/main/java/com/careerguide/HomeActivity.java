@@ -1116,7 +1116,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             String channel_name = counselorJsonObject.optString("channel_name");
                             String scheduleDescrpition = "LIVE NOW, Session on "+counselorJsonObject.optString("topic");
                             Log.e("name-1->","" +channel_name);
-                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name,scheduleDescrpition));
+                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,counselorJsonObject.optString("topic"),picUrl,channel_name,scheduleDescrpition));
                             Log.e("#inside" ,"for" +picUrl+"__"+tempCurrentLiveCounsellorsList.get(0).getCounsellorName());
 
                         }
@@ -1198,7 +1198,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             String channel_name = counselorJsonObject.optString("channel_name");
                             String scheduleDescrpition = "LIVE AT "+counselorJsonObject.optString("time")+" on "+counselorJsonObject.optString("formatteddate")+". Topic:  "+counselorJsonObject.optString("topic");
                             Log.e("name-1->","" +channel_name);
-                            tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,"",picUrl,channel_name,scheduleDescrpition));//use the same model for postlive sessions
+                            tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,counselorJsonObject.optString("topic"),picUrl,channel_name,scheduleDescrpition));//use the same model for postlive sessions
                             Log.e("#inside" ,"for" +picUrl+"__"+tempPostLiveCounsellorsList.get(0).getCounsellorName());
 
                         }

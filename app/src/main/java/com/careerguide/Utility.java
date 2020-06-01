@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -43,6 +44,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -622,6 +624,68 @@ public class Utility extends Application
                     return false;
                 }
             }
+
+
+    public static class ImageStorage {
+
+        public static String saveToSdCard(Bitmap bitmap, String filename) {
+
+            String stored = null;
+
+            File sdcard = Environment.getExternalStorageDirectory();
+
+            File folder = new File(sdcard.getAbsoluteFile(), "/com.careerguide");//the dot makes this directory hidden to the user
+            folder.mkdir();
+            File file = new File(folder.getAbsoluteFile(), filename );
+            if (file.exists())
+                return stored;
+
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+                stored = "success";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return stored;
+        }
+
+        public static File getImage(String imagename) {
+
+            File mediaImage = null;
+            try {
+                String root = Environment.getExternalStorageDirectory().toString();
+                File myDir = new File(root);
+                if (!myDir.exists())
+                    return null;
+
+                mediaImage = new File(myDir.getPath() + "/Download/" + imagename);
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return mediaImage;
+        }
+
+
+        public static boolean checkifImageExists(String imagename) {
+            Bitmap b = null;
+            File file = getImage("/" + imagename);
+            String path = file.getAbsolutePath();
+
+            if (path != null)
+                b = BitmapFactory.decodeFile(path);
+
+            if (b == null || b.equals("")) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+
 }
 
 

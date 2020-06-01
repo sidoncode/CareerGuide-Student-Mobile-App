@@ -26,16 +26,7 @@ public class RtcEngineManager {
 
     private RtcEngineManager() {}
 
-    public void init(Context context) {
-        try {
-            mRtcEngine = RtcEngine.create(context, context.getString(R.string.private_app_id), mRtcEventHandler);
-            mRtcEngine.setChannelProfile(Constants.CLIENT_ROLE_AUDIENCE);
-            mRtcEngine.enableAudio();
-            mRtcEngine.enableVideo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public RtcEngine getRtcEngine() {
         return mRtcEngine;
@@ -111,5 +102,17 @@ public class RtcEngineManager {
             }
         }
     };
+
+    public void init(Context context) {
+        try {
+
+            mRtcEngine = RtcEngine.create(context, context.getString(R.string.private_app_id), mRtcEventHandler);
+            mRtcEngine.setChannelProfile(Constants.CLIENT_ROLE_AUDIENCE);
+            mRtcEngine.enableAudio();
+            mRtcEngine.enableVideo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

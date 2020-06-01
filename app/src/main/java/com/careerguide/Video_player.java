@@ -288,6 +288,7 @@ public class Video_player extends AppCompatActivity {
                     }
                 });
     }
+
     public class DownloadFile extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
@@ -313,7 +314,7 @@ public class Video_player extends AppCompatActivity {
             {
                 e.printStackTrace ( );
             }
-            FileDownloader.downloadFile ( img_url, imgFile);
+            FileDownloader.downloadFile(img_url, imgFile);
             return null;
         }
     }
