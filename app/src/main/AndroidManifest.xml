@@ -74,7 +74,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="counsellor.page.link"
+                    android:host="careerguidelivestream.page.link"
                     android:scheme="https" />
             </intent-filter>
 
@@ -257,16 +257,16 @@
             android:name=".Video_player"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:theme="@style/AppTheme.NoActionBar"> <!-- <receiver android:name=".SmsReceiver"> -->
-<!--            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="counsellor.page.link"
+                    android:host="careerguidesharevideo.page.link"
                     android:scheme="https" />
-            </intent-filter>-->
+            </intent-filter>
         </activity> <!-- <receiver android:name=".SmsReceiver"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED" /> -->

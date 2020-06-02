@@ -136,7 +136,7 @@ public class CounsellorProfile extends AppCompatActivity {
                         String user_id = JsonObject.optString("user_id");
                         String email = JsonObject.optString("email");
                         String name = JsonObject.optString("Name");
-                        String img_url = JsonObject.optString("img_url");
+                        String img_url = "https://app.careerguide.com/api/user_dir/"+JsonObject.optString("img_url");
                         String title = JsonObject.optString("title");
                         String video_url = JsonObject.optString("video_url");
                         String video_views=JsonObject.optString("views");

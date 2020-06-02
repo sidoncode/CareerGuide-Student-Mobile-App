@@ -59,8 +59,7 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        if (PublicFunctions.checkAccessStoragePermission ( this )) {
-        }
+
 
         RtcEngineManager.getInstance().init(this);
         RtmClientManager.getInstance().init(this);
@@ -93,9 +92,6 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                             fileName=jsonObject.optString("host_image");
                             title=jsonObject.optString("title");
 
-                            if (!Utility.checkFileExist(fileName)){
-                                Utility.downloadImage(fileName+"",host_image+"",activity);
-                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -113,13 +109,10 @@ public class ViewerLiveActivity extends BaseLiveActivity {
 
                         host_image= getIntent().getStringExtra("imgurl");
 
-                        scheduledesc= "\nGuide "+Fullname+" will be "+getIntent().getStringExtra("scheduledesc")+"\n Let me recommend this LIVE STREAM from CareerGuide- Must watch for you.\n Share with your friends and family too.  ";
+                        scheduledesc= "\nGuide "+Fullname+" will be "+getIntent().getStringExtra("scheduledesc")+"\n Let me recommend this LIVE STREAM from CareerGuide.com -Must watch for you.\n Share with your friends and family too.  ";
 
                         fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
 
-                        if (!Utility.checkFileExist(fileName)){
-                            Utility.downloadImage(fileName+"",host_image+"",activity);
-                        }
 
                         }
                 })
@@ -224,95 +217,72 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     }
 
     public void video_sharee() {
-
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+Channel_name+"\",\"host_name\":\""+Fullname+"\",\"host_image\":\""+fileName+"\",\"schedule_desc\":\""+scheduledesc+"\",\"title\":\""+title+"\"}"))
-                .setDynamicLinkDomain("counsellor.page.link")
-                // Open links with this app on Android
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
-                .setGoogleAnalyticsParameters(
-                        new DynamicLink.GoogleAnalyticsParameters.Builder()
-                                .setSource("video")
-                                .setMedium("anyone")
-                                .setCampaign("example-video")
-                                .build())
-                .setSocialMetaTagParameters(
-                        new DynamicLink.SocialMetaTagParameters.Builder()
-                                .setTitle(title+" by Guide "+Fullname+" from CareerGuide.com")
-                                .setDescription(scheduledesc)
-                                .setImageUrl(Uri.parse(host_image))
-                                .build())
-                .buildDynamicLink();
-        Log.e("main", "Long refer Link"+ dynamicLink.getUri());
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLongLink(dynamicLink.getUri())
-                .buildShortDynamicLink()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Short link created
-                        Uri shortLink = task.getResult().getShortLink();
-                        Uri flowchartLink = task.getResult().getPreviewLink();
-                        Log.e("main","short Link" + shortLink);
-                        Log.e("main","short Link" + flowchartLink);
-                        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-                        StrictMode.setVmPolicy(builder.build());
-
-                        File imgFile = Utility.getFile(fileName);
-                        if (imgFile!=null){
-                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                            shareIntent.setType("image/*");
-                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                        }else {
-
-                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                            shareIntent.setType("plain/text");
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                        }
-
-                    } else
-                    {
-                        Log.e("Error","error--> "+task.getException());
-                        // Error
-                        // ...
-                    }
-                });
-    }
-
-    private class GetImages extends AsyncTask<Object, Object, Object> {
-        private String requestUrl, imagename_;
-        private Bitmap bitmap ;
-        private FileOutputStream fos;
-
-
-        private GetImages(String requestUrl, String _imagename_) {
-            this.requestUrl = requestUrl;
-            this.imagename_ = _imagename_ ;
-        }
-
-        @Override
-        protected Object doInBackground(Object... objects) {
-            try {
-
-                Utility.downloadImage(imagename_+"",requestUrl+"",activity);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        if (PublicFunctions.checkAccessStoragePermission ( this )) {
+            if (!Utility.checkFileExist(fileName)) {
+                Utility.downloadImage(fileName + "", host_image + "", activity);
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Object o) {
-            //if(!Utility.ImageStorage.checkifImageExists(imagename_))
-            {
+            Toast.makeText(this,"Opening apps...",Toast.LENGTH_LONG).show();
 
-                //Utility.ImageStorage.saveToSdCard(bitmap, imagename_);
+                DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                        .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+Channel_name+"\",\"host_name\":\""+Fullname+"\",\"host_image\":\""+fileName+"\",\"schedule_desc\":\""+scheduledesc+"\",\"title\":\""+title+"\"}"))
+                        .setDynamicLinkDomain("careerguidelivestream.page.link")
+                        // Open links with this app on Android
+                        .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
+                        .setGoogleAnalyticsParameters(
+                                new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                        .setSource("video")
+                                        .setMedium("anyone")
+                                        .setCampaign("example-video")
+                                        .build())
+                        .setSocialMetaTagParameters(
+                                new DynamicLink.SocialMetaTagParameters.Builder()
+                                        .setTitle(title+" by Guide "+Fullname+" from CareerGuide.com")
+                                        .setDescription(scheduledesc)
+                                        .setImageUrl(Uri.parse(host_image))
+                                        .build())
+                        .buildDynamicLink();
+                Log.e("main", "Long refer Link"+ dynamicLink.getUri());
+                Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                        .setLongLink(dynamicLink.getUri())
+                        .buildShortDynamicLink()
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                // Short link created
+                                Uri shortLink = task.getResult().getShortLink();
+                                Uri flowchartLink = task.getResult().getPreviewLink();
+                                Log.e("main","short Link" + shortLink);
+                                Log.e("main","short Link" + flowchartLink);
+                                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                                StrictMode.setVmPolicy(builder.build());
+
+                                File imgFile = Utility.getFile(fileName);
+                                if (imgFile!=null){
+                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                    shareIntent.setType("image/*");
+                                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                }else {
+
+                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                    shareIntent.setType("plain/text");
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                }
+
+                            } else
+                            {
+                                Log.e("Error","error--> "+task.getException());
+                                // Error
+                                // ...
+                            }
+                        });
             }
         }
+
+
+
     }
 
 
-}
