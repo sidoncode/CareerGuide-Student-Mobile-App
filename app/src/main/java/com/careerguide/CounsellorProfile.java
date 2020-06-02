@@ -1,13 +1,17 @@
 package com.careerguide;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +25,18 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.adapters.AlbumadapterProfile;
+import com.careerguide.exoplayer.utils.PublicFunctions;
 import com.careerguide.youtubeVideo.CommonEducationModel;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +56,12 @@ public class CounsellorProfile extends AppCompatActivity {
     private int totalSessionsTaken=0;
 
 
+    private String Fullname = "";
+    private String host_image = "";
+    private String hostEmail="";
+    private String fileName = "";
+
+
     private List<CounsellorProfileExpertLevelModel> student_education_level_list;
     private CounsellorProfileExpertLevelAdapter counsellorProfileExpertLevelAdapter;
     private LinearLayoutManager expertLevelLayoutManager;
@@ -57,7 +74,7 @@ public class CounsellorProfile extends AppCompatActivity {
     ImageView followingTik;
     LinearLayoutManager mLayoutManager;
 
-    String hostPic,hostEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,17 +104,67 @@ public class CounsellorProfile extends AppCompatActivity {
         recyclerViewExpertLevel.setAdapter(counsellorProfileExpertLevelAdapter);
 
         setSupportActionBar(toolbar);
-        ((TextView)findViewById(R.id.host_name)).setText(getIntent().getStringExtra("host_name"));
-        tv_feed_title.setText(getIntent().getStringExtra("host_name") +"'s Feed");
 
-        hostPic = getIntent().getStringExtra("host_img");
-        Glide.with(this).load(hostPic).into((ImageView) findViewById(R.id.profileImage));
-        hostEmail = getIntent().getStringExtra("host_email");
-        Log.d("COUNSELLOR_PROFILE", "host_img: "+hostPic);
 
-        fetchAndApplyImage();
 
-        getPastLiveSession();
+
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, pendingDynamicLinkData -> {
+                    // Get deep link from result (may be null if no link is found)
+                    Uri deepLink = null;
+                    if (pendingDynamicLinkData != null) {
+                        deepLink = pendingDynamicLinkData.getLink();
+                        Log.e("deeplink --> " , "" +deepLink);
+                        String url=deepLink+"";
+                        url=url.substring(url.lastIndexOf("&")+9);
+                        url=url.replaceFirst("%7B","{");
+                        url=url.replaceFirst("%7D","}");
+                        url=url.replace("%0A","");
+                        url=url.replace("%22","\"");
+                        url=url.replace("%0A","+");
+                        url=url.replace("+"," ");
+                        Log.i("jjjsson",url);
+                        try {
+                            JSONObject jsonObject=new JSONObject(url.toString());
+                            Fullname = jsonObject.optString("Fullname");
+                            hostEmail = jsonObject.optString("host_email");
+                            fileName = jsonObject.optString("host_image");
+                            host_image = "https://app.careerguide.com/api/user_dir/" + fileName;
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }else{
+
+
+                        host_image = getIntent().getStringExtra("host_img");
+                        Fullname = getIntent().getStringExtra("host_name");
+                        hostEmail = getIntent().getStringExtra("host_email");
+                        fileName = host_image.substring(host_image.lastIndexOf("/")+1);
+
+                    }
+
+                    fetchAndApplyImage();
+
+                    getPastLiveSession();
+                    ((TextView)findViewById(R.id.host_name)).setText(Fullname);
+                    tv_feed_title.setText(Fullname +"'s Feed");
+
+                    Glide.with(this).load(host_image).into((ImageView) findViewById(R.id.profileImage));
+
+                })
+                .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
+
+
+
+
+
+
+
+
 
     }
 
@@ -136,13 +203,13 @@ public class CounsellorProfile extends AppCompatActivity {
                         String user_id = JsonObject.optString("user_id");
                         String email = JsonObject.optString("email");
                         String name = JsonObject.optString("Name");
-                        String img_url = "https://app.careerguide.com/api/user_dir/"+JsonObject.optString("img_url");
+                        String img_url = JsonObject.optString("img_url");
                         String title = JsonObject.optString("title");
                         String video_url = JsonObject.optString("video_url");
                         String video_views=JsonObject.optString("views");
                         String video_id = JsonObject.optString("id");
                         String video_category=JsonObject.optString("Video_category");
-                        String profile_pic=hostPic;
+                        String profile_pic=host_image;
 
                         if(video_views.contains("null")){
                             video_views="1";
@@ -172,7 +239,7 @@ public class CounsellorProfile extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 HashMap<String, String> params = new HashMap<>();
-                params.put("email", getIntent().getStringExtra("host_email"));
+                params.put("email", hostEmail);
                 Log.e("#line_status_request", params.toString());
                 return params;
             }
@@ -232,8 +299,6 @@ public class CounsellorProfile extends AppCompatActivity {
                                 }
                                 counsellorProfileExpertLevelAdapter.notifyDataSetChanged();
 
-                                //prepareAlbums();
-                                Log.d("#HOSTPIC :", hostPic);
                             }
                         }
                     } catch (JSONException e) {
@@ -245,10 +310,79 @@ public class CounsellorProfile extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 HashMap<String,String> params = new HashMap<>();
-                params.put("email" ,getIntent().getStringExtra("host_email"));
+                params.put("email" ,hostEmail);
                 return params;
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+
+    public void sharee(View view) {
+        if (PublicFunctions.checkAccessStoragePermission ( this )) {
+            if (!Utility.checkFileExist(fileName)) {
+                Utility.downloadImage(fileName + "", host_image + "", activity);
+            }
+
+            Toast.makeText(this,"Opening apps...",Toast.LENGTH_LONG).show();
+
+            DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&Details={\"host_email\":\""+hostEmail+"\",\"Fullname\":\""+Fullname+"\",\"host_image\":\""+fileName+"\"}"))
+                    .setDynamicLinkDomain("careerguidecounselorprofile.page.link")
+                    // Open links with this app on Android
+                    .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
+                    .setGoogleAnalyticsParameters(
+                            new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                    .setSource("video")
+                                    .setMedium("anyone")
+                                    .setCampaign("example-video")
+                                    .build())
+                    .setSocialMetaTagParameters(
+                            new DynamicLink.SocialMetaTagParameters.Builder()
+                                    .setTitle("Counselor "+Fullname+" from CareerGuide.com")
+                                    .setDescription("You can watch all my career guidance sessions on my profile. Do have a look and follow me!")
+                                    .setImageUrl(Uri.parse(host_image))
+                                    .build())
+                    .buildDynamicLink();
+            Log.e("main", "Long refer Link"+ dynamicLink.getUri());
+            Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLongLink(dynamicLink.getUri())
+                    .buildShortDynamicLink()
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                            Log.e("main","short Link" + shortLink);
+                            Log.e("main","short Link" + flowchartLink);
+                            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(builder.build());
+
+                            File imgFile = Utility.getFile(fileName);
+                            if (imgFile!=null){
+                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                shareIntent.setType("image/*");
+                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
+                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Counselor "+Fullname+" from CareerGuide.com \nYou can watch all my career guidance sessions on my profile. Do have a look and follow me!  "+ shortLink );
+                                startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                            }else {
+
+                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                shareIntent.setType("plain/text");
+                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Counselor "+Fullname+" from CareerGuide.com \nYou can watch all my career guidance sessions on my profile. Do have a look and follow me!"+ shortLink );
+                                startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                            }
+
+                        } else
+                        {
+                            Log.e("Error","error--> "+task.getException());
+                            // Error
+                            // ...
+                        }
+                    });
+        }
+    }
+
+
+
 }

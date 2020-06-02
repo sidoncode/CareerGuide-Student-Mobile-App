@@ -59,7 +59,21 @@
         <activity android:name=".All_done" />
         <activity
             android:name=".CounsellorProfile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="careerguidecounselorprofile.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".ViewerLiveActivity"
             android:configChanges="orientation|keyboardHidden"
