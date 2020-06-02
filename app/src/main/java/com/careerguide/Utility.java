@@ -532,11 +532,40 @@ public class Utility extends Application
             e.printStackTrace();
             return (-1);
         }
-
-
-
-
     }
+
+
+        //Download file to Downloads folder, returns the id(long) of the file being downloaded
+        public static long downloadImage(String fileName,String url,Activity currentActivity) {
+            try {
+                DownloadManager downloadmanager = (DownloadManager) currentActivity.getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse(url);
+
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                request.setVisibleInDownloadsUi(false);
+                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Download/" + fileName);
+                request.setDestinationUri(Uri.fromFile(file));
+                return (downloadmanager.enqueue(request));
+
+            } catch (Exception e) {
+                Toast.makeText(currentActivity.getApplicationContext(), "Couldn't download file, Try again!",
+                        Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                return (-1);
+            }
+        }
+
+    public static File getFile(String fileName){
+        String filename = "/Download/"+fileName;
+        File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+        if(f1.exists() && !f1.isDirectory()){
+            return  f1;
+        }else {
+            return null;
+        }
+    }
+
 
     public static boolean getStoragePermissionFromUser(Activity activity){
         if (Build.VERSION.SDK_INT >= 23) {
@@ -624,66 +653,6 @@ public class Utility extends Application
                     return false;
                 }
             }
-
-
-    public static class ImageStorage {
-
-        public static String saveToSdCard(Bitmap bitmap, String filename) {
-
-            String stored = null;
-
-            File sdcard = Environment.getExternalStorageDirectory();
-
-            File folder = new File(sdcard.getAbsoluteFile(), "/com.careerguide");//the dot makes this directory hidden to the user
-            folder.mkdir();
-            File file = new File(folder.getAbsoluteFile(), filename );
-            if (file.exists())
-                return stored;
-
-            try {
-                FileOutputStream out = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                out.flush();
-                out.close();
-                stored = "success";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return stored;
-        }
-
-        public static File getImage(String imagename) {
-
-            File mediaImage = null;
-            try {
-                String root = Environment.getExternalStorageDirectory().toString();
-                File myDir = new File(root);
-                if (!myDir.exists())
-                    return null;
-
-                mediaImage = new File(myDir.getPath() + "/Download/" + imagename);
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-            return mediaImage;
-        }
-
-
-        public static boolean checkifImageExists(String imagename) {
-            Bitmap b = null;
-            File file = getImage("/" + imagename);
-            String path = file.getAbsolutePath();
-
-            if (path != null)
-                b = BitmapFactory.decodeFile(path);
-
-            if (b == null || b.equals("")) {
-                return false;
-            }
-            return true;
-        }
-    }
 
 
 }

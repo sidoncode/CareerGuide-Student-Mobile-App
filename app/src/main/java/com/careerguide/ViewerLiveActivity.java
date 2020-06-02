@@ -93,6 +93,10 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                             fileName=jsonObject.optString("host_image");
                             title=jsonObject.optString("title");
 
+                            if (!Utility.checkFileExist(fileName)){
+                                Utility.downloadImage(fileName+"",host_image+"",activity);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -113,9 +117,8 @@ public class ViewerLiveActivity extends BaseLiveActivity {
 
                         fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
 
-                        //if (!Utility.ImageStorage.checkifImageExists(fileName))
-                        {
-                            new GetImages(host_image + "", fileName + "").execute();
+                        if (!Utility.checkFileExist(fileName)){
+                            Utility.downloadImage(fileName+"",host_image+"",activity);
                         }
 
                         }
@@ -254,13 +257,21 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                         StrictMode.setVmPolicy(builder.build());
 
-                        File imgFile = Utility.ImageStorage.getImage(fileName);
+                        File imgFile = Utility.getFile(fileName);
+                        if (imgFile!=null){
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("image/*");
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                        }else {
 
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("image/*");
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                        startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("plain/text");
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                        }
+
                     } else
                     {
                         Log.e("Error","error--> "+task.getException());
@@ -284,23 +295,8 @@ public class ViewerLiveActivity extends BaseLiveActivity {
         @Override
         protected Object doInBackground(Object... objects) {
             try {
-                /*URL url = new URL(requestUrl);
-                Log.i("uuuuu",url+"");
-                URLConnection conn = url.openConnection();
-                this.bitmap = BitmapFactory.decodeStream(conn.getInputStream());*/
 
-                DownloadManager downloadmanager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri uri = Uri.parse(requestUrl);
-
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setTitle("ssss");
-                request.setDescription("ssssss");
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setVisibleInDownloadsUi(true);
-                File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Download/"+imagename_);
-                request.setDestinationUri(Uri.fromFile(file));
-                return (downloadmanager.enqueue(request));
-
+                Utility.downloadImage(imagename_+"",requestUrl+"",activity);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
