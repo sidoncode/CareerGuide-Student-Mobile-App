@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.youtubeVideo.youtubeFeedDetail;
 
 import java.util.List;
@@ -81,7 +83,13 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
         }else {
 
             if (!objDataModels.getscheduleDescription().equals("")) {//handle if now counsellor is not live
-                Glide.with(mContext).load(objDataModels.getImgSrc()).into(holder.imgCounsellor);
+                RequestOptions requestOptions = new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
+                        .skipMemoryCache(true);
+
+                holder.imgCounsellor.setImageResource(0);
+
+                Glide.with(mContext).applyDefaultRequestOptions(requestOptions).load(objDataModels.getImgSrc()).into(holder.imgCounsellor);
                 holder.backgroundLayout.setOnClickListener(view -> {
                     Intent intent = new Intent(view.getContext(), ViewerLiveActivity.class);
                     Log.e("name-->", "" + objDataModels.getchannelname());

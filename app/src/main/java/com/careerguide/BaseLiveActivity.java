@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -86,12 +87,21 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
         currentUsersList=new HashMap<>();//no users at the start
 
-        initView();
-        initRtcEngine();
-        initRtmClient();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initView();
+                initRtcEngine();
+                initRtmClient();
+            }
+        }, 3000);
+
     }
 
     protected void initView() {
+        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
         mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
         etChatMsg = findViewById(R.id.live_msg_et);
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
@@ -119,6 +129,9 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         }
         Log.e("#cmm engine","ewkjbewjkfb" +getchannelid());
         mRtcEngine.joinChannel("", getchannelid(), "", getRtcUid());
+        if (getchannelid().contentEquals("")){
+            showToast("Internet is slow!");
+        }
     }
 
     private void initRtmClient() {
