@@ -27,6 +27,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:onClick="sharee"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_forward"

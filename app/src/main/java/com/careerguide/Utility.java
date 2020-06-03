@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -43,6 +44,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -530,11 +532,40 @@ public class Utility extends Application
             e.printStackTrace();
             return (-1);
         }
-
-
-
-
     }
+
+
+        //Download file to Downloads folder, returns the id(long) of the file being downloaded
+        public static long downloadImage(String fileName,String url,Activity currentActivity) {
+            try {
+                DownloadManager downloadmanager = (DownloadManager) currentActivity.getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse(url);
+
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                request.setVisibleInDownloadsUi(false);
+                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/Download/" + fileName);
+                request.setDestinationUri(Uri.fromFile(file));
+                return (downloadmanager.enqueue(request));
+
+            } catch (Exception e) {
+                Toast.makeText(currentActivity.getApplicationContext(), "Couldn't download file, Try again!",
+                        Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                return (-1);
+            }
+        }
+
+    public static File getFile(String fileName){
+        String filename = "/Download/"+fileName;
+        File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+        if(f1.exists() && !f1.isDirectory()){
+            return  f1;
+        }else {
+            return null;
+        }
+    }
+
 
     public static boolean getStoragePermissionFromUser(Activity activity){
         if (Build.VERSION.SDK_INT >= 23) {
@@ -622,6 +653,8 @@ public class Utility extends Application
                     return false;
                 }
             }
+
+
 }
 
 

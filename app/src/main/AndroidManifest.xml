@@ -59,13 +59,41 @@
         <activity android:name=".All_done" />
         <activity
             android:name=".CounsellorProfile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="careerguidecounselorprofile.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".ViewerLiveActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden">
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="careerguidelivestream.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".AgoraBaseActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -239,8 +267,6 @@
         <activity
             android:name=".blog.activity.CatDetailWoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".newsfeed.FeedViewActivity"/>
-        <activity android:name=".newsfeed.NewsFeedActivity" />
         <activity
             android:name=".Video_player"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
@@ -252,7 +278,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="counsellor.page.link"
+                    android:host="careerguidesharevideo.page.link"
                     android:scheme="https" />
             </intent-filter>
         </activity> <!-- <receiver android:name=".SmsReceiver"> -->

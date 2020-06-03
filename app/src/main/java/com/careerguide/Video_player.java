@@ -41,22 +41,30 @@ import java.util.Map;
 public class Video_player extends AppCompatActivity {
 
     private String hostEmail;
-    private String hostPicUrl;
+
     private FirebaseAnalytics mFirebaseAnalytics;
     private AndExoPlayerView andExoPlayerView;
-   // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
+    // private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
     private int req_code = 129;
-    private String videoId="";
-    Context context=this;
+    private String videoId = "";
+    Context context = this;
+
+    private String title = "";
+    private String Fullname = "";
+    private String video_url = "";
+    String host_image = "";
+    String scheduledesc = "";
+    String fileName = "";
+    String video_views = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate ( savedInstanceState );
-        if (PublicFunctions.checkAccessStoragePermission ( this )) {
-        }
+        super.onCreate(savedInstanceState);
 
-        setContentView ( R.layout.video_player );
+        setContentView(R.layout.video_player);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        andExoPlayerView = findViewById ( R.id.andExoPlayerView );
+        andExoPlayerView = findViewById(R.id.andExoPlayerView);
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, pendingDynamicLinkData -> {
@@ -64,68 +72,92 @@ public class Video_player extends AppCompatActivity {
                     Uri deepLink = null;
                     if (pendingDynamicLinkData != null) {
                         deepLink = pendingDynamicLinkData.getLink();
-                        load_url( deepLink.toString());
-                        Log.e("deeplink --> " , "" +deepLink);
-                    }
-                    else{
-                        videoId=getIntent().getStringExtra("video_id");
-                        String img_url= getIntent().getStringExtra("imgurl");
-                        String name= getIntent().getStringExtra("Fullname");
-                        String title= getIntent().getStringExtra("title");
-                        hostEmail = getIntent().getStringExtra("host_email");
-                        String url = getIntent().getStringExtra("live_video_url");
-                        hostPicUrl = getIntent().getStringExtra("host_img");
+                        load_url(deepLink.toString());
+                        Log.e("deeplink --> ", "" + deepLink);
 
-                        Log.d("VIDEO_PLAYER","img url: " +img_url);
-                        Log.d("VIDEO_PLAYER", "name: " +name);
-                        Log.d("VIDEO_PLAYER", "email: " +hostEmail);
-                        Log.d("VIDEO_PLAYER","title--> "+ title);
-                        Log.d("VIDEO_PLAYER","#views video-->" +getIntent().getStringExtra("video_views"));
-                        Log.d("VIDEO_PLAYER","host img url: " +hostPicUrl);
-                        Log.d("VIDEO_PLAYER","live video url: " +url);
+                        String url = deepLink + "";
+                        url = url.substring(url.lastIndexOf("?") + 16);
+                        url = url.replaceFirst("%7B", "{");
+                        url = url.replaceFirst("%7D", "}");
+                        url = url.replace("%0A", "");
+                        url = url.replace("%22", "\"");
+                        Log.i("jjjsson", url);
+                        try {
+                            JSONObject jsonObject = new JSONObject(url.toString());
 
+                            videoId = jsonObject.optString("video_id");
+                            Fullname = jsonObject.optString("Fullname");
+                            title = jsonObject.optString("title");
+                            hostEmail = jsonObject.optString("host_email");
+                            video_url = jsonObject.optString("live_video_url");
+                            video_url=video_url.replace(" ","+");
+                            video_views = jsonObject.optString("video_views");
+                            fileName = jsonObject.optString("host_image");
+                            host_image = "https://app.careerguide.com/api/user_dir/" + fileName;
+                            new TaskUpdateViewCounter(videoId).execute();
 
-                        andExoPlayerView.setName(name);
-                        andExoPlayerView.sethost_email(hostEmail);
-
-                        if(getIntent().getStringExtra("video_views")!=null)//if value is not null set updated value
-                        {
-                            if(getIntent().getStringExtra("video_views").contains("null"))
-                                andExoPlayerView.setVideoViews("1");
-                            else
-                                andExoPlayerView.setVideoViews(getIntent().getStringExtra("video_views"));
-
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
-                        new TaskUpdateViewCounter().execute();
+                    } else {
 
-                        logEventForFirebase("v_"+title.trim(),name.trim());
+                        videoId = getIntent().getStringExtra("video_id");
+                        host_image = getIntent().getStringExtra("imgurl");
+                        Fullname = getIntent().getStringExtra("Fullname");
+                        title = getIntent().getStringExtra("title");
+                        hostEmail = getIntent().getStringExtra("host_email");
+                        video_url = getIntent().getStringExtra("live_video_url");
+                        video_views = getIntent().getStringExtra("video_views");
+                        fileName = host_image.substring(host_image.lastIndexOf("/")+1);
+                        new TaskUpdateViewCounter(videoId).execute();
 
-                        if(hostPicUrl!=null && hostPicUrl.length()>0)
-                            andExoPlayerView.setImg(hostPicUrl);
-
-                        new DownloadFile( ).execute (img_url, title);
-                        load_url(url);
                     }
+
+                    Log.i("asasas",videoId+"_"+host_image+"_"+Fullname+"_"+title+"_"+hostEmail+"_"+video_url+"_"+video_views+"_"+fileName);
+
+                    andExoPlayerView.setName(Fullname);
+                    andExoPlayerView.sethost_email(hostEmail);
+
+                    if (video_views!= null)//if value is not null set updated value
+                    {
+                        if (video_views.contains("null"))
+                            andExoPlayerView.setVideoViews("1");
+                        else
+                            andExoPlayerView.setVideoViews(video_views);
+
+
+                    }
+
+
+                    logEventForFirebase("v_" + title.trim(), Fullname.trim());
+
+                    if (host_image != null && host_image.length() > 0)
+                        andExoPlayerView.setImg(host_image);
+
+
+                    load_url(video_url);
+
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
 
+
     }
 
-    private void logEventForFirebase(String title,String name) {
+
+    private void logEventForFirebase(String title, String name) {
 
 
         //Logic to convert title into valid variable for proper analytics logging
-        String cutString=title;
-        if(title.length()>20)
+        String cutString = title;
+        if (title.length() > 20)
             cutString = title.substring(0, 20);
         StringBuilder sb = new StringBuilder();
-        if(!Character.isJavaIdentifierStart(cutString.charAt(0))) {
+        if (!Character.isJavaIdentifierStart(cutString.charAt(0))) {
             sb.append("_");
         }
         for (char c : cutString.toCharArray()) {
-            if(!Character.isJavaIdentifierPart(c)) {
+            if (!Character.isJavaIdentifierPart(c)) {
                 sb.append("_");
             } else {
                 sb.append(c);
@@ -133,35 +165,38 @@ public class Video_player extends AppCompatActivity {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putBoolean(sb.toString(),true);
-        bundle.putString("by",name);
-        mFirebaseAnalytics.logEvent("live_video_watched_from_app",bundle);
+        bundle.putBoolean(sb.toString(), true);
+        bundle.putString("by", name);
+        mFirebaseAnalytics.logEvent("live_video_watched_from_app", bundle);
 
     }
 
 
     private void load_url(String s_url) {
-        Log.e ( "url1", "-->" + s_url );
-        if (s_url.contains ( "mp4" ))
-            loadMP4ServerSide (s_url);
+        Log.e("url1", "-->" + s_url);
+        if (s_url.contains("mp4"))
+            loadMP4ServerSide(s_url);
         else {
-            loadHls (s_url );
+            loadHls(s_url);
         }
     }
-//    private void loadMp3() {
+
+    //    private void loadMp3() {
 //        andExoPlayerView.setSource ( TEST_URL_MP3 );
 //    }
     private void loadHls(String url) {
         if (url != null) {
-            andExoPlayerView.setSource ( url );
+            andExoPlayerView.setSource(url);
         }
     }
+
     public void loadMP4ServerSide(String url) {
         if (url != null) {
-            andExoPlayerView.setSource ( url );
+            andExoPlayerView.setSource(url);
         }
     }
-//    private void selectLocaleVideo() {
+
+    //    private void selectLocaleVideo() {
 //        if (PublicFunctions.checkAccessStoragePermission ( this )) {
 //            Intent intent = new Intent ( );
 //            intent.setType ( "video/*" );
@@ -171,152 +206,119 @@ public class Video_player extends AppCompatActivity {
 //        }
 //    }
     private void loadMP4Locale(String filePath) {
-        andExoPlayerView.setSource ( filePath );
+        andExoPlayerView.setSource(filePath);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult ( requestCode, resultCode, data );
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == req_code && resultCode == RESULT_OK) {
-            Uri finalVideoUri = data.getData ( );
+            Uri finalVideoUri = data.getData();
             String filePath = null;
             try {
-                filePath = PathUtil.getPath ( this, finalVideoUri );
-                loadMP4Locale ( filePath );
+                filePath = PathUtil.getPath(this, finalVideoUri);
+                loadMP4Locale(filePath);
             } catch (URISyntaxException e) {
-                e.printStackTrace ( );
-                Toast.makeText ( this, "Failed: " + e.getMessage ( ), Toast.LENGTH_SHORT ).show ( );
+                e.printStackTrace();
+                Toast.makeText(this, "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId ( ) == android.R.id.home) {
-            finish ( );
+        if (item.getItemId() == android.R.id.home) {
+            finish();
             return true;
         }
-        return super.onOptionsItemSelected ( item );
+        return super.onOptionsItemSelected(item);
     }
+
     public static Bitmap retriveVideoFrameFromVideo(String url)
-            throws Throwable
-    {
+            throws Throwable {
         Bitmap bitmap = null;
         MediaMetadataRetriever mediaMetadataRetriever = null;
-        try
-        {
+        try {
             mediaMetadataRetriever = new MediaMetadataRetriever();
             if (Build.VERSION.SDK_INT >= 14)
                 mediaMetadataRetriever.setDataSource(url, new HashMap<String, String>());
             else
                 mediaMetadataRetriever.setDataSource(url);
             //   mediaMetadataRetriever.setDataSource(videoPath);
-            bitmap = mediaMetadataRetriever.getFrameAtTime(-1,MediaMetadataRetriever.OPTION_CLOSEST);
-        }
-        catch (Exception e)
-        {
+            bitmap = mediaMetadataRetriever.getFrameAtTime(-1, MediaMetadataRetriever.OPTION_CLOSEST);
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Throwable(
                     "Exception in retriveVideoFrameFromVideo(String url)"
                             + e.getMessage());
-        }
-        finally
-        {
-            if (mediaMetadataRetriever != null)
-            {
+        } finally {
+            if (mediaMetadataRetriever != null) {
                 mediaMetadataRetriever.release();
             }
         }
         return bitmap;
     }
+
     public void video_share(View view) {
-        String img_url = getIntent().getStringExtra("imgurl");
-        Log.e("img", ""+hostPicUrl);
-        String name= getIntent().getStringExtra("Fullname");
-        Log.e("name",name);
-        String title= getIntent().getStringExtra("title");
-        Log.e("title","--> "+ title);
-        String fileName = img_url.substring(img_url.lastIndexOf('/') + 1);
-        Log.e("fileName",fileName);
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(getIntent().getStringExtra("live_video_url")))
-                .setDynamicLinkDomain("counsellor.page.link")
-                // Open links with this app on Android
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
-                .setGoogleAnalyticsParameters(
-                        new DynamicLink.GoogleAnalyticsParameters.Builder()
-                                .setSource("video")
-                                .setMedium("anyone")
-                                .setCampaign("example-video")
-                                .build())
-                .setSocialMetaTagParameters(
-                        new DynamicLink.SocialMetaTagParameters.Builder()
-                                .setTitle(name)
-                                .setDescription(title)
-                                .setImageUrl(Uri.parse(getIntent().getStringExtra("imgurl")))
-                                .build())
-                .buildDynamicLink();
-        Log.e("main", "Long refer Link"+ dynamicLink.getUri());
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLongLink(dynamicLink.getUri())
-                .buildShortDynamicLink()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Short link created
-                        Uri shortLink = task.getResult().getShortLink();
-                        Uri flowchartLink = task.getResult().getPreviewLink();
-                        Log.e("main","short Link" + shortLink);
-                        Log.e("main","short Link" + flowchartLink);
-                        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-                        StrictMode.setVmPolicy(builder.build());
-                        File imgFile = new File ( Environment.getExternalStorageDirectory ( ).getAbsolutePath() + "/com.careerguide/" + fileName );
-                        Uri path = Uri.fromFile ( imgFile );
-                        Log.e("#path",":" + path);
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
-                        shareIntent.setType ( "image/*" );
-                        //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                        //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-                        String shareMessage = "\nLet me recommend this video from CareerGuide- Must watch for you\n" + title +" by Guide "+name+"\n";
-                        shareMessage = shareMessage + shortLink ;
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage );
-                        startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                    } else
-                    {
-                        Log.e("Error","error--> "+task.getException());
-                        // Error
-                        // ...
-                    }
-                });
-    }
-    public class DownloadFile extends AsyncTask<String, Void, Void> {
-        @Override
-        protected Void doInBackground(String... strings) {
-            String img_url = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
 
-            Log.e("img_url","" +img_url);
-            String fileName = img_url.substring(img_url.lastIndexOf('/') + 1);
-            Log.e("fileName","" +fileName);
-            String title = strings[1];  // -> maven.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory ( ).toString ();
-            Log.e("storage",extStorageDirectory);
-           // File folder = new File ( extStorageDirectory, "/WhatsApp Business/Media/WhatsApp Business Images/Sent" );
-            File folder = new File ( extStorageDirectory, "/com.careerguide" );
-
-            folder.mkdir ( );
-            File imgFile = new File ( folder, fileName );
-
-            try
-            {
-                Log.e("File","Downloaded");
-                imgFile.createNewFile ( );
-            } catch (IOException e)
-            {
-                e.printStackTrace ( );
+        if (PublicFunctions.checkAccessStoragePermission(this)) {
+            if (!Utility.checkFileExist(fileName)) {
+                Utility.downloadImage(fileName + "", host_image + "", this);
             }
-            FileDownloader.downloadFile ( img_url, imgFile);
-            return null;
+            String shareMessagee = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
+
+            DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLink(Uri.parse(video_url+"?sessionDetails={\"videoId\":\""+videoId+"\",\"Fullname\":\""+Fullname+"\",\"title\":\""+title+"\",\"hostEmail\":\""+hostEmail+"\",\"video_url\":\""+video_url+"\",\"video_views\":\""+video_views+"\",\"fileName\":\""+fileName+"\"}"))
+                    .setDynamicLinkDomain("careerguidesharevideo.page.link")
+                    // Open links with this app on Android
+                    .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
+                    .setGoogleAnalyticsParameters(
+                            new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                    .setSource("video")
+                                    .setMedium("anyone")
+                                    .setCampaign("example-video")
+                                    .build())
+                    .setSocialMetaTagParameters(
+                            new DynamicLink.SocialMetaTagParameters.Builder()
+                                    .setTitle("Guide " + Fullname + " \n from CareerGuide.com")
+                                    .setDescription(shareMessagee)
+                                    .setImageUrl(Uri.parse(host_image))
+                                    .build())
+                    .buildDynamicLink();
+            Log.e("main", "Long refer Link" + dynamicLink.getUri());
+            Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLongLink(dynamicLink.getUri())
+                    .buildShortDynamicLink()
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                            Log.e("main", "short Link" + shortLink);
+                            Log.e("main", "short Link" + flowchartLink);
+                            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(builder.build());
+                            File imgFile = Utility.getFile(fileName);
+                            Uri path = Uri.fromFile(imgFile);
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
+                            shareIntent.setType("image/*");
+                            //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                            //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+                            String shareMessage = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
+                            shareMessage = shareMessage + shortLink;
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()));
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                        } else {
+                            Log.e("Error", "error--> " + task.getException());
+                            // Error
+                            // ...
+                        }
+                    });
         }
     }
+
 
     @Override
     protected void onPause() {
@@ -331,55 +333,28 @@ public class Video_player extends AppCompatActivity {
         andExoPlayerView.setPlayWhenReady(true);
     }
 
+    class TaskUpdateViewCounter extends AsyncTask<Void, Void, Void> {
 
-    private class TaskUpdateVideoView extends AsyncTask<Void, Void, Void> {
+        String videoid="";
 
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
+        TaskUpdateViewCounter(String videoIdd){
+            this.videoid=videoIdd;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-
-
-            try {
-
-                String update_url = "";
-                //Volley request
-            }catch(Exception e1)
-            {
-                e1.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-        }
-    }
-
-    private class TaskUpdateViewCounter extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Log.i("video id",videoId);
+            Log.i("video__id", videoid);
             StringRequest request = new StringRequest(
                     Request.Method.POST,
                     "https://app.careerguide.com/api/main/UpdateViews",
                     response -> {
-                        Log.i("Updated_video_counter",response);
+                        Log.i("Updated_video_counter", response);
                     },
-                    error -> Log.e("error",error.getMessage()))
-            {
+                    error -> Log.e("error", error.getMessage())) {
                 @Override
                 public Map<String, String> getParams() {
                     HashMap<String, String> params = new HashMap<>();
-                    params.put("video_id" ,videoId);
+                    params.put("video_id", videoid);
                     return params;
                 }
             };
@@ -390,13 +365,15 @@ public class Video_player extends AppCompatActivity {
             return null;
         }
     }
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
 
 //package com.careerguide;
 //
