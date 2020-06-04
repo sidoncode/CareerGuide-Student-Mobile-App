@@ -71,7 +71,7 @@ public class CounsellorAdapter extends RecyclerView.Adapter<CounsellorAdapter.Co
         final Counsellor Counsellor=CounsellorList.get(position);
 
         holder.tv_name.setText(Counsellor.getFirst_name()+" "+Counsellor.getLast_name());
-        holder.tv_live_minutes.setText("32k live minutes");
+        holder.tv_live_minutes.setText("");
 
        // Glide.with(context).load(Counsellor.getAvatar()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(holder.iv_avatar);
         Glide.with(context).load(Counsellor.getAvatar()).into(holder.iv_avatar);
