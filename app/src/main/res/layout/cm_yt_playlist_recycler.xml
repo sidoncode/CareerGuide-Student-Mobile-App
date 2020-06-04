@@ -1454,7 +1454,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center">
 
                     <TextView
@@ -1494,7 +1494,6 @@
                         android:id="@+id/recycler_counsellor"
                         android:layout_marginBottom="16dp"
                         android:layout_marginStart="8dp"
-                        android:paddingBottom="85dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </RelativeLayout>
