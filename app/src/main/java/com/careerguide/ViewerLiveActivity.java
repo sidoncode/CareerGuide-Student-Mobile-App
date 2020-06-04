@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
@@ -59,12 +60,12 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-
-
         RtcEngineManager.getInstance().init(this);
         RtmClientManager.getInstance().init(this);
         UID  = Utility.getUserId(activity);
         unique_id = Integer.parseInt(UID);
+
+
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -114,34 +115,36 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                         fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
 
 
-                        }
+                    }
+
+
+                    TextView textView = findViewById(R.id.live_user_nickname_tv);
+                    textView.setText(Fullname);
+                    findViewById(R.id.live_msg).setVisibility(TextView.GONE);
+                    findViewById(R.id.live_surfaceview).setVisibility(TextView.GONE);
+                    tvNoSurfaceNotice = findViewById(R.id.live_no_surfaceview_notice);
+                    tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
+
+
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
 
 
 
-
         super.onCreate(savedInstanceState);
-
-
 
     }
 
     @Override
     protected void initView() {
         super.initView();
-        TextView textView = findViewById(R.id.live_user_nickname_tv);
-        textView.setText(Fullname);
-        findViewById(R.id.live_msg).setVisibility(TextView.GONE);
-        findViewById(R.id.live_surfaceview).setVisibility(TextView.GONE);
-        tvNoSurfaceNotice = findViewById(R.id.live_no_surfaceview_notice);
-        tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
+
+
+
         findViewById(R.id.shareWithOthers).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 video_sharee();
-
             }
         });
     }
@@ -153,6 +156,7 @@ public class ViewerLiveActivity extends BaseLiveActivity {
 
     @Override
     protected String getchannelid() {
+
         return Channel_name;
     }
 

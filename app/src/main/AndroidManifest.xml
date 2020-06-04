@@ -12,10 +12,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<!--    <uses-permission android:name="android.permission.CAMERA" />-->
 
     <application
-        tools:ignore="LockedOrientationActivity"
         android:name="com.ZohoSalesiq"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,10 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup" >
-        <activity android:name=".activity.SeeAllActivity"
-            android:launchMode="singleTop">
-        </activity>
+        tools:ignore="LockedOrientationActivity"
+        tools:replace="android:allowBackup">
+        <activity android:name=".Book_One_To_One.FillClientDetails"></activity>
+        <activity
+            android:name=".activity.SeeAllActivity"
+            android:launchMode="singleTop"></activity>
         <activity android:name=".LoadPdf" />
         <activity android:name=".blog.activity.MainBlog" />
         <activity
@@ -35,7 +35,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".newsfeed.FeedViewActivity"/>
+        <activity android:name=".newsfeed.FeedViewActivity" />
         <activity android:name=".newsfeed.NewsFeedActivity" />
         <activity
             android:name=".Book_Appoinment.BookingTime"
@@ -59,8 +59,7 @@
         <activity android:name=".All_done" />
         <activity
             android:name=".CounsellorProfile"
-            android:theme="@style/AppTheme.NoActionBar" >
-
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -71,8 +70,6 @@
                     android:host="careerguidecounselorprofile.page.link"
                     android:scheme="https" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".ViewerLiveActivity"
@@ -80,7 +77,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
-
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -91,8 +87,6 @@
                     android:host="careerguidelivestream.page.link"
                     android:scheme="https" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".AgoraBaseActivity"
