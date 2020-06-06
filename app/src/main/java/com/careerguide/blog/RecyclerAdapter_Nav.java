@@ -22,6 +22,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.R;
+import com.careerguide.newsfeed.NewsFragment;
 
 import java.util.List;
 

@@ -96,7 +96,29 @@
     <fragment android:id="@+id/feed_fragment"
         android:name="com.careerguide.newsfeed.NewsFragment"
         android:label="Articles"
-        tools:layout="@layout/fragment_news"/>
+        tools:layout="@layout/fragment_news">
+
+        <argument
+            android:name="url1"
+            app:argType="string"
+            android:defaultValue=" " />
+    </fragment>
+
+    <action
+        android:id="@+id/nav_to_feedViewFragment"
+        app:destination="@id/feed_view_fragment"/>
+
+    <fragment android:id="@+id/feed_view_fragment"
+        android:name="com.careerguide.newsfeed.FeedViewFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_feed_view">
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue=" " />
+    </fragment>
+
 
 
     <fragment

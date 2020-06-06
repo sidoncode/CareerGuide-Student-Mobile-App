@@ -2,6 +2,7 @@ package com.careerguide.newsfeed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,11 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.careerguide.R;
@@ -31,11 +36,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     private List<Article> articles;
     private Context mContext;
+    private NavController navController;
 
 
-    public ArticleAdapter(List<Article> list, Context context) {
+    public ArticleAdapter(List<Article> list, Context context, NavController navController) {
         this.articles = list;
         this.mContext = context;
+        this.navController = navController;
 
 
     }
@@ -63,6 +70,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public void updateList(List<Article> list){
         articles = list;
         notifyDataSetChanged();
+
+
     }
 
     @Override
@@ -103,11 +112,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             public void onClick(View view) {
 
                 String url = articles.get(viewHolder.getAdapterPosition()).getLink();
-                Intent intent=new Intent(mContext,FeedViewActivity.class);
+               /* Intent intent=new Intent(mContext,FeedViewActivity.class);
                 intent.putExtra("news_url",url);
                 mContext.startActivity(intent);
+
+*/
+
+                Bundle args = new Bundle();
+                args.putString("url",url);
+
+                navController.popBackStack();
+                navController.navigate(R.id.nav_to_feedViewFragment,args);
+
+
             }
         });
+
 
 
 
@@ -135,4 +155,4 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     }
 
 
-} 
+}

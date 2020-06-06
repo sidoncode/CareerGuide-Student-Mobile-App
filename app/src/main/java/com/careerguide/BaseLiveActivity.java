@@ -7,10 +7,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -58,7 +60,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     Map<Integer,BaseLiveCurrentUsersModel> currentUsersList;//holds all the current users
 
 
-    /*private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
+    private ResultCallback<Void> mDefMsgSendCallback = new ResultCallback<Void>() {
         @Override
         public void onSuccess(Void aVoid) {
             Log.e(TAG, "sendMessage onSuccess");
@@ -68,23 +70,38 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         public void onFailure(ErrorInfo errorInfo) {
             Log.e(TAG, "sendMessage onFailure : " + errorInfo);
         }
-    };*/
+    };
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fullscreenStausBar();
+        //fullscreenStausBar();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         setContentView(R.layout.activity_living);
 
         currentUsersList=new HashMap<>();//no users at the start
 
-        initView();
-        initRtcEngine();
-        initRtmClient();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initView();
+                initRtcEngine();
+                initRtmClient();
+            }
+        }, 3000);
+
     }
 
     protected void initView() {
+        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
         mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
         etChatMsg = findViewById(R.id.live_msg_et);
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
@@ -112,6 +129,9 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         }
         Log.e("#cmm engine","ewkjbewjkfb" +getchannelid());
         mRtcEngine.joinChannel("", getchannelid(), "", getRtcUid());
+        if (getchannelid().contentEquals("")){
+            showToast("Internet is slow!");
+        }
     }
 
     private void initRtmClient() {
@@ -156,7 +176,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
                 }
             });
         }
-        }
+    }
 
 
     private void doSendMsg() {
@@ -245,15 +265,13 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             textView2.setText(String.valueOf(user_count) );
             mMsgContainer.addMessage(new LiveChatMessage("", getUserNameRemotelyJoined(uid) + " " + "Left"));
             removeUser(uid);//remove the user from the currentUserList
-            if (mRtcEngine != null) {
+            if (uid==ANCHOR_UID) {//only when the host leaves we need to finish the activity and release all the resources
                 mRtcEngine.leaveChannel();
-
-            //mRtcEngine.setupRemoteVideo(null);
-            //RtcEngine.destroy();
-            //mRtcEngine = null;
-
+                mRtcEngine.setupRemoteVideo(null);
+                RtcEngine.destroy();
+                mRtcEngine = null;
+                finish();
             }
-            finish();
         });
     }
 
@@ -319,7 +337,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
         alertDialog.setView(dialog);
         alertDialog.show();
-        }
+    }
 
     @Override
     protected void onDestroy() {

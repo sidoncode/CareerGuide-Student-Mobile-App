@@ -42,7 +42,7 @@ public class SeeAllActivity extends AppCompatActivity {
     CommonEducationAdapter adapter;
     YT_recycler_adapter yt_recycler_adapter;
 
-    private String browserKey = "AIzaSyBawyNv9QjvFEo0J6UK3KkkOB5lt1XsHsA";
+    private String browserKey = Utility.browserKey;
     String URL_EDUCATION = "https://app.careerguide.com/api/main/";
     String playlistKEY="";
     String URL_YOUTUBE = "";
@@ -121,7 +121,9 @@ public class SeeAllActivity extends AppCompatActivity {
                     String video_url = JsonObject.optString("video_url");
                     String video_views=JsonObject.optString("views");
                     String video_id = JsonObject.optString("id");
-                    CommonEducationModel commonEducationModel = new CommonEducationModel(user_id,email, name, img_url, video_url, title, "",video_views,video_id);
+                    String video_category=JsonObject.optString("Video_category");
+                    String profile_pic="https://app.careerguide.com/api/user_dir/"+JsonObject.optString("profile_pic");
+                    CommonEducationModel commonEducationModel = new CommonEducationModel(user_id,email, name, img_url, video_url, title, profile_pic,video_views,video_id,video_category);
                     educationList.add(commonEducationModel);
                 }
                 adapter.notifyDataSetChanged();

@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +27,7 @@ import com.careerguide.CurrentLiveCounsellorsModel;
 import com.careerguide.PlanActivity;
 import com.careerguide.PsychometricTestsActivity;
 import com.careerguide.R;
+import com.careerguide.Utility;
 import com.careerguide.adapters.CounsellorAdapter;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.adapter.CatDetailAdapter;
@@ -41,8 +41,9 @@ import java.util.Objects;
 public class CGPlaylist extends Fragment {
 
 
-    private List<Videos> liveVideosList = new ArrayList<>();
+    private List<CurrentLiveCounsellorsModel> liveVideosList = new ArrayList<>();
     private List<CurrentLiveCounsellorsModel> currentLiveCounsellorsList=new ArrayList<>();
+    private List<CurrentLiveCounsellorsModel> postLiveCounsellorsList=new ArrayList<>();
     private List<Videos> displaylistArray = new ArrayList<>();
     private List<Videos> displaylistArray_two = new ArrayList<>();
     private List<Videos> displaylistArray_three = new ArrayList<>();
@@ -58,7 +59,7 @@ public class CGPlaylist extends Fragment {
     List<Counsellor> counsellorList = new ArrayList<>();
 
     private CurrentLiveCounsellorsAdapter currentLiveCounsellorsAdapter;
-    private YT_recycler_adapter mLiveAdapter;
+    private CurrentLiveCounsellorsAdapter mLiveAdapter;
     private YT_recycler_adapter mVideoAdapter;
     private YT_recycler_adapter mVideoAdapter_two;
     private YT_recycler_adapter mVideoAdapter_three;
@@ -213,7 +214,7 @@ public class CGPlaylist extends Fragment {
 
         loadTitle = "Loading...";
         loadMsg = "Loading your videos...";
-        String browserKey = "AIzaSyBawyNv9QjvFEo0J6UK3KkkOB5lt1XsHsA";
+        String browserKey = Utility.browserKey;
         int cornerRadius = 5;
         int videoTxtColor = Color.parseColor("#000000");
 
@@ -226,7 +227,7 @@ public class CGPlaylist extends Fragment {
 //        mVideoRecyclerView.setAdapter(mVideoAdapter);
 
 
-        RecyclerView recyclerViewCurrentLiveCounsellor = thisScreensView.findViewById(R.id.recyclerView_new);
+        RecyclerView recyclerViewCurrentLiveCounsellor = thisScreensView.findViewById(R.id.recyclerViewCurrentLiveCounsellor);
         RecyclerView liveVideoRecyclerView = thisScreensView.findViewById(R.id.yt_recycler_view_live);//category_live
         RecyclerView mVideoRecyclerView = thisScreensView.findViewById(R.id.yt_recycler_view_one);//category_1
         RecyclerView mVideoRecyclerView_two = thisScreensView.findViewById(R.id.yt_recycler_view_two);//category_2
@@ -241,7 +242,8 @@ public class CGPlaylist extends Fragment {
         RecyclerView mVideoRecyclerView_Blog = thisScreensView.findViewById(R.id.yt_recycler_view_Blog);
         RecyclerView recycler_counsellor = thisScreensView.findViewById(R.id.recycler_counsellor);
 
-        LinearLayoutManager mLayoutManager_new = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManagerCurrentLiveCounsellor = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManagerPostLiveCounsellor = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager mLiveLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         mLayoutManager_two = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -256,7 +258,7 @@ public class CGPlaylist extends Fragment {
         LinearLayoutManager mLayoutManager_Blog = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager counsellorLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
-        recyclerViewCurrentLiveCounsellor.setLayoutManager(mLayoutManager_new);
+        recyclerViewCurrentLiveCounsellor.setLayoutManager(mLayoutManagerCurrentLiveCounsellor);
         liveVideoRecyclerView.setLayoutManager(mLiveLayoutManager);
         mVideoRecyclerView.setLayoutManager(mLayoutManager);
         mVideoRecyclerView_two.setLayoutManager(mLayoutManager_two);
@@ -273,7 +275,7 @@ public class CGPlaylist extends Fragment {
 
 
         currentLiveCounsellorsAdapter = new CurrentLiveCounsellorsAdapter(getContext(), currentLiveCounsellorsList);
-        mLiveAdapter = new YT_recycler_adapter(liveVideosList,browserKey,getActivity(),cornerRadius,videoTxtColor);
+        mLiveAdapter = new CurrentLiveCounsellorsAdapter(getContext(),liveVideosList);
         mVideoAdapter = new YT_recycler_adapter(displaylistArray, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_two = new YT_recycler_adapter(displaylistArray_two, browserKey, getActivity(), cornerRadius, videoTxtColor);
         mVideoAdapter_three = new YT_recycler_adapter(displaylistArray_three, browserKey, getActivity(), cornerRadius, videoTxtColor);
@@ -325,11 +327,9 @@ public class CGPlaylist extends Fragment {
         channelLiveModel.getDisplaylistArrayLiveCounsellors().observe(getActivity(), updatedList -> {
             currentLiveCounsellorsList.clear();
             currentLiveCounsellorsList.addAll(updatedList);
-                currentLiveCounsellorsAdapter.notifyDataSetChanged();
-                Log.i("aaaaa","aaa");
-
-
+            currentLiveCounsellorsAdapter.notifyDataSetChanged();
         });
+
 
 
         channelLiveModel.getLiveVideosList().observe(getActivity(), liveVideos -> {
