@@ -677,23 +677,23 @@ public class StudentProfileFragment extends Fragment {
                                 Utility.setUserFirstName(getActivity(), finalValue);
                                 //userNameTextView.setText(finalValue + " " + Utility.getUserLastName(getActivity()));
                                 HomeActivity.updateUserName(finalValue + " " + Utility.getUserLastName(getActivity()),getActivity());
-                                if (picUrl.isEmpty())
+                                /*if (picUrl.isEmpty())
                                 {
-                                    //profilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
+                                    profilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
                                     String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
                                     ((TextView) view.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
-                                }
+                                }*/
                                 break;
                             case "last_name":
                                 Utility.setUserLasstName(getActivity(), finalValue);
                                 //userNameTextView.setText(Utility.getUserFirstName(getActivity()) + " " + finalValue);
                                 HomeActivity.updateUserName(Utility.getUserFirstName(getActivity()) + " " + finalValue,getActivity());
-                                if (picUrl.isEmpty())
+                                /*if (picUrl.isEmpty())
                                 {
                                     //profilePic.setImageBitmap(Utility.getBackgroundBitmap((Utility.getUserEmail(getActivity())).charAt(0),100));
                                     String initial = (Utility.getUserFirstName(getActivity())).charAt(0) + "" + (Utility.getUserLastName(getActivity())).charAt(0);
                                     ((TextView) view.findViewById(R.id.imageInitial)).setText(initial.toUpperCase());
-                                }
+                                }*/
                                 break;
                             case "dob":
                                 Utility.setUserDOB(getActivity(), finalValue);

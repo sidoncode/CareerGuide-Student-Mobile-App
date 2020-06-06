@@ -66,13 +66,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
+                            android:textSize="20sp"
                             android:textColor="@color/app_pink"
                             android:text="Reward Points Earned:"/>
 
@@ -85,6 +86,7 @@
                             android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:text="0"
+                            android:textSize="22sp"
                             android:textColor="@color/black" />
                     </LinearLayout>
 
@@ -92,24 +94,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
+                            android:textSize="20sp"
                             android:textColor="@color/app_pink"
                             android:text="Successful Referrals :"/>
 
                         <TextView
                             android:id="@+id/reftxt"
                             android:layout_width="0dp"
+                            android:paddingLeft="6dp"
                             android:layout_gravity="right"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="1dp"
                             android:layout_marginBottom="1dp"
                             android:layout_weight="1"
+                            android:textSize="22sp"
                             android:text="0"
                             android:textColor="@color/black" />
                     </LinearLayout>
@@ -179,7 +184,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rank\n"
+                            android:text="Rank"
                             android:textSize="22dp"
                             android:textStyle="bold"/>
                         <TextView
@@ -221,7 +226,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="User Name\n"
+                            android:text="User Name"
                             android:textSize="22dp"
                             android:textStyle="bold"/>
                         <TextView
@@ -269,7 +274,7 @@
                          <TextView
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
-                             android:text="Reward\nPoints"
+                             android:text="Points"
                              android:textSize="22dp"
                              android:textStyle="bold"/>
                          <TextView
@@ -379,8 +384,8 @@
                           android:layout_marginTop="10dp"
                           android:layout_marginLeft="10dp"
                           android:layout_marginBottom="10dp"
-                          android:layout_width="100dp"
-                          android:layout_height="100dp"
+                          android:layout_width="90dp"
+                          android:layout_height="90dp"
                           android:src="@drawable/fitnessband" />
                       <LinearLayout
                           android:layout_width="match_parent"
@@ -392,15 +397,15 @@
                               android:layout_marginLeft="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="19dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_blue"
-                              android:text="100 More Successful Referrals Left to Redeem a"/>
+                              android:text="100 More Successful Referrals Left to Redeem:"/>
                           <TextView
                               android:layout_marginLeft="10dp"
                               android:layout_marginBottom="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="22dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_pink"
                               android:textStyle="italic"
                               android:text="FITNESS BAND"/>
@@ -424,8 +429,8 @@
                           android:layout_marginTop="10dp"
                           android:layout_marginLeft="10dp"
                           android:layout_marginBottom="10dp"
-                          android:layout_width="100dp"
-                          android:layout_height="100dp"
+                          android:layout_width="90dp"
+                          android:layout_height="90dp"
                           android:src="@drawable/bluetoothspeakers" />
                       <LinearLayout
                           android:layout_width="match_parent"
@@ -437,15 +442,15 @@
                               android:layout_marginLeft="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="19dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_blue"
-                              android:text="500 More Successful Referrals Left to Redeem a"/>
+                              android:text="500 More Successful Referrals Left to Redeem:"/>
                           <TextView
                               android:layout_marginLeft="10dp"
                               android:layout_marginBottom="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="22dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_pink"
                               android:textStyle="italic"
                               android:text="BLUETOOTH SPEAKER"/>
@@ -468,8 +473,8 @@
                           android:layout_marginTop="10dp"
                           android:layout_marginLeft="10dp"
                           android:layout_marginBottom="10dp"
-                          android:layout_width="100dp"
-                          android:layout_height="100dp"
+                          android:layout_width="90dp"
+                          android:layout_height="90dp"
                           android:src="@drawable/tablet" />
                       <LinearLayout
                           android:layout_width="match_parent"
@@ -481,15 +486,15 @@
                               android:layout_marginLeft="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="19dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_blue"
-                              android:text="1000 More Successful Referrals Left to Redeem a"/>
+                              android:text="1000 More Successful Referrals Left to Redeem:"/>
                           <TextView
                               android:layout_marginLeft="10dp"
                               android:layout_marginBottom="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="22dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_pink"
                               android:textStyle="italic"
                               android:text="TABLET / KINDLE"/>
@@ -513,8 +518,8 @@
                           android:layout_marginTop="10dp"
                           android:layout_marginLeft="10dp"
                           android:layout_marginBottom="10dp"
-                          android:layout_width="100dp"
-                          android:layout_height="100dp"
+                          android:layout_width="90dp"
+                          android:layout_height="90dp"
                           android:src="@drawable/miphone" />
                       <LinearLayout
                           android:layout_width="match_parent"
@@ -526,15 +531,15 @@
                               android:layout_marginLeft="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="19dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_blue"
-                              android:text="5000 More Successful Referrals Left to Redeem a"/>
+                              android:text="5000 More Successful Referrals Left to Redeem:"/>
                           <TextView
                               android:layout_marginLeft="10dp"
                               android:layout_marginBottom="10dp"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textSize="22dp"
+                              android:textSize="20dp"
                               android:textColor="@color/app_pink"
                               android:textStyle="italic"
                               android:text="MI PHONE"/>

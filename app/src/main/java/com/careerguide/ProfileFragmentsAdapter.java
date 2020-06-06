@@ -40,7 +40,7 @@ public class ProfileFragmentsAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Student Profile";
             case 1:
-                return "Rewards and Leaderboard";
+                return "Rewards";
             default:
                 return null;
         }

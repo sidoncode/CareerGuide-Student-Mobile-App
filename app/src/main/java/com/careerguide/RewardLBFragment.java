@@ -202,28 +202,28 @@ public class RewardLBFragment extends Fragment {
         TextView mi=view.findViewById(R.id.mi);
         int refno=Integer.parseInt(Utility.getNumReferrals(getActivity()));
         if(refno<=100) {
-            fitband.setText((100 - refno) + " More Successful Referrals Left to Redeem a");
-            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem a");
-            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem a");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem a");
+            fitband.setText((100 - refno) + " More Successful Referrals Left to Redeem:");
+            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem:");
+            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
+            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
         }
         else if(refno<=500) {
-            fitband.setText("0 More Successful Referrals Left to Redeem a");
-            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem a");
-            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem a");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem a");
+            fitband.setText("0 More Successful Referrals Left to Redeem:");
+            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem:");
+            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
+            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
         }
         else if(refno<=1000) {
-            fitband.setText("0 More Successful Referrals Left to Redeem a");
-            blsp.setText("0 More Successful Referrals Left to Redeem a");
-            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem a");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem a");
+            fitband.setText("0 More Successful Referrals Left to Redeem:");
+            blsp.setText("0 More Successful Referrals Left to Redeem:");
+            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
+            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
         }
         else if(refno<=5000) {
-            fitband.setText("0 More Successful Referrals Left to Redeem a");
-            blsp.setText("0 More Successful Referrals Left to Redeem a");
-            tab.setText("0 More Successful Referrals Left to Redeem a");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem a");
+            fitband.setText("0 More Successful Referrals Left to Redeem:");
+            blsp.setText("0 More Successful Referrals Left to Redeem:");
+            tab.setText("0 More Successful Referrals Left to Redeem:");
+            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
         }
     }
 }

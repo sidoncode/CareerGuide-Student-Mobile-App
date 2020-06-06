@@ -40,6 +40,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     private Activity activity = this;
+    private int cnt=0;
     private String dlink="",dlink1,did="";
 
     @Override
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                             did=dlink1.substring(dlink1.indexOf('/')+1);
                             dlink=dlink1.substring(0,dlink1.indexOf('/'));
                             Log.e("MainActivity", "onSuccess: "+ deepLink+ " "+dlink+did );
+                            cnt=1;
+                            rewd();
                         }
 
 
@@ -107,16 +110,22 @@ public class MainActivity extends AppCompatActivity {
          FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
         Log.d("notification", "Subscribed");
 
+        if(cnt==0)
+            rewd();
 
 
 
+
+
+    }
+    private void rewd()
+    {
         int interval = 1000;
         if (getIntent().getBooleanExtra("hideSplash",false))
         {
-            interval = 1;
+            interval = 1000;
         }
         Log.e("interval",interval + "");
-
         new Handler().postDelayed(() -> {
             Log.e("TAG", "onCreate: "+Utility.getUserId(activity) );
             if(Utility.getUserId(activity).equals(""))
@@ -133,12 +142,11 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                    startActivity(new Intent(activity, HomeActivity.class));
-                    finish();
+                startActivity(new Intent(activity, HomeActivity.class));
+                finish();
             }
         },interval);
     }
-
 
 
     @Override

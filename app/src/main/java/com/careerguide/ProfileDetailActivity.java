@@ -510,7 +510,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                             rp[0]=String.valueOf(Integer.parseInt(rew)+10);
                         else
                             rp[0]=String.valueOf(Integer.parseInt(rew)+15);
-                        setrewards(rp[0],rp[1],name);
+                        setrewards(rp[0],rp[1],String.valueOf(name));
                         //Utility.setRewardPoints(activity,String.valueOf(rew));
                     /*}
                     else
@@ -599,7 +599,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 params.put("user_id", Utility.getUserId(activity));
                 params.put("rewards_point","10");
                 params.put("reward_number", "1");
-                params.put("name", Utility.getUserFirstName(activity)+" "+Utility.getUserLastName(activity));
+                params.put("name", Utility.getUserFirstName(activity) + " " + Utility.getUserLastName(activity));
                 Log.e("request",params.toString());
                 return params;
             }

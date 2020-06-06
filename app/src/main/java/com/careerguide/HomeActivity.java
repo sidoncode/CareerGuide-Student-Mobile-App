@@ -184,6 +184,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     }
                     else {
                        // countstreak("0");
+                        setdata(Utility.getUserId(activity), Utility.getUserFirstName(activity)+" "+Utility.getUserLastName(activity));
                         Utility.setNumReferrals(activity,"0");
                         Utility.setRewardPoints(activity, "0");
                     }
@@ -526,6 +527,68 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }*/
+
+    public void setdata(String id, String name)
+    {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "reward_points", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("setdata", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId",id);
+                params.put("rewards_point", "0");
+                params.put("rewards_number", "0");
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+        StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("updatesetdata", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("user_id",id);
+                params.put("rewards_point", "0");
+                params.put("reward_number", "0");
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
+    }
 
     private void checkGoogleFeedNotification() {
 

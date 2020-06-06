@@ -109,6 +109,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="feed_view_fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="home_fragment">
                     <value>
                       <LayoutPositions>
@@ -158,6 +170,11 @@
                     </value>
                   </entry>
                   <entry key="nav_to_feedFragment">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="nav_to_feedViewFragment">
                     <value>
                       <LayoutPositions />
                     </value>
