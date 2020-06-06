@@ -98,8 +98,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
 
+
             @Override
             public void onClick(View view) {
+
                 String url = articles.get(viewHolder.getAdapterPosition()).getLink();
                 Intent intent=new Intent(mContext,FeedViewActivity.class);
                 intent.putExtra("news_url",url);

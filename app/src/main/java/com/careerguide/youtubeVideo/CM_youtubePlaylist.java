@@ -110,7 +110,7 @@ public class CM_youtubePlaylist extends AppCompatActivity {
 
         loadTitle = "Loading...";
         loadMsg = "Loading your videos...";
-        browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+        browserKey = "AIzaSyBawyNv9QjvFEo0J6UK3KkkOB5lt1XsHsA";
         playlist_id = getIntent().getStringExtra("playlist_id");
         int cornerRadius = 5;
         int videoTxtColor = Color.parseColor("#000000");

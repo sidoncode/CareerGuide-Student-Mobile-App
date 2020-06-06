@@ -30,7 +30,7 @@ import java.util.List;
 public class youtubeFeedDetail extends YouTubeFailureRecoveryActivity {
 
     Activity activity = this;
-    String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";
+    String browserKey = "AIzaSyBawyNv9QjvFEo0J6UK3KkkOB5lt1XsHsA";
     TextView count , desc;
     ImageView downimage;
     int flag =0;

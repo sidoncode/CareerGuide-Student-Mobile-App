@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -23,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -33,13 +35,14 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.viewpager.widget.ViewPager;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.careerguide.payment.PaymentDetailAdapter;
 import com.careerguide.payment.PaymentDetailModel;
+import com.google.android.material.tabs.TabLayout;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -68,13 +71,18 @@ import static android.app.Activity.RESULT_OK;
  */
 public class ProfileFragment extends Fragment {
 
+    public int POSN=0;
     private String newImage = null;
     private CircleImageView dialogProfilePic = null;
     private CircleImageView profilePic;
     private TextView userNameTextView;
     private TextView userLocationTextView;
     private Drawable edittextDrawable = null;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
+    private String mParam1;
+    private String mParam2;
 
     private View view;
     private TextView dialogImageInitial;
@@ -84,10 +92,13 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private List<PaymentDetailModel> paymentlist;
+    /*private List<PaymentDetailModel> paymentlist;
     private ArrayList<PaymentDetailModel> payments = new ArrayList<>();
     private int paymentCount;
-    private PaymentDetailAdapter payment_adapter;
+    private CheckBox[] cb=new CheckBox[7];
+    private TextView[] da=new TextView[7];
+    private PaymentDetailAdapter payment_adapter;*/
+    //private int posn=0;
     private LinearLayoutManager mLayoutManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,19 +108,34 @@ public class ProfileFragment extends Fragment {
         userNameTextView = view.findViewById(R.id.userName);
         userLocationTextView = view.findViewById(R.id.userLocation);
 
+        /*cb[0]=view.findViewById(R.id.cb1);
+        cb[1]=view.findViewById(R.id.cb2);
+        cb[2]=view.findViewById(R.id.cb3);
+        cb[3]=view.findViewById(R.id.cb4);
+        cb[4]=view.findViewById(R.id.cb5);
+        cb[5]=view.findViewById(R.id.cb6);
+        cb[6]=view.findViewById(R.id.cb7);
 
+        da[0]=view.findViewById(R.id.da1);
+        da[1]=view.findViewById(R.id.da2);
+        da[2]=view.findViewById(R.id.da3);
+        da[3]=view.findViewById(R.id.da4);
+        da[4]=view.findViewById(R.id.da5);
+        da[5]=view.findViewById(R.id.da6);
+        da[6]=view.findViewById(R.id.da7);
+        attendance();*/
 
         userNameTextView.setText(Utility.getUserFirstName(getActivity()) + " " + Utility.getUserLastName(getActivity()).trim());
         userLocationTextView.setText(Utility.getUserCity(getActivity()));
 
         profilePic = view.findViewById(R.id.profilePic);
 
-        RecyclerView recycler_payment = view.findViewById(R.id.recycler_payment);
+        /*RecyclerView recycler_payment = view.findViewById(R.id.recycler_payment);
         paymentlist = new ArrayList<>();
         payment_adapter = new PaymentDetailAdapter(getContext(), paymentlist);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recycler_payment.setLayoutManager(mLayoutManager);
-        recycler_payment.setAdapter(payment_adapter);
+        recycler_payment.setAdapter(payment_adapter);*/
 
         String picUrl = Utility.getUserPic(getActivity());
         if (picUrl.isEmpty())
@@ -228,11 +254,39 @@ public class ProfileFragment extends Fragment {
             alertDialog.show();
         });
 
-        setUpCardView();
-        getPaymentDetail();
+
+        ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabbed);
+        ProfileFragmentsAdapter adapter = new ProfileFragmentsAdapter(getChildFragmentManager(), getContext());
+
+
+        pager.setAdapter(adapter);
+        if(this.getActivity().getIntent().getIntExtra("refer",0)==1)
+            pager.setCurrentItem(1);
+        tabLayout.setupWithViewPager(pager);
+
         return view;
     }
-    private void getPaymentDetail(){
+
+
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+    /*private void getPaymentDetail(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "GetPayment", response -> {
             Log.e("all_payment_res", response);
             try {
@@ -283,24 +337,27 @@ public class ProfileFragment extends Fragment {
             }
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
+    }*/
 
-    private void setUpCardView() {
+    /*private void setUpCardView() {
 
         final View personalDetails = view.findViewById(R.id.personalDetails);
         final View eduDetails = view.findViewById(R.id.educationDetails);
         final View accDetails = view.findViewById(R.id.accountDetails);
         final View paymentDetails = view.findViewById(R.id.paymentDetails);
+        final View rewardDetails = view.findViewById(R.id.rewardsDetails);
 
         View personalRL = view.findViewById(R.id.personalRelativeL);
         View eduRL = view.findViewById(R.id.educationalRelativeL);
         View accountRL = view.findViewById(R.id.accountRelativeL);
         View paymentRelativeL = view.findViewById(R.id.paymentRelativeL);
+        View rewardRL = view.findViewById(R.id.rewardsRelativeL);
 
         final ImageView arrowPersonalImageView = view.findViewById(R.id.arrowPersonal);
         final ImageView arrowEduImageView = view.findViewById(R.id.arrowEducational);
         final ImageView arrowAccountImageView = view.findViewById(R.id.arrowAccount);
         final ImageView arrowpayment = view.findViewById(R.id.arrowpayment);
+        final ImageView arrowRewards = view.findViewById(R.id.arrowRewards);
 
         personalRL.setOnClickListener(v -> {
             if (personalDetails.getVisibility() == View.VISIBLE)
@@ -315,8 +372,13 @@ public class ProfileFragment extends Fragment {
             }
             eduDetails.setVisibility(View.GONE);
             accDetails.setVisibility(View.GONE);
+            paymentDetails.setVisibility(View.GONE);
+            rewardDetails.setVisibility(View.GONE);
+
             arrowEduImageView.setImageResource(R.drawable.ic_expand);
             arrowAccountImageView.setImageResource(R.drawable.ic_expand);
+            arrowpayment.setImageResource(R.drawable.ic_expand);
+            arrowRewards.setImageResource(R.drawable.ic_expand);
         });
 
 
@@ -334,9 +396,12 @@ public class ProfileFragment extends Fragment {
             eduDetails.setVisibility(View.GONE);
             accDetails.setVisibility(View.GONE);
             personalDetails.setVisibility(View.GONE);
+            rewardDetails.setVisibility(View.GONE);
+
             arrowEduImageView.setImageResource(R.drawable.ic_expand);
             arrowAccountImageView.setImageResource(R.drawable.ic_expand);
             arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+            arrowRewards.setImageResource(R.drawable.ic_expand);
         });
 
         eduRL.setOnClickListener(v -> {
@@ -352,8 +417,13 @@ public class ProfileFragment extends Fragment {
             }
             personalDetails.setVisibility(View.GONE);
             accDetails.setVisibility(View.GONE);
+            paymentDetails.setVisibility(View.GONE);
+            rewardDetails.setVisibility(View.GONE);
+
             arrowAccountImageView.setImageResource(R.drawable.ic_expand);
             arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+            arrowpayment.setImageResource(R.drawable.ic_expand);
+            arrowRewards.setImageResource(R.drawable.ic_expand);
         });
 
         accountRL.setOnClickListener(v -> {
@@ -369,7 +439,33 @@ public class ProfileFragment extends Fragment {
             }
             eduDetails.setVisibility(View.GONE);
             personalDetails.setVisibility(View.GONE);
+            paymentDetails.setVisibility(View.GONE);
+            rewardDetails.setVisibility(View.GONE);
+
             arrowEduImageView.setImageResource(R.drawable.ic_expand);
+            arrowRewards.setImageResource(R.drawable.ic_expand);
+            arrowpayment.setImageResource(R.drawable.ic_expand);
+            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+        });
+        rewardRL.setOnClickListener(v -> {
+            if (rewardDetails.getVisibility() == View.VISIBLE)
+            {
+                rewardDetails.setVisibility(View.GONE);
+                arrowRewards.setImageResource(R.drawable.ic_expand);
+            }
+            else
+            {
+                rewardDetails.setVisibility(View.VISIBLE);
+                arrowRewards.setImageResource(R.drawable.ic_collapse);
+            }
+            personalDetails.setVisibility(View.GONE);
+            accDetails.setVisibility(View.GONE);
+            eduDetails.setVisibility(View.GONE);
+            paymentDetails.setVisibility(View.GONE);
+
+            arrowEduImageView.setImageResource(R.drawable.ic_expand);
+            arrowpayment.setImageResource(R.drawable.ic_expand);
+            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
             arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
         });
 
@@ -381,9 +477,13 @@ public class ProfileFragment extends Fragment {
         final EditText mobileEditText = view.findViewById(R.id.mobileEditText);
         TextView emailTextView = view.findViewById(R.id.emailTextView);
         TextView edutxt = view.findViewById(R.id.edutxt);
+        TextView rewtxt = view.findViewById(R.id.rewtxt);
+        TextView reftxt = view.findViewById(R.id.reftxt);
         final Spinner eduSpinner = view.findViewById(R.id.eduSpinner);
         final Spinner genderSpinner = view.findViewById(R.id.genderSpinner);
 
+        rewtxt.setText(Utility.getRewardPoints(getActivity()));
+        reftxt.setText(Utility.getNumReferrals(getActivity()));
 
         final ImageView editFName = view.findViewById(R.id.editFName);
         final ImageView editLName = view.findViewById(R.id.editLName);
@@ -849,6 +949,27 @@ public class ProfileFragment extends Fragment {
         editText.setBackgroundColor(Color.TRANSPARENT);
     }
 
+    private void attendance() {
+        int cnt = 0;
+        String score = Utility.getUserStreak(getActivity());
+        int i = 0;
+        for (i = 0; i < score.length(); i++) {
+            if (score.charAt(i) == '1') {
+                cnt++;
+                //da[i].setText(String.valueOf(cnt));
+                cb[i].setChecked(true);
+            } else {
+                cnt = 0;
+                cb[i].setChecked(false);
+            }
+        }
+        while (i < 7) {
+            cb[i].setChecked(false);
+            i++;
+        }
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
@@ -880,7 +1001,7 @@ public class ProfileFragment extends Fragment {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
+    }*/
 
 
 }

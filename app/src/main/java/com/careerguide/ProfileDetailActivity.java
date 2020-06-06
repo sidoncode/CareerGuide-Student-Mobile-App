@@ -47,6 +47,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -485,9 +486,130 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 }
         }
     }
+    private void getrewards()
+    {
+        String id=getIntent().getStringExtra("refid");
+        final String[] rp = {"0","0"};
+        StringRequest stringRequest2=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "fetch_rewards_point", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("rewards_response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status",false);
+                    /*if(jsonObject.optJSONArray("reward_point").length()!=0)
+                    {*/
+                        JSONArray userJsonObject = jsonObject.optJSONArray("reward_point");
+                        JSONObject jbj = userJsonObject.optJSONObject(0);
+                        String rew=jbj.optString("rewards_point");
+                        String numref=jbj.optString("reward_number");
+                        String name=jbj.optString("name");
+                        rp[1]=String.valueOf(Integer.parseInt(numref)+1);
+                        Log.e("TAG", "onResponse: "+rew+" "+ numref );
+                        if(Integer.parseInt(rp[1])<=20)
+                            rp[0]=String.valueOf(Integer.parseInt(rew)+10);
+                        else
+                            rp[0]=String.valueOf(Integer.parseInt(rew)+15);
+                        setrewards(rp[0],rp[1],name);
+                        //Utility.setRewardPoints(activity,String.valueOf(rew));
+                    /*}
+                    else
+                        setrewards("10","1");*/
+
+                } catch (JSONException j) {
+
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId", id );
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
+
+    }
+    private void setrewards(String rew, String numref, String name)
+    {
+        String id=getIntent().getStringExtra("refid");
+        //String id=dl;
+        //final int rp=Integer.parseInt(dl.substring(dl.indexOf('/')+1));
+        //Log.e("TAG", "rewards: "+id+ (Integer.parseInt(rew) + 1));
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("sender_rewards_response", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("user_id",id);
+                params.put("rewards_point", rew);
+                params.put("reward_number", numref);
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+        StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("rec_rewards_response", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("user_id", Utility.getUserId(activity));
+                params.put("rewards_point","10");
+                params.put("reward_number", "1");
+                params.put("name", Utility.getUserFirstName(activity)+" "+Utility.getUserLastName(activity));
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
+    }
 
     private void registerUser()
     {
+        Utility.setUserStreak(activity,"");
         final ProgressDialog progressDialog = new ProgressDialogCustom(activity);
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "register", new Response.Listener<String>() {
@@ -523,7 +645,14 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                         Utility.setUserMobile(activity,"");
                         Utility.setUserEducation(activity,"");
                         Utility.setUserActivated(activity,activated);
+                        Utility.setRewardPoints(activity,"0");
                         Intent intent = new Intent(activity, Activity_class.class);
+                        Log.e("TAG", "onResponse: "+ getIntent().getStringExtra("refid"));
+                        setRewData(id, firstName+" "+lastName);
+                        if(getIntent().getStringExtra("refid").compareTo("")!=0)
+                            getrewards();
+                       // Log.e("TAG", "onResponse: "+ getIntent().getStringExtra("refid"));
+                        //intent.putExtra("refid",getIntent().getStringExtra("refid"));
                         startActivity(intent);
                         finish();
                     }
@@ -568,6 +697,69 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
 
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
+
+    public void setRewData(String id, String name)
+    {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "reward_points", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("setdata", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId",id);
+                params.put("rewards_point", "0");
+                params.put("rewards_number", "0");
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+        StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("updatesetdata", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("user_id",id);
+                params.put("rewards_point", "0");
+                params.put("reward_number", "0");
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

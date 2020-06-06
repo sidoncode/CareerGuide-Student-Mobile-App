@@ -30,16 +30,17 @@ public class Onboarding extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Intent intent=getIntent();
 
         PrefManager prefManager = new PrefManager(this);
         if(!prefManager.isFirstTimeLaunch()){
             if (Utility.getUserId(this).equals("")) {
-                startActivity(new Intent(Onboarding.this, SignUpActivity.class));
+                startActivity(new Intent(Onboarding.this, SignUpActivity.class).putExtra("refid",intent.getStringExtra("refid")));
                 finish();
                 return;
             }
 
-            startActivity(new Intent(Onboarding.this, SignUpActivity.class));
+            startActivity(new Intent(Onboarding.this, SignUpActivity.class).putExtra("refid",intent.getStringExtra("refid")));
             finish();
         }
 
@@ -71,7 +72,7 @@ public class Onboarding extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         btnSkip.setOnClickListener(v -> {
-            startActivity(new Intent(Onboarding.this, SignUpActivity.class));
+            startActivity(new Intent(Onboarding.this, SignUpActivity.class).putExtra("refid",intent.getStringExtra("refid")));
             finish();
         });
 
@@ -83,7 +84,7 @@ public class Onboarding extends AppCompatActivity {
                 // move to next screen
                 viewPager.setCurrentItem(current);
             } else {
-                startActivity(new Intent(Onboarding.this, SignUpActivity.class));
+                startActivity(new Intent(Onboarding.this, SignUpActivity.class).putExtra("refid",intent.getStringExtra("refid")));
                 finish();
             }
         });
