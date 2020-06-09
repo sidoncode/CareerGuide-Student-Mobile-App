@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.careerguide.Book_Appoinment.BookCounsellor;
+import com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration;
 import com.careerguide.CGPlayListViewModel;
 import com.careerguide.CurrentLiveCounsellorsAdapter;
 import com.careerguide.CurrentLiveCounsellorsModel;
@@ -155,7 +156,12 @@ public class CGPlaylist extends Fragment {
         View.OnClickListener onClick = v -> {
             startActivity(new Intent(getActivity(), PlanActivity.class));
         };
-        thisScreensView.findViewById(R.id.tv_subscribe).setOnClickListener(onClick);
+        thisScreensView.findViewById(R.id.tv_booksession).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), NewOneToOneRegisteration.class));
+            }
+        });
 
 
         shimmer_view_container_cat_1=thisScreensView.findViewById(R.id.shimmer_view_container_cat_1);

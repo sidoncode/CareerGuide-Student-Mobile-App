@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/share"
+        android:visibility="gone"
         android:text=""
         android:padding="4dp"
         android:layout_marginRight="25dp"
@@ -23,8 +24,10 @@
 
     <!--watermark-->
     <TextView
+        android:id="@+id/watermark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="60dp"
@@ -49,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Loading! Please wait..."
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="visible" />
@@ -87,7 +91,7 @@
         android:paddingTop="2.0dip"
         android:paddingEnd="8.0dip"
         android:paddingBottom="2.0dip"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/live_msg"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -247,6 +251,7 @@
         android:layout_centerHorizontal="true"
         android:layout_height="50dp"
         android:background="#fff"
+        android:visibility="gone"
         android:fitsSystemWindows="true"
         >
         <LinearLayout

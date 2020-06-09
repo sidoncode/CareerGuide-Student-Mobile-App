@@ -55,6 +55,8 @@ public class Video_player extends AppCompatActivity {
     String host_image = "";
     String scheduledesc = "";
     String fileName = "";
+    String bannerImage = "";
+    String bannerImageFilename="";
     String video_views = "";
 
 
@@ -93,6 +95,8 @@ public class Video_player extends AppCompatActivity {
                             video_url=video_url.replace(" ","+");
                             video_views = jsonObject.optString("video_views");
                             fileName = jsonObject.optString("host_image");
+                            bannerImage=jsonObject.optString("bannerImage");
+                            bannerImageFilename=bannerImage.substring(bannerImage.lastIndexOf("/")+1);
                             host_image = "https://app.careerguide.com/api/user_dir/" + fileName;
                             new TaskUpdateViewCounter(videoId).execute();
 
@@ -103,13 +107,15 @@ public class Video_player extends AppCompatActivity {
                     } else {
 
                         videoId = getIntent().getStringExtra("video_id");
-                        host_image = getIntent().getStringExtra("imgurl");
+                        host_image = getIntent().getStringExtra("host_img");
                         Fullname = getIntent().getStringExtra("Fullname");
                         title = getIntent().getStringExtra("title");
                         hostEmail = getIntent().getStringExtra("host_email");
                         video_url = getIntent().getStringExtra("live_video_url");
                         video_views = getIntent().getStringExtra("video_views");
                         fileName = host_image.substring(host_image.lastIndexOf("/")+1);
+                        bannerImage=getIntent().getStringExtra("imgurl");
+                        bannerImageFilename=bannerImage.substring(bannerImage.lastIndexOf("/")+1);
                         new TaskUpdateViewCounter(videoId).execute();
 
                     }
@@ -262,13 +268,13 @@ public class Video_player extends AppCompatActivity {
     public void video_share(View view) {
 
         if (PublicFunctions.checkAccessStoragePermission(this)) {
-            if (!Utility.checkFileExist(fileName)) {
-                Utility.downloadImage(fileName + "", host_image + "", this);
+            if (!Utility.checkFileExist(bannerImageFilename)) {
+                Utility.downloadImage(bannerImageFilename + "", host_image + "", this);
             }
             String shareMessagee = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
 
             DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                    .setLink(Uri.parse(video_url+"?sessionDetails={\"videoId\":\""+videoId+"\",\"Fullname\":\""+Fullname+"\",\"title\":\""+title+"\",\"hostEmail\":\""+hostEmail+"\",\"video_url\":\""+video_url+"\",\"video_views\":\""+video_views+"\",\"fileName\":\""+fileName+"\"}"))
+                    .setLink(Uri.parse(video_url+"?sessionDetails={\"videoId\":\""+videoId+"\",\"Fullname\":\""+Fullname+"\",\"title\":\""+title+"\",\"hostEmail\":\""+hostEmail+"\",\"video_url\":\""+video_url+"\",\"video_views\":\""+video_views+"\",\"fileName\":\""+fileName+"\",\"bannerImage\":\""+bannerImage+"\"}"))
                     .setDynamicLinkDomain("careerguidesharevideo.page.link")
                     // Open links with this app on Android
                     .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
@@ -298,7 +304,7 @@ public class Video_player extends AppCompatActivity {
                             Log.e("main", "short Link" + flowchartLink);
                             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                             StrictMode.setVmPolicy(builder.build());
-                            File imgFile = Utility.getFile(fileName);
+                            File imgFile = Utility.getFile(bannerImageFilename);
                             Uri path = Uri.fromFile(imgFile);
                             Intent shareIntent = new Intent(Intent.ACTION_SEND);
                             //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/menteeDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight=".80"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.37"
+        android:orientation="vertical">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:collapseColumns="2"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/tv_bookForYou"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:textAlignment="center"
+                    android:text="Book for You"
+                    android:textColor="@color/black"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/round_corner_grey"
+                    android:textSize="14sp" />
+
+                <TextView
+
+                    android:id="@+id/tv_bookForOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:textAlignment="center"
+                    android:text="Book for Other"
+                    android:layout_margin="5dp"
+                    android:textColor="#000"
+                    android:background="@drawable/round_corner_grey"
+                    android:textSize="14sp" />
+
+            </TableRow>
+
+
+        </TableLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="14dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="4dp"
+            />
+
+        <EditText
+            android:id="@+id/menteeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="Enter Name"
+            android:textSize="14sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="14dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="4dp"
+            />
+
+        <EditText
+            android:id="@+id/menteeEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="Enter Email"
+            android:textSize="14sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="2dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_corner_grey">
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

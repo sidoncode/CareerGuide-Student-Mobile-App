@@ -181,7 +181,7 @@
                             android:paddingBottom="10dp">
 
                             <TextView
-                                android:id="@+id/tv_subscribe"
+                                android:id="@+id/tv_booksession"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Book Session"
@@ -1432,7 +1432,6 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_three"
                             android:layout_marginBottom="8dp"
-                            android:paddingBottom="85dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/sessionDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_session_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="1.You'll be getting 45 minutes of personal LIVE video Call + Chat."
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tv_whoIsAssigned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="2.One of our top counselor will be assigned to you before the payment is complete."
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tv_timing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="3.Book a slot which is convenient to you."
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_batchTiming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="4.Batches a\n    1.Morning batch->    9AM-12PM\n    2.Afternoon batch->   12PM-3PM\n    3.Evening batch-> 9AM-12PM"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_packagePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="5.Package cost Rs.1900/-"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_packageDiscount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="6.On booking your first session get Rs.200/- OFF"
+            android:textSize="14sp" />
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

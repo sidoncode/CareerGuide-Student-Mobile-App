@@ -92,9 +92,22 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                /*if (getprivateUID().contentEquals(getRtcUid()+"")){//private session for the user only
+                    initView();
+                    initRtcEngine();
+                    initRtmClient();
+                }else{
+                    if (getprivateUID().contentEquals("")&&!getchannelid().contains("privatesession")){//free session
+                        initView();
+                        initRtcEngine();
+                        initRtmClient();
+                    }
+                }*/
                 initView();
                 initRtcEngine();
                 initRtmClient();
+
             }
         }, 3000);
 
@@ -108,6 +121,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     }
     protected abstract int getRtcUid();
     protected abstract String getchannelid();
+    protected abstract String getprivateUID();
     protected abstract void livePrepare(RtcEngine engine);
 
 
@@ -135,6 +149,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     }
 
     private void initRtmClient() {
+
         mRtmClient = RtmClientManager.getInstance().getRtmClient();
         mRtmClient.login("", String.valueOf(getRtcUid()), new ResultCallback<Void>() {
             @Override
