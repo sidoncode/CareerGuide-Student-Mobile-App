@@ -263,6 +263,25 @@ public class Utility extends Application
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("icon_url", icon_url).apply();
     }
+    public static void setRewardPoints(Activity activity, String rp)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("reward", rp).apply();
+    }
+
+    public static void setNumReferrals(Activity activity, String rp)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("numref", rp).apply();
+    }
+    public static void setUserStreak(Activity activity, String score)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("score", score).apply();
+    }
 
     public static String  getIcon_url(Activity activity)
     {
@@ -367,6 +386,23 @@ public class Utility extends Application
     {
         SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
         return sharedPreferences.getString("educationUid","");
+    }
+    public static String getRewardPoints(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("reward","");
+    }
+
+    public static String getNumReferrals(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("numref","");
+    }
+
+    public static String getUserStreak(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("score","");
     }
 
     public static boolean logOut(Activity activity)

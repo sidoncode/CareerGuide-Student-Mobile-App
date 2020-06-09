@@ -1,4 +1,4 @@
-package com.careerguide.newsfeed;
+package com.careerguide.newsfeed.notifier;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

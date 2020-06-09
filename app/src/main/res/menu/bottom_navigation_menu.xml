@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_nav"
@@ -15,7 +16,12 @@
         android:enabled="true"
         android:title="Articles" />
 
-
+    <item
+        android:id="@+id/nav_counsellor"
+        android:icon="@drawable/working"
+        app:labelVisibilityMode="labeled"
+        android:enabled="true"
+        android:title="Counsellors" />
 
 
     <item

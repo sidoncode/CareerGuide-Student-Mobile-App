@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -18,6 +19,9 @@ import android.net.Uri;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.careerguide.activity.SeeAllActivity;
 import com.careerguide.blog.DataMembers;
 import com.careerguide.blog.activity.CatDetailActivity;
@@ -26,6 +30,7 @@ import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
+import com.google.android.exoplayer2.C;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -62,6 +67,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager.widget.ViewPager;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -95,7 +101,10 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.internal.Util;
+
 import com.careerguide.blog.model.Categories;
+import com.google.gson.JsonArray;
 
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
@@ -128,6 +137,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     //private ActionBarDrawerToggle drawerToggle;
     private String mActivityTitle;
+    private int posn=0;
     private String apiKey = "1befd9d8922089646809507c9b51320c61dfa227";
 
 
@@ -146,7 +156,70 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
+
+        //Utility.setRewardPoints(activity,"0");
+        StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "fetch_rewards_point", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("rewards_response", response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status",false);
+                    if(jsonObject.optJSONArray("reward_point").length()!=0)
+                    {
+                        JSONArray userJsonObject = jsonObject.optJSONArray("reward_point");
+                        JSONObject jbj = userJsonObject.optJSONObject(0);
+                        String rew=jbj.optString("rewards_point");
+                        String numref=jbj.optString("reward_number");
+                        Log.e("TAG", "onResponse: "+rew+" "+numref );
+                        //countstreak(rew);
+                        if(numref==null)
+                            Utility.setNumReferrals(activity, "0");
+                        else
+                            Utility.setNumReferrals(activity, numref);
+                        Utility.setRewardPoints(activity,rew);
+                    }
+                    else {
+                       // countstreak("0");
+                        setdata(Utility.getUserId(activity), Utility.getUserFirstName(activity)+" "+Utility.getUserLastName(activity));
+                        Utility.setNumReferrals(activity,"0");
+                        Utility.setRewardPoints(activity, "0");
+                    }
+
+                } catch (JSONException j) {
+
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId", Utility.getUserId(activity));
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
+
+
+
+
+        //countstreak();
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressDialog=new ProgressDialog ( this);
@@ -192,6 +265,13 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         NavigationUI.setupWithNavController (toolbar, navController, mDrawer);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        if(getIntent().getIntExtra("refer",0)==1) {
+            Log.e("test", "onCreate: " );
+            BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+            bnv.setSelectedItemId(R.id.nav_account);
+            navController.popBackStack();
+            navController.navigate(R.id.nav_to_profileFragment);
+        }
         onDownloadComplete = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -343,6 +423,172 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         checkGoogleFeedNotification();
 
     }
+    public int setPosn()
+    {
+        return posn;
+    }
+    /*public void countstreak(String rew)
+    {
+        Calendar calendar=Calendar.getInstance();
+        String score;
+        int date=calendar.get(Calendar.DATE);
+        int month=calendar.get(Calendar.MONTH);
+        int year=calendar.get(Calendar.YEAR);
+        int day=calendar.get(Calendar.DAY_OF_WEEK)-1;
+        Log.e("TAG", "countstreak: "+day );
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int lastdate=sharedPreferences.getInt("lastdate",0);
+        if(day==0)
+            day=7;
+        Log.e("TAG", "countstreak: "+day);
+        //String currlogin= date+" "+month+" "+year;
+        //Log.e("TAG", "onCreate: "+ currlogin);
+        score=Utility.getUserStreak(activity);
+        Log.e("TAG", "countstreak: "+score);
+        if(score.length()<day)
+        {
+            while(score.length()+1!=day)
+                score=score+"0";
+            score=score+"1";
+            reward(rew,score);
+        }
+        else if(score.length()==7 && day!=7)
+        {
+            score="";
+            for(int i=1;i<day;i++)
+                score=score+"0";
+            score=score+"1";
+            reward(rew,score);
+        }
+        else if(score.length()>day)
+        {
+            score="";
+            for(int i=1;i<day;i++)
+                score=score+"0";
+            score=score+"1";
+            reward(rew,score);
+        }
+        else if(score.length()==day)
+        {
+            if(date!=lastdate)
+            {
+                score="";
+                for(int i=1;i<day;i++)
+                    score=score+"0";
+                score=score+"1";
+                reward(rew,score);
+            }
+        }
+
+
+        Log.e("TAG", "countstreak: "+score );
+        Utility.setUserStreak(activity, score);
+        editor.putInt("lastdate",date).apply();
+        Log.e("TAG", "lastdate: "+ lastdate );
+
+    }
+    private void reward(String rew, String score)
+    {
+        int cnt = 0;
+        for (int i = 0; i < score.length(); i++) {
+            if (score.charAt(i) == '1') {
+                cnt++;
+            } else {
+                cnt = 0;
+            }
+        }
+        final int cn=cnt;
+        Log.e("TAG", "countstreak: "+rew+" "+cn );
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "reward_points", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("rewards_response", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId",Utility.getUserId(activity));
+                params.put("rewards_point", String.valueOf(Integer.parseInt(rew)+cn));
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+    }*/
+
+    public void setdata(String id, String name)
+    {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "reward_points", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("setdata", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId",id);
+                params.put("rewards_point", "0");
+                params.put("rewards_number", "0");
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+
+        StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("updatesetdata", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("rewards_error","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("user_id",id);
+                params.put("rewards_point", "0");
+                params.put("reward_number", "0");
+                params.put("name", name);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
+    }
 
     private void checkGoogleFeedNotification() {
 
@@ -365,19 +611,22 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId()==R.id.nav_counsellor)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.nav_to_counsellor_profiles);
+                }
 
                 if(menuItem.getItemId()==R.id.nav_home)
                 {
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_homeFragment);
                 }
-
                 if(menuItem.getItemId()==R.id.nav_feed)
                 {
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_feedFragment);
                 }
-
                 if(menuItem.getItemId()==R.id.nav_account)
                 {
                     navController.popBackStack();
@@ -582,6 +831,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
             mDrawer.closeDrawers();
             return;
         }
+
+
         else if(menuItem.getItemId()==R.id.livecounsellor)
         {
             final ProgressDialog progressDialog = new ProgressDialog(activity);
