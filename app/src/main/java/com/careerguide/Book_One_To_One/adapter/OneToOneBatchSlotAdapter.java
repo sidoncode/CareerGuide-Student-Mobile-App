@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration;
 import com.careerguide.Book_One_To_One.model.OneToOneBatchSlotModel;
 import com.careerguide.R;
 
@@ -84,6 +85,7 @@ public class OneToOneBatchSlotAdapter extends RecyclerView.Adapter<OneToOneBatch
             //currentlyClicked.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_grey));//use for booked slots
         currentlyClicked=clickedView;
         currentlyClicked.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_blue));
+        ((NewOneToOneRegisteration)mContext).setSelectTimeSlot(((TextView)currentlyClicked).getText().toString());
 
 
     }

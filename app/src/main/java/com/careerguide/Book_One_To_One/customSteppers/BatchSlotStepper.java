@@ -60,6 +60,7 @@ public class BatchSlotStepper extends Step<String> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         batchSlotStepperView = inflater.inflate(R.layout.one_to_one_batch_slot_stepper, null, false);
 
+/*
 
         ArrayList b1=new ArrayList<OneToOneTimeSlotModel>();
         b1.add(new OneToOneTimeSlotModel("09:00 AM",true));
@@ -76,23 +77,24 @@ public class BatchSlotStepper extends Step<String> {
         b2.add(new OneToOneTimeSlotModel("09:00 AM",false));
         b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
         b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
+        b2.add(new OneToOneTimeSlotModel("19:00 AM",true));
+        b2.add(new OneToOneTimeSlotModel("29:00 AM",true));
         b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
         oneToOneBatchSlotModelArrayList.add(new OneToOneBatchSlotModel("2","12-3PM",b2));
 
 
         ArrayList b3=new ArrayList<OneToOneTimeSlotModel>();
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",false));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",false));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
-        b2.add(new OneToOneTimeSlotModel("09:00 AM",true));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",true));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",true));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",false));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",false));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",true));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",true));
+        b3.add(new OneToOneTimeSlotModel("09:00 AM",true));
+
 
         oneToOneBatchSlotModelArrayList.add(new OneToOneBatchSlotModel("3","3-6PM",b3));
-
+*/
 
         recyclerViewBatchSlot=batchSlotStepperView.findViewById(R.id.recyclerViewBatchSlot);
         oneToOneBatchSlotAdapter = new OneToOneBatchSlotAdapter(getContext(), oneToOneBatchSlotModelArrayList);

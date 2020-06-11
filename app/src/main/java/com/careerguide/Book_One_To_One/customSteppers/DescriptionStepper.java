@@ -2,7 +2,9 @@ package com.careerguide.Book_One_To_One.customSteppers;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration;
 import com.careerguide.R;
 
 import ernestoyaquello.com.verticalstepperform.Step;
@@ -10,6 +12,7 @@ import ernestoyaquello.com.verticalstepperform.Step;
 public class DescriptionStepper extends Step<String> {
 
     private View descriptionStepperView;
+    private TextView tv_package_description;
 
     public DescriptionStepper(String title) {
         super(title);
@@ -45,6 +48,8 @@ public class DescriptionStepper extends Step<String> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         descriptionStepperView = inflater.inflate(R.layout.one_to_one_desc_stepper, null, false);
 
+        tv_package_description=descriptionStepperView.findViewById(R.id.tv_package_description);
+
         return descriptionStepperView;
     }
 
@@ -66,5 +71,9 @@ public class DescriptionStepper extends Step<String> {
     @Override
     protected void onStepMarkedAsUncompleted(boolean animated) {
 
+    }
+
+    public void populateData(){
+        tv_package_description.setText(((NewOneToOneRegisteration)getContext()).getPackageDescription());
     }
 }

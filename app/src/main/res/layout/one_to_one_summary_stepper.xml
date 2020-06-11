@@ -79,7 +79,7 @@
 
 
              <TextView
-            android:id="@+id/tv_educator_since"
+            android:id="@+id/experience"
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
@@ -150,6 +150,32 @@
 
                 <TextView
 
+                    android:id="@+id/bookingFor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:text="For Albino Braganza"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
@@ -159,7 +185,7 @@
 
                 <TextView
 
-                    android:id="@+id/textViewFinalSessionCost"
+                    android:id="@+id/textViewPackageCost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dip"

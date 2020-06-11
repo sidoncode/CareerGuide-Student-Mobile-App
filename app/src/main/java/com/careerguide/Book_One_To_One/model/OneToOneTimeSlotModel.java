@@ -18,3 +18,8 @@ public class OneToOneTimeSlotModel {
         return slotTime;
     }
 }
+
+
+
+
+

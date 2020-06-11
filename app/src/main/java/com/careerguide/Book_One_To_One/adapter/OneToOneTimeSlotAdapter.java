@@ -70,7 +70,6 @@ class OneToOneTimeSlotAdapter extends RecyclerView.Adapter<OneToOneTimeSlotAdapt
             });
         else{
             holder.textViewTimeSlot.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_grey));//use for booked slots
-
         }
 
     }

@@ -5,13 +5,19 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration;
 import com.careerguide.R;
 import com.careerguide.Utility;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,9 +29,12 @@ public class NameEmailStepper extends Step<String> {
 
     private TextView tv_bookForYou,tv_bookForOther;
     private EditText menteeName,menteeEmail;
+    private Spinner spinner_category;
+
 
     private int errorCodeName=1;
     private int errorCodeEmail=1;
+    private int errorCodeCategory=1;
     private int errorCode=2;
 
     public NameEmailStepper(String title) {
@@ -66,6 +75,44 @@ public class NameEmailStepper extends Step<String> {
 
         tv_bookForYou=nameEmailStepperView.findViewById(R.id.tv_bookForYou);
         tv_bookForOther=nameEmailStepperView.findViewById(R.id.tv_bookForOther);
+        spinner_category=nameEmailStepperView.findViewById(R.id.spinner_category);
+
+        final List<String> category = new ArrayList<>();
+        category.add("Select Category");
+        category.add("NINE");
+        category.add("TEN");
+        category.add("ELEVEN");
+        category.add("TWELVE");
+        category.add("GRADUATE");
+        category.add("POSTGRA");
+        category.add("WORKING");
+
+        final ArrayAdapter<String> datacategoryAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, category);
+        spinner_category.setAdapter(datacategoryAdapter);
+
+
+        spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Select Category")) {
+                    Toast.makeText(getContext(),"Please a category!",Toast.LENGTH_SHORT);
+                    errorCodeCategory=1;
+                    return;
+                }
+                errorCodeCategory=0;
+                getFormView().markOpenStepAsCompleted(true);
+                ((NewOneToOneRegisteration)getContext()).setSelectedCategory(selectedItem);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         menteeName=nameEmailStepperView.findViewById(R.id.menteeName);
         menteeEmail=nameEmailStepperView.findViewById(R.id.menteeEmail);
@@ -120,7 +167,7 @@ public class NameEmailStepper extends Step<String> {
                 }else
                     errorCodeName=0;
 
-                if (errorCodeName+errorCodeEmail==0){
+                if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
                     getFormView().markOpenStepAsCompleted(true);
                 }else
                     getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
@@ -155,8 +202,10 @@ public class NameEmailStepper extends Step<String> {
                 }else
                     errorCodeEmail=0;
 
-                if (errorCodeName+errorCodeEmail==0){
+                if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
                     getFormView().markOpenStepAsCompleted(true);
+                    ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
+                    ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
                 }else
                     getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
 

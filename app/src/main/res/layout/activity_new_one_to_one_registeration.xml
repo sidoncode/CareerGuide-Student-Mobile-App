@@ -3,7 +3,7 @@
     android:id="@+id/stepper_form"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:form_last_button_text="Book session"
+    app:form_last_button_text="Proceed to payment"
     app:form_circle_background_color="@color/colorPrimary"
     app:form_next_button_background_color="@color/colorPrimary"
     app:form_next_button_pressed_background_color="@color/colorPrimaryDark"

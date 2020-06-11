@@ -134,7 +134,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);
 
         if (isAnchor()) {
-            mRtcEngine.enableLocalAudio(true);
+            mRtcEngine.enableLocalAudio(false);
             mRtcEngine.setupLocalVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
             mRtcEngine.startPreview();
         } else {
