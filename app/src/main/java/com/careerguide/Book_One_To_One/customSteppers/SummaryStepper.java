@@ -116,57 +116,6 @@ public class SummaryStepper extends Step<String> {
         @Override
         protected Void doInBackground(Void... params) {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
-                Log.e("all_coun_res_counsellor", response);
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean status = jsonObject.optBoolean("status", false);
-                    if (status) {
-                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
-                        JSONObject counselorJsonObject = counsellorsJsonArray.optJSONObject(0);
-                        ((NewOneToOneRegisteration)getContext()).setHostId(counselorJsonObject.optString("co_id"));
-                        ((NewOneToOneRegisteration)getContext()).setHostFullName(counselorJsonObject.optString("first_name")+" "+ counselorJsonObject.optString("last_name"));
-                        ((NewOneToOneRegisteration)getContext()).setHostImageUrl(counselorJsonObject.optString("profile_pic"));
-                        ((NewOneToOneRegisteration)getContext()).setChannelName(counselorJsonObject.optString("email")+"_privatesession_"+((NewOneToOneRegisteration)getContext()).getSelectTimeSlot()+"_"+((NewOneToOneRegisteration)getContext()).getSelectedDate());
-
-                        ((NewOneToOneRegisteration) getContext()).runOnUiThread(()->{
-                            RequestOptions options = new RequestOptions()
-                                    .centerCrop()
-                                    .placeholder(R.drawable.loading)
-                                    .error(R.drawable.loading)
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .priority(Priority.HIGH)
-                                    .dontAnimate()
-                                    .dontTransform();
-                            Glide.with(getContext()).load(((NewOneToOneRegisteration)getContext()).getHostImageUrl()).apply(options).into(profileImage);
-                            host_name.setText(((NewOneToOneRegisteration)getContext()).getHostFullName());
-                            experience.setText("10 years Experience");
-
-                        });
-
-                    } else {
-                        Log.i("sssss","asasas");
-                        Toast.makeText(getContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
-                    }
-                    //pb_loading.setVisibility(View.GONE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }, error -> {
-               // pb_loading.setVisibility(View.GONE);
-                Toast.makeText(getContext(), VoleyErrorHelper.getMessage(error, getContext()), Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror", "error");
-            }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    HashMap<String, String> params = new HashMap<>();
-                    //params.put("user_education", Utility.getUserEducationUid(getActivity()));
-                    Log.e("all_coun_req", params.toString());
-                    return params;
-                }
-            };
-            VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
-
             return null;
 
         }
@@ -174,10 +123,26 @@ public class SummaryStepper extends Step<String> {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.drawable.loading)
+                    .error(R.drawable.loading)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .priority(Priority.HIGH)
+                    .dontAnimate()
+                    .dontTransform();
+            Glide.with(getContext()).load(((NewOneToOneRegisteration)getContext()).getHostImageUrl()).apply(options).into(profileImage);
+            host_name.setText(((NewOneToOneRegisteration)getContext()).getHostFullName());
+            experience.setText("10 years Experience");
+
+
+
             scheduleDesc.setText("Personal counseling session \n at "+((NewOneToOneRegisteration)getContext()).getSelectTimeSlot());
             textviewDate.setText(((NewOneToOneRegisteration)getContext()).getSelectedDate());
-            textViewPackageCost.setText(((NewOneToOneRegisteration)getContext()).getPackageCost());
+            textViewPackageCost.setText("Rs."+((NewOneToOneRegisteration)getContext()).getPackageCost());
             bookingFor.setText("For "+((NewOneToOneRegisteration)getContext()).getMenteeName());
+            textViewTotal.setText("Rs."+((NewOneToOneRegisteration)getContext()).getPackageCost());
         }
     }
 

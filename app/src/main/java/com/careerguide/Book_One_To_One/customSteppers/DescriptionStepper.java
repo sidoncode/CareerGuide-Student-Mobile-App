@@ -39,7 +39,7 @@ public class DescriptionStepper extends Step<String> {
 
     @Override
     protected IsDataValid isStepDataValid(String stepData) {
-        return new IsDataValid(true);
+        return new IsDataValid(false);
     }
 
     @Override
@@ -55,7 +55,9 @@ public class DescriptionStepper extends Step<String> {
 
     @Override
     protected void onStepOpened(boolean animated) {
-
+        if (!tv_package_description.getText().toString().contains("Loading")){
+            getFormView().markOpenStepAsCompleted(true);
+        }
     }
 
     @Override
@@ -75,5 +77,6 @@ public class DescriptionStepper extends Step<String> {
 
     public void populateData(){
         tv_package_description.setText(((NewOneToOneRegisteration)getContext()).getPackageDescription());
+        getFormView().markOpenStepAsCompleted(true);
     }
 }

@@ -1,6 +1,7 @@
 package com.careerguide.Book_One_To_One.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,7 @@ public class OneToOneBatchSlotAdapter extends RecyclerView.Adapter<OneToOneBatch
         Log.i("position",position+"");
         holder.textViewBatchSlot.setText(batchObj.getBatchTiming());
         oneToOneTimeSlotAdapter = new OneToOneTimeSlotAdapter(mContext,this,position, batchObj.getBookingSlotsList());
-        linearLayoutManager = new GridLayoutManager(mContext, 3);
+        linearLayoutManager = new GridLayoutManager(mContext, 2);
         holder.recyclerViewTimeSlot.setLayoutManager(linearLayoutManager);
         holder.recyclerViewTimeSlot.setAdapter(oneToOneTimeSlotAdapter);
 
@@ -79,14 +80,16 @@ public class OneToOneBatchSlotAdapter extends RecyclerView.Adapter<OneToOneBatch
     }
 
     void updateClickedTimeSlot(View clickedView){
-        if (currentlyClicked!=null)
-            currentlyClicked.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_white));
+        if (currentlyClicked!=null) {
+            currentlyClicked.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_green));
+            ((TextView)currentlyClicked).setTextColor(Color.BLACK);
+        }
 
-            //currentlyClicked.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_grey));//use for booked slots
         currentlyClicked=clickedView;
         currentlyClicked.setBackground(mContext.getResources().getDrawable(R.drawable.round_corner_blue));
         ((NewOneToOneRegisteration)mContext).setSelectTimeSlot(((TextView)currentlyClicked).getText().toString());
-
+        ((NewOneToOneRegisteration)mContext).batchSlotStepper.enableContinueButton();
+        ((TextView)currentlyClicked).setTextColor(Color.WHITE);
 
     }
 

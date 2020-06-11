@@ -297,7 +297,6 @@ public class Video_player extends AppCompatActivity {
                     .buildShortDynamicLink()
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            // Short link created
                             Uri shortLink = task.getResult().getShortLink();
                             Uri flowchartLink = task.getResult().getPreviewLink();
                             Log.e("main", "short Link" + shortLink);
@@ -305,12 +304,8 @@ public class Video_player extends AppCompatActivity {
                             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                             StrictMode.setVmPolicy(builder.build());
                             File imgFile = Utility.getFile(bannerImageFilename);
-                            Uri path = Uri.fromFile(imgFile);
                             Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                            //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
                             shareIntent.setType("image/*");
-                            //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                            //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
                             String shareMessage = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
                             shareMessage = shareMessage + shortLink;
                             shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()));

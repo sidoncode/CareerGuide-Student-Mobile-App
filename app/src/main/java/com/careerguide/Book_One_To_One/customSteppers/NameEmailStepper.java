@@ -79,13 +79,17 @@ public class NameEmailStepper extends Step<String> {
 
         final List<String> category = new ArrayList<>();
         category.add("Select Category");
-        category.add("NINE");
-        category.add("TEN");
-        category.add("ELEVEN");
-        category.add("TWELVE");
+        category.add("9th");
+        category.add("10th");
+        category.add("11th");
+        category.add("12th");
+        category.add("B.Sc");
+        category.add("B.Tech");
+        category.add("B.A");
         category.add("GRADUATE");
         category.add("POSTGRA");
-        category.add("WORKING");
+        category.add("MBA");
+        category.add("Working Professionals");
 
         final ArrayAdapter<String> datacategoryAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, category);
         spinner_category.setAdapter(datacategoryAdapter);
@@ -103,6 +107,7 @@ public class NameEmailStepper extends Step<String> {
                 errorCodeCategory=0;
                 getFormView().markOpenStepAsCompleted(true);
                 ((NewOneToOneRegisteration)getContext()).setSelectedCategory(selectedItem);
+                ((NewOneToOneRegisteration)getContext()).batchSlotStepper.updateSlotsForSelectedDate(0);//update so available counselor can be found
 
             }
 
@@ -124,6 +129,10 @@ public class NameEmailStepper extends Step<String> {
 
                 menteeName.setText(Utility.getUserFirstName((NewOneToOneRegisteration)getContext())+" "+Utility.getUserLastName((NewOneToOneRegisteration)getContext()));
                 menteeEmail.setText(Utility.getUserEmail((NewOneToOneRegisteration)getContext()));
+
+                ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
+                ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+
                 menteeName.setEnabled(false);
                 menteeEmail.setEnabled(false);
 

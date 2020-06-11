@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration;
 import com.careerguide.Book_One_To_One.model.OneToOneTimeSlotModel;
 import com.careerguide.R;
 
@@ -28,6 +29,8 @@ class OneToOneTimeSlotAdapter extends RecyclerView.Adapter<OneToOneTimeSlotAdapt
 
     public OneToOneTimeSlotAdapter(Context mContext,OneToOneBatchSlotAdapter parentAdapter,Integer parentPostion, ArrayList<OneToOneTimeSlotModel> timeSlotsList) {
         this.mContext=mContext;
+        this.timeSlotsList.clear();
+        notifyDataSetChanged();
         this.timeSlotsList=timeSlotsList;
         this.parentAdapter=parentAdapter;
         this.parentPostion=parentPostion;
@@ -55,17 +58,16 @@ class OneToOneTimeSlotAdapter extends RecyclerView.Adapter<OneToOneTimeSlotAdapt
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        if (parentPostion==0&position==0) {
-            parentAdapter.updateClickedTimeSlot(holder.textViewTimeSlot);//set index 0,0 as selected by default
-        }
-
-
         holder.textViewTimeSlot.setText(timeSlotsList.get(position).getSlotTime());
         if (timeSlotsList.get(position).getAvailable())
             holder.textViewTimeSlot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View clickedView) {
                     parentAdapter.updateClickedTimeSlot(clickedView);
+                    ((NewOneToOneRegisteration) mContext).setHostId(timeSlotsList.get(position).getCounselorId());
+                    ((NewOneToOneRegisteration) mContext).setHostFullName(timeSlotsList.get(position).getCounselorName());
+                    ((NewOneToOneRegisteration) mContext).setHostImageUrl(timeSlotsList.get(position).getCounselorImageUrl());
+                    ((NewOneToOneRegisteration) mContext).setHostEmail(timeSlotsList.get(position).getCounselorEmail());
                 }
             });
         else{

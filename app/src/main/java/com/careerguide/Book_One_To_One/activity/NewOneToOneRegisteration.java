@@ -2,12 +2,14 @@ package com.careerguide.Book_One_To_One.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -21,6 +23,7 @@ import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +41,10 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
     private DescriptionStepper descriptionStepper;
     private NameEmailStepper nameEmailStepper;
-    private BatchSlotStepper batchSlotStepper;
+    public BatchSlotStepper batchSlotStepper;
     private SummaryStepper summaryStepper;
+
+    Activity activity=this;
 
 
     //description stepper data
@@ -49,7 +54,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     private JSONArray batchSlot=new JSONArray();
 
 
-    private String selectedDate="20th June";
+    private String selectedDate="";
     private String selectTimeSlot="";
     private String menteeName="";
     private String menteeEmail="";
@@ -57,6 +62,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     private String hostFullName="";
     private String hostId="";
     private String hostImageUrl="";
+    private  String hostEmail="";
     private String channelName="";
     private String selectedCategory="";
 
@@ -69,7 +75,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
         descriptionStepper =new DescriptionStepper("Package Details");
         nameEmailStepper=new NameEmailStepper("Mentee Info");
         batchSlotStepper=new BatchSlotStepper("Select Batch timing");
-        summaryStepper=new SummaryStepper("Summary details","","Book Slot Now");
+        summaryStepper=new SummaryStepper("Summary details","","Confirm Details");
 
         verticalStepperForm=findViewById(R.id.stepper_form);
 
@@ -81,6 +87,8 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
     @Override
     public void onCompletedForm() {
+
+        new TaskBookSlotBeforePayment().execute();
 
     }
 
@@ -170,6 +178,10 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     public void setHostImageUrl(String hostImageUrl) { this.hostImageUrl = hostImageUrl; }
 
 
+    public String getHostEmail() { return hostEmail; }
+    public void setHostEmail(String hostEmail) { this.hostEmail = hostEmail; }
+
+
     public String getChannelName() {
         return channelName;
     }
@@ -203,10 +215,19 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
                         setPackageNamee(jsonObject.optString("packageName"));
 
+                        Log.i("aaaa",jsonObject.optJSONArray("batchSlot")+"");
+
                         setBatchSlot(jsonObject.optJSONArray("batchSlot"));
 
 
                         descriptionStepper.populateData();//after data is fetched populate it
+
+                        String today=jsonObject.optJSONArray("batchSlot").getJSONObject(0).getString("day_ame");
+                        String tomorrow=jsonObject.optJSONArray("batchSlot").getJSONObject(1).getString("day_ame");
+                        String dayafter=jsonObject.optJSONArray("batchSlot").getJSONObject(2).getString("day_ame");
+
+                        batchSlotStepper.setDays(today,tomorrow,dayafter);
+
 
                     } else {
                         Log.i("sssss","asasas");
@@ -230,6 +251,71 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
             };
             VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
+            return null;
+
+        }
+    }
+
+
+    private class TaskBookSlotBeforePayment extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+
+            try {
+
+
+                JSONObject jsonBody = new JSONObject();
+
+                jsonBody.put("co_id", getHostId());
+                jsonBody.put("student_id", Utility.getUserId(activity));
+                jsonBody.put("date_booked", getSelectedDate());
+                jsonBody.put("time_slot", getSelectTimeSlot());
+                jsonBody.put("price", getPackageCost());
+                jsonBody.put("discount_availed", "0");
+                jsonBody.put("confirmed_booking", "0");
+                jsonBody.put("channel_name", getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot());
+                jsonBody.put("category", getSelectedCategory());
+
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "https://app.careerguide.com/api/main/bookOneToOne",jsonBody, response -> {
+
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response+"");
+                    Log.i("response->",jsonObject+"");
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status) {
+                        Toast.makeText(getApplicationContext(),jsonObject.optString("message"),Toast.LENGTH_SHORT);
+                        finish();
+                    } else {
+                        Log.i("sssss","asasas");
+                        Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
+                    }
+                    //pb_loading.setVisibility(View.GONE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> {
+                // pb_loading.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), VoleyErrorHelper.getMessage(error, getApplicationContext()), Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror", "error");
+                error.printStackTrace();
+            }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return null;
 
         }
