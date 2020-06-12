@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,9 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     String scheduledesc="";
     String fileName ="";
     String privateUID="";
+    String privateUserName="";
+    String privateSessionDate="";
+    private String privateSessionTime="";
 
 
     Activity activity = this;
@@ -93,14 +97,15 @@ public class ViewerLiveActivity extends BaseLiveActivity {
 
                             if (Channel_name.contains("privatesession")){
                                 privateUID=jsonObject.optString("privateUID");
+                                privateUserName=jsonObject.optString("privateUserName");
+                                privateSessionDate=jsonObject.optString("privateSessionDate");
+                                privateSessionTime=jsonObject.optString("privateSessionTime");
+
                             }else {
                                 scheduledesc = jsonObject.optString("schedule_desc");
                                 fileName=jsonObject.optString("host_image");
                                 title=jsonObject.optString("title");
                             }
-
-
-
 
 
                         } catch (JSONException e) {
@@ -149,11 +154,16 @@ public class ViewerLiveActivity extends BaseLiveActivity {
         super.initView();
 
         if (!privateUID.contentEquals("")) {
-            if (!privateUID.contains(Utility.getUserId(this))) {
+            try{
+                if (!privateUID.contains(Utility.getUserId(this))) {
+                    tvNoSurfaceNotice.setText("This is a private session!\n You don't have access to view");
+                } else {
+                    tvNoSurfaceNotice.setText("The session is locked now! \n You will get access when the host "+Fullname+" comes online. \n\n Session for "+privateUserName+" at "+privateSessionTime+" on "+privateSessionDate);
+                }
+            }catch (Exception e){//if the app is not installed
                 tvNoSurfaceNotice.setText("This is a private session!\n You don't have access to view");
-            } else {
-                tvNoSurfaceNotice.setText("The session is locked now! \n You will get access when the "+Fullname+" joins");
             }
+
         }
 
         findViewById(R.id.shareWithOthers).setOnClickListener(new View.OnClickListener() {
@@ -178,6 +188,16 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     @Override
     protected String getprivateUID() {
         return privateUID;
+    }
+
+    @Override
+    protected String gethostFullName() {
+        return Fullname;
+    }
+
+    @Override
+    protected String getprivateUserName() {
+        return privateUserName;
     }
 
 
@@ -216,6 +236,10 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                 findViewById(R.id.senderArea).setVisibility(View.VISIBLE);
                 findViewById(R.id.watermark).setVisibility(View.VISIBLE);
                 findViewById(R.id.live_no_surfaceview_notice).setVisibility(TextView.GONE);
+
+                findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.GONE);
+
+
                 if (!privateUID.contentEquals(UID)){
                     findViewById(R.id.shareWithOthers).setVisibility(View.VISIBLE);//if its not private session share button is enabled
                 }

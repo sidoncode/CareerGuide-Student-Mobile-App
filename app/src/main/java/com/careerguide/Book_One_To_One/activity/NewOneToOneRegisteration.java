@@ -3,8 +3,13 @@ package com.careerguide.Book_One_To_One.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,12 +28,18 @@ import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
+import com.careerguide.exoplayer.utils.PublicFunctions;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,6 +76,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     private  String hostEmail="";
     private String channelName="";
     private String selectedCategory="";
+    private String deepLink="";
 
 
     @Override
@@ -88,7 +100,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     @Override
     public void onCompletedForm() {
 
-        new TaskBookSlotBeforePayment().execute();
+        createDynamicLink();
 
     }
 
@@ -190,6 +202,54 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     }
 
 
+    public String getDeepLink() { return deepLink; }
+    public void setDeepLink(String deepLink) { this.deepLink = deepLink; }
+
+
+
+    public void createDynamicLink() {
+
+            String host_image_file=getHostImageUrl();
+            host_image_file.substring(host_image_file.lastIndexOf('/') + 1);
+
+            DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot()+"\",\"host_name\":\""+getHostFullName()+"\",\"host_image\":\""+host_image_file+"\",\"privateUID\":\""+Utility.getUserId(this)+"\",\"privateUserName\":\""+getMenteeName()+"\",\"privateSessionDate\":\""+getSelectedDate()+"\",\"privateSessionTime\":\""+getSelectTimeSlot()+"\"}"))
+                    .setDynamicLinkDomain("careerguidelivestream.page.link")
+                    // Open links with this app on Android
+                    .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
+                    .setGoogleAnalyticsParameters(
+                            new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                    .setSource("video")
+                                    .setMedium("anyone")
+                                    .setCampaign("example-video")
+                                    .build())
+                    .buildDynamicLink();
+            Log.e("main", "Long refer Link"+ dynamicLink.getUri());
+            Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLongLink(dynamicLink.getUri())
+                    .buildShortDynamicLink()
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                            Log.e("main","short Link" + shortLink);
+                            Log.e("main","short Link" + flowchartLink);
+                            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(builder.build());
+
+                            setDeepLink(shortLink+"");
+                            new TaskBookSlotBeforePayment().execute();
+
+                        } else
+                        {
+                            Log.e("Error","error--> "+task.getException());
+                            // Error
+                            // ...
+                        }
+                    });
+
+    }
 
 
 
@@ -277,7 +337,10 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                 jsonBody.put("confirmed_booking", "0");
                 jsonBody.put("channel_name", getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot());
                 jsonBody.put("category", getSelectedCategory());
+                jsonBody.put("deep_link", getDeepLink());
+//com.careerguide I/jsonbodyy: {"co_id":"43","student_id":"13599","date_booked":"Saturday 13 Jun 20","time_slot":"11:15AM","price":"1999","discount_availed":"0","confirmed_booking":"0","channel_name":"rachit@careerguide.com_privatesession_Saturday 13 Jun 20_11:15AM","category":"B.Tech","deek_link":"https:\/\/careerguidelivestream.page.link\/tGw7qVRWCHGQRzQn9"}
 
+                Log.i("jsonbodyy",jsonBody+"");
 
                 JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "https://app.careerguide.com/api/main/bookOneToOne",jsonBody, response -> {
 
@@ -287,8 +350,16 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                     Log.i("response->",jsonObject+"");
                     boolean status = jsonObject.optBoolean("status", false);
                     if (status) {
-                        Toast.makeText(getApplicationContext(),jsonObject.optString("message"),Toast.LENGTH_SHORT);
-                        finish();
+
+                        ((NewOneToOneRegisteration)activity).runOnUiThread(()->{
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("Session Link", getDeepLink());
+                            clipboard.setPrimaryClip(clip);
+
+                            Toast.makeText(getApplicationContext(),"Session booked! and copied to clipboard",Toast.LENGTH_SHORT).show();
+                            finish();
+                        });
+
                     } else {
                         Log.i("sssss","asasas");
                         Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
@@ -319,6 +390,8 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
             return null;
 
         }
+
+
     }
 
 

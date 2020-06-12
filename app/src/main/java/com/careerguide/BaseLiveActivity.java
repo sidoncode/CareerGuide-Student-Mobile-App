@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -93,28 +94,41 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             @Override
             public void run() {
 
-                /*if (getprivateUID().contentEquals(getRtcUid()+"")){//private session for the user only
-                    initView();
-                    initRtcEngine();
-                    initRtmClient();
-                }else{
-                    if (getprivateUID().contentEquals("")&&!getchannelid().contains("privatesession")){//free session
-                        initView();
-                        initRtcEngine();
-                        initRtmClient();
-                    }
-                }*/
                 initView();
-                initRtcEngine();
-                initRtmClient();
-
             }
-        }, 3000);
+        }, 3200);
 
     }
 
     protected void initView() {
-        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
+
+
+        if (getprivateUID().contentEquals("")&&!getchannelid().contains("privatesession")){//free session
+            ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
+
+            initRtcEngine();
+            initRtmClient();
+
+        }else {
+
+            if (getprivateUID().contentEquals(getRtcUid()+"")){//private session for the user only
+                findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
+
+                ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("The session will be unlocked when "+gethostFullName()+" comes online.\n Session for "+getprivateUserName());
+
+                initRtcEngine();
+                initRtmClient();
+
+
+            }else{
+                findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
+                ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("This is a private session you do not have access to view!");
+            }
+
+        }
+
+
+
         mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
         etChatMsg = findViewById(R.id.live_msg_et);
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
@@ -122,6 +136,8 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     protected abstract int getRtcUid();
     protected abstract String getchannelid();
     protected abstract String getprivateUID();
+    protected abstract  String gethostFullName();
+    protected abstract String getprivateUserName();
     protected abstract void livePrepare(RtcEngine engine);
 
 
