@@ -474,3 +474,4 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
 
 }
+

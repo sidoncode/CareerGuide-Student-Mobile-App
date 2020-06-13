@@ -209,11 +209,19 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
     public void createDynamicLink() {
 
+        String channelNameTemp=getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot();
+        channelNameTemp=channelNameTemp.replace(" ","_");
+        channelNameTemp=channelNameTemp.replace(":","_");
+        setChannelName(channelNameTemp);
+
+
+        Log.i("channel__name",getChannelName());
+
             String host_image_file=getHostImageUrl();
             host_image_file.substring(host_image_file.lastIndexOf('/') + 1);
 
             DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot()+"\",\"host_name\":\""+getHostFullName()+"\",\"host_image\":\""+host_image_file+"\",\"privateUID\":\""+Utility.getUserId(this)+"\",\"privateUserName\":\""+getMenteeName()+"\",\"privateSessionDate\":\""+getSelectedDate()+"\",\"privateSessionTime\":\""+getSelectTimeSlot()+"\"}"))
+                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+getChannelName()+"\",\"host_name\":\""+getHostFullName()+"\",\"host_image\":\""+host_image_file+"\",\"privateUID\":\""+Utility.getUserId(this)+"\",\"privateUserName\":\""+getMenteeName()+"\",\"privateSessionDate\":\""+getSelectedDate()+"\",\"privateSessionTime\":\""+getSelectTimeSlot()+"\"}"))
                     .setDynamicLinkDomain("careerguidelivestream.page.link")
                     // Open links with this app on Android
                     .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
@@ -335,7 +343,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                 jsonBody.put("price", getPackageCost());
                 jsonBody.put("discount_availed", "0");
                 jsonBody.put("confirmed_booking", "0");
-                jsonBody.put("channel_name", getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot());
+                jsonBody.put("channel_name", getChannelName());
                 jsonBody.put("category", getSelectedCategory());
                 jsonBody.put("deep_link", getDeepLink());
 //com.careerguide I/jsonbodyy: {"co_id":"43","student_id":"13599","date_booked":"Saturday 13 Jun 20","time_slot":"11:15AM","price":"1999","discount_availed":"0","confirmed_booking":"0","channel_name":"rachit@careerguide.com_privatesession_Saturday 13 Jun 20_11:15AM","category":"B.Tech","deek_link":"https:\/\/careerguidelivestream.page.link\/tGw7qVRWCHGQRzQn9"}
