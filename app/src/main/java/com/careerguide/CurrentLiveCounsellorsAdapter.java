@@ -30,6 +30,7 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
         TextView txtCounsellorName , txtdesc;
         LinearLayout backgroundLayout;
         ImageView imgCounsellor;
+        LinearLayout live_msg;
 
         MyViewHolder(View view) {
             super(view);
@@ -37,6 +38,7 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
             txtCounsellorName = view.findViewById(R.id.txtCounsellorName);
             txtdesc = view.findViewById(R.id.txtDesc);
             backgroundLayout = view.findViewById(R.id.backgroundLayout);
+            live_msg=view.findViewById(R.id.live_msg);
         }
     }
 
@@ -63,11 +65,12 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
         holder.txtCounsellorName.setText(objDataModels.getCounsellorName());
         holder.txtdesc.setText(objDataModels.getscheduleDescription());
         if(objDataModels.getscheduleDescription().contains("LIVE AT")){
-            holder.backgroundLayout.setBackgroundColor(Color.GRAY);
-            holder.txtCounsellorName.setTextColor(Color.WHITE);
-            holder.txtdesc.setTextColor(Color.WHITE);
+            holder.txtCounsellorName.setTextColor(Color.BLACK);
+            holder.txtdesc.setTextColor(Color.GRAY);
         }
         else {
+            if (!objDataModels.getchannelname().contentEquals(""))
+                 holder.live_msg.setVisibility(View.VISIBLE);
             holder.txtCounsellorName.setTextColor(Color.BLACK);
             holder.txtdesc.setTextColor(Color.BLACK);
         }

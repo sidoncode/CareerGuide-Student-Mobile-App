@@ -1343,7 +1343,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         @Override
         protected List<CurrentLiveCounsellorsModel> doInBackground(String... params) {
 
-            tempCurrentLiveCounsellorsList.clear();
+
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "all_available_counsellors", response -> {
                 Log.e("all_coun_res", response);
@@ -1354,6 +1354,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     boolean status = jsonObject.optBoolean("status", false);
                     if (status)
                     {
+                        tempCurrentLiveCounsellorsList.clear();
+
                         JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
                         Log.e("name-2->","" +counsellorsJsonArray);
 
@@ -1372,10 +1374,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
                         }
 
-
-                        if(tempCurrentLiveCounsellorsList.size()==0){
-                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("No one is Live","","","",""));
-                        }
                         runOnUiThread(()->{
                             finalList.clear();
                             finalList.addAll(tempCurrentLiveCounsellorsList);
@@ -1452,6 +1450,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel(firstName+" "+lastName,counselorJsonObject.optString("topic"),picUrl,channel_name,scheduleDescrpition));//use the same model for postlive sessions
                             Log.e("#inside" ,"for" +picUrl+"__"+tempPostLiveCounsellorsList.get(0).getCounsellorName());
 
+                        }
+
+                        if(tempPostLiveCounsellorsList.size()==0){
+                            tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("No one has scheduled anything yet","","","",""));
                         }
 
                         runOnUiThread(()->{
