@@ -118,6 +118,10 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="popup_window_animation_phone">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+    </style>
+
 
 
 

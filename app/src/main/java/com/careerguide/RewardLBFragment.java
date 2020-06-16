@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -174,7 +175,6 @@ public class RewardLBFragment extends Fragment {
             arrowLB.setImageResource(R.drawable.ic_expand);
             arrowRewards.setImageResource(R.drawable.ic_expand);
         });
-
         lbRL.setOnClickListener(v -> {
             if (LBDetails.getVisibility() == View.VISIBLE) {
                 LBDetails.setVisibility(View.GONE);

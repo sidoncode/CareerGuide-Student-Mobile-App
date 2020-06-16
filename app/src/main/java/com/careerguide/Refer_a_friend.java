@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -62,7 +63,7 @@ public class Refer_a_friend extends AppCompatActivity {
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button button1= findViewById(R.id.button1);
+        ImageButton button1= findViewById(R.id.button1);
         Button button2= findViewById(R.id.button2);
         button1.setOnClickListener(view -> {
             share();
@@ -84,6 +85,17 @@ public class Refer_a_friend extends AppCompatActivity {
                 .setDomainUriPrefix("https://careerguidestudent.page.link")
                 // Open links with this app on Android
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .setGoogleAnalyticsParameters(
+                        new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                .setSource("app")
+                                .setMedium("anyone")
+                                .setCampaign("example-app-referral")
+                                .build())
+                .setSocialMetaTagParameters(
+                        new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle("CareerGuide Student App")
+                                .setDescription("Install the Career Guide Student App to Get Proper Guidance for your career.")
+                                .build())
                 // Open links with com.example.ios on iOS
                // .setIosParameters(new DynamicLink.IosParameters.Builder("com.careerguide.ios").build())
                 .buildDynamicLink();

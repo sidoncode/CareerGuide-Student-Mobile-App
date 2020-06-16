@@ -1,23 +1,37 @@
 package com.careerguide;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.StrictMode;
+import android.provider.Settings;
+import android.transition.Transition;
+import android.transition.TransitionValues;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +45,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.transitionseverywhere.Fade;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.internal.Util;
 
 public class CounsellorProfile extends AppCompatActivity {
 
@@ -60,6 +76,9 @@ public class CounsellorProfile extends AppCompatActivity {
     private String host_image = "";
     private String hostEmail="";
     private String fileName = "";
+    private String sender = "";
+    private String androidId="";
+    private String deviceid="";
 
 
     private List<CounsellorProfileExpertLevelModel> student_education_level_list;
@@ -73,13 +92,20 @@ public class CounsellorProfile extends AppCompatActivity {
     TextView tv_followers_count, tv_feed_title,tv_session_conducted_count,tv_follow;
     ImageView followingTik;
     LinearLayoutManager mLayoutManager;
+    PopupWindow popupWindow;
+    LayoutInflater layoutInflater;
+    View customView;
 
 
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counsellor_profile);
+        findViewById(R.id.mainmenu).getForeground().setAlpha(0);
+        //findViewById(R.id.mainmenu).setClickable(false);
+        androidId = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         Toolbar toolbar = findViewById(R.id.toolbar);
         pb_loading = findViewById(R.id.pb_loading);
         tv_session_conducted_count=findViewById(R.id.tv_session_conducted_count);
@@ -131,20 +157,19 @@ public class CounsellorProfile extends AppCompatActivity {
                             hostEmail = jsonObject.optString("host_email");
                             fileName = jsonObject.optString("host_image");
                             host_image = "https://app.careerguide.com/api/user_dir/" + fileName;
-
+                            sender=jsonObject.optString("userid");
+                            deviceid=jsonObject.optString("deviceId");
+                            rewards();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }else{
 
-
+                        //rewards();
                         host_image = getIntent().getStringExtra("host_img");
                         Fullname = getIntent().getStringExtra("host_name");
                         hostEmail = getIntent().getStringExtra("host_email");
                         fileName = host_image.substring(host_image.lastIndexOf("/")+1);
-
                     }
 
                     fetchAndApplyImage();
@@ -154,18 +179,8 @@ public class CounsellorProfile extends AppCompatActivity {
                     tv_feed_title.setText(Fullname +"'s Feed");
 
                     Glide.with(this).load(host_image).into((ImageView) findViewById(R.id.profileImage));
-
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
-
-
-
-
-
-
-
-
-
     }
 
     /*private void prepareAlbums() {
@@ -178,6 +193,45 @@ public class CounsellorProfile extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
     }*/
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void rewards()
+    {
+        if(Utility.getUserId(activity).equals(""))
+        {
+            if(!deviceid.equals(androidId))
+            {
+                layoutInflater=(LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                customView=layoutInflater.inflate(R.layout.signup_popup,null);
+                popupWindow=new PopupWindow(customView,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                ImageButton close= (ImageButton) customView.findViewById(R.id.ib_close);
+                Button su= (Button) customView.findViewById(R.id.signupb) ;
+                su.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(activity,SignUpActivity.class).putExtra("refid", sender));
+                    }
+                });
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        findViewById(R.id.mainmenu).getForeground().setAlpha(0);
+                        //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        popupWindow.dismiss();
+                    }
+                });
+
+                popupWindow.setAnimationStyle(R.anim.fragment_fade_enter);
+                popupWindow.setOverlapAnchor(true);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                findViewById(R.id.mainmenu).getForeground().setAlpha(220);
+                popupWindow.showAtLocation(findViewById(R.id.ll_couns), Gravity.CENTER,0,0);
+            }
+        }
+    }
 
 
     private void getPastLiveSession() {
@@ -327,7 +381,7 @@ public class CounsellorProfile extends AppCompatActivity {
             Toast.makeText(this,"Opening apps...",Toast.LENGTH_LONG).show();
 
             DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&Details={\"host_email\":\""+hostEmail+"\",\"Fullname\":\""+Fullname+"\",\"host_image\":\""+fileName+"\"}"))
+                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&Details={\"host_email\":\""+hostEmail+"\",\"Fullname\":\""+Fullname+"\",\"host_image\":\""+fileName+"\",\"userid\":\""+Utility.getUserId(activity)+"\",\"deviceId\":\""+androidId+"\"}"))
                     .setDynamicLinkDomain("careerguidecounselorprofile.page.link")
                     // Open links with this app on Android
                     .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
@@ -382,7 +436,4 @@ public class CounsellorProfile extends AppCompatActivity {
                     });
         }
     }
-
-
-
 }
