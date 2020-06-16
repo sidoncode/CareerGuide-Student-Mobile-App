@@ -96,43 +96,66 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
                 initView();
             }
-        }, 3200);
+        }, 2000);
 
     }
 
     protected void initView() {
+        try {
 
 
-        if (getprivateUID().contentEquals("")&&!getchannelid().contains("privatesession")){//free session
-            ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
-
-            initRtcEngine();
-            initRtmClient();
-
-        }else {
-
-            if (getprivateUID().contentEquals(getRtcUid()+"")){//private session for the user only
-                findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
-
-                ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("The session will be unlocked when "+gethostFullName()+" comes online.\n Session for "+getprivateUserName());
-
-                initRtcEngine();
-                initRtmClient();
-
-
+            if (getchannelid().contentEquals("")) {
+                showToast("Internet is slow! Trying again");
+                ((TextView) findViewById(R.id.live_no_surfaceview_notice)).setText("Internet is slow!\n Trying again");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initView();
+                    }
+                }, 3000);
+                return;
             }else{
-                findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
-                ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("This is a private session you do not have access to view!");
+
+                if (getprivateUID().contentEquals("")&&!getchannelid().contains("privatesession")){//free session
+                    ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
+
+                    initRtcEngine();
+                    initRtmClient();
+
+                }else {
+
+                    if (getprivateUID().contentEquals(getRtcUid()+"")){//private session for the user only
+                        findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
+
+                        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("The session will be unlocked when "+gethostFullName()+" comes online.\n Session for "+getprivateUserName());
+
+                        initRtcEngine();
+                        initRtmClient();
+
+
+                    }else{
+                        findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
+                        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("This is a private session you do not have access to view!");
+                    }
+
+                }
+
+                mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
+                etChatMsg = findViewById(R.id.live_msg_et);
+                findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
+
             }
+
+        }catch (Exception e){
+            showToast("Check your internet connection!");
+            ((TextView) findViewById(R.id.live_no_surfaceview_notice)).setText("Check your internet connection!");
 
         }
 
 
-
-        mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
-        etChatMsg = findViewById(R.id.live_msg_et);
-        findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
     }
+
+
     protected abstract int getRtcUid();
     protected abstract String getchannelid();
     protected abstract String getprivateUID();

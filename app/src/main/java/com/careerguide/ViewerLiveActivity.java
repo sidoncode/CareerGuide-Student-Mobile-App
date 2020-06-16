@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +76,6 @@ public class ViewerLiveActivity extends BaseLiveActivity {
         unique_id = Integer.parseInt(UID);
 
 
-
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, pendingDynamicLinkData -> {
@@ -120,18 +120,24 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                     }else{
 
 
-                        Channel_name = getIntent().getStringExtra("Channel_name");
+                        try{
 
-                        Fullname = getIntent().getStringExtra("name");
+                            Channel_name = getIntent().getStringExtra("Channel_name");
 
-                        title=getIntent().getStringExtra("title");
+                            Fullname = getIntent().getStringExtra("name");
 
-                        host_image= getIntent().getStringExtra("imgurl");
+                            title=getIntent().getStringExtra("title");
 
-                        scheduledesc= "\nGuide "+Fullname+" will be "+getIntent().getStringExtra("scheduledesc")+"\n Let me recommend this LIVE STREAM from CareerGuide.com -Must watch for you.\n Share with your friends and family too.  ";
+                            host_image= getIntent().getStringExtra("imgurl");
 
-                        fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
+                            scheduledesc= "\nGuide "+Fullname+" will be "+getIntent().getStringExtra("scheduledesc")+"\n Let me recommend this LIVE STREAM from CareerGuide.com -Must watch for you.\n Share with your friends and family too.  ";
 
+                            fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
+
+                        }catch (Exception e)
+                                {
+
+                                }
 
                     }
 
@@ -157,6 +163,8 @@ public class ViewerLiveActivity extends BaseLiveActivity {
 
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
+
+
 
 
 

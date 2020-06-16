@@ -1374,12 +1374,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
                         }
 
-                        runOnUiThread(()->{
-                            finalList.clear();
-                            finalList.addAll(tempCurrentLiveCounsellorsList);
-                            finalList.addAll(tempPostLiveCounsellorsList);
-                            viewModelProvider.setDisplaylistArrayLiveCounsellors(finalList);
-                        });
                         new TaskFetchPostLiveCounsellors().execute();
 
 
