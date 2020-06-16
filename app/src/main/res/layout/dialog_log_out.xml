@@ -25,7 +25,7 @@
         <Button
             android:id="@+id/no"
             android:layout_width="95dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="13dp"
             android:background="@color/app_pink"
@@ -36,7 +36,7 @@
         <Button
             android:id="@+id/yes"
             android:layout_width="95dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="13dp"
             android:background="#d3d3d3"

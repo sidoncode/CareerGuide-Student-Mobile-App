@@ -15,17 +15,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.careerguide.blog.DataMembers;
-import com.careerguide.blog.model.Categories;
-import com.careerguide.blog.model.CategoryDetails;
-import com.careerguide.blog.util.Utils;
-import com.careerguide.models.Counsellor;
-import com.careerguide.youtubeVideo.CommonEducationModel;
-import com.careerguide.youtubeVideo.Videos;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;

@@ -181,7 +181,7 @@
                             android:paddingBottom="10dp">
 
                             <TextView
-                                android:id="@+id/tv_subscribe"
+                                android:id="@+id/tv_booksession"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Book Session"
@@ -269,11 +269,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat1"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -333,11 +331,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat2"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -396,11 +392,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat_test"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -542,6 +536,18 @@
                                                 android:text="Coming Soon"
                                                 android:textColor="#fff"
                                                 android:textSize="12sp"/>
+
+                                            <Button
+                                                android:id="@+id/see_all_cat_blogs"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:onClick="onSeeAllClick"
+                                                android:padding="2dp"
+                                                android:text="See All"
+                                                android:textAllCaps="false"
+                                                android:textColor="@color/app_blue"
+                                                android:textSize="16sp" />
                                         </LinearLayout>
 
                                     </androidx.cardview.widget.CardView>
@@ -900,18 +906,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"/>
 
-                        <Button
-                            android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
-                            android:id="@+id/see_all_cat_blogs"
-                            android:padding="2dp"
-                            android:textSize="16sp"
-                            android:textColor="@color/app_blue"
-                            android:text="See All"
-                            android:textAllCaps="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
                     </LinearLayout>
 
                     <RelativeLayout
@@ -966,11 +960,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat3"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1033,11 +1025,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat4"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1098,11 +1088,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat5"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1162,11 +1150,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat6"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1225,11 +1211,10 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
+
                             android:id="@+id/see_all_cat7"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1289,11 +1274,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat8"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1351,11 +1334,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat9"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1413,11 +1394,9 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:background="@android:color/transparent"
                             android:id="@+id/see_all_cat10"
                             android:padding="2dp"
                             android:textSize="16sp"
-                            android:textColor="@color/app_blue"
                             android:text="See All"
                             android:textAllCaps="false"
                             android:layout_width="wrap_content"
@@ -1432,7 +1411,6 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/yt_recycler_view_three"
                             android:layout_marginBottom="8dp"
-                            android:paddingBottom="85dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="visible"

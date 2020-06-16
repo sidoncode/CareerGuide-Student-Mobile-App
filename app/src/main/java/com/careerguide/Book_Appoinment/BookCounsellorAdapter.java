@@ -38,7 +38,7 @@ public class BookCounsellorAdapter extends RecyclerView.Adapter<BookCounsellorAd
         }
     }
 
-    BookCounsellorAdapter(Context context, List<Counsellor> CounsellorList) {
+    public BookCounsellorAdapter(Context context, List<Counsellor> CounsellorList) {
         this.context = context;
         this.CounsellorList = CounsellorList;
     }

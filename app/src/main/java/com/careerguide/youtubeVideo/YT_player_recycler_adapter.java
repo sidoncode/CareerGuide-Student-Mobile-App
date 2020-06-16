@@ -44,7 +44,7 @@ public class YT_player_recycler_adapter extends RecyclerView.Adapter<YT_player_r
 //            CardView cardView = view.findViewById(R.id.card_view);
 //            cardView.setCardBackgroundColor(cardColor);
 //            cardView.setRadius(cornerRadius);
-            name = view.findViewById(R.id.name);
+            name = view.findViewById(R.id.counsellorName);//same xml is used for common education adapter
             desc = view.findViewById(R.id.desc);
             ll_story = view.findViewById(R.id.ll_story);
             name.setTextColor(textColor);
