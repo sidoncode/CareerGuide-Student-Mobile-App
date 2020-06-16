@@ -84,8 +84,20 @@ public class Refer_a_friend extends AppCompatActivity {
                 .setDomainUriPrefix("https://careerguidestudent.page.link")
                 // Open links with this app on Android
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .setGoogleAnalyticsParameters(
+                        new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                .setSource("app")
+                                .setMedium("anyone")
+                                .setCampaign("example-app-referral")
+                                .build())
+                .setSocialMetaTagParameters(
+                        new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle("The CareerGuide Mobile app")
+                                .setDescription(Utility.getUserFirstName(this)+" "+Utility.getUserLastName(this)+" is inviting you to install the CareerGuide app, where you can get instant career advice to all your career queries. Register using this link to earn redeemable reward points.")
+                                .setImageUrl(Uri.parse("https://lh3.googleusercontent.com/qnTlYTEFpmKy5wESn0co2QGELkiJUv2RloPDly50WkFMYBWNoKk2UH3jdIhnd5I4gQ=s180-rw"))
+                                .build())
                 // Open links with com.example.ios on iOS
-               // .setIosParameters(new DynamicLink.IosParameters.Builder("com.careerguide.ios").build())
+                // .setIosParameters(new DynamicLink.IosParameters.Builder("com.careerguide.ios").build())
                 .buildDynamicLink();
 
         Uri dynamicLinkUri = dynamicLink.getUri();
