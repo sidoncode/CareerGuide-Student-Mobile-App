@@ -5,27 +5,68 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.List;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     private Activity activity = this;
+    private int cnt=0;
+    private String dlink="",dlink1,did="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                            dlink1=deepLink.toString().substring(28);
+                            did=dlink1.substring(dlink1.indexOf('/')+1);
+                            dlink=dlink1.substring(0,dlink1.indexOf('/'));
+                            Log.e("MainActivity", "onSuccess: "+ deepLink+ " "+dlink+did );
+                            cnt=1;
+                            rewd();
+                        }
+
+
+                        // Handle the deep link. For example, open the linked
+                        // content, or apply promotional credit to the user's
+                        // account.
+                        // ...
+
+                        // ...
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("MainActivity", "getDynamicLink:onFailure", e);
+                    }
+                });
         Uri uri = getIntent().getData();
         if(uri != null){
             Log.e("uri" , "--> "+uri);
@@ -58,27 +99,44 @@ public class MainActivity extends AppCompatActivity {
          FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
         Log.d("notification", "Subscribed");
 
+        if(cnt==0)
+            rewd();
 
-        int interval = 800;
+
+
+
+
+    }
+    private void rewd()
+    {
+        int interval = 1000;
         if (getIntent().getBooleanExtra("hideSplash",false))
         {
-            interval = 1;
+            interval = 1000;
         }
         Log.e("interval",interval + "");
-
         new Handler().postDelayed(() -> {
+            Log.e("TAG", "onCreate: "+Utility.getUserId(activity) );
             if(Utility.getUserId(activity).equals(""))
             {
-                startActivity(new Intent(activity, Onboarding.class));
+                //detectDeepLink();
+                Log.e("TAG", "onCreate: "+dlink);
+                String androidId = Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+                if(did.equals(androidId))
+                    startActivity(new Intent(activity, Onboarding.class).putExtra("refid", ""));
+                else
+                    startActivity(new Intent(activity, Onboarding.class).putExtra("refid", dlink));
                 finish();
             }
             else
             {
-                    startActivity(new Intent(activity, HomeActivity.class));
-                    finish();
+                startActivity(new Intent(activity, HomeActivity.class));
+                finish();
             }
         },interval);
     }
+
 
     @Override
     protected void onResume() {
@@ -86,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         if(googleApiAvailability.isGooglePlayServicesAvailable(activity) != ConnectionResult.SUCCESS)
         {
+            //testing
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
     }

@@ -5,6 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/home_fragment">
 
+    <activity
+        android:id="@+id/nav_to_counsellor_profiles"
+        android:name="com.careerguide.activity.AllCounsellor"
+        android:label="Counsellor Profiles"
+        tools:layout="@layout/activity_all_counsellor"/>
+
     <fragment
         android:id="@id/contact_us"
         android:name="com.careerguide.ContactUsFragment"

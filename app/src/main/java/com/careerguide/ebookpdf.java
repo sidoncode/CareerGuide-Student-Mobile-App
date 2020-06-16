@@ -42,7 +42,9 @@ public class ebookpdf extends Fragment {
                     e.printStackTrace();
                 }
                 hideProgressBar();
-                startActivity(goToNextScreen);
+                Activity activity = getActivity();
+                if(activity != null && isAdded())//handles crash if the activity is killed
+                    startActivity(goToNextScreen);
             }
         }
     };

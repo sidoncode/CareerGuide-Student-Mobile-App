@@ -20,10 +20,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.exoplayer.utils.PublicFunctions;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -138,6 +142,17 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                     findViewById(R.id.live_surfaceview).setVisibility(TextView.GONE);
                     tvNoSurfaceNotice = findViewById(R.id.live_no_surfaceview_notice);
                     tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
+
+                    RequestOptions options = new RequestOptions()
+                            .centerCrop()
+                            .placeholder(R.drawable.loading)
+                            .error(R.drawable.loading)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .priority(Priority.HIGH)
+                            .dontAnimate()
+                            .dontTransform();
+                    Glide.with(activity).load(host_image ).apply(options).into((ImageView) findViewById(R.id.live_user_headimg_iv));
+
 
 
                 })

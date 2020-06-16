@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.shobhitpuri.custombuttons:google-signin:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f445619b718d205f7416221a7cf364ba/jetified-google-signin-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f445619b718d205f7416221a7cf364ba/jetified-google-signin-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d2a23d9ccc1285003d1fe31e733d0e11/jetified-google-signin-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d2a23d9ccc1285003d1fe31e733d0e11/jetified-google-signin-1.0.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shobhitpuri.custombuttons/google-signin/1.0.0/ac1c7549c9ddc4ddc04f41f9b3ee393c0cedca00/google-signin-1.0.0-javadoc.jar!/" />
