@@ -20,9 +20,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.exoplayer.utils.PublicFunctions;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -53,6 +59,10 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     String host_image ="";
     String scheduledesc="";
     String fileName ="";
+    String privateUID="";
+    String privateUserName="";
+    String privateSessionDate="";
+    private String privateSessionTime="";
 
 
     Activity activity = this;
@@ -64,7 +74,6 @@ public class ViewerLiveActivity extends BaseLiveActivity {
         RtmClientManager.getInstance().init(this);
         UID  = Utility.getUserId(activity);
         unique_id = Integer.parseInt(UID);
-
 
 
         FirebaseDynamicLinks.getInstance()
@@ -89,9 +98,18 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                             Channel_name=jsonObject.optString("channel_name");
                             Fullname = jsonObject.optString("host_name");
                             host_image = "https://app.careerguide.com/api/user_dir/"+jsonObject.optString("host_image");
-                            scheduledesc = jsonObject.optString("schedule_desc");
-                            fileName=jsonObject.optString("host_image");
-                            title=jsonObject.optString("title");
+
+                            if (Channel_name.contains("privatesession")){
+                                privateUID=jsonObject.optString("privateUID");
+                                privateUserName=jsonObject.optString("privateUserName");
+                                privateSessionDate=jsonObject.optString("privateSessionDate");
+                                privateSessionTime=jsonObject.optString("privateSessionTime");
+
+                            }else {
+                                scheduledesc = jsonObject.optString("schedule_desc");
+                                fileName=jsonObject.optString("host_image");
+                                title=jsonObject.optString("title");
+                            }
 
 
                         } catch (JSONException e) {
@@ -102,18 +120,24 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                     }else{
 
 
-                        Channel_name = getIntent().getStringExtra("Channel_name");
+                        try{
 
-                        Fullname = getIntent().getStringExtra("name");
+                            Channel_name = getIntent().getStringExtra("Channel_name");
 
-                        title=getIntent().getStringExtra("title");
+                            Fullname = getIntent().getStringExtra("name");
 
-                        host_image= getIntent().getStringExtra("imgurl");
+                            title=getIntent().getStringExtra("title");
 
-                        scheduledesc= "\nGuide "+Fullname+" will be "+getIntent().getStringExtra("scheduledesc")+"\n Let me recommend this LIVE STREAM from CareerGuide.com -Must watch for you.\n Share with your friends and family too.  ";
+                            host_image= getIntent().getStringExtra("imgurl");
 
-                        fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
+                            scheduledesc= "\nGuide "+Fullname+" will be "+getIntent().getStringExtra("scheduledesc")+"\n Let me recommend this LIVE STREAM from CareerGuide.com -Must watch for you.\n Share with your friends and family too.  ";
 
+                            fileName = host_image.substring(host_image.lastIndexOf('/') + 1);
+
+                        }catch (Exception e)
+                                {
+
+                                }
 
                     }
 
@@ -125,9 +149,22 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                     tvNoSurfaceNotice = findViewById(R.id.live_no_surfaceview_notice);
                     tvNoSurfaceNotice.setVisibility(TextView.VISIBLE);
 
+                    RequestOptions options = new RequestOptions()
+                            .centerCrop()
+                            .placeholder(R.drawable.loading)
+                            .error(R.drawable.loading)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .priority(Priority.HIGH)
+                            .dontAnimate()
+                            .dontTransform();
+                    Glide.with(activity).load(host_image ).apply(options).into((ImageView) findViewById(R.id.live_user_headimg_iv));
+
+
 
                 })
                 .addOnFailureListener(this, e -> Log.e("dynamic links--> ", "getDynamicLink:onFailure", e));
+
+
 
 
 
@@ -139,14 +176,28 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     protected void initView() {
         super.initView();
 
-
-
-        findViewById(R.id.shareWithOthers).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                video_sharee();
+        if (!privateUID.contentEquals("")) {
+            try{
+                if (!privateUID.contains(Utility.getUserId(this))) {
+                    tvNoSurfaceNotice.setText("This is a private session!\n You don't have access to view");
+                } else {
+                    tvNoSurfaceNotice.setText("The session is locked now! \n You will get access when the host "+Fullname+" comes online. \n\n Session for "+privateUserName+" at "+privateSessionTime+" on "+privateSessionDate);
+                }
+            }catch (Exception e){//if the app is not installed
+                tvNoSurfaceNotice.setText("This is a private session!\n You don't have access to view");
             }
-        });
+
+        }else{
+            findViewById(R.id.shareWithOthers).setVisibility(View.VISIBLE);
+            findViewById(R.id.shareWithOthers).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    video_sharee();
+                }
+            });
+        }
+
+
     }
 
     @Override
@@ -158,6 +209,21 @@ public class ViewerLiveActivity extends BaseLiveActivity {
     protected String getchannelid() {
 
         return Channel_name;
+    }
+
+    @Override
+    protected String getprivateUID() {
+        return privateUID;
+    }
+
+    @Override
+    protected String gethostFullName() {
+        return Fullname;
+    }
+
+    @Override
+    protected String getprivateUserName() {
+        return privateUserName;
     }
 
 
@@ -193,7 +259,16 @@ public class ViewerLiveActivity extends BaseLiveActivity {
         runOnUiThread(() -> {
             if (ANCHOR_UID == uid) {
                 findViewById(R.id.live_surfaceview).setVisibility(TextView.VISIBLE);
+                findViewById(R.id.senderArea).setVisibility(View.VISIBLE);
+                findViewById(R.id.watermark).setVisibility(View.VISIBLE);
                 findViewById(R.id.live_no_surfaceview_notice).setVisibility(TextView.GONE);
+
+                findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.GONE);
+
+
+                if (!privateUID.contentEquals(UID)){
+                    findViewById(R.id.shareWithOthers).setVisibility(View.VISIBLE);//if its not private session share button is enabled
+                }
             }
         });
     }
@@ -260,20 +335,27 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                                 StrictMode.setVmPolicy(builder.build());
 
-                                File imgFile = Utility.getFile(fileName);
-                                if (imgFile!=null){
-                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                    shareIntent.setType("image/*");
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
-                                    shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                                }else {
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        File imgFile = Utility.getFile(fileName);
+                                        if (imgFile!=null){
+                                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                            shareIntent.setType("image/*");
+                                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
+                                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                        }else {
 
-                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                    shareIntent.setType("plain/text");
-                                    shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                                }
+                                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                            shareIntent.setType("plain/text");
+                                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                        }
+
+                                    }
+                                }, 1500);//wait till the download is complete
+
 
                             } else
                             {

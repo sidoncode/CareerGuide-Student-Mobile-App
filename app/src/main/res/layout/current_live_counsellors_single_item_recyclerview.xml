@@ -9,23 +9,79 @@
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:id="@+id/backgroundLayout"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         >
 
-        <ImageView
-            android:id="@+id/imgCounsellor"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:backgroundTint="@color/grey"
-            android:background="@drawable/ic_no_live_counsellor_foreground"
-            android:scaleType="fitXY"/>
-
-
         <TextView
+            android:id="@+id/shareWithOthers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/share"
+            android:visibility="visible"
+            android:text=""
+            android:padding="4dp"
+            android:layout_marginLeft="105dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/round_corner_grey"
+            android:elevation="3dp"/>
+
+
+
+        <LinearLayout
+            android:background="@drawable/gradient_f46548_radius_4"
+            android:orientation="horizontal"
+            android:paddingStart="8.0dip"
+            android:paddingTop="2.0dip"
+            android:paddingEnd="8.0dip"
+            android:paddingBottom="2.0dip"
+            android:visibility="gone"
+            android:id="@+id/live_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:elevation="4dp"
+            android:paddingRight="8dp">
+
+
+            <TextView
+                android:id="@+id/iv_live_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif-medium"
+                android:text="LIVE"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/backgroundLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:id="@+id/imgCounsellor"
+                android:layout_width="140dp"
+                android:layout_height="90dp"
+                android:backgroundTint="@color/grey"
+                android:background="@drawable/ic_no_live_counsellor_foreground"
+                android:scaleType="fitXY"/>
+
+
+            <TextView
                 android:id="@+id/txtCounsellorName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,27 +92,20 @@
                 android:textSize="14dp" />
 
 
-        <TextView
-            android:id="@+id/txtDesc"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:inputType="textMultiLine"
-            android:text="Live Now"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/txtDesc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:inputType="textMultiLine"
+                android:text=""
+                android:textSize="12sp" />
 
-        <TextView
 
-            android:layout_marginStart="3dp"
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/app_blue"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="CareerGuide.com" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

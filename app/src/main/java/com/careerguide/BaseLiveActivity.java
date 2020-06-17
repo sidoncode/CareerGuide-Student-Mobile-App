@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -92,22 +93,74 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 initView();
-                initRtcEngine();
-                initRtmClient();
             }
-        }, 3000);
+        }, 2000);
 
     }
 
     protected void initView() {
-        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
-        mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
-        etChatMsg = findViewById(R.id.live_msg_et);
-        findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
+        try {
+
+
+            if (getchannelid().contentEquals("")) {
+                showToast("Internet is slow! Trying again");
+                ((TextView) findViewById(R.id.live_no_surfaceview_notice)).setText("Internet is slow!\n Trying again");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initView();
+                    }
+                }, 3000);
+                return;
+            }else{
+
+                if (getprivateUID().contentEquals("")&&!getchannelid().contains("privatesession")){//free session
+                    ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText(R.string.living_anchor_offline);
+
+                    initRtcEngine();
+                    initRtmClient();
+
+                }else {
+
+                    if (getprivateUID().contentEquals(getRtcUid()+"")){//private session for the user only
+                        findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
+
+                        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("The session will be unlocked when "+gethostFullName()+" comes online.\n Session for "+getprivateUserName());
+
+                        initRtcEngine();
+                        initRtmClient();
+
+
+                    }else{
+                        findViewById(R.id.sessionLocked).setVisibility(RelativeLayout.VISIBLE);
+                        ((TextView)findViewById(R.id.live_no_surfaceview_notice)).setText("This is a private session you do not have access to view!");
+                    }
+
+                }
+
+                mMsgContainer = new MessageContainer(findViewById(R.id.live_msg_recycler_view));
+                etChatMsg = findViewById(R.id.live_msg_et);
+                findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
+
+            }
+
+        }catch (Exception e){
+            showToast("Check your internet connection!");
+            ((TextView) findViewById(R.id.live_no_surfaceview_notice)).setText("Check your internet connection!");
+
+        }
+
+
     }
+
+
     protected abstract int getRtcUid();
     protected abstract String getchannelid();
+    protected abstract String getprivateUID();
+    protected abstract  String gethostFullName();
+    protected abstract String getprivateUserName();
     protected abstract void livePrepare(RtcEngine engine);
 
 
@@ -119,14 +172,14 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         SurfaceView surface = RtcEngine.CreateRendererView(this);
         ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);
 
-        if (isAnchor()) {
-            mRtcEngine.enableLocalAudio(true);
+        /*if (isAnchor()) {
+            mRtcEngine.enableLocalAudio(false);
             mRtcEngine.setupLocalVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
             mRtcEngine.startPreview();
-        } else {
+        } else {*/
             mRtcEngine.enableLocalAudio(false);
             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
-        }
+        //}
         Log.e("#cmm engine","ewkjbewjkfb" +getchannelid());
         mRtcEngine.joinChannel("", getchannelid(), "", getRtcUid());
         if (getchannelid().contentEquals("")){
@@ -135,6 +188,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     }
 
     private void initRtmClient() {
+
         mRtmClient = RtmClientManager.getInstance().getRtmClient();
         mRtmClient.login("", String.valueOf(getRtcUid()), new ResultCallback<Void>() {
             @Override
@@ -443,3 +497,4 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
 
 }
+

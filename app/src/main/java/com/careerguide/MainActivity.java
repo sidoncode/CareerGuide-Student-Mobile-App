@@ -15,17 +15,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.careerguide.blog.DataMembers;
-import com.careerguide.blog.model.Categories;
-import com.careerguide.blog.model.CategoryDetails;
-import com.careerguide.blog.util.Utils;
-import com.careerguide.models.Counsellor;
-import com.careerguide.youtubeVideo.CommonEducationModel;
-import com.careerguide.youtubeVideo.Videos;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -60,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
                             dlink=dlink1.substring(0,dlink1.indexOf('/'));
                             Log.e("MainActivity", "onSuccess: "+ deepLink+ " "+dlink+did );
                             cnt=1;
+                            rewd();
+                        }
+                        else
+                        {
                             rewd();
                         }
 
@@ -106,12 +99,12 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
         FirebaseApp.initializeApp(activity);
-         //FirebaseMessaging.getInstance().subscribeToTopic("notification");//comment this for local testing
-         FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
+        //FirebaseMessaging.getInstance().subscribeToTopic("notification");//comment this for local testing
+        FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
         Log.d("notification", "Subscribed");
 
-        if(cnt==0)
-            rewd();
+        /*if(cnt==0)
+            rewd();*/
 
 
 
@@ -120,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void rewd()
     {
-        int interval = 1000;
+        int interval = 800;
         if (getIntent().getBooleanExtra("hideSplash",false))
         {
-            interval = 1000;
+            interval = 800;
         }
         Log.e("interval",interval + "");
         new Handler().postDelayed(() -> {

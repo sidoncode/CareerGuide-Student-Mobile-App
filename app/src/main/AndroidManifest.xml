@@ -20,12 +20,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
-        <activity android:name=".Book_One_To_One.activity.SummaryDetails"></activity>
-        <activity android:name=".Book_One_To_One.activity.FillClientDetails" />
+        <activity android:name=".Book_One_To_One.activity.NewOneToOneRegisteration"></activity>
+
         <activity
             android:name=".activity.SeeAllActivity"
             android:launchMode="singleTop" />

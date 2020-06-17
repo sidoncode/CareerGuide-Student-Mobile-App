@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -54,8 +55,10 @@ public class Video_player extends AppCompatActivity {
     private String video_url = "";
     String host_image = "";
     String scheduledesc = "";
-    String fileName = "";
+    String host_image_fileName = "";
+    String banner_image_fileName = "";
     String video_views = "";
+    private String bannerImage="";
 
 
     @Override
@@ -92,8 +95,10 @@ public class Video_player extends AppCompatActivity {
                             video_url = jsonObject.optString("live_video_url");
                             video_url=video_url.replace(" ","+");
                             video_views = jsonObject.optString("video_views");
-                            fileName = jsonObject.optString("host_image");
-                            host_image = "https://app.careerguide.com/api/user_dir/" + fileName;
+                            host_image_fileName = jsonObject.optString("host_image_fileName");
+                            host_image = "https://app.careerguide.com/api/user_dir/" + host_image_fileName;
+                            banner_image_fileName=jsonObject.optString("banner_image_fileName");
+                            bannerImage="https://ik.imagekit.io/careerguide/"+banner_image_fileName;
                             new TaskUpdateViewCounter(videoId).execute();
 
                         } catch (JSONException e) {
@@ -103,18 +108,20 @@ public class Video_player extends AppCompatActivity {
                     } else {
 
                         videoId = getIntent().getStringExtra("video_id");
-                        host_image = getIntent().getStringExtra("imgurl");
+                        host_image = getIntent().getStringExtra("host_img");
                         Fullname = getIntent().getStringExtra("Fullname");
                         title = getIntent().getStringExtra("title");
                         hostEmail = getIntent().getStringExtra("host_email");
                         video_url = getIntent().getStringExtra("live_video_url");
                         video_views = getIntent().getStringExtra("video_views");
-                        fileName = host_image.substring(host_image.lastIndexOf("/")+1);
+                        bannerImage=getIntent().getStringExtra("imgurl");
+                        host_image_fileName=host_image.substring(host_image.lastIndexOf("/")+1);
+                        banner_image_fileName = bannerImage.substring(bannerImage.lastIndexOf("/")+1);
                         new TaskUpdateViewCounter(videoId).execute();
 
                     }
 
-                    Log.i("asasas",videoId+"_"+host_image+"_"+Fullname+"_"+title+"_"+hostEmail+"_"+video_url+"_"+video_views+"_"+fileName);
+                    Log.i("asasas",videoId+"_"+host_image+"_"+Fullname+"_"+title+"_"+hostEmail+"_"+video_url+"_"+video_views+"_"+host_image_fileName);
 
                     andExoPlayerView.setName(Fullname);
                     andExoPlayerView.sethost_email(hostEmail);
@@ -262,13 +269,13 @@ public class Video_player extends AppCompatActivity {
     public void video_share(View view) {
 
         if (PublicFunctions.checkAccessStoragePermission(this)) {
-            if (!Utility.checkFileExist(fileName)) {
-                Utility.downloadImage(fileName + "", host_image + "", this);
+            if (!Utility.checkFileExist(banner_image_fileName)) {
+                Utility.downloadImage(banner_image_fileName + "", host_image + "", this);
             }
             String shareMessagee = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
 
             DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                    .setLink(Uri.parse(video_url+"?sessionDetails={\"videoId\":\""+videoId+"\",\"Fullname\":\""+Fullname+"\",\"title\":\""+title+"\",\"hostEmail\":\""+hostEmail+"\",\"video_url\":\""+video_url+"\",\"video_views\":\""+video_views+"\",\"fileName\":\""+fileName+"\"}"))
+                    .setLink(Uri.parse(video_url+"?sessionDetails={\"videoId\":\""+videoId+"\",\"Fullname\":\""+Fullname+"\",\"title\":\""+title+"\",\"hostEmail\":\""+hostEmail+"\",\"video_url\":\""+video_url+"\",\"video_views\":\""+video_views+"\",\"banner_image_fileName\":\""+banner_image_fileName+"\",\"host_image_fileName\":\""+host_image_fileName+"\"}"))
                     .setDynamicLinkDomain("careerguidesharevideo.page.link")
                     // Open links with this app on Android
                     .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
@@ -290,7 +297,9 @@ public class Video_player extends AppCompatActivity {
                     .setLongLink(dynamicLink.getUri())
                     .buildShortDynamicLink()
                     .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
+                        try {
+
+                            if (task.isSuccessful()) {
                             // Short link created
                             Uri shortLink = task.getResult().getShortLink();
                             Uri flowchartLink = task.getResult().getPreviewLink();
@@ -298,22 +307,35 @@ public class Video_player extends AppCompatActivity {
                             Log.e("main", "short Link" + flowchartLink);
                             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                             StrictMode.setVmPolicy(builder.build());
-                            File imgFile = Utility.getFile(fileName);
-                            Uri path = Uri.fromFile(imgFile);
-                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                            //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
-                            shareIntent.setType("image/*");
-                            //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                            //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-                            String shareMessage = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
-                            shareMessage = shareMessage + shortLink;
-                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()));
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        File imgFile = Utility.getFile(banner_image_fileName);
+                                        //Uri path = Uri.fromFile(imgFile);
+                                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                        //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
+                                        shareIntent.setType("image/*");
+                                        //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                                        //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+                                        String shareMessage = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
+                                        shareMessage = shareMessage + shortLink;
+                                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()));
+                                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                                        startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+
+                                    }
+                                }, 2000);
+
+
                         } else {
                             Log.e("Error", "error--> " + task.getException());
                             // Error
                             // ...
+                        }
+                        }catch (Exception e){
+                            Toast.makeText(context, "Some error occured!", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
                     });
         }
@@ -343,6 +365,10 @@ public class Video_player extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+
+            try {
+
+
             Log.i("video__id", videoid);
             StringRequest request = new StringRequest(
                     Request.Method.POST,
@@ -362,6 +388,10 @@ public class Video_player extends AppCompatActivity {
 
             VolleySingleton.getInstance(context).addToRequestQueue(request);
 
+
+            }catch (Exception e){
+
+            }
             return null;
         }
     }
