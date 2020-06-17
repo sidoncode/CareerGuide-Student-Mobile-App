@@ -75,6 +75,7 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
         holder.txtCounsellorName.setText(objDataModels.getCounsellorName());
         holder.txtdesc.setText(objDataModels.getscheduleDescription());
         if(objDataModels.getscheduleDescription().contains("LIVE AT")){
+            holder.shareWithOthers.setVisibility(View.VISIBLE);
             holder.txtCounsellorName.setTextColor(Color.BLACK);
             holder.txtdesc.setTextColor(Color.GRAY);
             holder.shareWithOthers.setOnClickListener(new View.OnClickListener() {

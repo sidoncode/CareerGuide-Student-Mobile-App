@@ -159,7 +159,7 @@ public class CGPlaylist extends Fragment {
         thisScreensView.findViewById(R.id.tv_booksession).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), NewOneToOneRegisteration.class));
+                startActivity(new Intent(getActivity(), BookCounsellor.class));
             }
         });
 
