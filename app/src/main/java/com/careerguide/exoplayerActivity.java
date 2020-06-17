@@ -304,15 +304,6 @@ public class exoplayerActivity extends AppCompatActivity {
                         }
 
 
-                        if(tempCurrentLiveCounsellorsList.size()==0){
-                            tempCurrentLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("No one is Live","","","",""));
-                        }
-                        runOnUiThread(()->{
-                            finalList.clear();
-                            finalList.addAll(tempCurrentLiveCounsellorsList);
-                            finalList.addAll(tempPostLiveCounsellorsList);
-                            currentLiveCounsellorsAdapter.notifyDataSetChanged();
-                        });
                         new TaskFetchPostLiveCounsellors().execute();
 
 
@@ -385,6 +376,7 @@ public class exoplayerActivity extends AppCompatActivity {
                             Log.e("#inside" ,"for" +picUrl+"__"+tempPostLiveCounsellorsList.get(0).getCounsellorName());
 
                         }
+
 
                         runOnUiThread(()->{
                             finalList.clear();

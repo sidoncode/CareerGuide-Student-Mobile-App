@@ -90,13 +90,17 @@ public class CurrentLiveCounsellorsAdapter extends RecyclerView.Adapter<CurrentL
             holder.txtCounsellorName.setTextColor(Color.BLACK);
             holder.txtdesc.setTextColor(Color.BLACK);
 
+            if(!objDataModels.getCounsellorName().contentEquals("Checking...")){
+                holder.shareWithOthers.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        video_sharee(objDataModels);
+                    }
+                });
+            }else{
+                holder.shareWithOthers.setVisibility(View.GONE);
+            }
 
-            holder.shareWithOthers.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    video_sharee(objDataModels);
-                }
-            });
         }
         Log.i("desssss",holder.txtdesc.getText().toString()+"___"+objDataModels.getscheduleDescription());
 
