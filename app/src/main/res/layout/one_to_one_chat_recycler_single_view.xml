@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/logs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Call ended 18:00PM"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:padding="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            android:background="@drawable/shape_round_bg"/>
+
+
+    </RelativeLayout>
+
+
+    //host chate window
+    <RelativeLayout
+        android:id="@+id/host_message_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#7289da"
+            android:background="@drawable/shape_round_bg"
+            >
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+                <TextView
+                    android:id="@+id/host_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginTop="10dp"
+                    android:inputType="textMultiLine"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginRight="10dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <RelativeLayout
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/host_message_time_sent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18:00 PM"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/hostprofileImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/default_profile"
+
+            />
+
+
+    </RelativeLayout>
+
+
+
+
+    //mentee chat window
+    <RelativeLayout
+        android:id="@+id/mentee_message_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#99aab5"
+            android:background="@drawable/shape_round_bg"
+            android:layout_alignParentRight="true"
+            >
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+            <TextView
+                android:id="@+id/mentee_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:layout_marginRight="55dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+                <RelativeLayout
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/mentee_message_time_sent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18:00 PM"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/menteeprofileImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/default_profile"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
+
+

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.careerguide.Book_Appoinment.BookCounsellor;
 import com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration;
+import com.careerguide.Book_One_To_One.activity.OneToOneSessionActivity;
 import com.careerguide.CGPlayListViewModel;
 import com.careerguide.CurrentLiveCounsellorsAdapter;
 import com.careerguide.CurrentLiveCounsellorsModel;
@@ -159,7 +160,7 @@ public class CGPlaylist extends Fragment {
         thisScreensView.findViewById(R.id.tv_booksession).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), BookCounsellor.class));
+                startActivity(new Intent(getActivity(), /*NewOneToOneRegisteration*/OneToOneSessionActivity.class));
             }
         });
 

@@ -166,6 +166,8 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
 
     private void initRtcEngine() {
         Log.e("#inside engine","ewkjbewjkfb");
+        RtcEngineManager.getInstance().init(this);
+        RtmClientManager.getInstance().init(this);
         mRtcEngine = RtcEngineManager.getInstance().getRtcEngine();
         RtcEngineManager.getInstance().setOnRtcEventCallback(this);
         livePrepare(mRtcEngine);
@@ -255,8 +257,6 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
     protected void sendMsg(String msg) {
         RtmMessage rtmMessage = mRtmClient.createMessage();
         rtmMessage.setText(msg);
-
-
 
         new Thread(new Runnable() {
             @Override

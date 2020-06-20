@@ -222,7 +222,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
             DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
                     .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+getChannelName()+"\",\"host_name\":\""+getHostFullName()+"\",\"host_image\":\""+host_image_file+"\",\"privateUID\":\""+Utility.getUserId(this)+"\",\"privateUserName\":\""+getMenteeName()+"\",\"privateSessionDate\":\""+getSelectedDate()+"\",\"privateSessionTime\":\""+getSelectTimeSlot()+"\"}"))
-                    .setDynamicLinkDomain("careerguidelivestream.page.link")
+                    .setDynamicLinkDomain("careerguideprivatesession.page.link")
                     // Open links with this app on Android
                     .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
                     .setGoogleAnalyticsParameters(
