@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<!-- Edited By Atul Kumar -->
+
     <group android:checkableBehavior="none">
+
+
+
         <item
             android:id="@+id/home_fragment"
             android:title="Home"
-            android:icon="@drawable/ic_nav_home"/><!--android:icon="@drawable/ic_one"-->
-        <item
-            android:id="@+id/tests"
-            android:title="Psychometric Career Tests"
-            android:icon="@drawable/ic_nav_psyc_test"/>
-        <item
-            android:id="@+id/report_url"
-            android:icon="@drawable/ic_mgmt_team_selected"
-            android:title="View Psychometric Report" />
+            android:icon="@drawable/ic_nav_home"/>
+
+        <!--android:icon="@drawable/ic_one"-->
         <!--<item-->
         <!--android:id="@+id/counsellorChat"-->
         <!--android:icon="@drawable/cc_ic_chat_setting"-->
         <!--android:title="Talk to a Counsellor" />-->
-        <item
-            android:id="@+id/counsellorSignUp"
-            android:title="Sign up as a Counsellor"
-            android:icon="@drawable/ic_nav_sign_couns"/>
-        <item
-            android:id="@+id/careerbooks"
-            android:icon="@drawable/ic_career_ebook"
-            android:title="Career E-Books"
-            />
+
+
+
         <item
             android:id="@+id/livecounsellor"
             android:icon="@drawable/ic_chng_profile_pic"
             android:visible="false"
             android:title="Live Counsellors"/>
-
 
         <item
             android:id="@+id/videocallcounsellor"
@@ -39,46 +33,100 @@
             android:visible="false"
             android:title="Counselling"/>
 
-        <item
-            android:id="@+id/livesessions"
-            android:icon="@drawable/exo_notification_small_icon"
-            android:title="Live sessions" />
-
-        <item
-            android:id="@+id/Blog"
-            android:icon="@drawable/ic_nav_psyc_test"
-            android:title="Blog" />
-
-        <item
-            android:id="@+id/about_fragment"
-            android:icon="@drawable/ic_nav_about"
-            android:title="About Us" />
-        <item
-            android:id="@+id/contact_us"
-            android:title="Contact Us"
-            android:icon="@drawable/ic_nav_contact"/>
-
-        <item
-            android:id="@+id/refer_a_friend"
-            android:title="Refer a Friend"
-            android:icon="@drawable/ic_share_black_24dp"/>
 
 
-        <item
-            android:id="@+id/rate_us"
-            android:title="Rate Us"
-            android:icon="@drawable/ic_star_border_black_24dp"/>
+
+
+
+
+        <item android:title="Build your career">
+        <menu>
+
+            <item
+                android:id="@+id/Blog"
+                android:icon="@drawable/ic_nav_psyc_test"
+                android:title="Blogs" />
+
+            <item
+                android:id="@+id/careerbooks"
+                android:icon="@drawable/ic_career_ebook"
+                android:title="Career E-Books" />
+
+            <item
+                android:id="@+id/livesessions"
+                android:icon="@drawable/exo_notification_small_icon"
+                android:title="Live sessions" />
+
+        </menu>
+        </item>
+
+
+
+        <item android:title="Test your skills">
+        <menu>
+            <item
+                android:id="@+id/tests"
+                android:title="Psychometric Career Tests"
+                android:icon="@drawable/ic_nav_psyc_test"/>
+            <item
+                android:id="@+id/report_url"
+                android:icon="@drawable/ic_mgmt_team_selected"
+                android:title="View Psychometric Report" />
+        </menu>
+        </item>
+
+
+
+        <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/refer_a_friend"
+                android:title="Refer a Friend"
+                android:icon="@drawable/ic_share_black_24dp"/>
+
+
+            <item
+                android:id="@+id/rate_us"
+                android:title="Rate Us"
+                android:icon="@drawable/ic_star_border_black_24dp"/>
+
+
+            <item
+                android:id="@+id/about_fragment"
+                android:icon="@drawable/ic_nav_about"
+                android:title="About Us" />
+
+
+            <item
+                android:id="@+id/contact_us"
+                android:title="Contact Us"
+                android:icon="@drawable/ic_nav_contact"/>
+
+
+        </menu>
+        </item>
+
+
+        <item android:title="Join with us">
+            <menu>
+                <item
+                    android:id="@+id/counsellorSignUp"
+                    android:title="Sign up as a Counsellor"
+                    android:icon="@drawable/ic_nav_sign_couns"/>
+            </menu>
+        </item>
+
+
+
+
+
+
 
 
         <item
             android:visible="false"
             android:id="@+id/counsellorCorner"
             android:title="Counsellors"/>
-
-
-
-
-
 
         <item
             android:visible="false"

@@ -2,72 +2,132 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signup_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context="com.careerguide.SignUpActivity">
 
 
-        <!--progressBar-->
+    <!-- Design changed by Atul Kumar on 16 June
+     Note close all the Views first for better understanding-->
+
+
+
+    <!--progressBar-->
     <RelativeLayout
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:background="#B3000000"
         android:clickable="true"
         android:elevation="2dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/white"
+            android:background="@drawable/signup_login_btn_bg"
+            android:backgroundTint="@color/white"
             android:padding="5dp"
-            android:layout_centerInParent="true"
-            >
+            android:layout_centerInParent="true">
 
             <ProgressBar
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:padding="5dp"
-                />
+                android:indeterminateTint="@color/colorPrimary"/>
+
             <TextView
                 android:id="@+id/progressBarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="20dp"
-                android:text="Authenticating..."
+                android:textSize="20sp"
+                android:text="Authenticating...."
                 android:paddingRight="5dp"
+                android:paddingLeft="@dimen/_5sdp"
                 android:layout_marginTop="25dp"/>
 
         </LinearLayout>
     </RelativeLayout>
 
+
+
+
+
+
+
+
+    <!--- Main Windows of Lingin,Signup, Forgot pass etc-->
     <ScrollView
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <FrameLayout
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:orientation="vertical"
+            android:padding="@dimen/_25sdp">
 
+
+
+
+            <!-- Heading and sub heading -->
+            <TextView
+                android:id="@+id/text_Welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome,"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/text_welcome_subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Sign in to continue ..."
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+
+
+            <!-- Main content layout-->
+
+            <androidx.cardview.widget.CardView
+                android:outlineAmbientShadowColor="@color/colorPrimary"
+                android:outlineSpotShadowColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_30sdp">
+
+
+
+                <!-- Layout for Login Part Not Using Now-->
             <LinearLayout
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/sign_up_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_gravity="center">
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
                     android:orientation="vertical"
                     android:gravity="center">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,17 +135,18 @@
                         android:text="CareerGuide"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
-                        android:textSize="25sp"/>
+                        android:textSize="30sp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textColor="#000"
                         android:textSize="15sp"
+                        android:textAlignment="center"
                         android:layout_marginTop="30dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:text="Login to get personalised\ncareer advise"/>
+
+
                     <com.facebook.login.widget.LoginButton
                         android:visibility="gone"
                         xmlns:facebook="http://schemas.android.com/apk/res-auto"
@@ -104,6 +165,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="53dp"
                         android:layout_marginRight="53dp"/>
+
                     <com.shobhitpuri.custombuttons.GoogleSignInButton
                         android:visibility="gone"
                         android:id="@+id/sign_in_button"
@@ -116,6 +178,9 @@
                         android:gravity="left|center"
                         android:text="Continue with Google"
                         app:isDarkTheme="true"/>
+
+
+
                     <TextView
                         android:id="@+id/fbSignInBig"
                         android:layout_width="match_parent"
@@ -125,10 +190,11 @@
                         android:layout_marginRight="53dp"
                         android:paddingBottom="7dp"
                         android:paddingTop="7dp"
+                        android:paddingLeft="5dp"
                         android:drawablePadding="12dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
-                        android:background="#3b5998"
+                        android:background="@drawable/signup_btn_fb"
                         android:drawableStart="@drawable/ic_fb_sign_big"
                         android:text="Continue with Facebook"/>
 
@@ -142,17 +208,19 @@
                         android:layout_marginBottom="10dp"
                         android:paddingBottom="7dp"
                         android:paddingTop="7dp"
-                        android:paddingStart="3dp"
+                        android:paddingLeft="5dp"
                         android:drawablePadding="9dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
-                        android:background="#4885ed"
+                        android:background="@drawable/signup_btn_google"
                         android:drawableStart="@drawable/ic_g_sign_big"
                         android:text="Continue with Google"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/loginButton"
                             android:layout_width="wrap_content"
@@ -161,25 +229,29 @@
                             android:textSize="12sp"
                             android:textColor="#e9397b"
                             android:text="Login via email instead"/>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="#e9397b"/>
+
                     </LinearLayout>
+
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="30dp"
                         android:layout_marginBottom="20dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:textColor="#000"
-                            android:text="New User?"/>
+                            android:text="I'm a new user, "/>
                         <TextView
-                            android:id="@+id/coustom_sign_in_button"
+                            android:id="@+id/coustom_sign_in_button_old"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
@@ -190,20 +262,25 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+
+
+
+
+                <!-- Layout for Signup Part by Email Instead-->
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/coustom_sign_up_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@android:drawable/dialog_holo_light_frame">
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -211,7 +288,7 @@
                         android:text="CareerGuide"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
-                        android:textSize="25sp"
+                        android:textSize="30sp"
                         android:layout_marginTop="15sp"
                         android:layout_marginBottom="25dp"/>
 
@@ -234,12 +311,14 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter your email id"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
+
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/emailError"
@@ -256,13 +335,14 @@
                         android:layout_height="wrap_content"
                         android:hint="Create new password"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:inputType="textPassword"
                         android:imeOptions="actionDone"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/passwordError"
@@ -280,9 +360,9 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:background="#e9397b"
                         android:textColor="#fff"
                         android:textSize="20sp"
+                        android:background="@color/colorPrimary"
                         android:textAllCaps="false"
                         android:enabled="false"
                         android:text="Sign up"/>
@@ -299,13 +379,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:text="Or sign up via"/>
+                            android:text="Or sign up via"
+                            android:textSize="@dimen/_10sdp"/>
+
                         <ImageView
                             android:id="@+id/fbIcon1"
-                            android:layout_height="25dp"
-                            android:layout_width="25dp"
+                            android:layout_height="35dp"
+                            android:layout_width="35dp"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_fb"/>
+
                         <ImageView
                             android:id="@+id/googleIcon1"
                             android:layout_height="35dp"
@@ -313,21 +396,24 @@
                             android:layout_marginLeft="5dp"
                             android:src="@drawable/ic_g"/>
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
+
+
+
+
+                <!-- Layout for Login by email Part-->
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/coustom_log_in_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@android:drawable/dialog_holo_light_frame">
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -336,7 +422,7 @@
                         android:text="CareerGuide"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
-                        android:textSize="25sp"
+                        android:textSize="30sp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="35dp"/>
                     <EditText
@@ -347,10 +433,11 @@
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -393,11 +480,12 @@
                         android:inputType="textPassword"
                         android:imeOptions="actionDone"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/passwordErrorLogin"
@@ -418,23 +506,25 @@
                         android:layout_gravity="right"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="30dp"/>
+
                     <Button
                         android:id="@+id/login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:background="#e9397b"
+                        android:background="@color/colorPrimary"
                         android:textColor="#fff"
                         android:textSize="18sp"
                         android:textAllCaps="false"
                         android:text="Login"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -442,11 +532,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:text="Or login via"/>
+                            android:text="Or login via"
+                            android:textSize="@dimen/_10sdp"/>
                         <ImageView
                             android:id="@+id/fbIcon2"
-                            android:layout_height="25dp"
-                            android:layout_width="25dp"
+                            android:layout_height="35dp"
+                            android:layout_width="35dp"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_fb"/>
                         <ImageView
@@ -456,23 +547,63 @@
                             android:layout_marginLeft="5dp"
                             android:src="@drawable/ic_g"/>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:text="I'm a new user, "/>
+                        <TextView
+                            android:id="@+id/coustom_sign_in_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#e9397b"
+                            android:textSize="16sp"
+                            android:text=" Sign up"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+
+
+
+                <!-- Layout for forgot password-->
             <LinearLayout
+                android:background="@drawable/cards_primary_bg"
                 android:visibility="gone"
                 android:id="@+id/forgotPassword_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center_vertical"
-                android:background="@android:drawable/dialog_holo_light_frame">
+                android:layout_gravity="center_vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="CareerGuide"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="30sp"
+                        android:layout_marginTop="15dp"/>
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -483,6 +614,7 @@
                         android:textColor="@color/colorPrimary"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="15dp"/>
+
                     <EditText
                         android:id="@+id/emailInputFP"
                         android:layout_width="match_parent"
@@ -491,20 +623,21 @@
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionDone"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/emailErrorFP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:text=""
                         android:textColor="#e9397b"
                         android:layout_marginLeft="35dp"
                         android:layout_marginRight="30dp"/>
+
                     <Button
                         android:id="@+id/continueButton"
                         android:layout_width="match_parent"
@@ -512,7 +645,7 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:background="#e9397b"
+                        android:background="@color/colorPrimary"
                         android:textColor="#fff"
                         android:textSize="20sp"
                         android:textAllCaps="false"
@@ -534,8 +667,8 @@
                             android:text="Alternatively, you can login via"/>
                         <ImageView
                             android:id="@+id/fbIcon3"
-                            android:layout_height="25dp"
-                            android:layout_width="25dp"
+                            android:layout_height="35dp"
+                            android:layout_width="35dp"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_fb"/>
                         <ImageView
@@ -547,21 +680,26 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+
+
+
+               <!--  Layout forgot password OTP-->
             <LinearLayout
+                android:background="@drawable/cards_primary_bg"
                 android:visibility="gone"
                 android:id="@+id/forgotPasswordMessage_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center_vertical"
-                android:background="@android:drawable/dialog_holo_light_frame">
+                android:layout_gravity="center_vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
                     android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="130dp"
                         android:layout_height="100dp"
@@ -577,6 +715,7 @@
                         android:layout_marginRight="30dp"
                         android:text="A link with instructions to reset your password has been sent to your email.\n\nPlease check your inbox."
                         android:textColor="#000"
+                        android:textAlignment="center"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="35dp"/>
                     <EditText
@@ -588,18 +727,21 @@
                         android:inputType="number"
                         android:imeOptions="actionDone"
                         android:maxLength="6"
-                        android:backgroundTint="#e9397b"
-                        android:hint="OTP"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"
+                        android:hint="OTP"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:textColor="@color/colorPrimary"/>
                     <Button
                         android:visibility="invisible"
                         android:id="@+id/resetPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="20dp"
-                        android:background="#e9397b"
+                        android:background="@color/colorPrimary"
                         android:textColor="#fff"
                         android:textSize="20sp"
                         android:textAllCaps="false"
@@ -607,15 +749,18 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+
+
+
+                <!-- Layout for reset OTP code-->
             <LinearLayout
+                android:background="@drawable/cards_primary_bg"
                 android:visibility="gone"
                 android:id="@+id/reset_password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@android:drawable/dialog_holo_light_frame">
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -628,7 +773,7 @@
                         android:text="CareerGuide"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
-                        android:textSize="25sp"
+                        android:textSize="30sp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="35dp"/>
                     <EditText
@@ -639,10 +784,11 @@
                         android:inputType="textPassword"
                         android:imeOptions="actionNext"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/passwordErrorReset"
@@ -661,11 +807,12 @@
                         android:inputType="textPassword"
                         android:imeOptions="actionDone"
                         android:textSize="16sp"
-                        android:textColor="#000"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:backgroundTint="#e9397b"/>
+                        android:padding="@dimen/_10sdp"
+                        android:background="@drawable/signup_login_btn_bg"/>
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/retypePasswordErrorReset"
@@ -683,7 +830,7 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:background="#e9397b"
+                        android:background="@color/colorPrimary"
                         android:textColor="#fff"
                         android:textSize="20sp"
                         android:textAllCaps="false"
@@ -700,11 +847,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000"
-                            android:text="Or login via"/>
+                            android:text="Or login via"
+                            android:textSize="12dp"/>
                         <ImageView
                             android:id="@+id/fbIcon4"
-                            android:layout_height="25dp"
-                            android:layout_width="25dp"
+                            android:layout_height="35dp"
+                            android:layout_width="35dp"
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_fb"/>
                         <ImageView
@@ -716,7 +864,13 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </FrameLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
     </ScrollView>
 
 
