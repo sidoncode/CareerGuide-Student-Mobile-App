@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,10 +15,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.Book_One_To_One.customSteppers.BatchSlotStepper;
 import com.careerguide.Book_One_To_One.customSteppers.DescriptionStepper;
 import com.careerguide.Book_One_To_One.customSteppers.NameEmailStepper;
@@ -28,18 +23,15 @@ import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
-import com.careerguide.exoplayer.utils.PublicFunctions;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,7 +92,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     @Override
     public void onCompletedForm() {
 
-        createDynamicLink();
+        createDynamicLink("-1");
 
     }
 
@@ -207,9 +199,9 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
 
 
-    public void createDynamicLink() {
+    public void createDynamicLink(String booking_id) {
 
-        String channelNameTemp=getHostEmail() + "_privatesession_" + getSelectedDate() + "_" + getSelectTimeSlot();
+        String channelNameTemp=getHostEmail() + "_private_" + getSelectedDate() + "_" + getSelectTimeSlot();
         channelNameTemp=channelNameTemp.replace(" ","_");
         channelNameTemp=channelNameTemp.replace(":","_");
         setChannelName(channelNameTemp);
@@ -221,7 +213,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
             host_image_file.substring(host_image_file.lastIndexOf('/') + 1);
 
             DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+getChannelName()+"\",\"host_name\":\""+getHostFullName()+"\",\"host_image\":\""+host_image_file+"\",\"privateUID\":\""+Utility.getUserId(this)+"\",\"privateUserName\":\""+getMenteeName()+"\",\"privateSessionDate\":\""+getSelectedDate()+"\",\"privateSessionTime\":\""+getSelectTimeSlot()+"\"}"))
+                    .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails={\"channel_name\":\""+getChannelName()+"\",\"host_name\":\""+getHostFullName()+"\",\"host_image\":\""+host_image_file+"\",\"privateUID\":\""+Utility.getUserId(this)+"\",\"privateUserName\":\""+getMenteeName()+"\",\"privateSessionDate\":\""+getSelectedDate()+"\",\"privateSessionTime\":\""+getSelectTimeSlot()+"\",\"booking_id\":\""+booking_id+"\"}"))
                     .setDynamicLinkDomain("careerguideprivatesession.page.link")
                     // Open links with this app on Android
                     .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide").build())
@@ -266,7 +258,8 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
         @Override
         protected Void doInBackground(Void... params) {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://app.careerguide.com/api/main/fetchOnToOnePackage", response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/fetchOnToOnePackage"*/"https://f6185d0f8cb4.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php",
+                    response -> {
 
                 Log.e("all_coun_res_counsellor", response);
                 try {
@@ -350,7 +343,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "https://app.careerguide.com/api/main/bookOneToOne",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/"https://f6185d0f8cb4.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php",jsonBody, response -> {
 
 
                 try {
@@ -359,6 +352,8 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                     boolean status = jsonObject.optBoolean("status", false);
                     if (status) {
 
+                    String booking_id=jsonObject.getString("booking_id");
+                    createDynamicLink(booking_id);
                         ((NewOneToOneRegisteration)activity).runOnUiThread(()->{
                             ClipboardManager clipboard = (ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
                             ClipData clip = ClipData.newPlainText("Session Link", getDeepLink());
@@ -405,3 +400,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
 
 }
+
+//https://cd904a319c3f.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_bookings_for_counselor.php
+//https://cd904a319c3f.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php
+//https://cd904a319c3f.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php

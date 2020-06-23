@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -20,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -33,15 +36,19 @@ import com.careerguide.RtcEngineManager;
 import com.careerguide.RtmClientManager;
 import com.careerguide.RtmEnventCallback;
 import com.careerguide.Utility;
+import com.careerguide.VolleySingleton;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
@@ -67,8 +74,8 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private AlertDialog alertDialog;
     private Activity activity=this;
 
-    private TextView live_no_surfaceview_notice,host_name;
-    private RelativeLayout live_no_surfaceview,audio_or_video_background;
+    private TextView live_no_surfaceview_notice,host_name,textLockedMessage;
+    private RelativeLayout live_no_surfaceview,audio_or_video_background,sessionLocked;
     private FrameLayout live_surfaceview;
     RecyclerView chatRecyclerView;
 
@@ -80,6 +87,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private OneToOneMessageContainer messageContainer;
 
 
+    private String bookingId="";
     private String hostFullName="";
     private String channelName="";
     private String hostImage ="";
@@ -101,6 +109,8 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         disable_audio=findViewById(R.id.disable_audio);
         live_no_surfaceview=findViewById(R.id.live_no_surfaceview);
         live_no_surfaceview_notice=findViewById(R.id.live_no_surfaceview_notice);
+        sessionLocked=findViewById(R.id.sessionLocked);
+        textLockedMessage=findViewById(R.id.textLockedMessage);
         host_name=findViewById(R.id.host_name);
         audio_call=findViewById(R.id.audio_call);
         video_call=findViewById(R.id.video_call);
@@ -111,8 +121,11 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         live_msg_et=findViewById(R.id.live_msg_et);
         chatRecyclerView=findViewById(R.id.chatRecyclerView);
 
+
         RtcEngineManager.getInstance().init(this);
         RtmClientManager.getInstance().init(this);
+
+
 
 
         FirebaseDynamicLinks.getInstance()
@@ -134,6 +147,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                         Log.i("jjjsson",url);
                         try {
                             JSONObject jsonObject=new JSONObject(url.toString());
+                            bookingId=jsonObject.optString("booking_id");
                             channelName=jsonObject.optString("channel_name");
                             hostFullName = jsonObject.optString("host_name");
                             hostImage = jsonObject.optString("host_image");
@@ -142,6 +156,12 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             privateSessionDate=jsonObject.optString("privateSessionDate");
                             privateSessionTime=jsonObject.optString("privateSessionTime");
 
+                            String[] params={bookingId};
+                            messageContainer=new OneToOneMessageContainer(chatRecyclerView);
+
+                            new TaskGetMessageHistory().execute(params);
+                            sessionLocked.setVisibility(View.GONE);
+                            textLockedMessage.setText("You will get access when "+hostFullName+" comes online.\n Session for "+privateUserName+"\n on "+privateSessionDate+" at "+privateSessionTime+".");
 
 
                             new Handler().postDelayed(new Runnable() {
@@ -162,45 +182,6 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             e.printStackTrace();
                         }
 
-                    }else{
-                        String url="https://play.google.com/store/apps/details?id=com.careerguide&hl=en_US&sessionDetails=%7B%22channel_name%22:%22surabhi@careerguide.com_privatesession_Friday_19_Jun_20_09_45AM%22,%22host_name%22:%22Surabhi+Surabhi%22,%22host_image%22:%22https://app.careerguide.com/api/user_dir/5dea36c09d66d1575630528.jpeg%22,%22privateUID%22:%2213599%22,%22privateUserName%22:%22Albino+Braganza%22,%22privateSessionDate%22:%22Friday+19+Jun+20%22,%22privateSessionTime%22:%2209:45AM%22%7D";
-                        url=url.substring(url.lastIndexOf("&")+16);
-                        url=url.replaceFirst("%7B","{");
-                        url=url.replaceFirst("%7D","}");
-                        url=url.replace("%0A","");
-                        url=url.replace("%22","\"");
-                        url=url.replace("%0A","+");
-                        url=url.replace("+"," ");
-                        Log.i("jjjsson",url);
-                        try {
-                            JSONObject jsonObject=new JSONObject(url.toString());
-                            channelName=jsonObject.optString("channel_name");
-                            hostFullName = jsonObject.optString("host_name");
-                            hostImage = jsonObject.optString("host_image");
-                            privateUID=jsonObject.optString("privateUID");
-                            privateUserName=jsonObject.optString("privateUserName");
-                            privateSessionDate=jsonObject.optString("privateSessionDate");
-                            privateSessionTime=jsonObject.optString("privateSessionTime");
-
-
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-
-                                    initView();
-                                    initRtcEngine();
-                                    initRtmClient();
-
-                                }
-                            }, 2000);
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
 
 
@@ -225,6 +206,14 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     public void onUserJoined(int uid, int elapsed) {
 
+        //if (uid==Integer.parseInt(privateUID))
+        {
+            activity.runOnUiThread(()->{
+                sessionLocked.setVisibility(View.GONE);
+            });
+
+        }
+
     }
 
     @Override
@@ -241,7 +230,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     public void onMessageReceived(boolean isChannelMsg, String uid, String message) {
 
         Log.i("messsss",uid+"__"+message);
-            messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"","",true));
+            //messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
             if (message.contains("Call-Ended at")){
                 activity.runOnUiThread(()->{
                     audio_call.setVisibility(View.VISIBLE);
@@ -269,7 +258,6 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     protected void initView() {
 
 
-        messageContainer=new OneToOneMessageContainer(chatRecyclerView);
 
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
 
@@ -366,7 +354,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 live_msg_et.setEnabled(true);
 
-                mRtcEngine.setupRemoteVideo(null);
+                mRtcEngine.setupLocalVideo(null);
 
                 live_no_surfaceview_notice.setVisibility(View.GONE);
 
@@ -384,8 +372,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         RtcEngineManager.getInstance().setOnRtcEventCallback(this);
 
         mRtcEngine.enableLocalAudio(false);//during messaging disable audio
-
-
+        mRtcEngine.disableVideo();
 
 
         Log.e("#cmm engine","ewkjbewjkfb" +channelName);
@@ -421,7 +408,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
     private void checkChannelEnable() {
         if (null == mRtmChannel) {
-            mRtmChannel = mRtmClient.createChannel("surabhi@careerguide.com_privatesession_Friday_19_Jun_20_09_45AM"/*channelName*/, mRtmEventListener);
+            mRtmChannel = mRtmClient.createChannel(channelName, mRtmEventListener);
             RtmClientManager.getInstance().setRtmClientListener(mRtmEventListener);
             mRtmChannel.join(new ResultCallback<Void>() {//join the channel to post messages
                 @Override
@@ -478,7 +465,11 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                                 if (!TextUtils.isEmpty(msg)) {
                                     Log.i("mmeessaage",msg);
 
-                                    messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),msg+"",getTimeStamp()+"","",true));
+                                    messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),msg+"",getTimeStamp()+"",privateUserName.toUpperCase().charAt(0)+"",true));
+
+                                    String[] saveMessageParams= {  bookingId,"-1",privateUID,privateUID,msg,getTimeStamp(),privateSessionDate};
+                                    new TaskSaveMessage().execute(saveMessageParams);
+
                                 }
                             });
                         }
@@ -486,7 +477,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                         @Override
                         public void onFailure(ErrorInfo errorInfo) {
                             runOnUiThread(()-> {
-                                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),msg+"",getTimeStamp()+"","",false));
+                                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),msg+"",getTimeStamp()+"",privateUserName.toUpperCase().charAt(0)+"",false));
                             });
                             Log.e(TAG, "sendMessage onFailure : " + errorInfo+"_____:"+errorInfo.getErrorDescription()+"    errorcode:"+errorInfo.getErrorCode()+"  chanel id:"+mRtmChannel.getId());
                         }
@@ -561,6 +552,150 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     void sendToastMessage(String toastMessage ){
         Toast.makeText(activity, toastMessage, Toast.LENGTH_SHORT).show();
     }
+
+
+
+    private class TaskGetMessageHistory extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            try {
+
+
+                JSONObject jsonBody = new JSONObject();
+
+
+                jsonBody.put("fk_booking_id", params[0]);
+
+
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/"https://b25b2ac3a6a2.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php",jsonBody, response -> {
+
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response+"");
+                        Log.i("response->",jsonObject+"");
+                        boolean status = jsonObject.optBoolean("status", false);
+                        if (status) {
+                            Log.i("message","saved_to_db");
+
+
+                            JSONArray jsonArrayMessages=response.getJSONArray("data");
+                            for (int i=0;i<jsonArrayMessages.length();i++){
+                                JSONObject eachMessage=jsonArrayMessages.getJSONObject(i);
+
+                                runOnUiThread(()-> {
+                                    try {
+                                        if (!eachMessage.getString("sender_id").contentEquals(Utility.getUserId(activity))){
+                                            messageContainer.addMessage(new OneToOneChatModel(ANCHOR_UID,eachMessage.getString("message")+"",eachMessage.getString("time_stamp")+"",hostImage,true));
+                                        }else{
+                                            messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(eachMessage.getString("sender_id")),eachMessage.getString("message")+"",eachMessage.getString("time_stamp")+"",privateUserName.toUpperCase().charAt(0)+"",true));
+                                        }
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+
+                            }
+
+
+                        } else {
+                            Log.i("message","not_saved_to_db");
+                        }
+                        //pb_loading.setVisibility(View.GONE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    // pb_loading.setVisibility(View.GONE);
+                    Log.i("message","not_saved_to_db");
+                    error.printStackTrace();
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
+    }
+
+    private class TaskSaveMessage extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            try {
+
+
+                JSONObject jsonBody = new JSONObject();
+
+
+                jsonBody.put("fk_booking_id", params[0]);
+                jsonBody.put("host_id", params[1]);
+                jsonBody.put("student_id", params[2]);
+                jsonBody.put("sender_id", params[3]);
+                jsonBody.put("message", params[4]);
+                jsonBody.put("time_stamp", params[5]);
+                jsonBody.put("date_sent", params[6]);
+
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/"https://b25b2ac3a6a2.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php",jsonBody, response -> {
+
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response+"");
+                        Log.i("response->",jsonObject+"");
+                        boolean status = jsonObject.optBoolean("status", false);
+                        if (status) {
+                            Log.i("message","saved_to_db");
+                        } else {
+                            Log.i("message","not_saved_to_db");
+                        }
+                        //pb_loading.setVisibility(View.GONE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    // pb_loading.setVisibility(View.GONE);
+                    Log.i("message","not_saved_to_db");
+                    error.printStackTrace();
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
+    }
+
 
 
 

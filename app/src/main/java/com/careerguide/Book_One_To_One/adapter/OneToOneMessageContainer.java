@@ -104,7 +104,6 @@ public class OneToOneMessageContainer {
                             .centerCrop()
                             .placeholder(R.drawable.loading)
                             .error(R.drawable.loading)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .priority(Priority.HIGH)
                             .dontAnimate()
                             .dontTransform();
@@ -117,6 +116,9 @@ public class OneToOneMessageContainer {
 
                     TextView message = holder.itemView.findViewById(R.id.mentee_message);
                     TextView timeSent = holder.itemView.findViewById(R.id.mentee_message_time_sent);
+                    TextView menteeprofileImage = holder.itemView.findViewById(R.id.menteeprofileImage);
+                    menteeprofileImage.setText((m.getmUserImage()));
+
                     message.setText(m.getmMessage());
                     timeSent.setText(m.getmtimeSent());
 
