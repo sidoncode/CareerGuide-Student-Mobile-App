@@ -1,10 +1,12 @@
 package com.careerguide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -109,8 +111,27 @@ public class RewardLBFragment extends Fragment {
             }
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest1);
-
-
+        Button refapp=view.findViewById(R.id.refapp);
+        Button art=view.findViewById(R.id.shareart);
+        //Button blog=view.findViewById(R.id.shareblog);
+        refapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Refer_a_friend.class));
+            }
+        });
+        art.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), HomeActivity.class).putExtra("RLB","art"));
+            }
+        });
+        /*blog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), HomeActivity.class).putExtra("RLB","blog"));
+            }
+        });*/
 
 
         setUpCardView();
@@ -200,6 +221,8 @@ public class RewardLBFragment extends Fragment {
         TextView blsp=view.findViewById(R.id.blsp);
         TextView tab=view.findViewById(R.id.tab);
         TextView mi=view.findViewById(R.id.mi);
+        if(Utility.getNumReferrals(getActivity())==null)
+            Utility.setNumReferrals(getActivity(),"0");
         int refno=Integer.parseInt(Utility.getNumReferrals(getActivity()));
         if(refno<=100) {
             fitband.setText((100 - refno) + " More Successful Referrals Left to Redeem:");

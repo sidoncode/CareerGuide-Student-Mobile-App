@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import io.reactivex.disposables.CompositeDisposable;
@@ -28,9 +29,15 @@ import com.careerguide.blog.activity.CatDetailActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.blog.util.Utils;
 import com.careerguide.models.Counsellor;
+import com.careerguide.newsfeed.FeedViewActivity;
+import com.careerguide.newsfeed.FeedViewFragment;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.careerguide.youtubeVideo.Videos;
 import com.google.android.exoplayer2.C;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -49,6 +56,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -60,6 +69,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
@@ -104,6 +115,10 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.internal.Util;
 
 import com.careerguide.blog.model.Categories;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.gson.JsonArray;
 
 
@@ -160,6 +175,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
+
+        share();
 
         //Utility.setRewardPoints(activity,"0");
         StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "fetch_rewards_point", new Response.Listener<String>() {
@@ -267,12 +284,20 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         NavigationUI.setupWithNavController (toolbar, navController, mDrawer);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
         if(getIntent().getIntExtra("refer",0)==1) {
             Log.e("test", "onCreate: " );
             BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
             bnv.setSelectedItemId(R.id.nav_account);
             navController.popBackStack();
             navController.navigate(R.id.nav_to_profileFragment);
+        }
+        if(getIntent().getStringExtra("RLB")!=null) {
+            Log.e("test", "onCreate: " );
+            BottomNavigationView bnv=findViewById(R.id.bottom_navigation);
+            bnv.setSelectedItemId(R.id.nav_feed);
+            navController.popBackStack();
+            navController.navigate(R.id.nav_to_feedFragment);
         }
         onDownloadComplete = new BroadcastReceiver() {
             @Override
@@ -1306,6 +1331,49 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
     }
 
+    public void share() {
+        String androidId = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://www.careerguide.com/"+Utility.getUserId(this)+"/"+androidId))
+                .setDomainUriPrefix("https://careerguidestudent.page.link")
+                // Open links with this app on Android
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder("com.careerguide")
+                        .build())
+                .setGoogleAnalyticsParameters(
+                        new DynamicLink.GoogleAnalyticsParameters.Builder()
+                                .setSource("app")
+                                .setMedium("anyone")
+                                .setCampaign("example-app-referral")
+                                .build())
+                // Open links with com.example.ios on iOS
+                // .setIosParameters(new DynamicLink.IosParameters.Builder("com.careerguide.ios").build())
+                .buildDynamicLink();
+
+        Uri dynamicLinkUri = dynamicLink.getUri();
+        Log.e("TAG", "share: " + dynamicLink.getUri());
+
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLongLink(Uri.parse(dynamicLinkUri.toString()))
+                .buildShortDynamicLink()
+                .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                            Log.e("TAG", "onComplete: " + shortLink);
+                            Utility.setRefId(dynamicLinkUri.toString(),activity);
+                            // File file=new File("android.resource://com.careerguide/" + R.drawable.careerguide_banner);
+                        } else {
+                            Log.e("TAG", "onComplete: error" + task.getException());
+                            // Error
+                            // ...
+                        }
+                    }
+                });
+    }
 
     public void executeAllTasks(){
 
