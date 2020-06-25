@@ -330,7 +330,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-            <TextView
+
+                <TextView
                 android:id="@+id/mi"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -339,6 +340,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/app_blue"
                 android:text="5000 More Successful Referrals Left to Redeem:"/>
+
                 <TextView
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
@@ -348,6 +350,7 @@
                     android:textColor="@color/app_pink"
                     android:textStyle="italic"
                     android:text="MI PHONE"/>
+
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
