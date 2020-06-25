@@ -43,4 +43,6 @@
     <color name="red">#E53935</color>
     <color name="green">#43A047</color>
     <color name="yellow">#FDD835</color>
+
+    <color name="deep_pink">#FF1493</color>
 </resources>

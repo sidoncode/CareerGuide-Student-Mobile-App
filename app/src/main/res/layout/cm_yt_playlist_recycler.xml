@@ -156,6 +156,8 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:onClick="onSeeAllClick"
+                            android:id="@+id/see_all_cat3"
                             android:layout_marginRight="30dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="80dp"
@@ -167,6 +169,8 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:onClick="onSeeAllClick"
+                            android:id="@+id/see_all_cat4"
                             android:layout_marginRight="30dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="80dp"
@@ -178,6 +182,8 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:onClick="onSeeAllClick"
+                            android:id="@+id/see_all_cat5"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="80dp"
@@ -192,7 +198,7 @@
                         <LinearLayout
                             android:visibility="gone"
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat3"
+                            android:id="@+id/see_all_cat3_old"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -221,7 +227,7 @@
                         <LinearLayout
                             android:visibility="gone"
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat4"
+                            android:id="@+id/see_all_cat4_old"
                             android:layout_margin="10dp"
                             android:gravity="center_horizontal"
                             android:layout_weight=".50"
@@ -250,7 +256,7 @@
                         <LinearLayout
                             android:visibility="gone"
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat5"
+                            android:id="@+id/see_all_cat5_old"
                             android:layout_margin="10dp"
                             android:gravity="center_horizontal"
                             android:layout_weight=".50"
@@ -291,6 +297,8 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:onClick="onSeeAllClick"
+                            android:id="@+id/see_all_cat6"
                             android:layout_marginRight="30dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="80dp"
@@ -302,6 +310,8 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:onClick="onSeeAllClick"
+                            android:id="@+id/see_all_cat7"
                             android:layout_marginRight="30dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="80dp"
@@ -313,6 +323,8 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:onClick="onSeeAllClick"
+                            android:id="@+id/see_all_cat8"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="80dp"
@@ -327,7 +339,7 @@
                         <LinearLayout
                             android:visibility="gone"
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat6"
+                            android:id="@+id/see_all_cat6_old"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -356,7 +368,7 @@
                         <LinearLayout
                             android:visibility="gone"
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat7"
+                            android:id="@+id/see_all_cat7_old"
                             android:layout_margin="10dp"
                             android:gravity="center_horizontal"
                             android:layout_weight=".50"
@@ -385,7 +397,7 @@
                         <LinearLayout
                             android:visibility="gone"
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat8"
+                            android:id="@+id/see_all_cat8_old"
                             android:layout_margin="10dp"
                             android:gravity="center_horizontal"
                             android:layout_weight=".50"
@@ -2195,7 +2207,7 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat30"
+                            android:id="@+id/see_all_cat30_old"
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:text="See All"
@@ -2260,7 +2272,7 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat40"
+                            android:id="@+id/see_all_cat40_old"
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:text="See All"
@@ -2323,7 +2335,7 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat50"
+                            android:id="@+id/see_all_cat50_old"
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:text="See All"
@@ -2385,7 +2397,7 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat60"
+                            android:id="@+id/see_all_cat60old"
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:text="See All"
@@ -2447,7 +2459,7 @@
                         <Button
                             android:onClick="onSeeAllClick"
 
-                            android:id="@+id/see_all_cat70"
+                            android:id="@+id/see_all_cat70_old"
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:text="See All"
@@ -2509,7 +2521,7 @@
 
                         <Button
                             android:onClick="onSeeAllClick"
-                            android:id="@+id/see_all_cat80"
+                            android:id="@+id/see_all_cat80_old"
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:text="See All"
