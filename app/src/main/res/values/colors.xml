@@ -39,4 +39,8 @@
     <color name="fire_blue">#085b9c</color>
     <color name="fire_red">#800000</color>
     <color name="fire_sky">#00BCD4</color>
+
+    <color name="red">#E53935</color>
+    <color name="green">#43A047</color>
+    <color name="yellow">#FDD835</color>
 </resources>

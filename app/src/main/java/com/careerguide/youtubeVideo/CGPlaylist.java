@@ -101,7 +101,9 @@ public class CGPlaylist extends Fragment {
                         Cat_9,
                         Cat_10,
                         Cat_Blog,
-                        Cat_test;
+                        Cat_test,
+                        heading_Access_Fast_txt,
+                        heading_councellors_txt;//add by atul Kumar
 
     View    shimmer_view_container_cat_1,
             shimmer_view_container_cat_2,
@@ -148,6 +150,8 @@ public class CGPlaylist extends Fragment {
         Cat_10 = thisScreensView.findViewById(R.id.Cat_10);
         Cat_Blog = thisScreensView.findViewById(R.id.Cat_Blog);
         Cat_test = thisScreensView.findViewById(R.id.Cat_test);
+        heading_Access_Fast_txt=thisScreensView.findViewById(R.id.heading_Access_Fast_txt);//Added by atul
+        heading_councellors_txt=thisScreensView.findViewById(R.id.heading_councellors_txt);//Added by Atul
         liveLayout = thisScreensView.findViewById(R.id.live_lyt);
 
         thisScreensView.findViewById(R.id.tests).setOnClickListener(v -> {
@@ -159,7 +163,7 @@ public class CGPlaylist extends Fragment {
         thisScreensView.findViewById(R.id.tv_booksession).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), BookCounsellor.class));
+                startActivity(new Intent(getActivity(), NewOneToOneRegisteration.class));
             }
         });
 
@@ -191,6 +195,11 @@ public class CGPlaylist extends Fragment {
 
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets() , "fonts/Montserrat-SemiBold.ttf");
+
+
+        //Added by Atul Kumar
+        heading_councellors_txt.setTypeface(font);
+        heading_Access_Fast_txt.setTypeface(font);
 
         Cat_1.setTypeface(font);
         Cat_2.setTypeface(font);
