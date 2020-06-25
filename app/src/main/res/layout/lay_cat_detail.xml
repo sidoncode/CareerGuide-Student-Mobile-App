@@ -4,11 +4,19 @@
     android:id="@+id/lay_cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="15dp"
-    android:layout_marginEnd="15dp"
-    android:layout_marginBottom="10dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="10dp">
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginTop="10dp">
+
+
+    <!-- Editied by Atul Kumar -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/readmorebut"
@@ -19,7 +27,7 @@
         <ImageView
             android:id="@+id/id_pic"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="130dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,14 +72,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="120dp" />
+            app:layout_constraintGuide_begin="130dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="160dp" />
+            app:layout_constraintGuide_begin="170dp" />
 
         <!--        <TextView-->
         <!--            android:id="@+id/date"-->
@@ -208,6 +216,8 @@
         <!--            app:layout_constraintEnd_toEndOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
 
 

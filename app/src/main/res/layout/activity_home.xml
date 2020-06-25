@@ -102,6 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+
                 <com.google.android.material.navigation.NavigationView
                     android:id="@+id/navView"
                     android:layout_width="match_parent"
@@ -112,6 +114,8 @@
                     app:headerLayout="@layout/header_nav_home"
                     app:elevation="0dp">
                 </com.google.android.material.navigation.NavigationView>
+
+
                 <LinearLayout
                     android:id="@+id/spacer_to_bottom"
                     android:layout_width="match_parent"
@@ -119,6 +123,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
                 </LinearLayout>
+
                 <RelativeLayout
                     android:id="@+id/leagal"
                     android:layout_width="match_parent"

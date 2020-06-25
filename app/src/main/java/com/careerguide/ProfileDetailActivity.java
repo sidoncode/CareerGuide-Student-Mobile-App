@@ -270,7 +270,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 dob = dob.replace("Y","").replace("M","").replace("D","");
                 if (dob.length()<10)
                 {
-                    Toast.makeText(activity,"Please insert valid Date", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,"Please enter valid Date", Toast.LENGTH_LONG).show();
                     return;
                 }
                 final SimpleDateFormat dateFormatNew = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -285,22 +285,22 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 city = cityEditTex.getText().toString().trim();
                 if(firstName.length() == 0)
                 {
-                    Toast.makeText(activity,"Please input first name",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,"Please enter First Name",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(lastName.length() == 0)
                 {
-                    Toast.makeText(activity,"Please input last name",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,"Please enter Last Name",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(dob.length() == 0)
                 {
-                    Toast.makeText(activity,"Please input date of birth",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,"Please enter Date of Birth",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(city.length() == 0)
                 {
-                    Toast.makeText(activity,"Please input city",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,"Please enter City",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(maleRB.isChecked()) {
@@ -314,7 +314,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                 }
                 else
                 {
-                    Toast.makeText(activity,"Please choose your gender first",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,"Please choose your Gender",Toast.LENGTH_LONG).show();
                     return;
                 }
                 registerUser();

@@ -99,4 +99,12 @@
     <dimen name="loading_skimmer_height">260dp</dimen>
 
 
+
+
+
+    <!-- Main Page Cards-->
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_radius">8dp</dimen>
+    <dimen name="card_margin_top">15dp</dimen>
+
 </resources>

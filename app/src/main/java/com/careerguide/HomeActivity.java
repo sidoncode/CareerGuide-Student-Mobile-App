@@ -143,8 +143,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     private String browserKey = Utility.browserKey;
 
-    private boolean dataloaded=false;
-
 
     ArrayList<CurrentLiveCounsellorsModel> finalList=new ArrayList<>();
     ArrayList<CurrentLiveCounsellorsModel> tempCurrentLiveCounsellorsList = new ArrayList<>();
@@ -234,7 +232,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         viewModelProvider.setDisplaylistArrayLiveCounsellors(tempCurrentLiveCounsellorsList);
 
-
+        executeAllTasks();
 
         /*
 
@@ -1089,7 +1087,6 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     protected void onResume() {
         super.onResume();
         new TaskFetchLiveCounsellors().execute();
-
         Utility.handleOnlineStatus(this, "idle");
     }
 
@@ -1448,11 +1445,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             Log.e("#inside" ,"for" +picUrl+"__"+tempPostLiveCounsellorsList.get(0).getCounsellorName());
 
                         }
-                        Log.i("dataloaded",dataloaded+"");
-                        if (!dataloaded){
-                            executeAllTasks();
-                            dataloaded=true;
-                        }
+
                         if(tempPostLiveCounsellorsList.size()==0){
                             tempPostLiveCounsellorsList.add(new CurrentLiveCounsellorsModel("No one has scheduled anything yet","","","",""));
                         }

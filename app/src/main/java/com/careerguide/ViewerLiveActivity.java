@@ -187,17 +187,14 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                 tvNoSurfaceNotice.setText("This is a private session!\n You don't have access to view");
             }
 
-        }else{
-            findViewById(R.id.shareWithOthers).setVisibility(View.VISIBLE);
-            findViewById(R.id.shareWithOthers).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    video_sharee();
-                }
-            });
         }
 
-
+        findViewById(R.id.shareWithOthers).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                video_sharee();
+            }
+        });
     }
 
     @Override
@@ -335,27 +332,20 @@ public class ViewerLiveActivity extends BaseLiveActivity {
                                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                                 StrictMode.setVmPolicy(builder.build());
 
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        File imgFile = Utility.getFile(fileName);
-                                        if (imgFile!=null){
-                                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                            shareIntent.setType("image/*");
-                                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
-                                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                                        }else {
+                                File imgFile = Utility.getFile(fileName);
+                                if (imgFile!=null){
+                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                    shareIntent.setType("image/*");
+                                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                }else {
 
-                                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                            shareIntent.setType("plain/text");
-                                            shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
-                                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                                        }
-
-                                    }
-                                }, 1500);//wait till the download is complete
-
+                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                    shareIntent.setType("plain/text");
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, scheduledesc+ shortLink );
+                                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                                }
 
                             } else
                             {
