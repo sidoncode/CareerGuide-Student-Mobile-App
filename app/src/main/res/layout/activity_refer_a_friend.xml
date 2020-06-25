@@ -698,16 +698,8 @@
 
 
             </LinearLayout>
-
-
         </LinearLayout>
-
-
-
-
-
-
-
+        
 
 <LinearLayout
     android:visibility="gone"
