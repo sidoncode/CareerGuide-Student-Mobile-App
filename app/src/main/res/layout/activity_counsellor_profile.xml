@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainmenu"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:foreground="@drawable/shape_window_dim" >
-
-<LinearLayout
-    android:id="@+id/ll_couns"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,12 +33,12 @@
                 android:src="@drawable/ic_forward"
                 android:layout_marginEnd="20dp" />
 
-<!--            <ImageView-->
-<!--                android:layout_width="25dp"-->
-<!--                android:layout_height="25dp"-->
-<!--                android:src="@drawable/ic_three_dots"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginEnd="10dp" />-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="25dp"-->
+            <!--                android:layout_height="25dp"-->
+            <!--                android:src="@drawable/ic_three_dots"-->
+            <!--                android:layout_marginStart="20dp"-->
+            <!--                android:layout_marginEnd="10dp" />-->
         </LinearLayout>
     </LinearLayout>
 
@@ -280,117 +272,116 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
-</FrameLayout>
 
 
 
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:fitsSystemWindows="true"-->
-<!--    tools:context=".HomeActivity">-->
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:fitsSystemWindows="true"-->
+    <!--    tools:context=".HomeActivity">-->
 
-<!--    <android.support.design.widget.AppBarLayout-->
-<!--        android:id="@+id/app_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+    <!--    <android.support.design.widget.AppBarLayout-->
+    <!--        android:id="@+id/app_bar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fitsSystemWindows="true"-->
+    <!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
 
-<!--        <android.support.design.widget.CollapsingToolbarLayout-->
-<!--            android:id="@+id/toolbar_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:fitsSystemWindows="true"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-<!--            app:toolbarId="@+id/toolbar"-->
-<!--            app:expandedTitleMarginEnd="64dp"-->
-<!--            app:expandedTitleMarginStart="48dp">-->
+    <!--        <android.support.design.widget.CollapsingToolbarLayout-->
+    <!--            android:id="@+id/toolbar_layout"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:fitsSystemWindows="true"-->
+    <!--            android:textStyle="bold"-->
+    <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+    <!--            app:toolbarId="@+id/toolbar"-->
+    <!--            app:expandedTitleMarginEnd="64dp"-->
+    <!--            app:expandedTitleMarginStart="48dp">-->
 
-<!--            <TextView-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentLeft="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:background="@drawable/exo_icon_rewind" />-->
+    <!--            <TextView-->
+    <!--                android:layout_width="50dp"-->
+    <!--                android:layout_height="50dp"-->
+    <!--                android:layout_alignParentStart="true"-->
+    <!--                android:layout_alignParentLeft="true"-->
+    <!--                android:layout_alignParentBottom="true"-->
+    <!--                android:background="@drawable/exo_icon_rewind" />-->
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:orientation="vertical"-->
-<!--                android:background="@drawable/main_background">-->
-
-
-<!--                <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                    android:id="@+id/profileImage"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="150dp"-->
-<!--                    android:padding="20dp"-->
-<!--                    android:src="@drawable/default_profile"/>-->
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_centerInParent="true"-->
+    <!--                android:gravity="center_horizontal"-->
+    <!--                android:orientation="vertical"-->
+    <!--                android:background="@drawable/main_background">-->
 
 
-
-<!--                <TextView-->
-<!--                    android:id="@+id/host_name"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Surabhi Dewra"-->
-<!--                    android:textColor="#fff"-->
-<!--                    android:textSize="28dp"-->
-<!--                    android:textStyle="bold" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textColor="#fff"-->
-<!--                    android:text="Connect instantly to 1105+ experts for best Career Counselling in India which enables you to take the right career decisions"-->
-<!--                    android:textSize="12dp" />-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:layout_gravity="bottom"-->
-<!--                    android:layout_marginTop="20dp"-->
-<!--                    android:background="@color/profileBackground">-->
-
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_alignParentTop="true"-->
-<!--                        android:background="#4e59ad" />-->
-<!--                </RelativeLayout>-->
-
-<!--            </LinearLayout>-->
-
-<!--        </android.support.design.widget.CollapsingToolbarLayout>-->
-<!--    </android.support.design.widget.AppBarLayout>-->
-<!--    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        xmlns:tools="http://schemas.android.com/tools"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-<!--        tools:context="com.careerguide.CounsellorProfile"-->
-<!--        tools:showIn="@layout/activity_counsellor_profile">-->
-
-<!--        <android.support.v7.widget.RecyclerView-->
-<!--            android:id="@+id/recycler_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:clipToPadding="false"-->
-<!--            android:scrollbars="vertical" />-->
-
-<!--    </RelativeLayout>-->
+    <!--                <de.hdodenhof.circleimageview.CircleImageView-->
+    <!--                    android:id="@+id/profileImage"-->
+    <!--                    android:layout_width="150dp"-->
+    <!--                    android:layout_height="150dp"-->
+    <!--                    android:padding="20dp"-->
+    <!--                    android:src="@drawable/default_profile"/>-->
 
 
 
-<!--</android.support.design.widget.CoordinatorLayout>-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/host_name"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="Surabhi Dewra"-->
+    <!--                    android:textColor="#fff"-->
+    <!--                    android:textSize="28dp"-->
+    <!--                    android:textStyle="bold" />-->
+
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center"-->
+    <!--                    android:textColor="#fff"-->
+    <!--                    android:text="Connect instantly to 1105+ experts for best Career Counselling in India which enables you to take the right career decisions"-->
+    <!--                    android:textSize="12dp" />-->
+
+    <!--                <RelativeLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center"-->
+    <!--                    android:layout_gravity="bottom"-->
+    <!--                    android:layout_marginTop="20dp"-->
+    <!--                    android:background="@color/profileBackground">-->
+
+    <!--                    <View-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="match_parent"-->
+    <!--                        android:layout_alignParentTop="true"-->
+    <!--                        android:background="#4e59ad" />-->
+    <!--                </RelativeLayout>-->
+
+    <!--            </LinearLayout>-->
+
+    <!--        </android.support.design.widget.CollapsingToolbarLayout>-->
+    <!--    </android.support.design.widget.AppBarLayout>-->
+    <!--    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--        xmlns:tools="http://schemas.android.com/tools"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--        tools:context="com.careerguide.CounsellorProfile"-->
+    <!--        tools:showIn="@layout/activity_counsellor_profile">-->
+
+    <!--        <android.support.v7.widget.RecyclerView-->
+    <!--            android:id="@+id/recycler_view"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:clipToPadding="false"-->
+    <!--            android:scrollbars="vertical" />-->
+
+    <!--    </RelativeLayout>-->
+
+
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
