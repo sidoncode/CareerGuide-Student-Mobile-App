@@ -5,13 +5,16 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,8 +23,10 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
-public class Refer_a_friend extends AppCompatActivity {
+import java.io.File;
 
+public class Refer_a_friend extends AppCompatActivity {
+    Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,56 +71,42 @@ public class Refer_a_friend extends AppCompatActivity {
         Button button2= findViewById(R.id.button2);
         button1.setOnClickListener(view -> {
             share();
-            /*Intent intent= new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            String sharebody="Hi, I will like you to download amazing CareerGuide app which can help you connect to a career counsellor on chat, video, voice, take psychometric tests and plan your career dreams.\n\nAnd Yes...don't forget to share it with your friends and family- After all Sharing is Caring.\n\n\nhttps://play.google.com/store/apps/details?id=com.careerguide";
-            intent.putExtra(Intent.EXTRA_TEXT, sharebody);
-            startActivity(intent.createChooser(intent, "Share Body"));*/
+
         });
         button2.setOnClickListener(view -> {
             startActivity(new Intent(this,HomeActivity.class).putExtra("refer", 1));
         });
     }
     public void share() {
-        String androidId = Settings.Secure.getString(getContentResolver(),
+
+        String img;
+        String androidId = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://www.careerguide.com/"+Utility.getUserId(this)+"/"+androidId))
-                .setDomainUriPrefix("https://careerguidestudent.page.link")
-                // Open links with this app on Android
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-                // Open links with com.example.ios on iOS
-               // .setIosParameters(new DynamicLink.IosParameters.Builder("com.careerguide.ios").build())
-                .buildDynamicLink();
+        if(Utility.getRefImg(this).equals("")) {
+            imageUri = null;
+            try {
+                imageUri = Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.prizesshare), null, null));
+            } catch (NullPointerException e) {
+            }
+            img=imageUri.toString();
+            Utility.setRefImg(img,this);
+        }
+        else
+            img=Utility.getRefImg(this);
+        Toast.makeText(this,"Opening apps...",Toast.LENGTH_LONG).show();
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(img) );
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "It's real\n" +
+                "  ✅ Register to get ₹ 10 instantly for free!\n" +
+                "  ✅ Check in Daily to withdraw Cash\n" +
+                "  ✅ Earn Upto Rs ₹ 1000/day\n" +
+                "\n" +
+                "\uD83D\uDC47 Download CareerGuide App now to join now! \uD83D\uDC47\n"
+                        + Utility.getRefId(this));
+        startActivity(Intent.createChooser(shareIntent, "Choose an app"));
 
-        Uri dynamicLinkUri = dynamicLink.getUri();
-        Log.e("TAG", "share: " + dynamicLink.getUri());
-
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLongLink(Uri.parse(dynamicLinkUri.toString()))
-                .buildShortDynamicLink()
-                .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
-                            Log.e("TAG", "onComplete: " + shortLink);
-
-                            Intent intent = new Intent();
-                            intent.setAction(Intent.ACTION_SEND);
-                            intent.putExtra(Intent.EXTRA_TEXT, shortLink.toString());
-                            intent.setType("text/plain");
-                            //Intent shareI=Intent.createChooser(intent,null);
-                            startActivity(intent);
-                        } else {
-                            Log.e("TAG", "onComplete: error" + task.getException());
-                            // Error
-                            // ...
-                        }
-                    }
-                });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

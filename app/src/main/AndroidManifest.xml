@@ -36,8 +36,20 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".newsfeed.FeedViewActivity" />
-        <activity android:name=".newsfeed.NewsFeedActivity" />
+        <activity android:name=".newsfeed.FeedViewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="careerguidestudentarticle.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".newsfeed.NewsFeedActivity">
+
+        </activity>
         <activity
             android:name=".Book_Appoinment.BookingTime"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -181,7 +193,10 @@
             android:name=".HomeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+
+        </activity>
         <activity
             android:name=".PsychometricTestsActivity"
             android:configChanges="orientation"
@@ -268,7 +283,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".blog.activity.CategoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="careerguidestudentblogs.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".blog.activity.CatDetailWoActivity"
             android:theme="@style/AppTheme.NoActionBar" />

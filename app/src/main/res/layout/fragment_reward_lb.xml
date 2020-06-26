@@ -65,15 +65,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
-                            android:textSize="20sp"
+                            android:layout_weight="0"
+                            android:textSize="@dimen/_12sdp"
                             android:textColor="@color/app_pink"
                             android:text="Reward Points Earned:"/>
 
@@ -86,40 +90,89 @@
                             android:layout_marginBottom="1dp"
                             android:layout_weight="1"
                             android:text="0"
-                            android:textSize="22sp"
+                            android:textSize="@dimen/_12sdp"
                             android:textColor="@color/black" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
-                            android:textSize="20sp"
+                            android:layout_weight="0"
+                            android:textSize="@dimen/_12sdp"
                             android:textColor="@color/app_pink"
                             android:text="Successful Referrals :"/>
 
                         <TextView
                             android:id="@+id/reftxt"
                             android:layout_width="0dp"
-                            android:paddingLeft="6dp"
                             android:layout_gravity="right"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="1dp"
                             android:layout_marginBottom="1dp"
                             android:layout_weight="1"
-                            android:textSize="22sp"
                             android:text="0"
+                            android:textSize="@dimen/_12sdp"
                             android:textColor="@color/black" />
                     </LinearLayout>
                 </LinearLayout>
 
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/app_blue"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Earn Instant Money!"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_5sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center"
+                        android:text="• Refer the App:"
+                        android:textSize="@dimen/_15sdp"
+                        android:textColor="@color/app_blue"/>
+                        <Button
+                            android:id="@+id/refapp"
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="10 Points"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:gravity="center"
+                            android:text="• Share Articles / Blogs:"
+                            android:textSize="@dimen/_15sdp"
+                            android:textColor="@color/app_blue"/>
+                        <Button
+                            android:id="@+id/shareart"
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="5 Points"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -212,11 +265,11 @@
                             android:layout_height="wrap_content"
                             android:text="5."
                             android:textSize="22dp" />
-                       <!-- <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="6."
-                            android:textSize="22dp" />-->
+                        <!-- <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="6."
+                             android:textSize="22dp" />-->
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -265,289 +318,289 @@
                              android:layout_height="wrap_content"
                              android:text="pqr"
                              android:textSize="22dp" />-->
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginLeft="15dp"
-                         android:orientation="vertical">
-                         <TextView
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Points"
-                             android:textSize="22dp"
-                             android:textStyle="bold"/>
-                         <TextView
-                             android:id="@+id/lbrp1"
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Points"
+                            android:textSize="22dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/lbrp1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22dp" />
+                        <TextView
+                            android:id="@+id/lbrp2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22dp" />
+                        <TextView
+                            android:id="@+id/lbrp3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22dp" />
+                        <TextView
+                            android:id="@+id/lbrp4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22dp" />
+                        <TextView
+                            android:id="@+id/lbrp5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22dp" />
+                        <!-- <TextView
+                             android:id="@+id/lbrp"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="0"
-                             android:textSize="22dp" />
-                         <TextView
-                             android:id="@+id/lbrp2"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="0"
-                             android:textSize="22dp" />
-                         <TextView
-                             android:id="@+id/lbrp3"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="0"
-                             android:textSize="22dp" />
-                         <TextView
-                             android:id="@+id/lbrp4"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="0"
-                             android:textSize="22dp" />
-                         <TextView
-                             android:id="@+id/lbrp5"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="0"
-                             android:textSize="22dp" />
-                         <!-- <TextView
-                              android:id="@+id/lbrp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="0"
-                              android:textSize="22dp" />-->
-                      </LinearLayout>
-                  </LinearLayout>
-              </LinearLayout>
-          </androidx.cardview.widget.CardView>
-          <androidx.cardview.widget.CardView
-              android:visibility="visible"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="15dp"
-              android:layout_marginLeft="10dp"
-              android:layout_marginRight="10dp">
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:padding="8dp"
-                  android:background="#fff"
-                  android:orientation="vertical">
-                  <RelativeLayout
-                      android:id="@+id/redeemRelativeL"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <de.hdodenhof.circleimageview.CircleImageView
-                          android:id="@+id/redeem_image"
-                          android:layout_width="60dp"
-                          android:layout_height="60dp"
-                          android:src="@drawable/redeemicon"/>
-                      <TextView
-                          android:id="@+id/redeem_text"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:textSize="22sp"
-                          android:text="Redeem Rewards"
-                          android:textColor="@color/app_blue"
-                          android:layout_centerVertical="true"
-                          android:layout_marginStart="20dp"
-                          android:layout_marginTop="5dp"
-                          android:layout_toRightOf="@id/redeem_image"/>
-                      <ImageView
-                          android:id="@+id/arrowredeem"
-                          android:layout_width="25dp"
-                          android:layout_height="25dp"
-                          android:src="@drawable/ic_expand"
-                          android:layout_alignParentRight="true"
-                          android:layout_marginTop="5dp"
-                          android:layout_marginEnd="10dp"
-                          android:layout_centerVertical="true"/>
-                  </RelativeLayout>
+                             android:textSize="22dp" />-->
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="#fff"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/redeemRelativeL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/redeem_image"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/redeemicon"/>
+                    <TextView
+                        android:id="@+id/redeem_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp"
+                        android:text="Redeem Rewards"
+                        android:textColor="@color/app_blue"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/redeem_image"/>
+                    <ImageView
+                        android:id="@+id/arrowredeem"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_expand"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
 
-              <LinearLayout
-                  android:id="@+id/redeemLL"
-                  android:visibility="gone"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
-              <androidx.cardview.widget.CardView
-                  app:cardCornerRadius="15dp"
-                  android:layout_marginTop="20dp"
-                  android:layout_marginStart="10dp"
-                  android:layout_marginEnd="10dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
-                  <LinearLayout
-                      android:background="#fff"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <ImageView
-                          android:layout_marginTop="10dp"
-                          android:layout_marginLeft="10dp"
-                          android:layout_marginBottom="10dp"
-                          android:layout_width="90dp"
-                          android:layout_height="90dp"
-                          android:src="@drawable/fitnessband" />
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical">
-                          <TextView
-                              android:id="@+id/fitband"
-                              android:layout_marginTop="10dp"
-                              android:layout_marginLeft="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_blue"
-                              android:text="100 More Successful Referrals Left to Redeem:"/>
-                          <TextView
-                              android:layout_marginLeft="10dp"
-                              android:layout_marginBottom="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_pink"
-                              android:textStyle="italic"
-                              android:text="FITNESS BAND"/>
-                      </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/redeemLL"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="#fff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:src="@drawable/fitnessband" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/fitband"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_blue"
+                                    android:text="100 More Successful Referrals Left to Redeem:"/>
+                                <TextView
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_pink"
+                                    android:textStyle="italic"
+                                    android:text="FITNESS BAND"/>
+                            </LinearLayout>
 
-                  </LinearLayout>
-              </androidx.cardview.widget.CardView>
-              <androidx.cardview.widget.CardView
-                  app:cardCornerRadius="15dp"
-                  android:layout_marginTop="15dp"
-                  android:layout_marginStart="10dp"
-                  android:layout_marginEnd="10dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
-                  <LinearLayout
-                      android:background="#fff"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <ImageView
-                          android:layout_marginTop="10dp"
-                          android:layout_marginLeft="10dp"
-                          android:layout_marginBottom="10dp"
-                          android:layout_width="90dp"
-                          android:layout_height="90dp"
-                          android:src="@drawable/bluetoothspeakers" />
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical">
-                          <TextView
-                              android:id="@+id/blsp"
-                              android:layout_marginTop="10dp"
-                              android:layout_marginLeft="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_blue"
-                              android:text="500 More Successful Referrals Left to Redeem:"/>
-                          <TextView
-                              android:layout_marginLeft="10dp"
-                              android:layout_marginBottom="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_pink"
-                              android:textStyle="italic"
-                              android:text="BLUETOOTH SPEAKER"/>
-                      </LinearLayout>
-                  </LinearLayout>
-              </androidx.cardview.widget.CardView>
-              <androidx.cardview.widget.CardView
-                  app:cardCornerRadius="15dp"
-                  android:layout_marginTop="15dp"
-                  android:layout_marginStart="10dp"
-                  android:layout_marginEnd="10dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
-                  <LinearLayout
-                      android:background="#fff"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <ImageView
-                          android:layout_marginTop="10dp"
-                          android:layout_marginLeft="10dp"
-                          android:layout_marginBottom="10dp"
-                          android:layout_width="90dp"
-                          android:layout_height="90dp"
-                          android:src="@drawable/tablet" />
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical">
-                          <TextView
-                              android:id="@+id/tab"
-                              android:layout_marginTop="10dp"
-                              android:layout_marginLeft="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_blue"
-                              android:text="1000 More Successful Referrals Left to Redeem:"/>
-                          <TextView
-                              android:layout_marginLeft="10dp"
-                              android:layout_marginBottom="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_pink"
-                              android:textStyle="italic"
-                              android:text="TABLET / KINDLE"/>
-                      </LinearLayout>
-                  </LinearLayout>
-              </androidx.cardview.widget.CardView>
-              <androidx.cardview.widget.CardView
-                  app:cardCornerRadius="15dp"
-                  android:layout_marginTop="15dp"
-                  android:layout_marginStart="10dp"
-                  android:layout_marginEnd="10dp"
-                  android:layout_marginBottom="15dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
-                  <LinearLayout
-                      android:background="#fff"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-                      <ImageView
-                          android:layout_marginTop="10dp"
-                          android:layout_marginLeft="10dp"
-                          android:layout_marginBottom="10dp"
-                          android:layout_width="90dp"
-                          android:layout_height="90dp"
-                          android:src="@drawable/miphone" />
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical">
-                          <TextView
-                              android:id="@+id/mi"
-                              android:layout_marginTop="10dp"
-                              android:layout_marginLeft="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_blue"
-                              android:text="5000 More Successful Referrals Left to Redeem:"/>
-                          <TextView
-                              android:layout_marginLeft="10dp"
-                              android:layout_marginBottom="10dp"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textSize="20dp"
-                              android:textColor="@color/app_pink"
-                              android:textStyle="italic"
-                              android:text="MI PHONE"/>
-                      </LinearLayout>
-                  </LinearLayout>
-              </androidx.cardview.widget.CardView>
-              </LinearLayout>
-              </LinearLayout>
-          </androidx.cardview.widget.CardView>
-      </LinearLayout>
-  </androidx.core.widget.NestedScrollView>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="#fff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:src="@drawable/bluetoothspeakers" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/blsp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_blue"
+                                    android:text="500 More Successful Referrals Left to Redeem:"/>
+                                <TextView
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_pink"
+                                    android:textStyle="italic"
+                                    android:text="BLUETOOTH SPEAKER"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="#fff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:src="@drawable/tablet" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/tab"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_blue"
+                                    android:text="1000 More Successful Referrals Left to Redeem:"/>
+                                <TextView
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_pink"
+                                    android:textStyle="italic"
+                                    android:text="TABLET / KINDLE"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="#fff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:src="@drawable/miphone" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/mi"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_blue"
+                                    android:text="5000 More Successful Referrals Left to Redeem:"/>
+                                <TextView
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/app_pink"
+                                    android:textStyle="italic"
+                                    android:text="MI PHONE"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

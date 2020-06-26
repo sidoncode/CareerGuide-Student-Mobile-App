@@ -121,6 +121,28 @@ public class Utility extends Application
         editor.apply();
 
     }
+    public static void setRefImg(String img, Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("refimg", img).apply();
+    }
+    public static String getRefImg(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("refimg","");
+    }
+    public static void setRefId(String id, Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("refuid", id).apply();
+    }
+    public static String getRefId(Activity activity)
+    {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user",MODE_PRIVATE);
+        return sharedPreferences.getString("refuid","");
+    }
 
     public static void setSavedAnswer(Activity activity)
     {

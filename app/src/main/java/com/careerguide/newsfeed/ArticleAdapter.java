@@ -112,17 +112,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             public void onClick(View view) {
 
                 String url = articles.get(viewHolder.getAdapterPosition()).getLink();
-               /* Intent intent=new Intent(mContext,FeedViewActivity.class);
+                Intent intent=new Intent(mContext,FeedViewActivity.class);
                 intent.putExtra("news_url",url);
+                intent.putExtra("title", currentArticle.getTitle());
                 mContext.startActivity(intent);
 
-*/
 
-                Bundle args = new Bundle();
+                /*Bundle args = new Bundle();
                 args.putString("url",url);
+                args.putString("title", currentArticle.getTitle());
 
                 navController.popBackStack();
-                navController.navigate(R.id.nav_to_feedViewFragment,args);
+                navController.navigate(R.id.nav_to_feedViewFragment,args);*/
 
 
             }

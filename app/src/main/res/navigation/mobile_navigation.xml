@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/home_fragment">
 
-    <activity
+    <fragment
         android:id="@+id/nav_to_counsellor_profiles"
-        android:name="com.careerguide.activity.AllCounsellor"
+        android:name="com.careerguide.All_Couns_Fragment"
         android:label="Counsellor Profiles"
-        tools:layout="@layout/activity_all_counsellor"/>
+        tools:layout="@layout/fragment_all_couns"/>
 
     <fragment
         android:id="@id/contact_us"
@@ -71,7 +71,6 @@
         android:name="com.careerguide.NotificationFragment"
         android:label="Notifications"
         tools:layout="@layout/fragment_notification" />
-
 
 
     <action
