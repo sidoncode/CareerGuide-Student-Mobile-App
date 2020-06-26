@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -32,7 +34,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.careerguide.AgoraBaseActivity;
 import com.careerguide.Book_One_To_One.adapter.OneToOneMessageContainer;
 import com.careerguide.Book_One_To_One.model.OneToOneChatModel;
+import com.careerguide.CounsellorProfile;
 import com.careerguide.OnRtcEnventCallback;
+import com.careerguide.Onboarding;
 import com.careerguide.R;
 import com.careerguide.RtcEngineManager;
 import com.careerguide.RtmClientManager;
@@ -66,74 +70,73 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
     protected RtcEngine mRtcEngine;
-    protected RtmClient mRtmClient=null;
-    protected RtmChannel mRtmChannel=null;
+    protected RtmClient mRtmClient = null;
+    protected RtmChannel mRtmChannel = null;
     private RtmEnventCallback mRtmEventListener;
     private boolean mIsMsgChannelEnable;
 
     protected final int ANCHOR_UID = Integer.MAX_VALUE;
 
     private AlertDialog alertDialog;
-    private Activity activity=this;
+    private Activity activity = this;
 
-    private TextView live_no_surfaceview_notice,host_name,textLockedMessage,backFromProfile,openHostProfile,zoomHostName,online;
-    private RelativeLayout live_no_surfaceview,audio_or_video_background,sessionLocked,zoomHostDetails;
+    private TextView live_no_surfaceview_notice, host_name, textLockedMessage, backFromProfile, openHostProfile, zoomHostName, online, timeLeft;
+    private RelativeLayout live_no_surfaceview, audio_or_video_background, sessionLocked, zoomHostDetails;
     private FrameLayout live_surfaceview;
     RecyclerView chatRecyclerView;
 
     private EditText live_msg_et;
 
-    private ImageView endCall,disable_audio,enable_audio,host_image_audio_call,audio_call,video_call,viewHostImageZoom;
+    private ImageView endCall, disable_audio, enable_audio, host_image_audio_call, audio_call, video_call, viewHostImageZoom;
 
-    private List<OneToOneChatModel> chatList=new ArrayList<>();
+    private List<OneToOneChatModel> chatList = new ArrayList<>();
     private OneToOneMessageContainer messageContainer;
 
 
-    private String bookingId="";
-    private String hostFullName="";
-    private String channelName="";
-    private String hostImage ="";
-    private String scheduledesc="";
-    private String fileName ="";
-    private String privateUID="";
-    private String privateUserName="";
-    private String privateSessionDate="";
-    private String privateSessionTime="";
+    private String bookingId = "";
+    private String hostFullName = "";
+    private String channelName = "";
+    private String hostImage = "";
+    private String scheduledesc = "";
+    private String fileName = "";
+    private String privateUID = "";
+    private String privateUserName = "";
+    private String privateSessionDate = "";
+    private String privateSessionTime = "";
 
-    private String TAG="OneToOneSessionActivity";
+    private String TAG = "OneToOneSessionActivity";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_to_one_session);
-        enable_audio=findViewById(R.id.enable_audio);
-        disable_audio=findViewById(R.id.disable_audio);
-        live_no_surfaceview=findViewById(R.id.live_no_surfaceview);
-        live_no_surfaceview_notice=findViewById(R.id.live_no_surfaceview_notice);
-        sessionLocked=findViewById(R.id.sessionLocked);
-        textLockedMessage=findViewById(R.id.textLockedMessage);
-        host_name=findViewById(R.id.host_name);
-        audio_call=findViewById(R.id.audio_call);
-        video_call=findViewById(R.id.video_call);
-        audio_or_video_background=findViewById(R.id.audio_or_video_background);
-        endCall=findViewById(R.id.endCall);
-        live_surfaceview=findViewById(R.id.live_surfaceview);
-        host_image_audio_call=findViewById(R.id.host_image_audio_call);
-        live_msg_et=findViewById(R.id.live_msg_et);
-        chatRecyclerView=findViewById(R.id.chatRecyclerView);
-        zoomHostDetails=findViewById(R.id.zoomHostDetails);
-        backFromProfile=findViewById(R.id.backFromProfile);
-        openHostProfile=findViewById(R.id.openHostProfile);
-        viewHostImageZoom=findViewById(R.id.viewHostImageZoom);
-        zoomHostName=findViewById(R.id.zoomHostName);
-        online=findViewById(R.id.online);
+        timeLeft = findViewById(R.id.timeLeft);
+        enable_audio = findViewById(R.id.enable_audio);
+        disable_audio = findViewById(R.id.disable_audio);
+        live_no_surfaceview = findViewById(R.id.live_no_surfaceview);
+        live_no_surfaceview_notice = findViewById(R.id.live_no_surfaceview_notice);
+        sessionLocked = findViewById(R.id.sessionLocked);
+        textLockedMessage = findViewById(R.id.textLockedMessage);
+        host_name = findViewById(R.id.host_name);
+        audio_call = findViewById(R.id.audio_call);
+        video_call = findViewById(R.id.video_call);
+        audio_or_video_background = findViewById(R.id.audio_or_video_background);
+        endCall = findViewById(R.id.endCall);
+        live_surfaceview = findViewById(R.id.live_surfaceview);
+        host_image_audio_call = findViewById(R.id.host_image_audio_call);
+        live_msg_et = findViewById(R.id.live_msg_et);
+        chatRecyclerView = findViewById(R.id.chatRecyclerView);
+        zoomHostDetails = findViewById(R.id.zoomHostDetails);
+        backFromProfile = findViewById(R.id.backFromProfile);
+        openHostProfile = findViewById(R.id.openHostProfile);
+        viewHostImageZoom = findViewById(R.id.viewHostImageZoom);
+        zoomHostName = findViewById(R.id.zoomHostName);
+        online = findViewById(R.id.online);
 
 
         RtcEngineManager.getInstance().init(this);
         RtmClientManager.getInstance().init(this);
-
-
 
 
         FirebaseDynamicLinks.getInstance()
@@ -143,33 +146,33 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                     Uri deepLink = null;
                     if (pendingDynamicLinkData != null) {
                         deepLink = pendingDynamicLinkData.getLink();
-                        Log.e("deeplink --> " , "" +deepLink);
-                        String url=deepLink+"";
-                        url=url.substring(url.lastIndexOf("&")+16);
-                        url=url.replaceFirst("%7B","{");
-                        url=url.replaceFirst("%7D","}");
-                        url=url.replace("%0A","");
-                        url=url.replace("%22","\"");
-                        url=url.replace("%0A","+");
-                        url=url.replace("+"," ");
-                        Log.i("jjjsson",url);
+                        Log.e("deeplink --> ", "" + deepLink);
+                        String url = deepLink + "";
+                        url = url.substring(url.lastIndexOf("&") + 16);
+                        url = url.replaceFirst("%7B", "{");
+                        url = url.replaceFirst("%7D", "}");
+                        url = url.replace("%0A", "");
+                        url = url.replace("%22", "\"");
+                        url = url.replace("%0A", "+");
+                        url = url.replace("+", " ");
+                        Log.i("jjjsson", url);
                         try {
-                            JSONObject jsonObject=new JSONObject(url.toString());
-                            bookingId=jsonObject.optString("booking_id");
-                            channelName=jsonObject.optString("channel_name");
+                            JSONObject jsonObject = new JSONObject(url.toString());
+                            bookingId = jsonObject.optString("booking_id");
+                            channelName = jsonObject.optString("channel_name");
                             hostFullName = jsonObject.optString("host_name");
                             hostImage = jsonObject.optString("host_image");
-                            privateUID=jsonObject.optString("privateUID");
-                            privateUserName=jsonObject.optString("privateUserName");
-                            privateSessionDate=jsonObject.optString("privateSessionDate");
-                            privateSessionTime=jsonObject.optString("privateSessionTime");
+                            privateUID = jsonObject.optString("privateUID");
+                            privateUserName = jsonObject.optString("privateUserName");
+                            privateSessionDate = jsonObject.optString("privateSessionDate");
+                            privateSessionTime = jsonObject.optString("privateSessionTime");
 
-                            String[] params={bookingId};
-                            messageContainer=new OneToOneMessageContainer(chatRecyclerView);
+                            String[] params = {bookingId};
+                            messageContainer = new OneToOneMessageContainer(chatRecyclerView);
 
                             new TaskGetMessageHistory().execute(params);
                             sessionLocked.setVisibility(View.GONE);
-                            textLockedMessage.setText("You will get access when "+hostFullName+" comes online.\n Session for "+privateUserName+"\n on "+privateSessionDate+" at "+privateSessionTime+".");
+                            textLockedMessage.setText("You will get access when " + hostFullName + " comes online.\n Session for " + privateUserName + "\n on " + privateSessionDate + " at " + privateSessionTime + ".");
 
 
                             new Handler().postDelayed(new Runnable() {
@@ -183,7 +186,6 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                                 }
                             }, 2000);
-
 
 
                         } catch (JSONException e) {
@@ -214,14 +216,13 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     public void onUserJoined(int uid, int elapsed) {
 
-        if (uid==ANCHOR_UID)
-        {
-            activity.runOnUiThread(()->{
+        if (uid == ANCHOR_UID) {
+            activity.runOnUiThread(() -> {
                 //sessionLocked.setVisibility(View.GONE);
                 online.setBackgroundColor(Color.GREEN);
             });
 
-        }else{
+        } else {
             online.setBackgroundColor(Color.RED);
         }
 
@@ -234,31 +235,31 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
     @Override
     public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
-        Log.i("stream from:",uid+"");
+        Log.i("stream from:", uid + "");
     }
 
     @Override
     public void onMessageReceived(boolean isChannelMsg, String uid, String message) {
 
-        Log.i("messsss",uid+"__"+message);
-            //messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
-            if (message.contains("Call-Ended at")){
-                activity.runOnUiThread(()->{
-                    audio_call.setVisibility(View.VISIBLE);
-                    video_call.setVisibility(View.VISIBLE);
-                    audio_or_video_background.setVisibility(View.GONE);
-                    mRtcEngine.enableLocalAudio(false);// disable audio
+        Log.i("messsss", uid + "__" + message);
+        //messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
+        if (message.contains("Call-Ended at")) {
+            activity.runOnUiThread(() -> {
+                audio_call.setVisibility(View.VISIBLE);
+                video_call.setVisibility(View.VISIBLE);
+                audio_or_video_background.setVisibility(View.GONE);
+                mRtcEngine.enableLocalAudio(false);// disable audio
 
-                    live_msg_et.setEnabled(true);
+                live_msg_et.setEnabled(true);
 
-                    mRtcEngine.setupRemoteVideo(null);
+                mRtcEngine.setupRemoteVideo(null);
 
-                    live_no_surfaceview_notice.setVisibility(View.GONE);
+                live_no_surfaceview_notice.setVisibility(View.GONE);
 
-                    sendToastMessage("Call ended");
-                });
+                sendToastMessage("Call ended");
+            });
 
-            }
+        }
     }
 
     @Override
@@ -267,7 +268,6 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     }
 
     protected void initView() {
-
 
 
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
@@ -291,8 +291,6 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
             }
         });
-
-
 
 
         ((ImageView) findViewById(R.id.host_image)).setOnClickListener(new View.OnClickListener() {
@@ -324,17 +322,25 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         openHostProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open
+
+                Intent intent = new Intent(activity, CounsellorProfile.class);
+
+                String temp = channelName.replace("_private", "*");
+                int endIndexOfEmail = temp.indexOf("*");
+                String hostEmail = channelName.substring(0, endIndexOfEmail);
+                intent.putExtra("host_name", hostFullName);
+                intent.putExtra("host_email", hostEmail);
+                intent.putExtra("host_img", hostImage);
+                startActivity(intent);
             }
         });
-
 
 
         audio_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),"Voice-call at "+getTimeStamp(),getTimeStamp()+"","",true));
+                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Voice-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
                 audio_call.setVisibility(View.GONE);
                 video_call.setVisibility(View.GONE);
                 audio_or_video_background.setVisibility(View.VISIBLE);
@@ -345,7 +351,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 mRtcEngine.enableLocalAudio(true);//enable audio
 
-                mRtcEngine.setAudioProfile(Constants.AUDIO_ROUTE_EARPIECE,Constants.AUDIO_SCENARIO_EDUCATION);
+                mRtcEngine.setAudioProfile(Constants.AUDIO_ROUTE_EARPIECE, Constants.AUDIO_SCENARIO_EDUCATION);
 
 
                 RequestOptions options = new RequestOptions()
@@ -365,7 +371,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             @Override
             public void onClick(View v) {
 
-                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),"Video-call at "+getTimeStamp(),getTimeStamp()+"","",true));
+                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Video-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
                 audio_call.setVisibility(View.GONE);
                 video_call.setVisibility(View.GONE);
                 audio_or_video_background.setVisibility(View.VISIBLE);
@@ -390,10 +396,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         enable_audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    mRtcEngine.enableLocalAudio(false);// disable audio
-                    enable_audio.setVisibility(View.GONE);
-                    disable_audio.setVisibility(View.VISIBLE);
-                    sendToastMessage("Mic is disabled");
+                mRtcEngine.enableLocalAudio(false);// disable audio
+                enable_audio.setVisibility(View.GONE);
+                disable_audio.setVisibility(View.VISIBLE);
+                sendToastMessage("Mic is disabled");
 
             }
         });
@@ -412,7 +418,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             @Override
             public void onClick(View v) {
 
-                sendMsg("Call-Ended at "+getTimeStamp());
+                sendMsg("Call-Ended at " + getTimeStamp());
 
                 audio_call.setVisibility(View.VISIBLE);
                 video_call.setVisibility(View.VISIBLE);
@@ -434,7 +440,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     }
 
     private void initRtcEngine() {
-        Log.e("#inside engine","ewkjbewjkfb");
+        Log.e("#inside engine", "ewkjbewjkfb");
         mRtcEngine = RtcEngineManager.getInstance().getRtcEngine();
         RtcEngineManager.getInstance().setOnRtcEventCallback(this);
 
@@ -442,7 +448,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         mRtcEngine.disableVideo();
 
 
-        Log.e("#cmm engine","ewkjbewjkfb" +channelName);
+        Log.e("#cmm engine", "ewkjbewjkfb" + channelName);
         mRtcEngine.joinChannel("", channelName, "", Integer.parseInt(privateUID));
         //mRtcEngine.joinChannel("", channelName, "", ANCHOR_UID);
 
@@ -453,10 +459,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private void initRtmClient() {
 
         mRtmClient = RtmClientManager.getInstance().getRtmClient();
-        mRtmClient.login("", privateUID+"", new ResultCallback<Void>() {
+        mRtmClient.login("", privateUID + "", new ResultCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.e(TAG, "rtmClient login success"+"___uidd:"+channelName);
+                Log.e(TAG, "rtmClient login success" + "___uidd:" + channelName);
                 checkChannelEnable();
             }
 
@@ -495,7 +501,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
     private void doSendMsg() {
-        if(!mIsMsgChannelEnable){
+        if (!mIsMsgChannelEnable) {
             showToast("Trying again,give us a moment");
             //checkChannelEnable();
             return;
@@ -503,7 +509,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
         String msg = live_msg_et.getText().toString();
-        Log.i("mmeessaageee",msg);
+        Log.i("mmeessaageee", msg);
         if (TextUtils.isEmpty(msg)) {
             showToast(R.string.toast_msg_is_empty);
             return;
@@ -521,20 +527,20 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             @Override
             public void run() {
 
-                try{
-                    mRtmChannel.sendMessage(rtmMessage,new ResultCallback<Void>() {
+                try {
+                    mRtmChannel.sendMessage(rtmMessage, new ResultCallback<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.e(TAG, "sendMessage onSuccess");
-                            runOnUiThread(()->{
+                            runOnUiThread(() -> {
                                 //hideSoftKeyboard(live_msg_et);
                                 //showToast("Message sent");
                                 if (!TextUtils.isEmpty(msg)) {
-                                    Log.i("mmeessaage",msg);
+                                    Log.i("mmeessaage", msg);
 
-                                    messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),msg+"",getTimeStamp()+"",privateUserName.toUpperCase().charAt(0)+"",true));
+                                    messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), msg + "", getTimeStamp() + "", privateUserName.toUpperCase().charAt(0) + "", true));
 
-                                    String[] saveMessageParams= {  bookingId,"-1",privateUID,privateUID,msg,getTimeStamp(),privateSessionDate};
+                                    String[] saveMessageParams = {bookingId, "-1", privateUID, privateUID, msg, getTimeStamp(), privateSessionDate};
                                     new TaskSaveMessage().execute(saveMessageParams);
 
                                 }
@@ -543,13 +549,13 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                         @Override
                         public void onFailure(ErrorInfo errorInfo) {
-                            runOnUiThread(()-> {
-                                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID),msg+"",getTimeStamp()+"",privateUserName.toUpperCase().charAt(0)+"",false));
+                            runOnUiThread(() -> {
+                                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), msg + "", getTimeStamp() + "", privateUserName.toUpperCase().charAt(0) + "", false));
                             });
-                            Log.e(TAG, "sendMessage onFailure : " + errorInfo+"_____:"+errorInfo.getErrorDescription()+"    errorcode:"+errorInfo.getErrorCode()+"  chanel id:"+mRtmChannel.getId());
+                            Log.e(TAG, "sendMessage onFailure : " + errorInfo + "_____:" + errorInfo.getErrorDescription() + "    errorcode:" + errorInfo.getErrorCode() + "  chanel id:" + mRtmChannel.getId());
                         }
                     });
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -559,23 +565,21 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     }
 
 
-    private void setClientRoleAudience(){
+    private void setClientRoleAudience() {
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
     }
 
-    private void setClientRoleBroadcaster(){
+    private void setClientRoleBroadcaster() {
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
     }
-
-
 
 
     @Override
     public void onBackPressed() {
 
         alertDialog = new AlertDialog.Builder(activity).create();
-        final View dialog = getLayoutInflater().inflate(R.layout.dialog_log_out,null);//using the same logout dialog
-        ((TextView)dialog.findViewById(R.id.textViewLogoutTitle)).setText("Do you want to leave the private session?");
+        final View dialog = getLayoutInflater().inflate(R.layout.dialog_log_out, null);//using the same logout dialog
+        ((TextView) dialog.findViewById(R.id.textViewLogoutTitle)).setText("Do you want to leave the private session?");
 
         dialog.findViewById(R.id.no).setOnClickListener(v1 -> alertDialog.dismiss());
         dialog.findViewById(R.id.yes).setOnClickListener(v12 -> {
@@ -599,27 +603,28 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(alertDialog!=null){
+        if (alertDialog != null) {
             alertDialog.dismiss();
-            alertDialog=null;
+            alertDialog = null;
         }
+
+        Utility.stopTimer();
 
     }
 
-    String getTimeStamp(){
-        Date date=new Date();
+    String getTimeStamp() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date.getTime());
         String minute = Integer.toString(calendar.get(Calendar.MINUTE));
         minute = minute.length() == 1 ? "0" + minute : minute;
         int hour = calendar.get(Calendar.HOUR);
-        return (hour == 0 ? 12 : hour) + ":" + minute + " " + (calendar.get(Calendar.AM_PM)==0?"AM":"PM");
+        return (hour == 0 ? 12 : hour) + ":" + minute + " " + (calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM");
     }
 
-    void sendToastMessage(String toastMessage ){
+    void sendToastMessage(String toastMessage) {
         Toast.makeText(activity, toastMessage, Toast.LENGTH_SHORT).show();
     }
-
 
 
     private class TaskGetMessageHistory extends AsyncTask<String, Void, Void> {
@@ -636,29 +641,29 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 jsonBody.put("fk_booking_id", params[0]);
 
 
-                Log.i("jsonbodyy",jsonBody+"");
+                Log.i("jsonbodyy", jsonBody + "");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php", jsonBody, response -> {
 
 
                     try {
-                        JSONObject jsonObject = new JSONObject(response+"");
-                        Log.i("response->",jsonObject+"");
+                        JSONObject jsonObject = new JSONObject(response + "");
+                        Log.i("response->", jsonObject + "");
                         boolean status = jsonObject.optBoolean("status", false);
                         if (status) {
-                            Log.i("message","saved_to_db");
+                            Log.i("message", "saved_to_db");
 
 
-                            JSONArray jsonArrayMessages=response.getJSONArray("data");
-                            for (int i=0;i<jsonArrayMessages.length();i++){
-                                JSONObject eachMessage=jsonArrayMessages.getJSONObject(i);
+                            JSONArray jsonArrayMessages = response.getJSONArray("data");
+                            for (int i = 0; i < jsonArrayMessages.length(); i++) {
+                                JSONObject eachMessage = jsonArrayMessages.getJSONObject(i);
 
-                                runOnUiThread(()-> {
+                                runOnUiThread(() -> {
                                     try {
-                                        if (!eachMessage.getString("sender_id").contentEquals(Utility.getUserId(activity))){
-                                            messageContainer.addMessage(new OneToOneChatModel(ANCHOR_UID,eachMessage.getString("message")+"",eachMessage.getString("time_stamp")+"",hostImage,true));
-                                        }else{
-                                            messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(eachMessage.getString("sender_id")),eachMessage.getString("message")+"",eachMessage.getString("time_stamp")+"",privateUserName.toUpperCase().charAt(0)+"",true));
+                                        if (!eachMessage.getString("sender_id").contentEquals(Utility.getUserId(activity))) {
+                                            messageContainer.addMessage(new OneToOneChatModel(ANCHOR_UID, eachMessage.getString("message") + "", eachMessage.getString("time_stamp") + "", hostImage, true));
+                                        } else {
+                                            messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(eachMessage.getString("sender_id")), eachMessage.getString("message") + "", eachMessage.getString("time_stamp") + "", privateUserName.toUpperCase().charAt(0) + "", true));
                                         }
 
                                     } catch (JSONException e) {
@@ -670,7 +675,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
                         } else {
-                            Log.i("message","not_saved_to_db");
+                            Log.i("message", "not_saved_to_db");
                         }
                         //pb_loading.setVisibility(View.GONE);
                     } catch (JSONException e) {
@@ -678,7 +683,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                     }
                 }, error -> {
                     // pb_loading.setVisibility(View.GONE);
-                    Log.i("message","not_saved_to_db");
+                    Log.i("message", "not_saved_to_db");
                     error.printStackTrace();
                 }) {
                     @Override
@@ -691,7 +696,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 };
                 VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
@@ -720,19 +725,19 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 jsonBody.put("time_stamp", params[5]);
                 jsonBody.put("date_sent", params[6]);
 
-                Log.i("jsonbodyy",jsonBody+"");
+                Log.i("jsonbodyy", jsonBody + "");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php", jsonBody, response -> {
 
 
                     try {
-                        JSONObject jsonObject = new JSONObject(response+"");
-                        Log.i("response->",jsonObject+"");
+                        JSONObject jsonObject = new JSONObject(response + "");
+                        Log.i("response->", jsonObject + "");
                         boolean status = jsonObject.optBoolean("status", false);
                         if (status) {
-                            Log.i("message","saved_to_db");
+                            Log.i("message", "saved_to_db");
                         } else {
-                            Log.i("message","not_saved_to_db");
+                            Log.i("message", "not_saved_to_db");
                         }
                         //pb_loading.setVisibility(View.GONE);
                     } catch (JSONException e) {
@@ -740,7 +745,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                     }
                 }, error -> {
                     // pb_loading.setVisibility(View.GONE);
-                    Log.i("message","not_saved_to_db");
+                    Log.i("message", "not_saved_to_db");
                     error.printStackTrace();
                 }) {
                     @Override
@@ -753,17 +758,74 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 };
                 VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
 
         }
 
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utility.keepTrackOfTimeWithServer(this);
+    }
+
+    public void updateTimer(String serverDate, String serverTime) {
+        Log.i("serverdate", serverDate);
+        Log.i("servertime", serverTime);
 
 
+        runOnUiThread(() -> {
+            int minsLeft = Integer.parseInt(privateSessionTime.substring(3, 5)) + 45 - Integer.parseInt(serverTime.substring(3, 5));
+            timeLeft.setText(minsLeft + " minutes left");
+        });
 
+        String hours = privateSessionTime.substring(0, 2);
+        String mins = privateSessionTime.substring(3, 5);
+
+        String warningTimer = hours + ":" + (Integer.parseInt(mins) + 35 + privateSessionTime.substring(5, 7));
+        String endSessionTime = hours + ":" + (Integer.parseInt(mins) + 45 + privateSessionTime.substring(5, 7));
+
+
+        Log.i("hours", hours);
+        Log.i("mins", mins);
+        Log.i("warningTimer", warningTimer);
+
+        if (serverTime.contentEquals(warningTimer)) {
+            runOnUiThread(() -> {
+                Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
+                // Vibrate for 400 milliseconds
+                v.vibrate(400);
+
+                sendToastMessage("Last 10 minutes");
+            });
+
+        }
+            if (serverTime.contentEquals(endSessionTime)) {
+                runOnUiThread(() -> {
+                    sendToastMessage("Session ended!");
+                    if (mRtcEngine != null) {
+                        mRtcEngine.leaveChannel();
+                        mRtcEngine.setupRemoteVideo(null);
+                        RtcEngine.destroy();
+                        mRtcEngine = null;
+                    }
+                    RtmClientManager.getInstance().setRtmClientListener(null);
+                    RtcEngineManager.destory();
+                    Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
+                    // Vibrate for 400 milliseconds
+                    v.vibrate(400);
+
+                    finish();
+                });
+
+
+            }
+
+    }
 }

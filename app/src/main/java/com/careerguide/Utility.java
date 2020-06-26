@@ -1,6 +1,7 @@
 package com.careerguide;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.DownloadManager;
 import android.content.Context;
@@ -24,7 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
@@ -34,6 +35,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.careerguide.Book_One_To_One.activity.OneToOneSessionActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
@@ -74,7 +76,7 @@ import java.util.regex.Pattern;
 public class Utility extends Application
 {
 
-    public static final String albinoServerIp="https://73c669266655.ngrok.io";
+    public static final String albinoServerIp="https://9724e4a10194.ngrok.io";
 
     public static final String PRIVATE_SERVER = "https://app.careerguide.com/api/main/";
 
@@ -492,7 +494,57 @@ public class Utility extends Application
         timer.schedule(doAsynchronousTask, 0, 6000);
     }
 
+    public static void keepTrackOfTimeWithServer(final Activity activity)
+    {
+        timer.cancel();
+        if (activity != null)
+        {
+            timer = new Timer();
+        }
+        else
+        {
+            return;
+        }
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(() -> {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/fetch_time.php",
+                            response -> {
 
+                                try {
+                                    JSONObject jsonObject= new JSONObject(response+"");
+                                    String serverDate=jsonObject.getString("date");
+                                    String serverTime=jsonObject.getString("time");
+
+                                    ((OneToOneSessionActivity)activity).updateTimer(serverDate,serverTime);
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            },
+                            error -> Log.e("server_time","error"))
+                    {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            HashMap<String,String> params = new HashMap<>();
+
+                            return params;
+                        }
+                    };
+                    VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 6000);
+
+    }
+
+
+    public static void stopTimer(){
+        timer.cancel();
+    }
 
 
 
