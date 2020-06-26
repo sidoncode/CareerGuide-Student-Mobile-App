@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="290dp"
@@ -111,6 +112,48 @@
             android:layout_marginTop="10dp">
 
             <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invite friends to CareerGuide"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+
+                <TextView
+                    android:elevation="3dp"
+                    android:id="@+id/invite_now_1"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Invite Now"
+                    android:padding="5dp"
+                    android:background="@drawable/referal_invite_now"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
+
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -406,7 +449,7 @@
 
         <!-- How to reedem Layout-->
         <LinearLayout
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -446,6 +489,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -577,7 +621,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="How to earn"
+                    android:text="How to Earn"
                     android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="30dp"/>
@@ -639,7 +683,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your friend install and register on\n Career Guide."
+                    android:text="Your friend install and register on\n CareerGuide."
                     android:textSize="12dp"
                     android:textColor="@color/black"
                     android:textAlignment="center"/>
@@ -670,23 +714,26 @@
                     android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Invite friends to Career Guide"
+                    android:text="Invite friends to CareerGuide"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
 
 
                 <TextView
-                    android:id="@+id/invite_now"
+                    android:elevation="3dp"
+                    android:id="@+id/invite_now_2"
                     android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text="Invite now"
+                    android:text="Invite Now"
                     android:padding="5dp"
-                    android:background="@drawable/referal_coins_bg"
+                    android:background="@drawable/referal_invite_now"
                     android:textSize="20dp"
-                    android:textColor="@color/deep_pink"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:textAlignment="center"/>
+
 
 
                 <TextView
@@ -699,7 +746,6 @@
 
             </LinearLayout>
         </LinearLayout>
-        
 
 <LinearLayout
     android:visibility="gone"
@@ -723,6 +769,8 @@
         android:textColor="@color/colorPrimary"
         android:textSize="25dp"
         android:textStyle="bold" />
+
+
 
     <ImageView
         android:layout_width="match_parent"
