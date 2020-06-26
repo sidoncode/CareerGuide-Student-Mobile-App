@@ -73,6 +73,9 @@ import java.util.regex.Pattern;
 
 public class Utility extends Application
 {
+
+    public static final String albinoServerIp="https://73c669266655.ngrok.io";
+
     public static final String PRIVATE_SERVER = "https://app.careerguide.com/api/main/";
 
     //public static final String browserKey = "AIzaSyC2VcqdBaKakTd7YLn4B9t3dxWat9UHze4";//rachit api key for youtube

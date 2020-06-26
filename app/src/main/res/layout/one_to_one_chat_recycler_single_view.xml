@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Call ended 18:00PM"
+            android:textSize="10sp"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/white"
             android:textColor="@color/black"
@@ -34,84 +35,6 @@
     </RelativeLayout>
 
 
-    //host chate window
-    <!--<RelativeLayout
-        android:id="@+id/host_message_window"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-
-        >
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#7289da"
-            >
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="7dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:backgroundTint="#add8e6"
-
-                android:background="@drawable/shape_round_bg">
-
-                <TextView
-                    android:id="@+id/host_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="."
-                    android:layout_marginTop="4dp"
-                    android:inputType="textMultiLine"
-                    android:textAlignment="textStart"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@android:color/black" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp">
-                    <TextView
-                        android:id="@+id/host_message_time_sent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="18:00 PM"
-                        android:textSize="11sp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginRight="0dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_centerHorizontal="true"/>
-
-                </RelativeLayout>
-
-
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/hostprofileImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/default_profile"
-
-            />
-
-
-    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/host_message_window"
@@ -120,7 +43,6 @@
         android:layout_marginRight="80dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-
         >
 
         <RelativeLayout
@@ -138,7 +60,7 @@
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
                 android:background="@drawable/shape_round_bg"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="40dp"
                 android:orientation="vertical">
 
 
@@ -151,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="2dp"
                     android:inputType="textMultiLine"
                     android:textAlignment="textStart"
                     android:layout_marginRight="25dp"
@@ -166,13 +88,12 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="18:00 PM"
-                        android:textAlignment="center"
                         android:layout_marginRight="10dp"
                         android:textSize="11sp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="14dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="2dp"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_alignParentLeft="true"/>
 
                 </RelativeLayout>
 
@@ -186,8 +107,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/hostprofileImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="3dp"
             android:src="@drawable/default_profile"
 
@@ -221,12 +142,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="4dp"
                 android:backgroundTint="#cad1e9"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
                 android:background="@drawable/shape_round_bg"
-                android:layout_marginRight="60dp"
+                android:layout_marginRight="40dp"
                 android:orientation="vertical">
 
 
@@ -240,10 +161,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:inputType="textMultiLine"
                 android:textAlignment="textStart"
-
                 android:layout_marginRight="25dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="@android:color/black" />
@@ -256,12 +176,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="18:00 PM"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="14dp"
                         android:textSize="11sp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="2dp"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_alignParentRight="true"/>
 
                 </RelativeLayout>
 
@@ -275,12 +195,12 @@
 
         <TextView
             android:id="@+id/menteeprofileImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="3dp"
             android:text="A"
-            android:textSize="25sp"
-            android:paddingTop="7dp"
+            android:textSize="20sp"
+            android:paddingTop="0dp"
             android:textColor="@color/black"
             android:background="@drawable/shape_round_bg"
             android:backgroundTint="#60CEDF"

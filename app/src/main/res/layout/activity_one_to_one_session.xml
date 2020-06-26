@@ -11,21 +11,32 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:elevation="3dp"
+        android:id="@+id/toolbar"
         android:background="#48507E">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             >
+            <TextView
+                android:id="@+id/online"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:elevation="9dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginLeft="63dp"
+                android:backgroundTint="@color/fire_red"
+                android:background="@drawable/shape_round_bg"
+                />
 
             //hostdetails
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
                 android:paddingEnd="12dp"
@@ -39,8 +50,9 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/host_image"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/def_headimg" />
 
                 <LinearLayout
@@ -54,39 +66,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Loading..."
+                        android:layout_marginTop="7dp"
                         android:layout_marginStart="0dp"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
-                    <LinearLayout
+                   <!-- <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+-->
+
 
                         <TextView
-                            android:id="@+id/online"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/online"
-                            android:textColor="@color/green_light"
-                            android:textSize="14sp"
-                            android:paddingRight="6dp"
-                            android:paddingLeft="6dp"
-                            />
 
-                        <TextView
                             android:id="@+id/timeLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/toolbar"
+                            android:layout_centerHorizontal="true"
                             android:text="41 minute's Left"
                             android:textColor="@color/red_light"
-                            android:textSize="14sp"
+                            android:textSize="12dp"
+                            android:layout_marginTop="5dp"
                             android:paddingRight="6dp"
-                            android:paddingLeft="6dp"
+
                             />
 
 
-                    </LinearLayout>
+                   <!-- </LinearLayout>-->
 
 
 
@@ -117,7 +125,7 @@
                     android:id="@+id/video_call"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="4dp"
                     android:layout_marginTop="3dp"
                     android:src="@drawable/ic_video_call"
                     />
@@ -129,6 +137,91 @@
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+
+    //zoom host image
+    <RelativeLayout
+        android:id="@+id/zoomHostDetails"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#496188"
+        android:visibility="visible"
+        android:elevation="10dp">
+
+        <TextView
+            android:id="@+id/zoomHostName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:elevation="11dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="10dp"
+            android:visibility="visible"
+
+            >
+
+            <ImageView
+                android:id="@+id/viewHostImageZoom"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/backFromProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Back"
+                    android:layout_margin="1dp"
+                    android:background="@color/white"
+                    android:textAlignment="center"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/openHostProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:text="View Profile"
+                    android:textAlignment="center"
+                    android:layout_margin="0dp"
+                    android:background="#48507E"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:padding="12dp"
+                    android:textSize="14sp"
+                    android:layout_marginRight="4dp"
+                    android:elevation="3dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
 
 
@@ -212,17 +305,6 @@
             android:layout_marginBottom="40dp"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time Left:45:00"
-            android:textSize="22sp"
-            android:elevation="4dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="90dp"
-            android:layout_centerHorizontal="true"/>
-
-
         //video view live stream
         <FrameLayout
             android:id="@+id/live_surfaceview"
@@ -271,17 +353,17 @@
 
 
    //message list
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_above="@id/typingIndicator"
-            android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll"
-            tools:listitem="@layout/one_to_one_chat_recycler_single_view"
-            android:divider="@null">
-        </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="613dp"
+        android:layout_above="@id/typingIndicator"
+        android:layout_marginTop="56dp"
+        android:divider="@null"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        tools:listitem="@layout/one_to_one_chat_recycler_single_view"></androidx.recyclerview.widget.RecyclerView>
         <TextView
             android:visibility="gone"
             android:id="@+id/typingIndicator"
@@ -323,26 +405,39 @@
                 android:textColorHint="@color/white"
                 android:backgroundTint="#323B59"
                 android:textColor="#fff"
-                android:layout_marginLeft="4dp"
-                android:hint="Write your message..."
+                android:layout_marginLeft="8dp"
+                android:hint="Type a message..."
+                android:layout_marginTop="6dp"
                 android:layout_marginRight="5dp"
                 android:inputType="textMultiLine"
-                android:maxLines="4"
+                android:layout_marginBottom="2dp"
+                android:maxLines="6"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:paddingBottom="6dp"
+                android:paddingBottom="2dp"
                 android:background="@drawable/shape_round_bg"
                 android:textSize="15sp" />
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/live_msg_send_btn"
+
+
+            <RelativeLayout
                 android:layout_width="0dp"
+                android:layout_height="36dp"
                 android:layout_weight="0.1"
-                android:layout_height="match_parent"
-                android:background="#496188"
-                android:paddingRight="8dp"
-                android:paddingBottom="6dp"
-                android:src="@drawable/ic_send_white"
-                android:contentDescription="TODO" />
+                android:background="@drawable/shape_round_bg"
+                android:backgroundTint="#323B59">
+
+                <TextView
+                    android:id="@+id/live_msg_send_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="0.1"
+                    android:layout_marginLeft="6dp"
+                    android:contentDescription="TODO"
+                    android:background="@drawable/ic_send_white"
+                    android:paddingBottom="1dp" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

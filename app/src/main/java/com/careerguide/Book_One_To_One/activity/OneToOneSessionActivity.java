@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,14 +76,14 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private AlertDialog alertDialog;
     private Activity activity=this;
 
-    private TextView live_no_surfaceview_notice,host_name,textLockedMessage;
-    private RelativeLayout live_no_surfaceview,audio_or_video_background,sessionLocked;
+    private TextView live_no_surfaceview_notice,host_name,textLockedMessage,backFromProfile,openHostProfile,zoomHostName,online;
+    private RelativeLayout live_no_surfaceview,audio_or_video_background,sessionLocked,zoomHostDetails;
     private FrameLayout live_surfaceview;
     RecyclerView chatRecyclerView;
 
     private EditText live_msg_et;
 
-    private ImageView endCall,disable_audio,enable_audio,host_image_audio_call,audio_call,video_call;
+    private ImageView endCall,disable_audio,enable_audio,host_image_audio_call,audio_call,video_call,viewHostImageZoom;
 
     private List<OneToOneChatModel> chatList=new ArrayList<>();
     private OneToOneMessageContainer messageContainer;
@@ -120,6 +122,12 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         host_image_audio_call=findViewById(R.id.host_image_audio_call);
         live_msg_et=findViewById(R.id.live_msg_et);
         chatRecyclerView=findViewById(R.id.chatRecyclerView);
+        zoomHostDetails=findViewById(R.id.zoomHostDetails);
+        backFromProfile=findViewById(R.id.backFromProfile);
+        openHostProfile=findViewById(R.id.openHostProfile);
+        viewHostImageZoom=findViewById(R.id.viewHostImageZoom);
+        zoomHostName=findViewById(R.id.zoomHostName);
+        online=findViewById(R.id.online);
 
 
         RtcEngineManager.getInstance().init(this);
@@ -206,12 +214,15 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     public void onUserJoined(int uid, int elapsed) {
 
-        //if (uid==Integer.parseInt(privateUID))
+        if (uid==ANCHOR_UID)
         {
             activity.runOnUiThread(()->{
-                sessionLocked.setVisibility(View.GONE);
+                //sessionLocked.setVisibility(View.GONE);
+                online.setBackgroundColor(Color.GREEN);
             });
 
+        }else{
+            online.setBackgroundColor(Color.RED);
         }
 
     }
@@ -260,6 +271,62 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
+
+        host_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomHostDetails.setVisibility(View.VISIBLE);
+
+                zoomHostName.setText(hostFullName);
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.drawable.loading)
+                        .error(R.drawable.loading)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .priority(Priority.HIGH)
+                        .dontAnimate()
+                        .dontTransform();
+                Glide.with(activity).load(hostImage).apply(options).into(viewHostImageZoom);
+
+
+            }
+        });
+
+
+
+
+        ((ImageView) findViewById(R.id.host_image)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomHostDetails.setVisibility(View.VISIBLE);
+                zoomHostName.setText(hostFullName);
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.drawable.loading)
+                        .error(R.drawable.loading)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .priority(Priority.HIGH)
+                        .dontAnimate()
+                        .dontTransform();
+                Glide.with(activity).load(hostImage).apply(options).into(viewHostImageZoom);
+
+
+            }
+        });
+
+        backFromProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomHostDetails.setVisibility(View.GONE);
+            }
+        });
+
+        openHostProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open
+            }
+        });
 
 
 
@@ -571,7 +638,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/"https://b25b2ac3a6a2.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php",jsonBody, response -> {
 
 
                     try {
@@ -655,7 +722,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/"https://b25b2ac3a6a2.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php",jsonBody, response -> {
 
 
                     try {

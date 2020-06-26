@@ -258,7 +258,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
         @Override
         protected Void doInBackground(Void... params) {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/fetchOnToOnePackage"*/"https://f6185d0f8cb4.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/fetchOnToOnePackage"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php",
                     response -> {
 
                 Log.e("all_coun_res_counsellor", response);
@@ -343,7 +343,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/"https://f6185d0f8cb4.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php",jsonBody, response -> {
 
 
                 try {
