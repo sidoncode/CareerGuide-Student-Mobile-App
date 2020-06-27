@@ -807,6 +807,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         }
             if (serverTime.contentEquals(endSessionTime)) {
                 runOnUiThread(() -> {
+                    timeLeft.setText("Session is over");
+
+                    Utility.stopTimer();
+
                     sendToastMessage("Session ended!");
                     if (mRtcEngine != null) {
                         mRtcEngine.leaveChannel();
@@ -821,7 +825,26 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                     // Vibrate for 400 milliseconds
                     v.vibrate(400);
 
-                    finish();
+                    alertDialog = new AlertDialog.Builder(activity).create();
+                    final View dialog = getLayoutInflater().inflate(R.layout.one_to_one_feedback_form,null);
+                    ((TextView)dialog.findViewById(R.id.menteeName)).setText(privateUserName);
+
+                    alertDialog.setCancelable(false);
+
+                    dialog.findViewById(R.id.cancel).setOnClickListener(v1 -> {
+                        alertDialog.dismiss();
+                        finish();
+                    });
+                    dialog.findViewById(R.id.submit).setOnClickListener(v12 -> {
+                        alertDialog.dismiss();
+                        finish();
+
+                    });
+
+                    alertDialog.setView(dialog);
+                    alertDialog.show();
+
+
                 });
 
 
