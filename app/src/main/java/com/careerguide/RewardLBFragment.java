@@ -221,8 +221,6 @@ public class RewardLBFragment extends Fragment {
         TextView blsp=view.findViewById(R.id.blsp);
         TextView tab=view.findViewById(R.id.tab);
         TextView mi=view.findViewById(R.id.mi);
-        if(Utility.getNumReferrals(getActivity())==null)
-            Utility.setNumReferrals(getActivity(),"0");
         int refno=Integer.parseInt(Utility.getNumReferrals(getActivity()));
         if(refno<=100) {
             fitband.setText((100 - refno) + " More Successful Referrals Left to Redeem:");
