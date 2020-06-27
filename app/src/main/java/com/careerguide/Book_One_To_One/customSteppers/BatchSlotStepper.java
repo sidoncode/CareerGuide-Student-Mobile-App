@@ -147,6 +147,11 @@ public class BatchSlotStepper extends Step<String> {
         today.setText(todayDay);
         tomorrow.setText(tomorrowDay);
         dayAfter.setText(dayAfterDay);
+        today.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_blue));
+        tomorrow.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_grey));
+        dayAfter.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_grey));
+        ((NewOneToOneRegisteration)getContext()).setSelectedDate(today.getText().toString());
+        updateSlotsForSelectedDate(0);
     }
 
     public void updateSlotsForSelectedDate(int dayCode){

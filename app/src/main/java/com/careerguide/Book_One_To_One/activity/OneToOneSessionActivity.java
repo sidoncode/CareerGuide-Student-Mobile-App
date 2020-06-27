@@ -104,6 +104,8 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private String privateSessionDate = "";
     private String privateSessionTime = "";
 
+    int minLeft=0;
+
     private String TAG = "OneToOneSessionActivity";
 
 
@@ -171,21 +173,25 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             messageContainer = new OneToOneMessageContainer(chatRecyclerView);
 
                             new TaskGetMessageHistory().execute(params);
-                            sessionLocked.setVisibility(View.GONE);
-                            textLockedMessage.setText("You will get access when " + hostFullName + " comes online.\n Session for " + privateUserName + "\n on " + privateSessionDate + " at " + privateSessionTime + ".");
+                            if (privateUID.contentEquals(Utility.getUserId(activity))){
+                                textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
 
 
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                                        initView();
+                                        initRtcEngine();
+                                        initRtmClient();
 
+                                    }
+                                }, 2000);
 
-                                    initView();
-                                    initRtcEngine();
-                                    initRtmClient();
+                             }else{
+                                textLockedMessage.setText("This is a private session, you don't have access to view.");
+                            }
 
-                                }
-                            }, 2000);
 
 
                         } catch (JSONException e) {
@@ -777,10 +783,115 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         Log.i("serverdate", serverDate);
         Log.i("servertime", serverTime);
 
+        int serverMins=Integer.parseInt(serverTime.substring(3, 5));
+        int serverHour=Integer.parseInt(serverTime.substring(0, 2));
 
+        int sessionStartMins=Integer.parseInt(privateSessionTime.substring(3, 5));
+        int sessionStartHour=Integer.parseInt(privateSessionTime.substring(0, 2));
+        int sessionEndMins=0;
+        int sessionEndHour=0;
+
+
+        String warningTime="";
+        String endTime="";
+
+        switch (sessionStartMins){
+            case 0:{
+                sessionEndMins=45;
+                sessionEndHour=sessionStartHour;
+                break;}
+            case 45:{
+                sessionEndMins=30;
+                sessionEndHour=sessionStartHour+1;
+                break;}
+            case 30:{
+                sessionEndMins=15;
+                sessionEndHour=sessionStartHour+1;
+                break;}
+            case 15:{
+                sessionEndMins=0;
+                sessionEndHour=sessionStartHour+1;
+                break;}
+
+        }
+
+        int tempTime=sessionEndMins-10;
+        String formattedTime="";
+        if(tempTime/10==0)
+        {
+            formattedTime="0"+tempTime;
+        }else{
+            formattedTime=""+tempTime;
+        }
+        if (sessionEndHour/10==0){
+
+
+
+
+            warningTime="0"+sessionEndHour+":"+formattedTime;
+            endTime="0"+sessionEndHour+":"+sessionEndMins;
+        }else{
+            warningTime=sessionEndHour+":"+formattedTime;
+            endTime=sessionEndHour+":"+sessionEndMins;
+        }
+
+        if (sessionEndHour>11){
+            warningTime=warningTime+"PM";
+            endTime=endTime+"PM";
+        }else
+        {
+            warningTime=warningTime+"AM";
+            endTime=endTime+"AM";
+        }
+
+        Log.i("Endsession",""+endTime);
+        Log.i("WarningTime",""+warningTime);
+
+        if (serverHour==sessionEndHour&sessionStartHour==sessionEndHour&privateSessionDate.contentEquals(serverDate))
+            minLeft=45-serverMins;
+        else {
+
+
+            if ((sessionStartHour + 1) == sessionEndHour  & privateSessionDate.contentEquals(serverDate)) {
+                if (serverHour < sessionEndHour) {
+                    minLeft = 75 - serverMins;
+                }
+
+                if (serverHour == sessionEndHour) {
+
+                    if (sessionEndMins == 30) {
+                        minLeft = 30 - serverMins;
+                    }
+                    if (sessionEndMins == 15) {
+                        minLeft = 15 - serverMins;
+                    }
+                    if (sessionEndMins == 0) {
+                        minLeft = 60 - serverMins;
+                    }
+                }
+            }else{
+                runOnUiThread(()->{
+                    sessionLocked.setVisibility(View.VISIBLE);
+                });
+                return;
+            }
+        }
+
+
+        Log.i("minLeft",""+minLeft);
+
+        if (minLeft>0&minLeft<46){
+
+            runOnUiThread(()->{
+                sessionLocked.setVisibility(View.GONE);
+                timeLeft.setText(minLeft + " minutes left");
+            });
+
+        }
+
+        if (minLeft==10)
         runOnUiThread(() -> {
-            int minsLeft = Integer.parseInt(privateSessionTime.substring(3, 5)) + 45 - Integer.parseInt(serverTime.substring(3, 5));
-            timeLeft.setText(minsLeft + " minutes left");
+            timeLeft.setText(minLeft + " minutes left");
         });
 
         String hours = privateSessionTime.substring(0, 2);
@@ -790,11 +901,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         String endSessionTime = hours + ":" + (Integer.parseInt(mins) + 45 + privateSessionTime.substring(5, 7));
 
 
-        Log.i("hours", hours);
-        Log.i("mins", mins);
-        Log.i("warningTimer", warningTimer);
-
-        if (serverTime.contentEquals(warningTimer)) {
+        if (serverTime.contentEquals(warningTime)&privateSessionDate.contentEquals(serverDate)) {
             runOnUiThread(() -> {
                 Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
 
@@ -805,7 +912,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             });
 
         }
-            if (serverTime.contentEquals(endSessionTime)) {
+            if (serverTime.contentEquals(endTime)&privateSessionDate.contentEquals(serverDate)) {
                 runOnUiThread(() -> {
                     timeLeft.setText("Session is over");
 
