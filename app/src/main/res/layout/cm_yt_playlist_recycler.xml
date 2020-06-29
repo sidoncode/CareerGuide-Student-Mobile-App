@@ -38,79 +38,79 @@
                 app:cardElevation="8dp"
                 app:cardCornerRadius="@dimen/card_radius">
 
-            <LinearLayout
-                android:id="@+id/ll_goal_static_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_margin="5dp"
-                    android:padding="1dp"
-                    android:id="@+id/iv_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/careerguide_banner" />
-
-<!-- Old Code Will Here-->
-
                 <LinearLayout
+                    android:id="@+id/ll_goal_static_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp">
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_margin="5dp"
+                        android:padding="1dp"
+                        android:id="@+id/iv_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/careerguide_banner" />
+
+                    <!-- Old Code Will Here-->
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/tv_chat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/following_post_bg"
-                            android:paddingStart="40dp"
-                            android:paddingTop="10dp"
-                            android:paddingEnd="40dp"
-                            android:paddingBottom="10dp"
-                            android:text="Chat Now"
-                            android:textColor="@color/app_blue"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="30dp"
+                        android:paddingBottom="30dp">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/save_post_bg"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="30dp"
-                            android:paddingTop="10dp"
-                            android:paddingRight="30dp"
-                            android:paddingBottom="10dp">
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
 
                             <TextView
-                                android:id="@+id/tv_booksession"
+                                android:id="@+id/tv_chat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Book Session"
-                                android:textColor="@android:color/white"
+                                android:background="@drawable/following_post_bg"
+                                android:paddingStart="40dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="40dp"
+                                android:paddingBottom="10dp"
+                                android:text="Chat Now"
+                                android:textColor="@color/app_blue"
                                 android:textStyle="bold" />
                         </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
 
-            </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/save_post_bg"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="30dp"
+                                android:paddingTop="10dp"
+                                android:paddingRight="30dp"
+                                android:paddingBottom="10dp">
+
+                                <TextView
+                                    android:id="@+id/tv_booksession"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Book Session"
+                                    android:textColor="@android:color/white"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -458,7 +458,7 @@
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
-                <include layout="@layout/horizontal_view" />
+                    <include layout="@layout/horizontal_view" />
 
                 </LinearLayout>
 
@@ -481,39 +481,39 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/live_lyt"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:id="@+id/live_lyt"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/Cat_live"
-                            android:visibility="visible"
-                            android:layout_margin="5dp"
-                            android:text="Live"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/holo_red_dark"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
+                            <TextView
+                                android:id="@+id/Cat_live"
+                                android:visibility="visible"
+                                android:layout_margin="5dp"
+                                android:text="Live"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/holo_red_dark"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/yt_recycler_view_live"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible" />
 
                     </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/yt_recycler_view_live"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible" />
-
-                </LinearLayout>
 
                 </LinearLayout>
 
@@ -1428,7 +1428,7 @@
 
 
 
-           <!-- Old Code -->
+            <!-- Old Code -->
             <LinearLayout
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -1436,746 +1436,746 @@
                 android:orientation="vertical">
 
 
-<!--                &lt;!&ndash;cat_Live&ndash;&gt;-->
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/live_lyt"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                &lt;!&ndash;cat_Live&ndash;&gt;-->
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/live_lyt"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:layout_marginBottom="3dp">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_live"-->
-<!--                            android:visibility="visible"-->
-<!--                            android:text="Live"-->
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/holo_red_dark"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
-
-
-<!--                    </LinearLayout>-->
-
-<!--                        <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/yt_recycler_view_live"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:visibility="visible" />-->
-<!--                </LinearLayout>-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_live"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            android:text="Live"-->
+                <!--                            android:textSize="22sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/holo_red_dark"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
 
-<!--                &lt;!&ndash;cat_1&ndash;&gt;-->
-<!--                <LinearLayout-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
+                <!--                        <androidx.recyclerview.widget.RecyclerView-->
+                <!--                            android:id="@+id/yt_recycler_view_live"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:visibility="visible" />-->
+                <!--                </LinearLayout>-->
 
-<!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_1"-->
-<!--                            android:visibility="visible"-->
-<!--                            android:text="Ongoing courses"-->
-<!--                            android:textSize="17sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/black"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                &lt;!&ndash;cat_1&ndash;&gt;-->
+                <!--                <LinearLayout-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                        <Button-->
-<!--                            android:onClick="onSeeAllClick"-->
-<!--                            android:id="@+id/see_all_cat1"-->
-<!--                            android:padding="2dp"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:text="See All"-->
-<!--                            android:textAllCaps="false"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
 
-<!--                    </LinearLayout>-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_1"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            android:text="Ongoing courses"-->
+                <!--                            android:textSize="17sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/black"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                        <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/yt_recycler_view_one"-->
+                <!--                        <Button-->
+                <!--                            android:onClick="onSeeAllClick"-->
+                <!--                            android:id="@+id/see_all_cat1"-->
+                <!--                            android:padding="2dp"-->
+                <!--                            android:textSize="16sp"-->
+                <!--                            android:text="See All"-->
+                <!--                            android:textAllCaps="false"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:visibility="visible"-->
-<!--                            />-->
-<!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
-<!--                            android:id="@+id/shimmer_view_container_cat_1"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_width="match_parent" />-->
-<!--                        <include-->
-<!--                            android:id="@+id/comingSoonCat_1"-->
-<!--                            layout="@layout/coming_soon_lyt"/>-->
+                <!--                    </LinearLayout>-->
 
-<!--                    </RelativeLayout>-->
-<!--                </LinearLayout>-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
+
+                <!--                        <androidx.recyclerview.widget.RecyclerView-->
+                <!--                            android:id="@+id/yt_recycler_view_one"-->
+
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            />-->
+                <!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
+                <!--                            android:id="@+id/shimmer_view_container_cat_1"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_width="match_parent" />-->
+                <!--                        <include-->
+                <!--                            android:id="@+id/comingSoonCat_1"-->
+                <!--                            layout="@layout/coming_soon_lyt"/>-->
+
+                <!--                    </RelativeLayout>-->
+                <!--                </LinearLayout>-->
 
 
 
                 <!--cat_2-->
-<!--                <LinearLayout-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                <LinearLayout-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:layout_marginBottom="3dp">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_2"-->
-<!--                            android:visibility="visible"-->
-<!--                            android:text="Ongoing courses"-->
-<!--                            android:textSize="17sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/black"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_2"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            android:text="Ongoing courses"-->
+                <!--                            android:textSize="17sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/black"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--&lt;!&ndash;                        <Button&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:onClick="onSeeAllClick"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:id="@+id/see_all_cat2"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:padding="2dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:textSize="16sp"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:text="See All"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:textAllCaps="false"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                            android:layout_height="wrap_content"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <Button&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:onClick="onSeeAllClick"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:id="@+id/see_all_cat2"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:padding="2dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:textSize="16sp"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:text="See All"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:textAllCaps="false"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;                            android:layout_height="wrap_content"/>&ndash;&gt;-->
 
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/see_all_cat2"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:textSize="15sp"-->
-<!--                            android:layout_gravity="center_vertical"-->
-<!--                            android:text="View More"-->
-<!--                            android:onClick="onSeeAllClick"-->
-<!--                            android:background="@drawable/signup_login_btn_bg"-->
-<!--                            android:padding="4dp"-->
-<!--                            android:textColor="@color/colorPrimary"/>-->
-<!--                        -->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/see_all_cat2"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:textSize="15sp"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:text="View More"-->
+                <!--                            android:onClick="onSeeAllClick"-->
+                <!--                            android:background="@drawable/signup_login_btn_bg"-->
+                <!--                            android:padding="4dp"-->
+                <!--                            android:textColor="@color/colorPrimary"/>-->
+                <!--                        -->
 
-<!--                    </LinearLayout>-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
 
-<!--                        <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/yt_recycler_view_two"-->
+                <!--                        <androidx.recyclerview.widget.RecyclerView-->
+                <!--                            android:id="@+id/yt_recycler_view_two"-->
 
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:visibility="visible"-->
-<!--                            />-->
-<!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
-<!--                            android:id="@+id/shimmer_view_container_cat_2"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_width="match_parent" />-->
-<!--                        <include-->
-<!--                            android:id="@+id/comingSoonCat_2"-->
-<!--                            layout="@layout/coming_soon_lyt"/>-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            />-->
+                <!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
+                <!--                            android:id="@+id/shimmer_view_container_cat_2"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_width="match_parent" />-->
+                <!--                        <include-->
+                <!--                            android:id="@+id/comingSoonCat_2"-->
+                <!--                            layout="@layout/coming_soon_lyt"/>-->
 
-<!--                    </RelativeLayout>-->
-<!--                </LinearLayout>-->
+                <!--                    </RelativeLayout>-->
+                <!--                </LinearLayout>-->
 
 
 
 
 
                 <!--cat_test-->
-<!--                <LinearLayout-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                <LinearLayout-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
 
-<!--                        android:layout_marginBottom="3dp">-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_test"                            android:visibility="visible"-->
-<!--                            android:text="Ongoing courses"-->
-<!--                            android:textSize="17sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/black"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_test"                            android:visibility="visible"-->
+                <!--                            android:text="Ongoing courses"-->
+                <!--                            android:textSize="17sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/black"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                        <Button-->
-<!--                            android:onClick="onSeeAllClick"-->
-<!--                            android:id="@+id/see_all_cat_test"-->
-<!--                            android:padding="2dp"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:text="See All"-->
-<!--                            android:textAllCaps="false"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <Button-->
+                <!--                            android:onClick="onSeeAllClick"-->
+                <!--                            android:id="@+id/see_all_cat_test"-->
+                <!--                            android:padding="2dp"-->
+                <!--                            android:textSize="16sp"-->
+                <!--                            android:text="See All"-->
+                <!--                            android:textAllCaps="false"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                    </LinearLayout>-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
 
-<!--                        <HorizontalScrollView-->
-<!--                            android:id="@+id/horizontalScrollView"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginLeft="2dp"-->
-<!--                            android:layout_marginRight="2dp"-->
-<!--                            android:layout_marginTop="8dp"-->
-<!--                            android:scrollbars="none">-->
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:background="#00000000"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                >-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:background="#00000000"-->
-<!--                                    android:orientation="vertical">-->
+                <!--                        <HorizontalScrollView-->
+                <!--                            android:id="@+id/horizontalScrollView"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_marginLeft="2dp"-->
+                <!--                            android:layout_marginRight="2dp"-->
+                <!--                            android:layout_marginTop="8dp"-->
+                <!--                            android:scrollbars="none">-->
+                <!--                            <LinearLayout-->
+                <!--                                android:layout_width="wrap_content"-->
+                <!--                                android:layout_height="wrap_content"-->
+                <!--                                android:background="#00000000"-->
+                <!--                                android:orientation="horizontal"-->
+                <!--                                >-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:background="#00000000"-->
+                <!--                                    android:orientation="vertical">-->
 
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/tests"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_ideal_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/tests"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_ideal_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/ideal_test" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/ideal_test" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Ideal Career Test"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Ideal Career Test"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="20dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Provides you 12 pages of Psychometric \n report."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="20dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Provides you 12 pages of Psychometric \n report."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
 
-<!--                                        </LinearLayout>-->
+                <!--                                        </LinearLayout>-->
 
 
-<!--                                    </androidx.cardview.widget.CardView>-->
+                <!--                                    </androidx.cardview.widget.CardView>-->
 
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:background="#00000000"-->
-<!--                                    android:layout_marginLeft="5dp"-->
-<!--                                    android:orientation="vertical">-->
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                </LinearLayout>-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:background="#00000000"-->
+                <!--                                    android:layout_marginLeft="5dp"-->
+                <!--                                    android:orientation="vertical">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/stream_selector"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_professional_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/stream_selector"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_professional_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/professional_test" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/professional_test" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Professional \nSkill Index Test"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Professional \nSkill Index Test"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="40dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Know your Professional Skill Index!\n And train your way to a brighter career."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="40dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Know your Professional Skill Index!\n And train your way to a brighter career."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="30dp"-->
-<!--                                                android:background="@drawable/round_background_professional_button"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Coming Soon"-->
-<!--                                                android:textColor="#fff"-->
-<!--                                                android:textSize="12sp"/>-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="match_parent"-->
+                <!--                                                android:layout_height="30dp"-->
+                <!--                                                android:background="@drawable/round_background_professional_button"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Coming Soon"-->
+                <!--                                                android:textColor="#fff"-->
+                <!--                                                android:textSize="12sp"/>-->
 
-<!--                                            <Button-->
-<!--                                                android:id="@+id/see_all_cat_blogs"-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:background="@android:color/transparent"-->
-<!--                                                android:onClick="onSeeAllClick"-->
-<!--                                                android:padding="2dp"-->
-<!--                                                android:text="See All"-->
-<!--                                                android:textAllCaps="false"-->
-<!--                                                android:textColor="@color/app_blue"-->
-<!--                                                android:textSize="16sp" />-->
-<!--                                        </LinearLayout>-->
+                <!--                                            <Button-->
+                <!--                                                android:id="@+id/see_all_cat_blogs"-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:background="@android:color/transparent"-->
+                <!--                                                android:onClick="onSeeAllClick"-->
+                <!--                                                android:padding="2dp"-->
+                <!--                                                android:text="See All"-->
+                <!--                                                android:textAllCaps="false"-->
+                <!--                                                android:textColor="@color/app_blue"-->
+                <!--                                                android:textSize="16sp" />-->
+                <!--                                        </LinearLayout>-->
 
-<!--                                    </androidx.cardview.widget.CardView>-->
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="5dp"-->
-<!--                                    android:orientation="vertical">-->
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                    </androidx.cardview.widget.CardView>-->
+                <!--                                </LinearLayout>-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_marginStart="5dp"-->
+                <!--                                    android:orientation="vertical">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/ideal_career2"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_humanities_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/ideal_career2"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_humanities_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/humanities_test" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/humanities_test" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Humanities\n Career Selector Test"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Humanities\n Career Selector Test"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="40dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Know your Humanities best career option\n And train your way to a brighter career."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
-<!--                                            <TextView-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="30dp"-->
-<!--                                                android:background="@drawable/round_background_humanites_button"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Coming Soon"-->
-<!--                                                android:textColor="#fff"-->
-<!--                                                android:textSize="12sp"/>-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="40dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Know your Humanities best career option\n And train your way to a brighter career."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="match_parent"-->
+                <!--                                                android:layout_height="30dp"-->
+                <!--                                                android:background="@drawable/round_background_humanites_button"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Coming Soon"-->
+                <!--                                                android:textColor="#fff"-->
+                <!--                                                android:textSize="12sp"/>-->
 
-<!--                                        </LinearLayout>-->
+                <!--                                        </LinearLayout>-->
 
-<!--                                    </androidx.cardview.widget.CardView>-->
+                <!--                                    </androidx.cardview.widget.CardView>-->
 
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginLeft="5dp"-->
-<!--                                    android:orientation="vertical">-->
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                </LinearLayout>-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_marginLeft="5dp"-->
+                <!--                                    android:orientation="vertical">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/ideal_career3"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_stream_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/ideal_career3"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_stream_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/stream_selector" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/stream_selector" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Stream Selector\n Test"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Stream Selector\n Test"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="40dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Provides you 4 pages of Psychometric report."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="40dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Provides you 4 pages of Psychometric report."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="30dp"-->
-<!--                                                android:background="@drawable/round_background_stream_button"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Coming Soon"-->
-<!--                                                android:paddingBottom="5dp"-->
-<!--                                                android:textColor="#fff"-->
-<!--                                                android:textSize="12sp"/>-->
-<!--                                        </LinearLayout>-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="match_parent"-->
+                <!--                                                android:layout_height="30dp"-->
+                <!--                                                android:background="@drawable/round_background_stream_button"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Coming Soon"-->
+                <!--                                                android:paddingBottom="5dp"-->
+                <!--                                                android:textColor="#fff"-->
+                <!--                                                android:textSize="12sp"/>-->
+                <!--                                        </LinearLayout>-->
 
-<!--                                    </androidx.cardview.widget.CardView></LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginLeft="5dp"-->
-<!--                                    android:orientation="vertical">-->
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                    </androidx.cardview.widget.CardView></LinearLayout>-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_marginLeft="5dp"-->
+                <!--                                    android:orientation="vertical">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/ideal_career4"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_commerce_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/ideal_career4"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_commerce_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/commerce_test" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/commerce_test" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Commerce Career\n Test"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Commerce Career\n Test"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="40dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Know your Commerce Best Career Option!\n And train your way to a brighter career."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="40dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Know your Commerce Best Career Option!\n And train your way to a brighter career."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="30dp"-->
-<!--                                                android:background="@drawable/round_background_commerce_button"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Coming Soon"-->
-<!--                                                android:paddingBottom="5dp"-->
-<!--                                                android:textColor="#fff"-->
-<!--                                                android:textSize="12sp"/>-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="match_parent"-->
+                <!--                                                android:layout_height="30dp"-->
+                <!--                                                android:background="@drawable/round_background_commerce_button"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Coming Soon"-->
+                <!--                                                android:paddingBottom="5dp"-->
+                <!--                                                android:textColor="#fff"-->
+                <!--                                                android:textSize="12sp"/>-->
 
-<!--                                        </LinearLayout>-->
+                <!--                                        </LinearLayout>-->
 
-<!--                                    </androidx.cardview.widget.CardView>-->
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginLeft="5dp"-->
-<!--                                    android:orientation="vertical">-->
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                    </androidx.cardview.widget.CardView>-->
+                <!--                                </LinearLayout>-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_marginLeft="5dp"-->
+                <!--                                    android:orientation="vertical">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/ideal_career5"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_engineering_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/ideal_career5"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_engineering_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/engineering_test" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/engineering_test" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Engineering \nBranch Selector Test"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Engineering \nBranch Selector Test"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="40dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="The best way to select your engineering\n branch. Discover it today."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="40dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="The best way to select your engineering\n branch. Discover it today."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="30dp"-->
-<!--                                                android:background="@drawable/round_background_engineering_button"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Coming Soon"-->
-<!--                                                android:paddingBottom="5dp"-->
-<!--                                                android:textColor="#fff"-->
-<!--                                                android:textSize="12sp"/>-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="match_parent"-->
+                <!--                                                android:layout_height="30dp"-->
+                <!--                                                android:background="@drawable/round_background_engineering_button"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Coming Soon"-->
+                <!--                                                android:paddingBottom="5dp"-->
+                <!--                                                android:textColor="#fff"-->
+                <!--                                                android:textSize="12sp"/>-->
 
-<!--                                        </LinearLayout>-->
+                <!--                                        </LinearLayout>-->
 
-<!--                                    </androidx.cardview.widget.CardView>-->
+                <!--                                    </androidx.cardview.widget.CardView>-->
 
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginLeft="5dp"-->
-<!--                                    android:orientation="vertical">-->
-<!--                                    <androidx.cardview.widget.CardView-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:layout_marginStart="10dp"-->
-<!--                                        app:cardCornerRadius="5dp"-->
-<!--                                        app:cardElevation="0dp">-->
+                <!--                                </LinearLayout>-->
+                <!--                                <LinearLayout-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_marginLeft="5dp"-->
+                <!--                                    android:orientation="vertical">-->
+                <!--                                    <androidx.cardview.widget.CardView-->
+                <!--                                        android:layout_width="wrap_content"-->
+                <!--                                        android:layout_height="match_parent"-->
+                <!--                                        android:layout_marginStart="10dp"-->
+                <!--                                        app:cardCornerRadius="5dp"-->
+                <!--                                        app:cardElevation="0dp">-->
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/skill_career"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="250dp"-->
-<!--                                            android:background="@drawable/round_background_skillbased_up"-->
-<!--                                            android:gravity="center"-->
-<!--                                            android:orientation="vertical">-->
+                <!--                                        <LinearLayout-->
+                <!--                                            android:id="@+id/skill_career"-->
+                <!--                                            android:layout_width="match_parent"-->
+                <!--                                            android:layout_height="250dp"-->
+                <!--                                            android:background="@drawable/round_background_skillbased_up"-->
+                <!--                                            android:gravity="center"-->
+                <!--                                            android:orientation="vertical">-->
 
-<!--                                            <ImageView-->
-<!--                                                android:layout_width="70dp"-->
-<!--                                                android:layout_height="70dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:src="@drawable/skill_based_test" />-->
+                <!--                                            <ImageView-->
+                <!--                                                android:layout_width="70dp"-->
+                <!--                                                android:layout_height="70dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:src="@drawable/skill_based_test" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="25dp"-->
-<!--                                                android:layout_marginTop="20dp"-->
-<!--                                                android:layout_marginRight="25dp"-->
-<!--                                                android:text="Skill \nBased Career Test"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="18sp"-->
-<!--                                                android:textStyle="bold" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="25dp"-->
+                <!--                                                android:layout_marginTop="20dp"-->
+                <!--                                                android:layout_marginRight="25dp"-->
+                <!--                                                android:text="Skill \nBased Career Test"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="18sp"-->
+                <!--                                                android:textStyle="bold" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_marginLeft="45dp"-->
-<!--                                                android:layout_marginTop="10dp"-->
-<!--                                                android:layout_marginRight="45dp"-->
-<!--                                                android:layout_marginBottom="40dp"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="The best way to select your engineering\n branch. Discover it today."-->
-<!--                                                android:textColor="#000"-->
-<!--                                                android:textSize="10sp" />-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="wrap_content"-->
+                <!--                                                android:layout_height="wrap_content"-->
+                <!--                                                android:layout_marginLeft="45dp"-->
+                <!--                                                android:layout_marginTop="10dp"-->
+                <!--                                                android:layout_marginRight="45dp"-->
+                <!--                                                android:layout_marginBottom="40dp"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="The best way to select your engineering\n branch. Discover it today."-->
+                <!--                                                android:textColor="#000"-->
+                <!--                                                android:textSize="10sp" />-->
 
-<!--                                            <TextView-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="30dp"-->
-<!--                                                android:background="@drawable/round_background_skillbased_button"-->
-<!--                                                android:gravity="center"-->
-<!--                                                android:text="Coming Soon"-->
-<!--                                                android:paddingBottom="5dp"-->
-<!--                                                android:textColor="#fff"-->
-<!--                                                android:textSize="12sp"/>-->
+                <!--                                            <TextView-->
+                <!--                                                android:layout_width="match_parent"-->
+                <!--                                                android:layout_height="30dp"-->
+                <!--                                                android:background="@drawable/round_background_skillbased_button"-->
+                <!--                                                android:gravity="center"-->
+                <!--                                                android:text="Coming Soon"-->
+                <!--                                                android:paddingBottom="5dp"-->
+                <!--                                                android:textColor="#fff"-->
+                <!--                                                android:textSize="12sp"/>-->
 
-<!--                                        </LinearLayout>-->
+                <!--                                        </LinearLayout>-->
 
-<!--                                    </androidx.cardview.widget.CardView>-->
+                <!--                                    </androidx.cardview.widget.CardView>-->
 
-<!--                                </LinearLayout>-->
-<!--                            </LinearLayout>-->
-<!--                        </HorizontalScrollView>-->
+                <!--                                </LinearLayout>-->
+                <!--                            </LinearLayout>-->
+                <!--                        </HorizontalScrollView>-->
 
-<!--                    </RelativeLayout>-->
-<!--                </LinearLayout>-->
+                <!--                    </RelativeLayout>-->
+                <!--                </LinearLayout>-->
 
 
 
 
                 <!--cat_Blog-->
-<!--                <LinearLayout-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                <LinearLayout-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
 
-<!--                        android:layout_marginBottom="3dp">-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_Blog"-->
-<!--                            android:visibility="visible"-->
-<!--                            android:text="Ongoing courses"-->
-<!--                            android:textSize="17sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/black"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_Blog"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            android:text="Ongoing courses"-->
+                <!--                            android:textSize="17sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/black"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                    </LinearLayout>-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
 
-<!--                        <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/yt_recycler_view_Blog"-->
-<!--                            android:layout_marginBottom="8dp"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:visibility="visible"-->
-<!--                            />-->
-<!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
-<!--                            android:id="@+id/shimmer_view_container_cat_Blog"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_width="match_parent" />-->
-<!--                        <include-->
-<!--                            android:id="@+id/comingSoonCat_Blog"-->
-<!--                            layout="@layout/coming_soon_lyt"/>-->
+                <!--                        <androidx.recyclerview.widget.RecyclerView-->
+                <!--                            android:id="@+id/yt_recycler_view_Blog"-->
+                <!--                            android:layout_marginBottom="8dp"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            />-->
+                <!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
+                <!--                            android:id="@+id/shimmer_view_container_cat_Blog"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_width="match_parent" />-->
+                <!--                        <include-->
+                <!--                            android:id="@+id/comingSoonCat_Blog"-->
+                <!--                            layout="@layout/coming_soon_lyt"/>-->
 
-<!--                    </RelativeLayout>-->
-<!--                </LinearLayout>-->
+                <!--                    </RelativeLayout>-->
+                <!--                </LinearLayout>-->
 
 
 
@@ -2236,7 +2236,7 @@
                             android:id="@+id/comingSoonCat_3"
                             layout="@layout/coming_soon_lyt"/>
 
-                </RelativeLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
 
@@ -2555,123 +2555,123 @@
 
 
                 <!--cat_9-->
-<!--                <LinearLayout-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                <LinearLayout-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:layout_marginBottom="3dp">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_9"-->
-<!--                            android:visibility="visible"-->
-<!--                            android:text="Ongoing courses"-->
-<!--                            android:textSize="17sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/black"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_9"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            android:text="Ongoing courses"-->
+                <!--                            android:textSize="17sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/black"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                        <Button-->
-<!--                            android:onClick="onSeeAllClick"-->
-<!--                            android:id="@+id/see_all_cat9"-->
-<!--                            android:padding="2dp"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:text="See All"-->
-<!--                            android:textAllCaps="false"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <Button-->
+                <!--                            android:onClick="onSeeAllClick"-->
+                <!--                            android:id="@+id/see_all_cat9"-->
+                <!--                            android:padding="2dp"-->
+                <!--                            android:textSize="16sp"-->
+                <!--                            android:text="See All"-->
+                <!--                            android:textAllCaps="false"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                    </LinearLayout>-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
 
-<!--                        <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/yt_recycler_view_WORKING"-->
-<!--                            android:layout_marginBottom="8dp"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:visibility="visible"-->
-<!--                            />-->
-<!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
-<!--                            android:id="@+id/shimmer_view_container_cat_9"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_width="match_parent" />-->
-<!--                        <include-->
-<!--                            android:id="@+id/comingSoonCat_9"-->
-<!--                            layout="@layout/coming_soon_lyt"/>-->
+                <!--                        <androidx.recyclerview.widget.RecyclerView-->
+                <!--                            android:id="@+id/yt_recycler_view_WORKING"-->
+                <!--                            android:layout_marginBottom="8dp"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            />-->
+                <!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
+                <!--                            android:id="@+id/shimmer_view_container_cat_9"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_width="match_parent" />-->
+                <!--                        <include-->
+                <!--                            android:id="@+id/comingSoonCat_9"-->
+                <!--                            layout="@layout/coming_soon_lyt"/>-->
 
-<!--                    </RelativeLayout>-->
-<!--                </LinearLayout>-->
+                <!--                    </RelativeLayout>-->
+                <!--                </LinearLayout>-->
 
 
                 <!--cat_10-->
-<!--                <LinearLayout-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <!--                <LinearLayout-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:layout_marginBottom="3dp">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:layout_marginBottom="3dp">-->
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/Cat_10"-->
-<!--                            android:visibility="visible"-->
-<!--                            android:text="Ongoing courses"-->
-<!--                            android:textSize="17sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:textColor="@android:color/black"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/Cat_10"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            android:text="Ongoing courses"-->
+                <!--                            android:textSize="17sp"-->
+                <!--                            android:textStyle="bold"-->
+                <!--                            android:textColor="@android:color/black"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                        <Button-->
-<!--                            android:onClick="onSeeAllClick"-->
-<!--                            android:id="@+id/see_all_cat10"-->
-<!--                            android:padding="2dp"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:text="See All"-->
-<!--                            android:textAllCaps="false"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"/>-->
+                <!--                        <Button-->
+                <!--                            android:onClick="onSeeAllClick"-->
+                <!--                            android:id="@+id/see_all_cat10"-->
+                <!--                            android:padding="2dp"-->
+                <!--                            android:textSize="16sp"-->
+                <!--                            android:text="See All"-->
+                <!--                            android:textAllCaps="false"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"/>-->
 
-<!--                    </LinearLayout>-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
 
-<!--                        <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/yt_recycler_view_three"-->
-<!--                            android:layout_marginBottom="8dp"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:visibility="visible"-->
-<!--                            />-->
-<!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
-<!--                            android:id="@+id/shimmer_view_container_cat_10"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_width="match_parent" />-->
-<!--                        <include-->
-<!--                            android:id="@+id/comingSoonCat_10"-->
-<!--                            layout="@layout/coming_soon_lyt"/>-->
+                <!--                        <androidx.recyclerview.widget.RecyclerView-->
+                <!--                            android:id="@+id/yt_recycler_view_three"-->
+                <!--                            android:layout_marginBottom="8dp"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:visibility="visible"-->
+                <!--                            />-->
+                <!--                        <include layout="@layout/shimmer_cgpaylist_single_category_loading"-->
+                <!--                            android:id="@+id/shimmer_view_container_cat_10"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_width="match_parent" />-->
+                <!--                        <include-->
+                <!--                            android:id="@+id/comingSoonCat_10"-->
+                <!--                            layout="@layout/coming_soon_lyt"/>-->
 
-<!--                    </RelativeLayout>-->
-<!--                </LinearLayout>-->
+                <!--                    </RelativeLayout>-->
+                <!--                </LinearLayout>-->
 
 
                 <!--Counsellors Profile-->
@@ -2732,4 +2732,4 @@
     </androidx.core.widget.NestedScrollView>
 
 
-    </LinearLayout>
+</LinearLayout>

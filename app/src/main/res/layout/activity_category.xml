@@ -11,7 +11,22 @@
         android:id="@+id/id_toolbar"
         style="@style/m_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="?attr/actionBarSize" >
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end">
+            <ImageView
+                android:id="@+id/blog_share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_share"
+               />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

@@ -704,6 +704,36 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
             @Override
             public void onResponse(String response) {
                 Log.e("setdata", response);
+
+
+                StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("updatesetdata", response);
+                    }
+                }, new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                        Log.e("rewards_error","error");
+
+                    }
+                })
+                {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String,String> params = new HashMap<>();
+                        params.put("user_id",id);
+                        params.put("rewards_point", "0");
+                        params.put("reward_number", "0");
+                        params.put("name", name);
+                        Log.e("request",params.toString());
+                        return params;
+                    }
+                };
+                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
             }
         }, new Response.ErrorListener()
         {
@@ -712,7 +742,6 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
 
                 Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
                 Log.e("rewards_error","error");
-
             }
         })
         {
@@ -730,34 +759,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
 
 
-        StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "UpdateRewards", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("updatesetdata", response);
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                Log.e("rewards_error","error");
-
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("user_id",id);
-                params.put("rewards_point", "0");
-                params.put("reward_number", "0");
-                params.put("name", name);
-                Log.e("request",params.toString());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest1);
     }
 
 

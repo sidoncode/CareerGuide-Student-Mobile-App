@@ -55,6 +55,7 @@ public class CatDetailAdapter extends RecyclerView.Adapter<CatDetailAdapter.View
         holder.lay_cv.setOnClickListener(v -> {
             intent = new Intent(ctx, CategoryActivity.class);
             intent.putExtra("data", new Gson().toJson(categoryDetails.get(position)));
+            intent.putExtra("pos", position);
             ctx.startActivity(intent);
         });
     }

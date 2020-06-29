@@ -1,13 +1,16 @@
 package com.careerguide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -139,6 +142,29 @@ public class RewardLBFragment extends Fragment {
             }
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest1);
+
+        Button refapp=view.findViewById(R.id.refapp);
+        Button art=view.findViewById(R.id.shareart);
+        //Button blog=view.findViewById(R.id.shareblog);
+        refapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Refer_a_friend.class));
+            }
+        });
+        art.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), HomeActivity.class).putExtra("RLB","art"));
+            }
+        });
+        /*blog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), HomeActivity.class).putExtra("RLB","blog"));
+            }
+        });*/
+
 
         setUpCardView();
         return view;
@@ -288,7 +314,6 @@ public class RewardLBFragment extends Fragment {
             arrowLB.setImageResource(R.mipmap.ic_expand_new);
             arrowRewards.setImageResource(R.mipmap.ic_expand_new);
         });
-
         lbRL.setOnClickListener(v -> {
             if (LBDetails.getVisibility() == View.VISIBLE) {
                 LBDetails.setVisibility(View.GONE);
