@@ -45,4 +45,7 @@
     <color name="yellow">#FDD835</color>
 
     <color name="deep_pink">#FF1493</color>
+    <color name="first_leader">#92A3FF</color>
+    <color name="dark_blue">#4285F4</color>
+
 </resources>

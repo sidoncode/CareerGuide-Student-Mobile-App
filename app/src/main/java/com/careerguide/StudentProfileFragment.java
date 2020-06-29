@@ -180,21 +180,21 @@ public class StudentProfileFragment extends Fragment {
             if (personalDetails.getVisibility() == View.VISIBLE)
             {
                 personalDetails.setVisibility(View.GONE);
-                arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+                arrowPersonalImageView.setImageResource(R.mipmap.ic_expand_new);
             }
             else
             {
                 personalDetails.setVisibility(View.VISIBLE);
-                arrowPersonalImageView.setImageResource(R.drawable.ic_collapse);
+                arrowPersonalImageView.setImageResource(R.mipmap.ic_collapse_new);
             }
             eduDetails.setVisibility(View.GONE);
             accDetails.setVisibility(View.GONE);
             paymentDetails.setVisibility(View.GONE);
             //rewardDetails.setVisibility(View.GONE);
 
-            arrowEduImageView.setImageResource(R.drawable.ic_expand);
-            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
-            arrowpayment.setImageResource(R.drawable.ic_expand);
+            arrowEduImageView.setImageResource(R.mipmap.ic_expand_new);
+            arrowAccountImageView.setImageResource(R.mipmap.ic_expand_new);
+            arrowpayment.setImageResource(R.mipmap.ic_expand_new);
             //arrowRewards.setImageResource(R.drawable.ic_expand);
         });
 
@@ -203,21 +203,21 @@ public class StudentProfileFragment extends Fragment {
             if (paymentDetails.getVisibility() == View.VISIBLE)
             {
                 paymentDetails.setVisibility(View.GONE);
-                arrowpayment.setImageResource(R.drawable.ic_expand);
+                arrowpayment.setImageResource(R.mipmap.ic_expand_new);
             }
             else
             {
                 paymentDetails.setVisibility(View.VISIBLE);
-                arrowpayment.setImageResource(R.drawable.ic_collapse);
+                arrowpayment.setImageResource(R.mipmap.ic_collapse_new);
             }
             eduDetails.setVisibility(View.GONE);
             accDetails.setVisibility(View.GONE);
             personalDetails.setVisibility(View.GONE);
             //rewardDetails.setVisibility(View.GONE);
 
-            arrowEduImageView.setImageResource(R.drawable.ic_expand);
-            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
-            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+            arrowEduImageView.setImageResource(R.mipmap.ic_expand_new);
+            arrowAccountImageView.setImageResource(R.mipmap.ic_expand_new);
+            arrowPersonalImageView.setImageResource(R.mipmap.ic_expand_new);
             //arrowRewards.setImageResource(R.drawable.ic_expand);
         });
 
@@ -225,21 +225,21 @@ public class StudentProfileFragment extends Fragment {
             if (eduDetails.getVisibility() == View.VISIBLE)
             {
                 eduDetails.setVisibility(View.GONE);
-                arrowEduImageView.setImageResource(R.drawable.ic_expand);
+                arrowEduImageView.setImageResource(R.mipmap.ic_expand_new);
             }
             else
             {
                 eduDetails.setVisibility(View.VISIBLE);
-                arrowEduImageView.setImageResource(R.drawable.ic_collapse);
+                arrowEduImageView.setImageResource(R.mipmap.ic_collapse_new);
             }
             personalDetails.setVisibility(View.GONE);
             accDetails.setVisibility(View.GONE);
             paymentDetails.setVisibility(View.GONE);
             //rewardDetails.setVisibility(View.GONE);
 
-            arrowAccountImageView.setImageResource(R.drawable.ic_expand);
-            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
-            arrowpayment.setImageResource(R.drawable.ic_expand);
+            arrowAccountImageView.setImageResource(R.mipmap.ic_expand_new);
+            arrowPersonalImageView.setImageResource(R.mipmap.ic_expand_new);
+            arrowpayment.setImageResource(R.mipmap.ic_expand_new);
            // arrowRewards.setImageResource(R.drawable.ic_expand);
         });
 
@@ -247,22 +247,22 @@ public class StudentProfileFragment extends Fragment {
             if (accDetails.getVisibility() == View.VISIBLE)
             {
                 accDetails.setVisibility(View.GONE);
-                arrowAccountImageView.setImageResource(R.drawable.ic_expand);
+                arrowAccountImageView.setImageResource(R.mipmap.ic_expand_new);
             }
             else
             {
                 accDetails.setVisibility(View.VISIBLE);
-                arrowAccountImageView.setImageResource(R.drawable.ic_collapse);
+                arrowAccountImageView.setImageResource(R.mipmap.ic_collapse_new);
             }
             eduDetails.setVisibility(View.GONE);
             personalDetails.setVisibility(View.GONE);
             paymentDetails.setVisibility(View.GONE);
            // rewardDetails.setVisibility(View.GONE);
 
-            arrowEduImageView.setImageResource(R.drawable.ic_expand);
+            arrowEduImageView.setImageResource(R.mipmap.ic_expand_new);
             //arrowRewards.setImageResource(R.drawable.ic_expand);
-            arrowpayment.setImageResource(R.drawable.ic_expand);
-            arrowPersonalImageView.setImageResource(R.drawable.ic_expand);
+            arrowpayment.setImageResource(R.mipmap.ic_expand_new);
+            arrowPersonalImageView.setImageResource(R.mipmap.ic_expand_new);
         });
         /*rewardRL.setOnClickListener(v -> {
             if (rewardDetails.getVisibility() == View.VISIBLE)

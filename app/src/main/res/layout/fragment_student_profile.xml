@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="85dp"
         android:orientation="vertical">
 
 <androidx.cardview.widget.CardView
@@ -29,16 +28,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <de.hdodenhof.circleimageview.CircleImageView
+
+            <ImageView
                 android:id="@+id/personal_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/prof_pers_dtl"/>
+<!--                android:src="@drawable/prof_pers_dtl"/>-->
+
             <TextView
                 android:id="@+id/personal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:text="Personal Details"
                 android:textColor="@color/app_blue"
                 android:layout_centerVertical="true"
@@ -49,12 +51,14 @@
                 android:id="@+id/arrowPersonal"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_expand"
+                android:src="@mipmap/ic_expand_new"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
+
+
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/personalDetails"
@@ -84,10 +88,10 @@
                 <ImageView
                     android:id="@+id/editFName"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:padding="6dp"
-                    android:src="@drawable/ic_edit_pencil"/>
+                    android:src="@mipmap/edit_icon_profile"/>
                 <ImageView
                     android:visibility="gone"
                     android:id="@+id/doneFName"
@@ -126,10 +130,10 @@
                 <ImageView
                     android:id="@+id/editLName"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:padding="6dp"
-                    android:src="@drawable/ic_edit_pencil"/>
+                    android:src="@mipmap/edit_icon_profile"/>
                 <ImageView
                     android:visibility="gone"
                     android:id="@+id/doneLName"
@@ -170,10 +174,10 @@
                 <ImageView
                     android:id="@+id/editDOB"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:padding="6dp"
-                    android:src="@drawable/ic_edit_pencil"/>
+                    android:src="@mipmap/edit_icon_profile"/>
                 <ImageView
                     android:visibility="gone"
                     android:id="@+id/doneDob"
@@ -212,10 +216,10 @@
                 <ImageView
                     android:id="@+id/editLoc"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:padding="6dp"
-                    android:src="@drawable/ic_edit_pencil"/>
+                    android:src="@mipmap/edit_icon_profile"/>
                 <ImageView
                     android:visibility="gone"
                     android:id="@+id/doneLoc"
@@ -279,16 +283,18 @@ android:layout_marginRight="10dp">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
+
+        <ImageView
             android:id="@+id/education_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/prof_edu_dtl"/>
+<!--            android:src="@drawable/prof_edu_dtl"/>-->
         <TextView
             android:id="@+id/education_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:text="Educational Details"
             android:textColor="@color/app_blue"
             android:layout_centerVertical="true"
@@ -299,7 +305,7 @@ android:layout_marginRight="10dp">
             android:id="@+id/arrowEducational"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_expand"
+            android:src="@mipmap/ic_expand_new"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
@@ -361,16 +367,18 @@ android:layout_marginRight="10dp">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
+
+        <ImageView
             android:id="@+id/account_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/prof_acc_dtl"/>
+<!--            android:src="@drawable/prof_acc_dtl"/>-->
         <TextView
             android:id="@+id/account_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:text="Account Details"
             android:textColor="@color/app_blue"
             android:layout_centerVertical="true"
@@ -381,7 +389,7 @@ android:layout_marginRight="10dp">
             android:id="@+id/arrowAccount"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_expand"
+            android:src="@mipmap/ic_expand_new"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
@@ -441,10 +449,10 @@ android:layout_marginRight="10dp">
             <ImageView
                 android:id="@+id/editMob"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:padding="6dp"
-                android:src="@drawable/ic_edit_pencil"/>
+                android:src="@mipmap/edit_icon_profile"/>
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/doneMobile"
@@ -487,16 +495,17 @@ android:layout_marginRight="10dp">
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/payment_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/section_eight" />
+            android:src="@drawable/section_eight"/>
+<!--            android:src="@drawable/section_eight" />-->
         <TextView
             android:id="@+id/payment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:text="Payment Details"
             android:textColor="@color/app_blue"
             android:layout_centerVertical="true"
@@ -507,7 +516,7 @@ android:layout_marginRight="10dp">
             android:id="@+id/arrowpayment"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_expand"
+            android:src="@mipmap/ic_expand_new"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"

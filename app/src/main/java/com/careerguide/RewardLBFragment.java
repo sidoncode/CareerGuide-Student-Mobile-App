@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,17 +15,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.careerguide.adapters.LeaderAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +37,21 @@ public class RewardLBFragment extends Fragment {
     private View view;
     TextView[] un=new TextView[6];
     TextView[] rp=new TextView[6];
+
+
+
+
+    //Leader Board data
+    LeaderAdapter adapter;
+    RecyclerView recyclerView_leaders;
+
+
+    //Reedem Rewards data
+    TextView my_referral_txt_fitness_band,my_referral_txt_speaker,my_referral_txt_tablet,my_referral_txt_mobile;
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +70,17 @@ public class RewardLBFragment extends Fragment {
         rp[3]=view.findViewById(R.id.lbrp4);
         rp[4]=view.findViewById(R.id.lbrp5);
         //rp[5]=view.findViewById(R.id.lbrp);
+
+
+
+
+        //Redeem Rewards Textviews
+        my_referral_txt_fitness_band=view.findViewById(R.id.my_referral_txt_fitness_band);
+        my_referral_txt_speaker=view.findViewById(R.id.my_referral_txt_speaker);
+        my_referral_txt_tablet=view.findViewById(R.id.my_referral_txt_tablet);
+        my_referral_txt_mobile=view.findViewById(R.id.my_referral_txt_mobile);
+
+
 
         //un[5].setText(Utility.get);
         StringRequest stringRequest1=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "fetch_top_rewards", new Response.Listener<String>() {
@@ -109,26 +140,108 @@ public class RewardLBFragment extends Fragment {
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest1);
 
-
-
-
         setUpCardView();
         return view;
     }
 
+
+
+
+    //Setting referrals for Redeem  Rewards part
+    private void setSucessfullReferrals() {
+
+        int referrals=Integer.parseInt(Utility.getNumReferrals(getActivity()));
+        //int referrals=1980;
+
+        if(referrals<100){
+            my_referral_txt_fitness_band.setText(""+referrals);
+            my_referral_txt_fitness_band.setTextColor(getResources().getColor(R.color.red));
+        }else{
+            my_referral_txt_fitness_band.setTextColor(getResources().getColor(R.color.green));
+        }
+
+        if(referrals<500){
+            my_referral_txt_speaker.setText(""+referrals);
+            my_referral_txt_speaker.setTextColor(getResources().getColor(R.color.red));
+        }else{
+            my_referral_txt_speaker.setTextColor(getResources().getColor(R.color.green));
+        }
+
+
+        if(referrals<1000){
+            my_referral_txt_tablet.setText(""+referrals);
+            my_referral_txt_tablet.setTextColor(getResources().getColor(R.color.red));
+        }else{
+            my_referral_txt_tablet.setTextColor(getResources().getColor(R.color.green));
+        }
+
+
+        if(referrals<5000){
+            my_referral_txt_mobile.setText(""+referrals);
+            my_referral_txt_mobile.setTextColor(getResources().getColor(R.color.red));
+        }else{
+            my_referral_txt_mobile.setTextColor(getResources().getColor(R.color.green));
+        }
+    }
+
+
+
+
+
     public void lb(String rew1,String rew2,String rew3,String rew4,String rew5,String user1,String user2,String user3,String user4, String user5)
     {
-        un[0].setText(user1);
-        un[1].setText(user2);
-        un[2].setText(user3);
-        un[3].setText(user4);
-        un[4].setText(user5);
 
-        rp[0].setText(rew1);
-        rp[1].setText(rew2);
-        rp[2].setText(rew3);
-        rp[3].setText(rew4);
-        rp[4].setText(rew5);
+
+
+        //Adding leaderboard data
+        ArrayList<String> rank=new ArrayList<>();
+        ArrayList<String> names=new ArrayList<>();
+        ArrayList<String> points=new ArrayList<>();
+
+
+        rank.add("1");
+        names.add(user1);
+        points.add(rew1);
+
+        rank.add("2");
+        names.add(user2);
+        points.add(rew2);
+
+        rank.add("3");
+        names.add(user3);
+        points.add(rew3);
+
+        rank.add("4");
+        names.add(user4);
+        points.add(rew4);
+
+        rank.add("5");
+        names.add(user5);
+        points.add(rew5);
+
+
+
+        adapter = new LeaderAdapter(getContext(),names,points,rank);
+        recyclerView_leaders=view.findViewById(R.id.recycler_leaders);
+        recyclerView_leaders.setHasFixedSize(true);
+        recyclerView_leaders.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView_leaders.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+
+
+//        un[0].setText(user1);
+//        un[1].setText(user2);
+//        un[2].setText(user3);
+//        un[3].setText(user4);
+//        un[4].setText(user5);
+//
+//        rp[0].setText(rew1);
+//        rp[1].setText(rew2);
+//        rp[2].setText(rew3);
+//        rp[3].setText(rew4);
+//        rp[4].setText(rew5);
     }
 
     private void setUpCardView() {
@@ -149,45 +262,46 @@ public class RewardLBFragment extends Fragment {
         rewardRL.setOnClickListener(v -> {
             if (rewardDetails.getVisibility() == View.VISIBLE) {
                 rewardDetails.setVisibility(View.GONE);
-                arrowRewards.setImageResource(R.drawable.ic_expand);
+                arrowRewards.setImageResource(R.mipmap.ic_expand_new);
             } else {
                 rewardDetails.setVisibility(View.VISIBLE);
-                arrowRewards.setImageResource(R.drawable.ic_collapse);
+                arrowRewards.setImageResource(R.mipmap.ic_collapse_new);
             }
             redeemDetails.setVisibility(View.GONE);
             LBDetails.setVisibility(View.GONE);
 
-            arrowLB.setImageResource(R.drawable.ic_expand);
-            arrowRedeem.setImageResource(R.drawable.ic_expand);
+            arrowLB.setImageResource(R.mipmap.ic_expand_new);
+            arrowRedeem.setImageResource(R.mipmap.ic_expand_new);
         });
+
         redeemRL.setOnClickListener(v -> {
             if (redeemDetails.getVisibility() == View.VISIBLE) {
                 redeemDetails.setVisibility(View.GONE);
-                arrowRedeem.setImageResource(R.drawable.ic_expand);
+                arrowRedeem.setImageResource(R.mipmap.ic_expand_new);
             } else {
                 redeemDetails.setVisibility(View.VISIBLE);
-                arrowRedeem.setImageResource(R.drawable.ic_collapse);
+                arrowRedeem.setImageResource(R.mipmap.ic_collapse_new);
             }
             rewardDetails.setVisibility(View.GONE);
             LBDetails.setVisibility(View.GONE);
 
-            arrowLB.setImageResource(R.drawable.ic_expand);
-            arrowRewards.setImageResource(R.drawable.ic_expand);
+            arrowLB.setImageResource(R.mipmap.ic_expand_new);
+            arrowRewards.setImageResource(R.mipmap.ic_expand_new);
         });
 
         lbRL.setOnClickListener(v -> {
             if (LBDetails.getVisibility() == View.VISIBLE) {
                 LBDetails.setVisibility(View.GONE);
-                arrowLB.setImageResource(R.drawable.ic_expand);
+                arrowLB.setImageResource(R.mipmap.ic_expand_new);
             } else {
                 LBDetails.setVisibility(View.VISIBLE);
-                arrowLB.setImageResource(R.drawable.ic_collapse);
+                arrowLB.setImageResource(R.mipmap.ic_collapse_new);
             }
             rewardDetails.setVisibility(View.GONE);
             redeemDetails.setVisibility(View.GONE);
 
-            arrowRedeem.setImageResource(R.drawable.ic_expand);
-            arrowRewards.setImageResource(R.drawable.ic_expand);
+            arrowRedeem.setImageResource(R.mipmap.ic_expand_new);
+            arrowRewards.setImageResource(R.mipmap.ic_expand_new);
         });
 
         TextView rewtxt = view.findViewById(R.id.rewtxt);
@@ -225,5 +339,10 @@ public class RewardLBFragment extends Fragment {
             tab.setText("0 More Successful Referrals Left to Redeem:");
             mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
         }
+
+
+
+        //Setting referrals for redeem rewards layout
+        setSucessfullReferrals();
     }
 }

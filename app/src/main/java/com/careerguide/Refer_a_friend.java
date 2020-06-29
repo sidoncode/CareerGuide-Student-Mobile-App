@@ -69,8 +69,8 @@ public class Refer_a_friend extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView button1= findViewById(R.id.invite_now_1);
-        TextView button2= findViewById(R.id.reedem_now);
-        TextView button3= findViewById(R.id.invite_now_2);
+        TextView button2= findViewById(R.id.invite_now_2);
+        TextView button3= findViewById(R.id.invite_now_3);
 
         button1.setOnClickListener(view -> {
             share();
@@ -81,13 +81,17 @@ public class Refer_a_friend extends AppCompatActivity {
             startActivity(intent.createChooser(intent, "Share Body"));*/
         });
 
+        button2.setOnClickListener(view -> {
+            share();
+        });
+
         button3.setOnClickListener(view -> {
             share();
         });
 
-        button2.setOnClickListener(view -> {
-            startActivity(new Intent(this,HomeActivity.class).putExtra("refer", 1));
-        });
+//        button2.setOnClickListener(view -> {
+//            startActivity(new Intent(this,HomeActivity.class).putExtra("refer", 1));
+//        });
     }
     public void share() {
         String androidId = Settings.Secure.getString(getContentResolver(),

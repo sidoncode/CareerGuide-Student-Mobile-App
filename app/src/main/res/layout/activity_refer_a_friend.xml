@@ -111,6 +111,7 @@
             android:orientation="vertical"
             android:layout_marginTop="10dp">
 
+            <!-- Invite now -->
             <LinearLayout
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -248,6 +249,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/deep_pink" />
 
+
                 </RelativeLayout>
 
 
@@ -280,6 +282,66 @@
                         android:textColor="@color/deep_pink" />
 
                 </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+
+                <LinearLayout
+                    android:layout_weight=".50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Referrals required "/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textColor="@color/deep_pink"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_weight=".50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Referrals required "/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500"
+                        android:textColor="@color/deep_pink"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
 
 
 
@@ -363,9 +425,68 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+
+                <LinearLayout
+                    android:layout_weight=".50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Referrals required "/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1000"
+                        android:textColor="@color/deep_pink"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_weight=".50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Referrals required "/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5000"
+                        android:textColor="@color/deep_pink"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
             <TextView
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="300dp"
                 android:layout_height="1dp"
                 android:background="@color/grey"
@@ -445,163 +566,6 @@
 
         </LinearLayout>
 
-
-
-        <!-- How to reedem Layout-->
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="How to reedem"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"
-                    android:textSize="30dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Points"
-                    android:textColor="@color/deep_pink"
-                    android:textAlignment="center"
-                    android:textSize="30dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\?"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"
-                    android:textSize="30dp"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-
-
-
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Step 1"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Go to Profile Section"
-                    android:textSize="12dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="textStart"/>
-
-
-                <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Step 2"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Then go to Rewards Section"
-                    android:textSize="12dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"/>
-
-
-
-                <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Step 3"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Now click on Reedem Rewards"
-                    android:textSize="12dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="textStart"/>
-
-
-
-                <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Or"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"/>
-
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Reedem Now"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/reedem_now"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reedem Rewards"
-                    android:padding="5dp"
-                    android:background="@drawable/referal_coins_bg"
-                    android:textSize="20dp"
-                    android:textColor="@color/deep_pink"
-                    android:textAlignment="center"/>
-
-
-
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="@color/grey"
-                    android:layout_marginBottom="5dp"/>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
 
 
         <!--How to earn Layout -->
@@ -745,7 +709,214 @@
 
 
             </LinearLayout>
+
+
+
+
         </LinearLayout>
+
+
+
+        <!-- How to reedem Layout-->
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="How to Get"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:textSize="30dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Prizes"
+                    android:textColor="@color/deep_pink"
+                    android:textAlignment="center"
+                    android:textSize="30dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\?"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:textSize="30dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Step 1"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Go to Profile"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="textStart"/>
+
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Step 2"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Then go to Rewards Section"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"/>
+
+
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Step 3"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Now click on Reedem Rewards"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="textStart"/>
+
+
+
+<!--                <TextView-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Or"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textColor="@color/black"/>-->
+
+
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text=" Reedem Now"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textColor="@color/black"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/reedem_now"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Reedem Rewards"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:background="@drawable/referal_coins_bg"-->
+<!--                    android:textSize="20dp"-->
+<!--                    android:textColor="@color/deep_pink"-->
+<!--                    android:textAlignment="center"/>-->
+
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="@color/grey"
+                    android:layout_marginBottom="5dp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invite friends to CareerGuide"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+
+                <TextView
+                    android:elevation="3dp"
+                    android:id="@+id/invite_now_3"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Invite Now"
+                    android:padding="5dp"
+                    android:background="@drawable/referal_invite_now"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
+
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
 
 <LinearLayout
     android:visibility="gone"
