@@ -137,6 +137,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
     private static TextView locationTextView;
     private static View headerLayout;
 
+    private boolean dataloaded=false;
+
     CGPlayListViewModel viewModelProvider;
 
     ProgressDialog progressDialog;
@@ -263,8 +265,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         viewModelProvider = new ViewModelProvider(HomeActivity.this).get(CGPlayListViewModel.class);
 
         viewModelProvider.setDisplaylistArrayLiveCounsellors(tempCurrentLiveCounsellorsList);
-
-        executeAllTasks();
+        
 
         /*
 
@@ -1574,6 +1575,14 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                             finalList.addAll(tempPostLiveCounsellorsList);
                             viewModelProvider.setDisplaylistArrayLiveCounsellors(finalList);
                         });
+
+                        Log.i("dataloaded",dataloaded+"");
+                        if (!dataloaded){
+                            executeAllTasks();
+                            dataloaded=true;
+                        }
+
+
                         // Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                     } else {
                         Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
