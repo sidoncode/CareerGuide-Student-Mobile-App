@@ -31,6 +31,7 @@ import com.careerguide.adapters.LeaderAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -143,8 +144,8 @@ public class RewardLBFragment extends Fragment {
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest1);
 
-        Button refapp=view.findViewById(R.id.refapp);
-        Button art=view.findViewById(R.id.shareart);
+        TextView refapp=view.findViewById(R.id.refapp);
+        TextView art=view.findViewById(R.id.shareart);
         //Button blog=view.findViewById(R.id.shareblog);
         refapp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +159,7 @@ public class RewardLBFragment extends Fragment {
                 startActivity(new Intent(getActivity(), HomeActivity.class).putExtra("RLB","art"));
             }
         });
+
         /*blog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
