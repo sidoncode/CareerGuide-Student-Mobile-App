@@ -92,8 +92,6 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     @Override
     public void onCompletedForm() {
 
-        createDynamicLink("-1");
-
     }
 
     @Override
@@ -239,6 +237,22 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                             StrictMode.setVmPolicy(builder.build());
 
                             setDeepLink(shortLink+"");
+                            if (!booking_id.contentEquals("-1")){
+
+                                String[] params={booking_id,shortLink.toString()};
+                                new TaskUpdateDeeplink().execute(params);
+
+
+                                ((NewOneToOneRegisteration)activity).runOnUiThread(()->{
+                                    ClipboardManager clipboard = (ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
+                                    ClipData clip = ClipData.newPlainText("Session Link", getDeepLink());
+                                    clipboard.setPrimaryClip(clip);
+
+                                    Toast.makeText(getApplicationContext(),"Session booked! and copied to clipboard",Toast.LENGTH_SHORT).show();
+                                    finish();
+                                });
+
+                            }
                             new TaskBookSlotBeforePayment().execute();
 
                         } else
@@ -331,6 +345,8 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
                 jsonBody.put("co_id", getHostId());
                 jsonBody.put("student_id", Utility.getUserId(activity));
+                jsonBody.put("student_name", getMenteeName());
+                jsonBody.put("student_email", getMenteeEmail());
                 jsonBody.put("date_booked", getSelectedDate());
                 jsonBody.put("time_slot", getSelectTimeSlot());
                 jsonBody.put("price", getPackageCost());
@@ -338,7 +354,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                 jsonBody.put("confirmed_booking", "0");
                 jsonBody.put("channel_name", getChannelName());
                 jsonBody.put("category", getSelectedCategory());
-                jsonBody.put("deep_link", getDeepLink());
+                //jsonBody.put("deep_link", getDeepLink());
 //com.careerguide I/jsonbodyy: {"co_id":"43","student_id":"13599","date_booked":"Saturday 13 Jun 20","time_slot":"11:15AM","price":"1999","discount_availed":"0","confirmed_booking":"0","channel_name":"rachit@careerguide.com_privatesession_Saturday 13 Jun 20_11:15AM","category":"B.Tech","deek_link":"https:\/\/careerguidelivestream.page.link\/tGw7qVRWCHGQRzQn9"}
 
                 Log.i("jsonbodyy",jsonBody+"");
@@ -351,17 +367,8 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                     Log.i("response->",jsonObject+"");
                     boolean status = jsonObject.optBoolean("status", false);
                     if (status) {
-
                     String booking_id=jsonObject.getString("booking_id");
                     createDynamicLink(booking_id);
-                        ((NewOneToOneRegisteration)activity).runOnUiThread(()->{
-                            ClipboardManager clipboard = (ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
-                            ClipData clip = ClipData.newPlainText("Session Link", getDeepLink());
-                            clipboard.setPrimaryClip(clip);
-
-                            Toast.makeText(getApplicationContext(),"Session booked! and copied to clipboard",Toast.LENGTH_SHORT).show();
-                            finish();
-                        });
 
                     } else {
                         Log.i("sssss","asasas");
@@ -396,6 +403,67 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
 
     }
+
+    private class TaskUpdateDeeplink extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+
+            try {
+
+
+                JSONObject jsonBody = new JSONObject();
+
+                jsonBody.put("booking_id", params[0]);
+                jsonBody.put("deeplink", params[1]);
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneDeepLink.php",jsonBody, response -> {
+
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response+"");
+                        Log.i("response->",jsonObject+"");
+                        boolean status = jsonObject.optBoolean("status", false);
+                        if (status) {
+
+                            Log.i("success message",jsonObject.getString("successMessage"));
+
+                        } else {
+                            Log.i("error"," occured ");
+                            Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
+                        }
+                        //pb_loading.setVisibility(View.GONE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    // pb_loading.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), VoleyErrorHelper.getMessage(error, getApplicationContext()), Toast.LENGTH_LONG).show();
+                    Log.e("all_coun_rerror", "error");
+                    error.printStackTrace();
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
+    }
+
 
 
 

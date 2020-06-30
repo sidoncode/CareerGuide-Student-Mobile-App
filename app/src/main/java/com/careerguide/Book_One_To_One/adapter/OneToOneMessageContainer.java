@@ -50,10 +50,10 @@ public class OneToOneMessageContainer {
 
     public void addMessage(OneToOneChatModel message) {
 
-        mMessageList.add(message);
-
+        mMessageList.add(mMessageList.size(),message);
         ((OneToOneSessionActivity)mRecyclerView.getContext()).runOnUiThread(()->{
             mAdapter.notifyDataSetChanged();
+            mRecyclerView.scrollToPosition(mMessageList.size()-1);
         });
     }
 

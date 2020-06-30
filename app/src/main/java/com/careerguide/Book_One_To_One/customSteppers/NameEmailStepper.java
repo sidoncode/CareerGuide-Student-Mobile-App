@@ -105,9 +105,18 @@ public class NameEmailStepper extends Step<String> {
                     return;
                 }
                 errorCodeCategory=0;
-                getFormView().markOpenStepAsCompleted(true);
                 ((NewOneToOneRegisteration)getContext()).setSelectedCategory(selectedItem);
                 ((NewOneToOneRegisteration)getContext()).batchSlotStepper.updateSlotsForSelectedDate(0);//update so available counselor can be found
+                if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
+                    getFormView().markOpenStepAsCompleted(true);
+                    ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
+                    ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+                    Log.i("menteename",((NewOneToOneRegisteration)getContext()).getMenteeName());
+                    Log.i("menteeemail",((NewOneToOneRegisteration)getContext()).getMenteeEmail());
+
+                }else
+                    getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
+
 
             }
 
@@ -177,9 +186,15 @@ public class NameEmailStepper extends Step<String> {
                     errorCodeName=0;
 
                 if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
+                    ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
+                    ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+                    Log.i("menteename",((NewOneToOneRegisteration)getContext()).getMenteeName());
+                    Log.i("menteeemail",((NewOneToOneRegisteration)getContext()).getMenteeEmail());
                     getFormView().markOpenStepAsCompleted(true);
                 }else
                     getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
+
+
 
             }
 
@@ -212,11 +227,16 @@ public class NameEmailStepper extends Step<String> {
                     errorCodeEmail=0;
 
                 if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
-                    getFormView().markOpenStepAsCompleted(true);
                     ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
                     ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+                    Log.i("menteename",((NewOneToOneRegisteration)getContext()).getMenteeName());
+                    Log.i("menteeemail",((NewOneToOneRegisteration)getContext()).getMenteeEmail());
+                    getFormView().markOpenStepAsCompleted(true);
                 }else
                     getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
+
+
+
 
             }
 

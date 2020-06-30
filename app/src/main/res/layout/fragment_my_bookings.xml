@@ -1,0 +1,30 @@
+<FrameLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Book_One_To_One.fragment.MyBookingsFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_lightest"
+    >
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_bookings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/one_to_one_recycler_view_mybookings"
+                android:clipToPadding="false"
+                android:elevation="1dp"
+                android:layout_marginTop="5dp"
+                android:scrollbars="vertical" />
+
+
+</LinearLayout>
+
+</FrameLayout>

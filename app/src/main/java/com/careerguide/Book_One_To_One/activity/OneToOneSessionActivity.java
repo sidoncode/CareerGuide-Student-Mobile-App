@@ -21,6 +21,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +45,7 @@ import com.careerguide.RtcEngineManager;
 import com.careerguide.RtmClientManager;
 import com.careerguide.RtmEnventCallback;
 import com.careerguide.Utility;
+import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
@@ -198,6 +202,31 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             e.printStackTrace();
                         }
 
+                    }else{
+                        bookingId = getIntent().getStringExtra("booking_id");
+                        channelName = getIntent().getStringExtra("channel_name");
+                        hostFullName = getIntent().getStringExtra("host_name");
+                        hostImage = getIntent().getStringExtra("host_image");
+                        privateUID = getIntent().getStringExtra("privateUID");
+                        privateUserName = getIntent().getStringExtra("privateUserName");
+                        privateSessionDate = getIntent().getStringExtra("privateSessionDate");
+                        privateSessionTime = getIntent().getStringExtra("privateSessionTime");
+
+                        String[] params = {bookingId};
+                        new TaskGetMessageHistory().execute(params);
+                        if (privateUID.contentEquals(Utility.getUserId(activity))){
+                            textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
+
+                                    messageContainer = new OneToOneMessageContainer(chatRecyclerView);
+
+                                    initView();
+                                    initRtcEngine();
+                                    initRtmClient();
+
+
+                        }else{
+                            textLockedMessage.setText("This is a private session, you don't have access to view.");
+                        }
                     }
 
 
@@ -222,21 +251,24 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     public void onUserJoined(int uid, int elapsed) {
 
-        if (uid == ANCHOR_UID) {
-            activity.runOnUiThread(() -> {
-                //sessionLocked.setVisibility(View.GONE);
-                online.setBackgroundColor(Color.GREEN);
-            });
 
-        } else {
-            online.setBackgroundColor(Color.RED);
-        }
+            activity.runOnUiThread(() -> {
+                {
+                    online.setBackgroundColor(Color.GREEN);
+                }
+                });
 
     }
 
     @Override
     public void onUserOffline(int uid, int reason) {
+        activity.runOnUiThread(() -> {
 
+
+            {
+                online.setBackgroundColor(Color.RED);
+            }
+        });
     }
 
     @Override
@@ -248,7 +280,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     public void onMessageReceived(boolean isChannelMsg, String uid, String message) {
 
         Log.i("messsss", uid + "__" + message);
-        //messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
+        messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
         if (message.contains("Call-Ended at")) {
             activity.runOnUiThread(() -> {
                 audio_call.setVisibility(View.VISIBLE);
@@ -346,7 +378,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             @Override
             public void onClick(View v) {
 
-                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Voice-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
+                //messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Voice-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
                 audio_call.setVisibility(View.GONE);
                 video_call.setVisibility(View.GONE);
                 audio_or_video_background.setVisibility(View.VISIBLE);
@@ -826,8 +858,6 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         if (sessionEndHour/10==0){
 
 
-
-
             warningTime="0"+sessionEndHour+":"+formattedTime;
             endTime="0"+sessionEndHour+":"+sessionEndMins;
         }else{
@@ -938,13 +968,22 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                     alertDialog.setCancelable(false);
 
-                    dialog.findViewById(R.id.cancel).setOnClickListener(v1 -> {
-                        alertDialog.dismiss();
-                        finish();
-                    });
+
+
+                    ((TextView)dialog.findViewById(R.id.ratingFormHostName)).setText(hostFullName);
+
                     dialog.findViewById(R.id.submit).setOnClickListener(v12 -> {
                         alertDialog.dismiss();
-                        finish();
+
+                        float ratingSelected=((RatingBar)dialog.findViewById(R.id.overallRatingBar)).getRating();
+                        int selectedItemId=((RadioGroup)dialog.findViewById(R.id.radioGroupRecommend)).getCheckedRadioButtonId();
+                        RadioButton rb=((RadioButton)dialog.findViewById(selectedItemId));
+                        String recommendMessage=rb.getText().toString();
+
+                        String comment=((EditText)dialog.findViewById(R.id.comment)).getText().toString();
+
+                        String[] params={bookingId,ratingSelected+"",recommendMessage,comment};
+                        new TaskUpdateFeedback().execute(params);
 
                     });
 
@@ -958,4 +997,71 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             }
 
     }
+
+
+    private class TaskUpdateFeedback extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+
+            try {
+
+
+                JSONObject jsonBody = new JSONObject();
+
+                jsonBody.put("booking_id", params[0]);
+                jsonBody.put("overallRating", Float.parseFloat(params[1]));
+                jsonBody.put("recommentMessage", params[2]);
+                jsonBody.put("comments", params[3]);
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneFeedback.php",jsonBody, response -> {
+
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response+"");
+                        Log.i("response->",jsonObject+"");
+                        boolean status = jsonObject.optBoolean("success", false);
+                        if (status) {
+
+                            sendToastMessage("Thanks for you rating");
+                            finish();
+
+                            Log.i("success message",jsonObject.getString("successMessage"));
+
+                        } else {
+                            Log.i("error"," occured ");
+                            Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
+                        }
+                        //pb_loading.setVisibility(View.GONE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    // pb_loading.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), VoleyErrorHelper.getMessage(error, getApplicationContext()), Toast.LENGTH_LONG).show();
+                    Log.e("all_coun_rerror", "error");
+                    error.printStackTrace();
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
+    }
+
 }

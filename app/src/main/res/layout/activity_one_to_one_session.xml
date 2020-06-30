@@ -20,16 +20,18 @@
             android:layout_height="wrap_content"
 
             >
-            <TextView
-                android:id="@+id/online"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:elevation="9dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginLeft="63dp"
-                android:backgroundTint="@color/fire_red"
-                android:background="@drawable/shape_round_bg"
-                />
+
+                <TextView
+                    android:id="@+id/online"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:elevation="9dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginLeft="63dp"
+                    android:background="@color/fire_red"
+                    />
+
+
 
             //hostdetails
             <LinearLayout
@@ -231,6 +233,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="9dp"
+        android:clickable="true"
         android:visibility="visible"
         android:background="@color/black">
 
@@ -357,13 +360,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="613dp"
+        android:layout_height="610dp"
         android:layout_above="@id/typingIndicator"
         android:layout_marginTop="56dp"
         android:divider="@null"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-        tools:listitem="@layout/one_to_one_chat_recycler_single_view"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="54dp"
+        tools:listitem="@layout/one_to_one_chat_recycler_single_view"/>
         <TextView
             android:visibility="gone"
             android:id="@+id/typingIndicator"
