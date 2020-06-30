@@ -76,7 +76,7 @@ import java.util.regex.Pattern;
 public class Utility extends Application
 {
 
-    public static final String albinoServerIp="https://a7bccf5607f8.ngrok.io";
+    public static final String albinoServerIp="https://d67d300c269b.ngrok.io";
 
     public static final String PRIVATE_SERVER = "https://app.careerguide.com/api/main/";
 

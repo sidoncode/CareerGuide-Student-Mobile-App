@@ -92,6 +92,13 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
     @Override
     public void onCompletedForm() {
 
+        String channelNameTemp=getHostEmail() + "_private_" + getSelectedDate() + "_" + getSelectTimeSlot();
+        channelNameTemp=channelNameTemp.replace(" ","_");
+        channelNameTemp=channelNameTemp.replace(":","_");
+        setChannelName(channelNameTemp);
+
+
+        new TaskBookSlotBeforePayment().execute();
     }
 
     @Override
@@ -199,10 +206,6 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
     public void createDynamicLink(String booking_id) {
 
-        String channelNameTemp=getHostEmail() + "_private_" + getSelectedDate() + "_" + getSelectTimeSlot();
-        channelNameTemp=channelNameTemp.replace(" ","_");
-        channelNameTemp=channelNameTemp.replace(":","_");
-        setChannelName(channelNameTemp);
 
 
         Log.i("channel__name",getChannelName());
@@ -253,7 +256,6 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                                 });
 
                             }
-                            new TaskBookSlotBeforePayment().execute();
 
                         } else
                         {
@@ -368,7 +370,9 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                     boolean status = jsonObject.optBoolean("status", false);
                     if (status) {
                     String booking_id=jsonObject.getString("booking_id");
-                    createDynamicLink(booking_id);
+
+
+                    createDynamicLink(booking_id);//call this after the booking payment is made.
 
                     } else {
                         Log.i("sssss","asasas");

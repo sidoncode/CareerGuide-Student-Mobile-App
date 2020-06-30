@@ -808,7 +808,9 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     protected void onResume() {
         super.onResume();
-        Utility.keepTrackOfTimeWithServer(this);
+        if (privateUID.contentEquals(Utility.getUserId(activity))){
+            Utility.keepTrackOfTimeWithServer(this);
+        }
     }
 
     public void updateTimer(String serverDate, String serverTime) {
