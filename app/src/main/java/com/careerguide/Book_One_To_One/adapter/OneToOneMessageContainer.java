@@ -81,7 +81,7 @@ public class OneToOneMessageContainer {
 
             OneToOneChatModel m = mMessageList.get(position);
 
-            if (m.getmMessage().contains("Call-Ended at")|m.getmMessage().contains("Voice-call at")|m.getmMessage().contains("Video-call at")){
+            if (m.getmMessage().contains("Video-Call")||m.getmMessage().contains("Audio-Call")){
                 holder.itemView.findViewById(R.id.host_message_window).setVisibility(View.GONE);
                 holder.itemView.findViewById(R.id.mentee_message_window).setVisibility(View.GONE);
 

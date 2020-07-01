@@ -84,14 +84,16 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private AlertDialog alertDialog;
     private Activity activity = this;
 
-    private TextView live_no_surfaceview_notice, host_name, textLockedMessage, backFromProfile, openHostProfile, zoomHostName, online, timeLeft;
+    private TextView live_no_surfaceview_notice, host_name, textLockedMessage, backFromProfile, openHostProfile, zoomHostName, online, timeLeft,incomingAudioHostName,declineAudioIncoming ,acceptAudioIncoming,incomingVideoHostName,declineVideoIncoming ,acceptVideoIncoming;
     private RelativeLayout live_no_surfaceview, audio_or_video_background, sessionLocked, zoomHostDetails;
     private FrameLayout live_surfaceview;
     RecyclerView chatRecyclerView;
 
+    RelativeLayout incomingAudioHostDetails,incomingVideoHostDetails;
+
     private EditText live_msg_et;
 
-    private ImageView endCall, disable_audio, enable_audio, host_image_audio_call, audio_call, video_call, viewHostImageZoom;
+    private ImageView endAudioCall,endVideoCall, disable_audio, enable_audio, host_image_audio_call, audio_call, video_call, viewHostImageZoom,incomingAudioHostImageZoom,incomingVideoHostImageZoom;
 
     private List<OneToOneChatModel> chatList = new ArrayList<>();
     private OneToOneMessageContainer messageContainer;
@@ -128,7 +130,8 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         audio_call = findViewById(R.id.audio_call);
         video_call = findViewById(R.id.video_call);
         audio_or_video_background = findViewById(R.id.audio_or_video_background);
-        endCall = findViewById(R.id.endCall);
+        endAudioCall = findViewById(R.id.endAudioCall);
+        endVideoCall = findViewById(R.id.endVideoCall);
         live_surfaceview = findViewById(R.id.live_surfaceview);
         host_image_audio_call = findViewById(R.id.host_image_audio_call);
         live_msg_et = findViewById(R.id.live_msg_et);
@@ -139,6 +142,19 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         viewHostImageZoom = findViewById(R.id.viewHostImageZoom);
         zoomHostName = findViewById(R.id.zoomHostName);
         online = findViewById(R.id.online);
+
+        incomingAudioHostDetails=findViewById(R.id.incomingAudioHostDetails);
+        incomingAudioHostName=findViewById(R.id.incomingAudioHostName);
+        incomingAudioHostImageZoom=findViewById(R.id.incomingAudioHostImageZoom);
+        declineAudioIncoming=findViewById(R.id.declineAudioIncoming);
+        acceptAudioIncoming=findViewById(R.id.acceptAudioIncoming);
+
+        incomingVideoHostDetails=findViewById(R.id.incomingVideoHostDetails);
+        incomingVideoHostName=findViewById(R.id.incomingVideoHostName);
+        incomingVideoHostImageZoom=findViewById(R.id.incomingVideoHostImageZoom);
+        declineVideoIncoming=findViewById(R.id.declineVideoIncoming);
+        acceptVideoIncoming=findViewById(R.id.acceptVideoIncoming);
+
 
 
         RtcEngineManager.getInstance().init(this);
@@ -180,9 +196,12 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             if (privateUID.contentEquals(Utility.getUserId(activity))){
                                 textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
 
+                                Utility.keepTrackOfTimeWithServer(activity);
+
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+
 
 
                                         initView();
@@ -219,6 +238,8 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                                     messageContainer = new OneToOneMessageContainer(chatRecyclerView);
 
+                            Utility.keepTrackOfTimeWithServer(activity);
+
                                     initView();
                                     initRtcEngine();
                                     initRtmClient();
@@ -240,6 +261,9 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             .dontTransform();
                     Glide.with(activity).load(hostImage).apply(options).into((ImageView) findViewById(R.id.host_image));
                     host_name.setText(hostFullName);
+
+                    Glide.with(activity).load(hostImage).apply(options).into(incomingAudioHostImageZoom);
+                    Glide.with(activity).load(hostImage).apply(options).into(incomingVideoHostImageZoom);
 
 
                 })
@@ -279,9 +303,33 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     @Override
     public void onMessageReceived(boolean isChannelMsg, String uid, String message) {
 
+        try {
+
+
         Log.i("messsss", uid + "__" + message);
-        messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
-        if (message.contains("Call-Ended at")) {
+        activity.runOnUiThread(()->{
+            messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(uid),message+"",getTimeStamp()+"",hostImage,true));
+        });
+
+
+
+        if (message.contains("Audio-Call.")){
+            activity.runOnUiThread(()->{
+                incomingAudioHostDetails.setVisibility(View.VISIBLE);
+            });
+
+        }
+
+        if (message.contains("Video-Call.")){
+            activity.runOnUiThread(()->{
+                incomingVideoHostDetails.setVisibility(View.VISIBLE);
+            });
+
+        }
+
+
+
+        if (message.contains("Audio-Call-Ended")||message.contains("Audio-Call-Declined")) {
             activity.runOnUiThread(() -> {
                 audio_call.setVisibility(View.VISIBLE);
                 video_call.setVisibility(View.VISIBLE);
@@ -294,9 +342,34 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 live_no_surfaceview_notice.setVisibility(View.GONE);
 
-                sendToastMessage("Call ended");
+                sendToastMessage("Audio-Call-Ended");
             });
 
+        }
+
+
+
+        if (message.contains("Video-Call-Ended")||message.contains("Video-Call-Declined")) {
+            activity.runOnUiThread(() -> {
+                audio_call.setVisibility(View.VISIBLE);
+                video_call.setVisibility(View.VISIBLE);
+                audio_or_video_background.setVisibility(View.GONE);
+                mRtcEngine.enableLocalAudio(false);// disable audio
+
+                live_msg_et.setEnabled(true);
+
+                mRtcEngine.setupRemoteVideo(null);
+
+                live_no_surfaceview_notice.setVisibility(View.GONE);
+
+                sendToastMessage("Video Call Ended");
+            });
+
+
+
+        }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -309,6 +382,84 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
         findViewById(R.id.live_msg_send_btn).setOnClickListener(v -> doSendMsg());
+
+
+
+        incomingAudioHostName.setText("Audio call from "+hostFullName);
+        incomingVideoHostName.setText("Video call from "+hostFullName);
+        declineAudioIncoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMsg("Audio-Call-Declined at "+getTimeStamp());
+                incomingAudioHostDetails.setVisibility(View.GONE);
+            }
+        });
+
+
+        acceptAudioIncoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomingAudioHostDetails.setVisibility(View.GONE);
+                sendMsg("Audio-Call-Accepted at "+getTimeStamp());
+                incomingAudioHostDetails.setVisibility(View.GONE);
+                audio_call.setVisibility(View.GONE);
+                video_call.setVisibility(View.GONE);
+                audio_or_video_background.setVisibility(View.VISIBLE);
+                endAudioCall.setVisibility(View.VISIBLE);
+                endVideoCall.setVisibility(View.GONE);
+                host_image_audio_call.setVisibility(View.VISIBLE);
+                live_surfaceview.setVisibility(View.GONE);
+
+                live_msg_et.setEnabled(false);
+
+                mRtcEngine.enableLocalAudio(true);//enable audio
+
+                mRtcEngine.setAudioProfile(Constants.AUDIO_ROUTE_EARPIECE, Constants.AUDIO_SCENARIO_EDUCATION);
+
+
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.drawable.loading)
+                        .error(R.drawable.loading)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .priority(Priority.HIGH)
+                        .dontAnimate()
+                        .dontTransform();
+                Glide.with(activity).load(hostImage).apply(options).into((ImageView) findViewById(R.id.host_image_audio_call));
+
+            }
+        });
+
+
+
+        declineVideoIncoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMsg("Video-Call-Declined at "+getTimeStamp());
+                incomingVideoHostDetails.setVisibility(View.GONE);
+            }
+        });
+
+
+        acceptVideoIncoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMsg("Video-Call-Accepted at "+getTimeStamp());
+                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Video-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
+                audio_call.setVisibility(View.GONE);
+                video_call.setVisibility(View.GONE);
+                endAudioCall.setVisibility(View.GONE);
+                endVideoCall.setVisibility(View.VISIBLE);
+                audio_or_video_background.setVisibility(View.VISIBLE);
+                live_surfaceview.setVisibility(View.VISIBLE);
+                host_image_audio_call.setVisibility(View.GONE);
+                live_msg_et.setEnabled(false);
+                incomingVideoHostDetails.setVisibility(View.GONE);
+
+            }
+        });
+
+
 
         host_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -378,7 +529,9 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             @Override
             public void onClick(View v) {
 
-                //messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Voice-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
+
+                sendMsg("Audio-Call. at "+getTimeStamp());
+
                 audio_call.setVisibility(View.GONE);
                 video_call.setVisibility(View.GONE);
                 audio_or_video_background.setVisibility(View.VISIBLE);
@@ -409,7 +562,11 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             @Override
             public void onClick(View v) {
 
-                messageContainer.addMessage(new OneToOneChatModel(Integer.parseInt(privateUID), "Video-call at " + getTimeStamp(), getTimeStamp() + "", "", true));
+
+                sendMsg("Video-Call. at "+getTimeStamp());
+                try{
+
+
                 audio_call.setVisibility(View.GONE);
                 video_call.setVisibility(View.GONE);
                 audio_or_video_background.setVisibility(View.VISIBLE);
@@ -418,16 +575,21 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 live_msg_et.setEnabled(false);
 
 
-                mRtcEngine.enableLocalAudio(true);//enable audio
+                /*mRtcEngine.enableLocalAudio(true);//enable audio
                 mRtcEngine.setDefaultAudioRoutetoSpeakerphone(true);
                 mRtcEngine.setAudioProfile(Constants.AUDIO_PROFILE_DEFAULT, Constants.AUDIO_SCENARIO_EDUCATION);
-
+*//*
                 SurfaceView surface = RtcEngine.CreateRendererView(activity);
-                ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);
-                mRtcEngine.enableLocalAudio(true);
-                mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
+                ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);*/
+                /*mRtcEngine.enableLocalAudio(false);
+                mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));*/
                 live_no_surfaceview_notice.setText("Wait for the host to pick the call");
                 live_no_surfaceview_notice.setVisibility(View.VISIBLE);
+
+                }catch (Exception e){
+                    Log.i("aazzzz","z");
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -452,11 +614,11 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             }
         });
 
-        endCall.setOnClickListener(new View.OnClickListener() {
+        endAudioCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                sendMsg("Call-Ended at " + getTimeStamp());
+                sendMsg("Audio-Call-Ended at " + getTimeStamp());
 
                 audio_call.setVisibility(View.VISIBLE);
                 video_call.setVisibility(View.VISIBLE);
@@ -470,7 +632,29 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 live_no_surfaceview_notice.setVisibility(View.GONE);
 
 
-                sendToastMessage("Call ended");
+                sendToastMessage("Audio-Call-Ended");
+            }
+        });
+
+        endVideoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                sendMsg("Video-Call-Ended " + getTimeStamp());
+
+                audio_call.setVisibility(View.VISIBLE);
+                video_call.setVisibility(View.VISIBLE);
+                audio_or_video_background.setVisibility(View.GONE);
+                mRtcEngine.enableLocalAudio(false);// disable audio
+
+                live_msg_et.setEnabled(true);
+
+                mRtcEngine.setupLocalVideo(null);
+
+                live_no_surfaceview_notice.setVisibility(View.GONE);
+
+
+                sendToastMessage("Video-Call-Ended");
             }
         });
 
@@ -483,10 +667,16 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         RtcEngineManager.getInstance().setOnRtcEventCallback(this);
 
         mRtcEngine.enableLocalAudio(false);//during messaging disable audio
-        mRtcEngine.disableVideo();
 
 
         Log.e("#cmm engine", "ewkjbewjkfb" + channelName);
+
+
+        SurfaceView surface = RtcEngine.CreateRendererView(activity);
+        ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);
+        mRtcEngine.enableLocalAudio(false);
+        mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
+
         mRtcEngine.joinChannel("", channelName, "", Integer.parseInt(privateUID));
         //mRtcEngine.joinChannel("", channelName, "", ANCHOR_UID);
 
@@ -805,15 +995,12 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (privateUID.contentEquals(Utility.getUserId(activity))){
-            Utility.keepTrackOfTimeWithServer(this);
-        }
-    }
 
     public void updateTimer(String serverDate, String serverTime) {
+
+        try{
+
+
         Log.i("serverdate", serverDate);
         Log.i("servertime", serverTime);
 
@@ -997,6 +1184,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
 
             }
+        }catch (Exception e){
+            Log.i("sssaaaaaaaa","a");
+            e.printStackTrace();
+        }
 
     }
 

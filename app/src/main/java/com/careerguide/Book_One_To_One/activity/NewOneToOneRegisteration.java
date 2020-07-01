@@ -103,7 +103,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
     @Override
     public void onCancelledForm() {
-
+        finish();
     }
 
     public String getPackageDescription() { return packageDescription; }

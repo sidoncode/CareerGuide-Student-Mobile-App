@@ -223,6 +223,171 @@
 
     </RelativeLayout>
 
+    //incoming audio call
+    <RelativeLayout
+        android:id="@+id/incomingAudioHostDetails"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#496188"
+        android:visibility="gone"
+        android:elevation="10dp">
+
+        <TextView
+            android:id="@+id/incomingAudioHostName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:elevation="11dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="10dp"
+            android:visibility="visible"
+
+            >
+
+            <ImageView
+                android:id="@+id/incomingAudioHostImageZoom"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/declineAudioIncoming"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Decline"
+                    android:layout_margin="1dp"
+                    android:background="#F6030C"
+                    android:textAlignment="center"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/acceptAudioIncoming"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:text="Accept"
+                    android:textAlignment="center"
+                    android:layout_margin="0dp"
+                    android:background="#64ED29"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:padding="12dp"
+                    android:textSize="14sp"
+                    android:layout_marginRight="4dp"
+                    android:elevation="3dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    //incoming video call
+    <RelativeLayout
+        android:id="@+id/incomingVideoHostDetails"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#496188"
+        android:visibility="gone"
+        android:elevation="10dp">
+
+        <TextView
+            android:id="@+id/incomingVideoHostName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:elevation="11dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="10dp"
+            android:visibility="visible"
+
+            >
+
+            <ImageView
+                android:id="@+id/incomingVideoHostImageZoom"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/declineVideoIncoming"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Decline"
+                    android:layout_margin="1dp"
+                    android:background="#F6030C"
+                    android:textAlignment="center"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/acceptVideoIncoming"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:text="Accept"
+                    android:textAlignment="center"
+                    android:layout_margin="0dp"
+                    android:background="#64ED29"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:padding="12dp"
+                    android:textSize="14sp"
+                    android:layout_marginRight="4dp"
+                    android:elevation="3dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 
 
@@ -234,7 +399,7 @@
         android:layout_height="match_parent"
         android:elevation="9dp"
         android:clickable="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@color/black">
 
         <TextView
@@ -270,16 +435,26 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:background="#282828"
-        android:elevation="2dp">
+        android:elevation="6dp">
 
 
 
         <ImageView
-            android:id="@+id/endCall"
+            android:id="@+id/endAudioCall"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@mipmap/ic_end_video_call"
-            android:elevation="3dp"
+            android:elevation="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="60dp"/>
+
+        <ImageView
+            android:id="@+id/endVideoCall"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/ic_end_video_call"
+            android:elevation="6dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="60dp"/>
@@ -289,7 +464,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/ic_mic_on"
-            android:elevation="3dp"
+            android:elevation="5dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="60dp"
@@ -300,7 +475,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/ic_mic_off"
-            android:elevation="3dp"
+            android:elevation="5dp"
             android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -315,6 +490,7 @@
             android:layout_height="match_parent"
             android:background="@color/black"
             android:visibility="gone"
+            android:elevation="4dp"
             />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -322,7 +498,7 @@
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_centerInParent="true"
-            android:elevation="4dp"
+            android:elevation="3dp"
             android:src="@drawable/def_headimg" />
 
 
@@ -338,7 +514,7 @@
         android:background="@color/black"
         android:visibility="gone"
         android:clickable="true"
-        android:elevation="1dp">
+        android:elevation="4dp">
 
         <TextView
             android:id="@+id/live_no_surfaceview_notice"
