@@ -315,6 +315,15 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         textView2.setText(videoviews);
     }
 
+    public void hideLiveView(){
+        findViewById(R.id.live_msg).setVisibility(View.GONE);
+    }
+
+
+    public void hideShareButton(){
+        findViewById(R.id.fab).setVisibility(View.GONE);
+    }
+
 
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);

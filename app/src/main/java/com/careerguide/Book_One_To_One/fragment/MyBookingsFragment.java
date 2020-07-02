@@ -129,7 +129,7 @@ public class MyBookingsFragment extends Fragment {
 
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject eachBooking=jsonArray.getJSONObject(i);
-                                oneToOneBookingsAdapter.addBooking(new OneToOneBookingsModel(eachBooking.getString("booking_id"),eachBooking.getString("sessionHeld"),eachBooking.getString("counselorName"),eachBooking.getString("studentName"),eachBooking.getString("dateBooked"),eachBooking.getString("timeSlot"),eachBooking.getString("channelName"),eachBooking.getString("category"),eachBooking.getString("profile_pic")));
+                                oneToOneBookingsAdapter.addBooking(new OneToOneBookingsModel(eachBooking.getString("booking_id"),eachBooking.getString("sessionHeld"),eachBooking.getString("counselorName"),eachBooking.getString("studentName"),eachBooking.getString("dateBooked"),eachBooking.getString("timeSlot"),eachBooking.getString("channelName"),eachBooking.getString("category"),eachBooking.getString("profile_pic"),eachBooking.getString("videoUrl")));
                             }
 
                             getActivity().runOnUiThread(()->{

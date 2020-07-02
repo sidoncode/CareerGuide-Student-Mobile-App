@@ -107,17 +107,27 @@ public class Video_player extends AppCompatActivity {
 
                     } else {
 
+
+
+
                         videoId = getIntent().getStringExtra("video_id");
                         host_image = getIntent().getStringExtra("host_img");
                         Fullname = getIntent().getStringExtra("Fullname");
                         title = getIntent().getStringExtra("title");
                         hostEmail = getIntent().getStringExtra("host_email");
                         video_url = getIntent().getStringExtra("live_video_url");
-                        video_views = getIntent().getStringExtra("video_views");
-                        bannerImage=getIntent().getStringExtra("imgurl");
-                        host_image_fileName=host_image.substring(host_image.lastIndexOf("/")+1);
-                        banner_image_fileName = bannerImage.substring(bannerImage.lastIndexOf("/")+1);
-                        new TaskUpdateViewCounter(videoId).execute();
+
+                        if (title.contentEquals("Private-Session.")){
+                            andExoPlayerView.hideLiveView();
+                            andExoPlayerView.hideShareButton();
+                        }else {
+
+                            video_views = getIntent().getStringExtra("video_views");
+                            bannerImage = getIntent().getStringExtra("imgurl");
+                            host_image_fileName = host_image.substring(host_image.lastIndexOf("/") + 1);
+                            banner_image_fileName = bannerImage.substring(bannerImage.lastIndexOf("/") + 1);
+                            new TaskUpdateViewCounter(videoId).execute();
+                        }
 
                     }
 

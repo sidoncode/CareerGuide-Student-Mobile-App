@@ -87,7 +87,7 @@ public class OneToOneMessageContainer {
 
 
                 TextView logs=holder.itemView.findViewById(R.id.logs);
-                logs.setVisibility(View.VISIBLE);
+                holder.itemView.findViewById(R.id.logParent).setVisibility(View.VISIBLE);
                 logs.setText(m.getmMessage());
             }else {
 

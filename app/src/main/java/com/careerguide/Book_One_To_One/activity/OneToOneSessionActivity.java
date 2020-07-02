@@ -45,6 +45,7 @@ import com.careerguide.RtcEngineManager;
 import com.careerguide.RtmClientManager;
 import com.careerguide.RtmEnventCallback;
 import com.careerguide.Utility;
+import com.careerguide.Video_player;
 import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -84,7 +85,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private AlertDialog alertDialog;
     private Activity activity = this;
 
-    private TextView live_no_surfaceview_notice, host_name, textLockedMessage, backFromProfile, openHostProfile, zoomHostName, online, timeLeft,incomingAudioHostName,declineAudioIncoming ,acceptAudioIncoming,incomingVideoHostName,declineVideoIncoming ,acceptVideoIncoming;
+    private TextView live_no_surfaceview_notice, host_name, textLockedMessage, backFromProfile, openHostProfile, zoomHostName, online, timeLeft,incomingAudioHostName,declineAudioIncoming ,acceptAudioIncoming,incomingVideoHostName,declineVideoIncoming ,acceptVideoIncoming,viewVideoStream;
     private RelativeLayout live_no_surfaceview, audio_or_video_background, sessionLocked, zoomHostDetails;
     private FrameLayout live_surfaceview;
     RecyclerView chatRecyclerView;
@@ -109,6 +110,8 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
     private String privateUserName = "";
     private String privateSessionDate = "";
     private String privateSessionTime = "";
+    private String videoUrl = "";
+    private String sessionHeld = "";
 
     int minLeft=0;
 
@@ -142,6 +145,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         viewHostImageZoom = findViewById(R.id.viewHostImageZoom);
         zoomHostName = findViewById(R.id.zoomHostName);
         online = findViewById(R.id.online);
+        viewVideoStream=findViewById(R.id.viewVideoStream);
 
         incomingAudioHostDetails=findViewById(R.id.incomingAudioHostDetails);
         incomingAudioHostName=findViewById(R.id.incomingAudioHostName);
@@ -230,19 +234,61 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                         privateUserName = getIntent().getStringExtra("privateUserName");
                         privateSessionDate = getIntent().getStringExtra("privateSessionDate");
                         privateSessionTime = getIntent().getStringExtra("privateSessionTime");
+                        videoUrl=getIntent().getStringExtra("privateSessionTime");
+                        sessionHeld=getIntent().getStringExtra("sessionHeld");
 
                         String[] params = {bookingId};
                         new TaskGetMessageHistory().execute(params);
                         if (privateUID.contentEquals(Utility.getUserId(activity))){
-                            textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
+                            messageContainer = new OneToOneMessageContainer(chatRecyclerView);
 
-                                    messageContainer = new OneToOneMessageContainer(chatRecyclerView);
+                            if (sessionHeld.contentEquals("1")){
+                                activity.runOnUiThread(()->{
+                                    sessionLocked.setVisibility(View.GONE);
+                                    audio_call.setVisibility(View.GONE);
+                                    video_call.setVisibility(View.GONE);
+                                    viewVideoStream.setVisibility(View.VISIBLE);
+                                    timeLeft.setText("Session is over!");
+                                    live_msg_et.setText("Chat is disabled!");
+                                    live_msg_et.setEnabled(false);
 
-                            Utility.keepTrackOfTimeWithServer(activity);
 
-                                    initView();
-                                    initRtcEngine();
-                                    initRtmClient();
+                                    viewVideoStream.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            Log.i("clicked","");
+
+                                            String temp = channelName.replace("_private", "*");
+                                            int endIndexOfEmail = temp.indexOf("*");
+                                            String hostEmail = channelName.substring(0, endIndexOfEmail);
+
+                                            Intent intent = new Intent(activity , Video_player.class);
+                                            intent.putExtra("video_id" ,"-1");
+                                            intent.putExtra("live_video_url" ,videoUrl);
+                                            intent.putExtra("Fullname" ,hostFullName);
+                                            intent.putExtra("imgurl" ,"");
+                                            intent.putExtra("title" , "Private-Session.");//used as key in video player
+                                            intent.putExtra("host_email" , hostEmail);
+                                            intent.putExtra("video_views" , "");
+                                            intent.putExtra("host_img" , hostImage);
+                                            startActivity(intent);
+                                        }
+                                    });
+
+                                });
+                            }else {
+
+                                textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
+
+
+                                Utility.keepTrackOfTimeWithServer(activity);
+
+                                initView();
+                                initRtcEngine();
+                                initRtmClient();
+                            }
+
 
 
                         }else{

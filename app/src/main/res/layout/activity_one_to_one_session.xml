@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#496188"
+    android:background="@drawable/background"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".Book_One_To_One.activity.OneToOneSessionActivity">
 
+    <!--#496188-->
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -132,8 +133,21 @@
                     android:src="@drawable/ic_video_call"
                     />
 
+                <TextView
 
-
+                    android:id="@+id/viewVideoStream"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="View Video Stream"
+                    android:background="@drawable/shape_round_bg"
+                    android:backgroundTint="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="6dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -273,7 +287,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Decline"
-                    android:layout_margin="1dp"
                     android:background="#F6030C"
                     android:textAlignment="center"
                     android:padding="10dp"
@@ -356,7 +369,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Decline"
-                    android:layout_margin="1dp"
                     android:background="#F6030C"
                     android:textAlignment="center"
                     android:padding="10dp"
@@ -399,7 +411,7 @@
         android:layout_height="match_parent"
         android:elevation="9dp"
         android:clickable="true"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/black">
 
         <TextView
@@ -536,8 +548,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="610dp"
-        android:layout_above="@id/typingIndicator"
+        android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:divider="@null"
         android:stackFromBottom="true"

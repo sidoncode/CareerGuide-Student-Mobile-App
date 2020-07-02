@@ -12,6 +12,7 @@ public class OneToOneBookingsModel {
     String channelName;
     String category;
     String profile_pic;
+    String videoUrl;
 
 
     public  OneToOneBookingsModel(
@@ -23,7 +24,8 @@ public class OneToOneBookingsModel {
             String timeSlot,
             String channelName,
             String category,
-            String profile_pic
+            String profile_pic,
+            String videoUrl
     ) {
         this.booking_id = booking_id;
         this.sessionHeld = sessionHeld;
@@ -34,6 +36,7 @@ public class OneToOneBookingsModel {
         this.channelName = channelName;
         this.category=category;
         this.profile_pic=profile_pic;
+        this.videoUrl=videoUrl;
     }
 
     public String getBooking_id() {
@@ -71,5 +74,7 @@ public class OneToOneBookingsModel {
     public String getProfile_pic() {
         return profile_pic;
     }
+
+    public String getVideoUrl() { return videoUrl; }
 }
 

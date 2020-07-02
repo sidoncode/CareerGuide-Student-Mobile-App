@@ -103,7 +103,6 @@ public class OneToOneBookingsAdapter {
             ((TextView)holder.itemView.findViewById(R.id.textviewTime)).setText(b.getTimeSlot());
             ((TextView)holder.itemView.findViewById(R.id.category)).setText(b.getCategory());
 
-            if (b.getSessionHeld().contentEquals("0")){
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -120,6 +119,9 @@ public class OneToOneBookingsAdapter {
                         data.putString("privateUserName", b.getStudentName());
                         data.putString("privateSessionDate" , b.getDateBooked());
                         data.putString("privateSessionTime" , b.getTimeSlot());
+                        data.putString("videoUrl" , b.getVideoUrl());
+                        data.putString("sessionHeld" , b.getSessionHeld());
+
 
                         intent.putExtras(data);
 
@@ -127,7 +129,7 @@ public class OneToOneBookingsAdapter {
                     }
                 });
 
-            }
+
 
         }
         @Override
