@@ -917,7 +917,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 Log.i("jsonbodyy", jsonBody + "");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php", jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"fetchOneToOneBookingsForStudent"/*Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_chat_history.php"*/, jsonBody, response -> {
 
 
                     try {
@@ -1001,7 +1001,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 Log.i("jsonbodyy", jsonBody + "");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php", jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"saveOneToOneChat"/*Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/save_one_to_one_chat_message.php"*/, jsonBody, response -> {
 
 
                     try {
@@ -1251,11 +1251,11 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
                 jsonBody.put("booking_id", params[0]);
                 jsonBody.put("overallRating", Float.parseFloat(params[1]));
-                jsonBody.put("recommentMessage", params[2]);
+                jsonBody.put("recommendMessage", params[2]);
                 jsonBody.put("comments", params[3]);
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneFeedback.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"updateOneToOneFeedback"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneFeedback.php"*/,jsonBody, response -> {
 
 
                     try {

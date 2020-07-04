@@ -274,7 +274,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
         @Override
         protected Void doInBackground(Void... params) {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/fetchOnToOnePackage"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"fetchOnToOnePackage"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php"*/,
                     response -> {
 
                 Log.e("all_coun_res_counsellor", response);
@@ -299,9 +299,9 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
                         descriptionStepper.populateData();//after data is fetched populate it
 
-                        String today=jsonObject.optJSONArray("batchSlot").getJSONObject(0).getString("day_ame");
-                        String tomorrow=jsonObject.optJSONArray("batchSlot").getJSONObject(1).getString("day_ame");
-                        String dayafter=jsonObject.optJSONArray("batchSlot").getJSONObject(2).getString("day_ame");
+                        String today=jsonObject.optJSONArray("batchSlot").getJSONObject(0).getString("day_name");
+                        String tomorrow=jsonObject.optJSONArray("batchSlot").getJSONObject(1).getString("day_name");
+                        String dayafter=jsonObject.optJSONArray("batchSlot").getJSONObject(2).getString("day_name");
 
                         batchSlotStepper.setDays(today,tomorrow,dayafter);
 
@@ -356,12 +356,12 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                 jsonBody.put("confirmed_booking", "0");
                 jsonBody.put("channel_name", getChannelName());
                 jsonBody.put("category", getSelectedCategory());
-                //jsonBody.put("deep_link", getDeepLink());
+
 //com.careerguide I/jsonbodyy: {"co_id":"43","student_id":"13599","date_booked":"Saturday 13 Jun 20","time_slot":"11:15AM","price":"1999","discount_availed":"0","confirmed_booking":"0","channel_name":"rachit@careerguide.com_privatesession_Saturday 13 Jun 20_11:15AM","category":"B.Tech","deek_link":"https:\/\/careerguidelivestream.page.link\/tGw7qVRWCHGQRzQn9"}
 
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"bookOneToOne"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php"*/,jsonBody, response -> {
 
 
                 try {
@@ -423,7 +423,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                 jsonBody.put("deeplink", params[1]);
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneDeepLink.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"updateOneToOneDeepLink"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneDeepLink.php"*/,jsonBody, response -> {
 
 
                     try {
@@ -472,7 +472,3 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
 
 }
-
-//https://cd904a319c3f.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_bookings_for_counselor.php
-//https://cd904a319c3f.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/book_one_to_one.php
-//https://cd904a319c3f.ngrok.io/FoodRunner-API/foodrunner/v2/careerguide/fetch_one_to_one_package.php

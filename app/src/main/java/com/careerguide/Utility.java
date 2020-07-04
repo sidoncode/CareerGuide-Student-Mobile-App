@@ -509,7 +509,7 @@ public class Utility extends Application
             @Override
             public void run() {
                 handler.post(() -> {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/fetch_time.php",
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"fetchTime"/*Utility.albinoServerIp + "/FoodRunner-API/foodrunner/v2/careerguide/fetch_time.php"*/,
                             response -> {
 
                                 try {

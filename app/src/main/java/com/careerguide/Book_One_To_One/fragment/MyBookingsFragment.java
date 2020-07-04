@@ -116,7 +116,7 @@ public class MyBookingsFragment extends Fragment {
 
                 Log.i("jsonbodyy",jsonBody+"");
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, /*"https://app.careerguide.com/api/main/bookOneToOne"*/Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_bookings_for_student.php",jsonBody, response -> {
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "https://app.careerguide.com/api/main/fetchOneToOneBookingsForStudent"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_bookings_for_student.php"*/,jsonBody, response -> {
 
 
                     try {
