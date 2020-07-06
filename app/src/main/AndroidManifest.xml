@@ -257,7 +257,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".TokBoxVideoCall" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".Refer_a_friend" />
+        <activity android:name=".Refer_a_friend"
+            android:screenOrientation="portrait"/>
         <activity android:name=".exoplayerActivity" />
         <activity
             android:name=".youtubeVideo.CM_youtubePlaylist"

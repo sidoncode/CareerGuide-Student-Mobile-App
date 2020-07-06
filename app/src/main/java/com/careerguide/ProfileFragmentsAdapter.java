@@ -38,7 +38,7 @@ public class ProfileFragmentsAdapter extends FragmentPagerAdapter {
 
         switch(position){
             case 0:
-                return "Student Profile";
+                return "Profile";
             case 1:
                 return "Rewards";
             default:

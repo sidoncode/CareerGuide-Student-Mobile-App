@@ -43,4 +43,9 @@
     <color name="red">#E53935</color>
     <color name="green">#43A047</color>
     <color name="yellow">#FDD835</color>
+
+    <color name="deep_pink">#FF1493</color>
+    <color name="first_leader">#92A3FF</color>
+    <color name="dark_blue">#4285F4</color>
+
 </resources>

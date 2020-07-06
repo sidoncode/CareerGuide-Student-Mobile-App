@@ -12,6 +12,9 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.TouchDelegate;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,8 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
 import java.io.File;
+
+import org.w3c.dom.Text;
 
 public class Refer_a_friend extends AppCompatActivity {
     Uri imageUri;
@@ -41,41 +46,52 @@ public class Refer_a_friend extends AppCompatActivity {
         ref.setText(Utility.getNumReferrals(this));
         rew.setText(Utility.getRewardPoints(this));
         int refno=Integer.parseInt(Utility.getNumReferrals(this));
-        if(refno<=100) {
-            fitband.setText((100 - refno) + " More Successful Referrals Left to Redeem:");
-            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem:");
-            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
-        }
-        else if(refno<=500) {
-            fitband.setText("0 More Successful Referrals Left to Redeem:");
-            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem:");
-            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
-        }
-        else if(refno<=1000) {
-            fitband.setText("0 More Successful Referrals Left to Redeem:");
-            blsp.setText("0 More Successful Referrals Left to Redeem:");
-            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
-        }
-        else if(refno<=5000) {
-            fitband.setText("0 More Successful Referrals Left to Redeem:");
-            blsp.setText("0 More Successful Referrals Left to Redeem:");
-            tab.setText("0 More Successful Referrals Left to Redeem:");
-            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
-        }
+//        if(refno<=100) {
+//            fitband.setText((100 - refno) + " More Successful Referrals Left to Redeem:");
+//            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem:");
+//            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
+//            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
+//        }
+//        else if(refno<=500) {
+//            fitband.setText("0 More Successful Referrals Left to Redeem:");
+//            blsp.setText((500 - refno) + " More Successful Referrals Left to Redeem:");
+//            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
+//            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
+//        }
+//        else if(refno<=1000) {
+//            fitband.setText("0 More Successful Referrals Left to Redeem:");
+//            blsp.setText("0 More Successful Referrals Left to Redeem:");
+//            tab.setText((1000 - refno) + " More Successful Referrals Left to Redeem:");
+//            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
+//        }
+//        else if(refno<=5000) {
+//            fitband.setText("0 More Successful Referrals Left to Redeem:");
+//            blsp.setText("0 More Successful Referrals Left to Redeem:");
+//            tab.setText("0 More Successful Referrals Left to Redeem:");
+//            mi.setText((5000 - refno) + " More Successful Referrals Left to Redeem:");
+//        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button button1= findViewById(R.id.button1);
-        Button button2= findViewById(R.id.button2);
+        TextView button1= findViewById(R.id.invite_now_1);
+        TextView button2= findViewById(R.id.invite_now_2);
+        TextView button3= findViewById(R.id.invite_now_3);
+
         button1.setOnClickListener(view -> {
             share();
 
         });
+
         button2.setOnClickListener(view -> {
-            startActivity(new Intent(this,HomeActivity.class).putExtra("refer", 1));
+            share();
         });
+
+        button3.setOnClickListener(view -> {
+            share();
+        });
+
+//        button2.setOnClickListener(view -> {
+//            startActivity(new Intent(this,HomeActivity.class).putExtra("refer", 1));
+//        });
     }
     public void share() {
 
