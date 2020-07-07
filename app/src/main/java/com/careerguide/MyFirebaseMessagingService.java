@@ -1,4 +1,5 @@
 package com.careerguide;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,7 +16,10 @@ import androidx.core.app.NotificationCompat;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.RemoteViews;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.NotificationTarget;
 import com.careerguide.youtubeVideo.youtubeFeedDetail;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -23,6 +27,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -55,18 +60,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 String message = remoteMessage.getData().get("message");
                 String title = remoteMessage.getData().get("title");
                 //imageUri will contain URL of the image to be displayed with Notification
-                String imageUri = remoteMessage.getData().get("image");
-                if(TextUtils.isEmpty(imageUri)){
-                    imageUri = "https://www.careerguide.com/images-mcg/counselling1.jpg";
+                String imageUrl = remoteMessage.getData().get("image");
+                if(TextUtils.isEmpty(imageUrl)){
+                    imageUrl = "https://www.careerguide.com/images-mcg/counselling1.jpg";
                 }
                 String activity = remoteMessage.getData().get("Activity");
                 String data_id = remoteMessage.getData().get("id");
                 Log.e("#id" , "ff" +data_id);
                 Log.e("#message" , "ff" +message);
                 Log.e("#title" , "ff" +title);
-                Log.e("#imageurl" , "ff" +imageUri);
+                Log.e("#imageurl" , "ff" +imageUrl);
                 Log.e("#activity" , "ff" +activity);
-                bitmap = getBitmapfromUrl(imageUri);
+
                 if(TextUtils.isEmpty(title)||title==null) {
                     Log.i("Notification has", "null values");
                     return;
@@ -75,7 +80,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
                 }
                 else
-                    sendNotification(title , message, bitmap, activity , data_id);
+                    sendNotification(title , message, bitmap, activity , data_id,imageUrl);
 
 
 
@@ -90,8 +95,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Create and show a simple notification containing the received FCM message.
      */
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void sendNotification(String title, String messageBody,  Bitmap image, String activity , String data_id) {
+    public void sendNotification(String title, String messageBody,  Bitmap image, String activity , String data_id,String imageUrl) {
         PendingIntent pendingIntent;
 
 
@@ -112,7 +120,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     PendingIntent.FLAG_ONE_SHOT);
         }
 
-        Bitmap scaledBitmap;
+        /*Bitmap scaledBitmap;
         try {
             scaledBitmap = Bitmap.createScaledBitmap(image, 500, 200 , true);//if this fails use default image
         }catch (Exception e){
@@ -120,7 +128,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             Bitmap temp= BitmapFactory.decodeResource(getResources(), R.mipmap.career_counsellors_in_india);
             scaledBitmap = Bitmap.createScaledBitmap(temp, 500, 200 , true);
-        }
+        }*/
 
 
         Bitmap bitmap_image = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -129,7 +137,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String id = "my_channel_01";
         CharSequence name = "hii2";
         String description = "hiii";
-        int importance = NotificationManager.IMPORTANCE_LOW;
+
+        final RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.remoteview_notification);
+
+        remoteViews.setImageViewResource(R.id.remoteview_notification_icon, R.drawable.ic_stat_name);
+
+        Date date=new Date();
+        date.getTime();
+
+        remoteViews.setTextViewText(R.id.remoteview_notification_headline, title);
+        remoteViews.setTextViewText(R.id.remoteview_notification_short_message, messageBody);
+        remoteViews.setTextViewText(R.id.remoteview_notification_time, "19:03");
+
+
+
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(id, name,importance);
@@ -140,43 +162,94 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             mNotificationManager.createNotificationChannel(mChannel);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                    .setLargeIcon(bitmap_image)/*Notification icon image*/
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setColor(getResources().getColor(R.color.colorPrimary))
-                    .setContentTitle(title)
-                    .setContentText(messageBody)
-                    .setStyle(new NotificationCompat.BigPictureStyle()
-                            .bigPicture(scaledBitmap))/*Notification with Image*/
-                    .setAutoCancel(true)
-                    .setSound(defaultSoundUri)
-                    .setChannelId(id)
-                    .setContentIntent(pendingIntent);
-
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            notificationManager.notify(10 /* ID of notification */, notificationBuilder.build());
-
-            //     notification.setSmallIcon(R.drawable.icon_transperent);
-            //    notification.setColor(getResources().getColor(R.color.notification_color));
-        } else {
-            //    notification.setSmallIcon(R.drawable.icon);
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                    .setLargeIcon(bitmap_image)/*Notification icon image*/
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(title)
                     .setContentText(messageBody)
-                    .setStyle(new NotificationCompat.BigPictureStyle()
-                            .bigPicture(scaledBitmap))/*Notification with Image*/
+                    .setContent(remoteViews)
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri)
                     .setChannelId(id)
                     .setContentIntent(pendingIntent);
 
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(10 /* ID of notification */, notificationBuilder.build());
+            //NotificationManager notificationManager =
+              //      (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            //notificationManager.notify(10 /* ID of notification */, notificationBuilder.build());
+
+            //     notification.setSmallIcon(R.drawable.icon_transperent);
+            //    notification.setColor(getResources().getColor(R.color.notification_color));
+
+
+
+            Notification notification = notificationBuilder.build();
+
+// set big content view for newer androids
+            if (android.os.Build.VERSION.SDK_INT >= 16) {
+                notification.bigContentView = remoteViews;
+            }
+
+            NotificationTarget notificationTarget;
+
+
+            notificationTarget = new NotificationTarget(
+                    getApplicationContext(),
+                    R.id.remoteview_notification_icon,
+                    remoteViews,
+                    notification,
+                    1);
+
+            Glide
+                    .with(getApplicationContext())
+                    .asBitmap()
+                    .load(imageUrl)
+                    .into(notificationTarget);
+
+
+
+
+
+        } else {
+            //    notification.setSmallIcon(R.drawable.icon);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(title)
+                    .setContentText(messageBody)
+                    .setContent(remoteViews)
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setChannelId(id)
+                    .setContentIntent(pendingIntent);
+
+            //NotificationManager notificationManager =
+              //      (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            //notificationManager.notify(10 /* ID of notification */, notificationBuilder.build());
+
+            Notification notification = notificationBuilder.build();
+
+// set big content view for newer androids
+            if (android.os.Build.VERSION.SDK_INT >= 16) {
+                notification.bigContentView = remoteViews;
+            }
+
+            NotificationTarget notificationTarget;
+
+
+            notificationTarget = new NotificationTarget(
+                    getApplicationContext(),
+                    R.id.remoteview_notification_icon,
+                    remoteViews,
+                    notification,
+                    1);
+
+            Glide
+                    .with(getApplicationContext())
+                    .asBitmap()
+                    .load(imageUrl)
+                    .into(notificationTarget);
+
+
         }
+
 
     }
 
