@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.careerguide.R;
 import com.careerguide.Utility;
 import com.careerguide.VoleyErrorHelper;
 import com.careerguide.VolleySingleton;
+import com.careerguide.payment.PaymentActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -246,15 +248,6 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                                 new TaskUpdateDeeplink().execute(params);
 
 
-                                ((NewOneToOneRegisteration)activity).runOnUiThread(()->{
-                                    ClipboardManager clipboard = (ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
-                                    ClipData clip = ClipData.newPlainText("Session Link", getDeepLink());
-                                    clipboard.setPrimaryClip(clip);
-
-                                    Toast.makeText(getApplicationContext(),"Session booked! and copied to clipboard",Toast.LENGTH_SHORT).show();
-                                    finish();
-                                });
-
                             }
 
                         } else
@@ -370,12 +363,13 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
                     boolean status = jsonObject.optBoolean("status", false);
                     if (status) {
                     String booking_id=jsonObject.getString("booking_id");
+                        Log.i("sssss","TaskBookSlotBeforePayment success");
 
 
                     createDynamicLink(booking_id);//call this after the booking payment is made.
 
                     } else {
-                        Log.i("sssss","asasas");
+                        Log.i("sssss","TaskBookSlotBeforePayment failed");
                         Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
                     }
                     //pb_loading.setVisibility(View.GONE);
@@ -385,7 +379,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
             }, error -> {
                 // pb_loading.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), VoleyErrorHelper.getMessage(error, getApplicationContext()), Toast.LENGTH_LONG).show();
-                Log.e("all_coun_rerror", "error");
+                Log.e("all_coun_rerror", "TaskBookSlotBeforePayment error");
                 error.printStackTrace();
             }) {
                     @Override
@@ -427,26 +421,45 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
 
                     try {
-                        JSONObject jsonObject = new JSONObject(response+"");
+
+
+                        /*JSONObject jsonObject = new JSONObject(response+"");
                         Log.i("response->",jsonObject+"");
                         boolean status = jsonObject.optBoolean("status", false);
                         if (status) {
 
                             Log.i("success message",jsonObject.getString("successMessage"));
+*/
+                        Intent intent=new Intent(activity , PaymentActivity.class);
+                        intent.putExtra("amount",getPackageCost());
+                        intent.putExtra("booking_id",params[0]);
 
-                        } else {
+                        startActivity(intent);
+                        finish();
+
+                      /*  } else {
                             Log.i("error"," occured ");
-                            Toast.makeText(getApplicationContext(), "Something went wrong.", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(getApplicationContext(), "Booking failed!", Toast.LENGTH_LONG).show();
+                            finish();
                         }
-                        //pb_loading.setVisibility(View.GONE);
-                    } catch (JSONException e) {
+                      */  //pb_loading.setVisibility(View.GONE);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }, error -> {
                     // pb_loading.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), VoleyErrorHelper.getMessage(error, getApplicationContext()), Toast.LENGTH_LONG).show();
-                    Log.e("all_coun_rerror", "error");
+                    Log.e("TaskUpdateDeeplink", "error");
+                    Toast.makeText(getApplicationContext(), "Booking failed!", Toast.LENGTH_LONG).show();
                     error.printStackTrace();
+                    Intent intent=new Intent(activity , PaymentActivity.class);
+                    intent.putExtra("amount",getPackageCost());
+                    intent.putExtra("booking_id",params[0]);
+
+
+                    startActivity(intent);
+                    finish();
                 }) {
                     @Override
                     public Map<String, String> getHeaders() {

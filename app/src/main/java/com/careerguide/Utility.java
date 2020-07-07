@@ -494,7 +494,7 @@ public class Utility extends Application
         timer.schedule(doAsynchronousTask, 0, 6000);
     }
 
-    public static void keepTrackOfTimeWithServer(final Activity activity)
+    public static void keepTrackOfTimeWithServer(final Activity activity,final int pingServerPeriodMilliSec)
     {
         timer.cancel();
         if (activity != null)
@@ -537,7 +537,7 @@ public class Utility extends Application
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 6000);
+        timer.schedule(doAsynchronousTask, 0, pingServerPeriodMilliSec);
 
     }
 

@@ -180,6 +180,7 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
             mRtcEngine.startPreview();
         } else {*/
             mRtcEngine.enableLocalAudio(false);
+            mRtcEngine.enableLocalVideo(false);
             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
         //}
         Log.e("#cmm engine","ewkjbewjkfb" +getchannelid());

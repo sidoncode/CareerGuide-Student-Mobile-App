@@ -1,5 +1,6 @@
 package com.careerguide.Book_One_To_One.customSteppers;
 
+import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -161,7 +162,8 @@ public class NameEmailStepper extends Step<String> {
                 menteeName.setEnabled(true);
                 menteeEmail.setEnabled(true);
                 menteeName.setText("");
-                menteeEmail.setText("");
+                menteeEmail.setText(Utility.getUserEmail((Activity) getContext()));
+                menteeEmail.setEnabled(false);
                 tv_bookForYou.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_grey));
                 tv_bookForOther.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_blue));
                 tv_bookForYou.setPadding(12,12,12,12);
@@ -179,7 +181,7 @@ public class NameEmailStepper extends Step<String> {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (count<3){
+                if (menteeName.getText().length()<3){
                     menteeName.setError("Name must have more than 3 chars");
                     errorCodeName=1;
                 }else

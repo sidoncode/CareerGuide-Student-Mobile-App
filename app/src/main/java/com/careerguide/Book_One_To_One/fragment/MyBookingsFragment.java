@@ -91,7 +91,7 @@ public class MyBookingsFragment extends Fragment {
 
         Log.i("ssss","aaa");
 
-        new TaskFetchBookings().execute();
+
 
 
 
@@ -99,6 +99,11 @@ public class MyBookingsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        new TaskFetchBookings().execute();
+    }
 
     private class TaskFetchBookings extends AsyncTask<Void, Void, Void> {
 
@@ -119,6 +124,7 @@ public class MyBookingsFragment extends Fragment {
                 JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "https://app.careerguide.com/api/main/fetchOneToOneBookingsForStudent"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/fetch_bookings_for_student.php"*/,jsonBody, response -> {
 
 
+                    oneToOneBookingsAdapter.clearList();
                     try {
                         JSONObject jsonObject = new JSONObject(response+"");
                         Log.i("response->",jsonObject+"");

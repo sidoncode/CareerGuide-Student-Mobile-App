@@ -137,5 +137,9 @@ public class OneToOneBookingsAdapter {
             return mBookingList.size();
         }
     }
+
+    public void clearList(){
+        mBookingList.clear();
+    }
 }
 

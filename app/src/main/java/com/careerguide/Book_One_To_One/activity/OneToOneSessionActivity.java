@@ -200,7 +200,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                             if (privateUID.contentEquals(Utility.getUserId(activity))){
                                 textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
 
-                                Utility.keepTrackOfTimeWithServer(activity);
+                                Utility.keepTrackOfTimeWithServer(activity,30000);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -282,7 +282,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                                 textLockedMessage.setText("You will get access at " + privateSessionTime + " on " + privateSessionDate + " \n Session for \n" + privateUserName + ".");
 
 
-                                Utility.keepTrackOfTimeWithServer(activity);
+                                Utility.keepTrackOfTimeWithServer(activity,30000);
 
                                 initView();
                                 initRtcEngine();
@@ -362,6 +362,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         if (message.contains("Audio-Call.")){
             activity.runOnUiThread(()->{
                 incomingAudioHostDetails.setVisibility(View.VISIBLE);
+                Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
+                // Vibrate for 400 milliseconds
+                v.vibrate(400);
             });
 
         }
@@ -369,6 +373,11 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
         if (message.contains("Video-Call.")){
             activity.runOnUiThread(()->{
                 incomingVideoHostDetails.setVisibility(View.VISIBLE);
+                Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
+                // Vibrate for 400 milliseconds
+                v.vibrate(400);
+                sendToastMessage("Video Session gets recorded for future reference!");
             });
 
         }
@@ -387,6 +396,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 mRtcEngine.setupRemoteVideo(null);
 
                 live_no_surfaceview_notice.setVisibility(View.GONE);
+                Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
+                // Vibrate for 400 milliseconds
+                v.vibrate(400);
 
                 sendToastMessage("Audio-Call-Ended");
             });
@@ -407,6 +420,10 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 mRtcEngine.setupRemoteVideo(null);
 
                 live_no_surfaceview_notice.setVisibility(View.GONE);
+                Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
+                // Vibrate for 400 milliseconds
+                v.vibrate(400);
 
                 sendToastMessage("Video Call Ended");
             });
@@ -501,6 +518,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
                 host_image_audio_call.setVisibility(View.GONE);
                 live_msg_et.setEnabled(false);
                 incomingVideoHostDetails.setVisibility(View.GONE);
+
 
             }
         });
@@ -720,6 +738,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
         SurfaceView surface = RtcEngine.CreateRendererView(activity);
         ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);
+
         mRtcEngine.enableLocalAudio(false);
         mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
 
@@ -835,12 +854,12 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
             }
         }).start();//run the send message on the background thread
 
-
     }
 
 
     private void setClientRoleAudience() {
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
+        mRtcEngine.enableLocalVideo(false);
     }
 
     private void setClientRoleBroadcaster() {
@@ -1119,7 +1138,7 @@ public  class OneToOneSessionActivity extends AgoraBaseActivity implements OnRtc
 
             if ((sessionStartHour + 1) == sessionEndHour  & privateSessionDate.contentEquals(serverDate)) {
                 if (serverHour < sessionEndHour) {
-                    minLeft = 75 - serverMins;
+                    minLeft = 60 - serverMins;
                 }
 
                 if (serverHour == sessionEndHour) {

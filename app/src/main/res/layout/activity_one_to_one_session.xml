@@ -15,7 +15,7 @@
         android:layout_height="56dp"
         android:elevation="3dp"
         android:id="@+id/toolbar"
-        android:background="#48507E">
+        android:background="#4e59ad">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -411,7 +411,7 @@
         android:layout_height="match_parent"
         android:elevation="9dp"
         android:clickable="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@color/black">
 
         <TextView
@@ -584,7 +584,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:background="#496188"
+            android:background="#FFFFFF"
 
             >
 
@@ -595,7 +595,7 @@
                 android:layout_height="match_parent"
                 android:autofillHints=""
                 android:textColorHint="@color/white"
-                android:backgroundTint="#323B59"
+                android:backgroundTint="#4e59ad"
                 android:textColor="#fff"
                 android:layout_marginLeft="8dp"
                 android:hint="Type a message..."
@@ -616,7 +616,7 @@
                 android:layout_height="36dp"
                 android:layout_weight="0.1"
                 android:background="@drawable/shape_round_bg"
-                android:backgroundTint="#323B59">
+                android:backgroundTint="#4e59ad">
 
                 <TextView
                     android:id="@+id/live_msg_send_btn"
