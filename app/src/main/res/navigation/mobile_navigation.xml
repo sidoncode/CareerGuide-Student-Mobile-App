@@ -181,7 +181,13 @@
         android:name="com.careerguide.HomeFragment"
         android:label="Category">
     </fragment>
-
+    <fragment
+        android:id="@+id/universalSearchFragment"
+        android:name="com.careerguide.universalsearch.UniversalSearchFragment"
+        android:label="Search" />
+    <action
+        android:id="@+id/action_global_universalSearchFragment"
+        app:destination="@id/universalSearchFragment" />
 
 
 </navigation>

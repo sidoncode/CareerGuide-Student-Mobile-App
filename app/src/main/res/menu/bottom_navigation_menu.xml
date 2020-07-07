@@ -9,6 +9,14 @@
         app:labelVisibilityMode="labeled"
         android:enabled="true"
         android:title="Home" />
+
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_univ_search"
+        app:labelVisibilityMode="labeled"
+        android:enabled="true"
+        android:title="Search" />
+
     <item
         android:id="@+id/nav_feed"
         android:icon="@drawable/ic_tabs"

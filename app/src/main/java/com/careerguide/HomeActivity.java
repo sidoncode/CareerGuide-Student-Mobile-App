@@ -708,6 +708,12 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                     navController.popBackStack();
                     navController.navigate(R.id.nav_to_profileFragment);
                 }
+                if(menuItem.getItemId()==R.id.nav_search)
+                {
+                    navController.popBackStack();
+                    navController.navigate(R.id.action_global_universalSearchFragment);
+                }
+
 
                 return true;
             }
@@ -1960,6 +1966,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
                         }
 
                         viewModelProvider.setCounsellorList(counsellorList);
+                        com.careerguide.universalsearch.Utility.counsellorListForSearch=new ArrayList<>(counsellorList);
+
 
                     }
                 } catch (JSONException e) {

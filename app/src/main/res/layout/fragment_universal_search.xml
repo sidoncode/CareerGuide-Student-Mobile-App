@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="match_parent"
+                android:id="@+id/search_view"
+                app:iconifiedByDefault="false"
+                android:elevation="6dp"
+                android:background="@color/white"
+                android:focusable="false"
+                android:layout_marginTop="22dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                app:queryHint="Search sessions, counsellors..."
+
+                />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/result_tabs"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:tabTextColor="@color/lightBlack"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabIndicatorColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:tabGravity="fill"
+                app:tabMode="scrollable"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <ImageView
+            android:id="@+id/search_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="80dp"
+            android:alpha="0.4"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:src="@drawable/ic_search_bg"/>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>
