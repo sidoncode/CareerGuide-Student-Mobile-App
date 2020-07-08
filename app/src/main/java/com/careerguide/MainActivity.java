@@ -200,7 +200,8 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
 
-        sendNotification("Topic: Testing notifications of the app","Surabhi Dewra is Live now",null,"Exoplayer","4","https://app.careerguide.com/api/user_dir/5dea36c09d66d1575630528.jpeg");
+        //you can test notifications by sending dummy data by uncommenting
+        //sendNotification("Topic: Testing ","Surabhi Dewra is Live now",null,"Exoplayer","4","http://app.careerguide.com/api/user_dir/5f058d1beb8591594199323.jpeg");
     }
 
     public void sendNotification(String title, String messageBody,  Bitmap image, String activity , String data_id,String imageUrl) {
@@ -365,51 +366,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void setNotificationResources(){
-
-        final RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.remoteview_notification);
-
-        remoteViews.setImageViewResource(R.id.remoteview_notification_icon, R.drawable.ic_stat_name);
-
-        remoteViews.setTextViewText(R.id.remoteview_notification_headline, "Topic: Testing notifications of the app");
-        remoteViews.setTextViewText(R.id.remoteview_notification_short_message, "Surabhi Dewra is Live now");
-        remoteViews.setTextViewText(R.id.remoteview_notification_time, "19:03");
-
-// build notification
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(getApplicationContext())
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Content Title")
-                        .setContentText("Content Text")
-                        .setContent(remoteViews)
-                        .setPriority( NotificationCompat.PRIORITY_DEFAULT);
-
-         Notification notification = mBuilder.build();
-
-// set big content view for newer androids
-        if (android.os.Build.VERSION.SDK_INT >= 16) {
-            notification.bigContentView = remoteViews;
-        }
-
-         NotificationTarget notificationTarget;
-
-
-        notificationTarget = new NotificationTarget(
-                getApplicationContext(),
-                R.id.remoteview_notification_icon,
-                remoteViews,
-                notification,
-                1);
-
-        Glide
-                .with(getApplicationContext())
-                .asBitmap()
-                .load("http://app.careerguide.com/api/user_dir/5dea36c09d66d1575630528.jpeg")
-                .into(notificationTarget);
-
-
-    }
 
 
 
