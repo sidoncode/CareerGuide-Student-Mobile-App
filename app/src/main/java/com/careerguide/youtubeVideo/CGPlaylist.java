@@ -155,6 +155,12 @@ public class CGPlaylist extends Fragment {
         heading_councellors_txt=thisScreensView.findViewById(R.id.heading_councellors_txt);//Added by Atul
         liveLayout = thisScreensView.findViewById(R.id.live_lyt);
 
+
+
+        thisScreensView.findViewById(R.id.bookOneToOneSesionBtn).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), NewOneToOneRegisteration.class));
+        });
+
         thisScreensView.findViewById(R.id.tests).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(),PsychometricTestsActivity.class));
         });
