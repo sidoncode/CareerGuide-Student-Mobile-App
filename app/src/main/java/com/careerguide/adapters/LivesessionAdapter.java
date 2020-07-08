@@ -121,7 +121,7 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
             if(days==0){
                 return "Today";
             }else{
-                if(days<32)
+                if(days<31)
                     return days+" day(s) ago";
                 else
                 if(days>31&days<366){

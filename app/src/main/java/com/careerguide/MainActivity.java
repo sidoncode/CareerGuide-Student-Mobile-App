@@ -98,10 +98,6 @@ public class MainActivity extends AppCompatActivity {
                             cnt=1;
                             rewd();
                         }
-                        else
-                        {
-                            rewd();
-                        }
 
 
                         // Handle the deep link. For example, open the linked
@@ -118,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.w("MainActivity", "getDynamicLink:onFailure", e);
                     }
                 });
+
         Uri uri = getIntent().getData();
         if(uri != null){
             Log.e("uri" , "--> "+uri);
@@ -146,12 +143,12 @@ public class MainActivity extends AppCompatActivity {
             googleApiAvailability.makeGooglePlayServicesAvailable(activity);
         }
         FirebaseApp.initializeApp(activity);
-        //FirebaseMessaging.getInstance().subscribeToTopic("notification");//comment this for local testing
-        FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
+         //FirebaseMessaging.getInstance().subscribeToTopic("notification");//comment this for local testing
+         FirebaseMessaging.getInstance().subscribeToTopic("devtest");//comment this when publishing the app to google
         Log.d("notification", "Subscribed");
 
-        /*if(cnt==0)
-            rewd();*/
+        if(cnt==0)
+            rewd();
 
 
 
@@ -160,10 +157,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void rewd()
     {
-        int interval = 800;
+        int interval = 1000;
         if (getIntent().getBooleanExtra("hideSplash",false))
         {
-            interval = 800;
+            interval = 1000;
         }
         Log.e("interval",interval + "");
         new Handler().postDelayed(() -> {

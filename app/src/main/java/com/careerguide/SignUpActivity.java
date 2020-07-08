@@ -11,6 +11,7 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -39,6 +40,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +59,12 @@ import java.util.Stack;
 
 public class SignUpActivity extends AppCompatActivity
 {
+
+
+    //Text View for Welcome and Sub heading
+   private  TextView welcome,welcome_subheading;
+
+
     private static final int RC_SIGN_IN = 1;
     private CallbackManager callbackManager;
     private GoogleSignInClient mGoogleSignInClient;
@@ -74,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity
     private RelativeLayout progressBar;
 
     private boolean loginError = false;
+    View view;
 
     private enum screenType
     {
@@ -87,11 +97,27 @@ public class SignUpActivity extends AppCompatActivity
 
     Stack<screenType> stack = new Stack<>();
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+
+        //Main Headings of welcome and subheading
+        welcome=findViewById(R.id.text_Welcome);
+        welcome_subheading=findViewById(R.id.text_welcome_subheading);
+
+        //Getting reference of main layout
+        view = findViewById(R.id.signup_main);
+
+
+
+
 
         progressBar=findViewById(R.id.progressBar);
 
@@ -155,7 +181,6 @@ public class SignUpActivity extends AppCompatActivity
         }
 
         //Google Start
-
         /*
         Email:- meracareerguide@gmail.com
         Password:- careerguide1*/
@@ -176,14 +201,22 @@ public class SignUpActivity extends AppCompatActivity
         });
 
 
-        stack.push(screenType.SOCIAL);
+        stack.push(screenType.LOGIN);
         signUpLayout = findViewById(R.id.sign_up_layout);
         customSignUpLayout = findViewById(R.id.coustom_sign_up_layout);
         loginLayout = findViewById(R.id.coustom_log_in_layout);
         forgotPasswordLayout = findViewById(R.id.forgotPassword_layout);
         forgotPasswordMessageLayout = findViewById(R.id.forgotPasswordMessage_layout);
         resetPasswordLayout = findViewById(R.id.reset_password_layout);
+
+
         findViewById(R.id.coustom_sign_in_button).setOnClickListener(v -> {
+
+            //setting Heading and subheading text
+            welcome.setText("Create Account,");
+            welcome.setTextColor(getResources().getColor(R.color.colorPrimary));
+            welcome_subheading.setText("Sign up to get started ...");
+
             signUpLayout.setVisibility(View.GONE);
             customSignUpLayout.setVisibility(View.VISIBLE);
             loginLayout.setVisibility(View.GONE);
@@ -192,7 +225,15 @@ public class SignUpActivity extends AppCompatActivity
             resetPasswordLayout.setVisibility(View.GONE);
             stack.push(screenType.COUSTOM);
         });
+
+
         findViewById(R.id.loginButton).setOnClickListener(v -> {
+
+            //setting Heading and subheading text
+            welcome.setText("Welcome,");
+            welcome.setTextColor(getResources().getColor(R.color.colorPrimary));
+            welcome_subheading.setText("Sign in to continue ...");
+
             signUpLayout.setVisibility(View.GONE);
             customSignUpLayout.setVisibility(View.GONE);
             loginLayout.setVisibility(View.VISIBLE);
@@ -203,6 +244,13 @@ public class SignUpActivity extends AppCompatActivity
         });
 
         findViewById(R.id.forgotPasswordLink).setOnClickListener(v -> {
+
+            //setting Heading and subheading text
+            welcome.setText("Problem Occurred,");
+            welcome.setTextColor(getResources().getColor(R.color.red));
+            welcome_subheading.setText("Enter email to reset password ...");
+
+
             signUpLayout.setVisibility(View.GONE);
             customSignUpLayout.setVisibility(View.GONE);
             loginLayout.setVisibility(View.GONE);
@@ -246,6 +294,11 @@ public class SignUpActivity extends AppCompatActivity
             {
                 if (otp.equals(resetCode))
                 {
+                    //setting Heading and subheading text
+                    welcome.setText("Hooray,");
+                    welcome.setTextColor(getResources().getColor(R.color.green));
+                    welcome_subheading.setText("Set up your new password...");
+
                     signUpLayout.setVisibility(View.GONE);
                     customSignUpLayout.setVisibility(View.GONE);
                     loginLayout.setVisibility(View.GONE);
@@ -269,9 +322,12 @@ public class SignUpActivity extends AppCompatActivity
         }
     }
 
+
+
+    //Forgot Password OTP function
     private void initializeForgotPasswordOTP()
     {
-        ((TextView) findViewById(R.id.OTPInstructionsTV)).setText("We have sent an email to your email id " + resetEmail + ".\n\nPlease check it to find the link to reset your password.");
+        ((TextView) findViewById(R.id.OTPInstructionsTV)).setText("We have sent an email to your email id " +resetEmail + ".\n\nPlease check it to find the link to reset your password.");
         final EditText OTPEditText = findViewById(R.id.OTPEditText);
         final Button resetPassword = findViewById(R.id.resetPassword);
         OTPEditText.setText("");
@@ -293,6 +349,12 @@ public class SignUpActivity extends AppCompatActivity
                     resetPassword.setVisibility(View.VISIBLE);
                     resetPassword.setOnClickListener(v -> {
                         stack.pop();
+
+                        //setting Heading and subheading text
+                        welcome.setText("Hooray,");
+                        welcome.setTextColor(getResources().getColor(R.color.green));
+                        welcome_subheading.setText("Set up you new password...");
+
                         signUpLayout.setVisibility(View.GONE);
                         customSignUpLayout.setVisibility(View.GONE);
                         loginLayout.setVisibility(View.GONE);
@@ -312,11 +374,18 @@ public class SignUpActivity extends AppCompatActivity
         });
     }
 
+
+
+
+
+    //Reset Password Function
     private void initializeResetPassword()
     {
         final EditText createPassword = findViewById(R.id.createPassword);
         final EditText retypePassword = findViewById(R.id.retypePassword);
         final Button continueButtonReset = findViewById(R.id.continueButtonReset);
+
+        continueButtonReset.setEnabled(false);
 
 
         createPassword.addTextChangedListener(new TextWatcher() {
@@ -401,11 +470,13 @@ public class SignUpActivity extends AppCompatActivity
 
             }
         });
+
         continueButtonReset.setOnClickListener(v -> {
             //final String email = createPassword.getText().toString().trim();
             final String password = createPassword.getText().toString().trim();
 
             showProgressBar();
+
             StringRequest stringRequest = new StringRequest(
                     Request.Method.POST,
                     Utility.PRIVATE_SERVER + "change_password",
@@ -491,9 +562,21 @@ public class SignUpActivity extends AppCompatActivity
         });
     }
 
+
+
+
+
+
+
+    //Forgot Password Function
     private void initializeForgotPassword() {
         final EditText emailEditText = findViewById(R.id.emailInputFP);
         final Button continueButton = findViewById(R.id.continueButton);
+
+
+        //Disabling continue button
+        continueButton.setEnabled(false);
+
         final boolean validEmail[] = {false};
         emailEditText.addTextChangedListener(new TextWatcher()
         {
@@ -526,83 +609,93 @@ public class SignUpActivity extends AppCompatActivity
 
         continueButton.setOnClickListener(v -> {
             final String email = emailEditText.getText().toString().trim();
-            showProgressBar();
-            StringRequest stringRequest = new StringRequest(
-                    Request.Method.POST, Utility.PRIVATE_SERVER + "forget_password",
-                    response -> {
-                        hideProgressBar();
-                        Log.e("forget_response",response);
-                        try
-                        {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean status = jsonObject.optBoolean("status",false);
-                            String msg = jsonObject.optString("msg");
-                            if(status && msg.equals("otp send successfully"))
-                            {
-                                resetEmail = email;
-                                SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("resetEmail",email);
-                                editor.apply();
-                                stack.pop();
-                                signUpLayout.setVisibility(View.GONE);
-                                customSignUpLayout.setVisibility(View.GONE);
-                                loginLayout.setVisibility(View.GONE);
-                                forgotPasswordLayout.setVisibility(View.GONE);
-                                resetPasswordLayout.setVisibility(View.GONE);
-                                forgotPasswordMessageLayout.setVisibility(View.VISIBLE);
-                                stack.push(screenType.FORGOT_OTP);
-                                initializeForgotPasswordOTP();
-                            }
-                            else
-                            {
-                                if (msg.equals("user does not exist"))
-                                {
-                                    ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
-                                    findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
-                                }
-                                else if (msg.equals("user account is not activated yet!"))
-                                {
-                                    ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
-                                    findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
-                                }
-                                else if (msg.equals("user not registered with custom"))
-                                {
-                                    ((TextView)findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
-                                    findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
-                                }
+                showProgressBar();
+                StringRequest stringRequest = new StringRequest(
+                        Request.Method.POST, Utility.PRIVATE_SERVER + "forget_password",
+                        response -> {
+                            hideProgressBar();
+                            Log.e("forget_response", response);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean status = jsonObject.optBoolean("status", false);
+                                String msg = jsonObject.optString("msg");
+                                if (status && msg.equals("otp send successfully")) {
+                                    resetEmail = email;
+                                    SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("resetEmail", email);
+                                    editor.apply();
+                                    stack.pop();
+
+                                    signUpLayout.setVisibility(View.GONE);
+                                    customSignUpLayout.setVisibility(View.GONE);
+                                    loginLayout.setVisibility(View.GONE);
+                                    forgotPasswordLayout.setVisibility(View.GONE);
+                                    resetPasswordLayout.setVisibility(View.GONE);
+
+                                    //setting Heading and subheading text
+                                    welcome.setText("Hey there,");
+                                    welcome.setTextColor(getResources().getColor(R.color.yellow));
+                                    welcome_subheading.setText("Enter OTP to continue ...");
+
+                                    forgotPasswordMessageLayout.setVisibility(View.VISIBLE);
+
+                                    stack.push(screenType.FORGOT_OTP);
+                                    initializeForgotPasswordOTP();
+                                } else {
+                                    if (msg.equals("user does not exist")) {
+                                        ((TextView) findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
+                                        findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                                    } else if (msg.equals("user account is not activated yet!")) {
+                                        ((TextView) findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
+                                        findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                                    } else if (msg.equals("user not registered with custom")) {
+                                        ((TextView) findViewById(R.id.emailErrorFP)).setText("Email doesn't exist");
+                                        findViewById(R.id.emailErrorFP).setVisibility(View.VISIBLE);
+                                    }
+
                                 /*  else
                                 {
                                     Toast.makeText(activity, "Something went wrong.",Toast.LENGTH_LONG).show();
                                 }*/
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
 
                         }, error -> {
-                            hideProgressBar();
-                            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-                            Log.e("forget_error","error");
-                        })
-                        {
-                            @Override
-                            protected Map<String, String> getParams() {
-                                HashMap<String,String> params = new HashMap<>();
-                                params.put("email",email);
-                                params.put("otp",generateOTP());
-                                Log.e("request",params.toString());
-                                return params;
-                            }
-                        };
-            VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
+                    hideProgressBar();
+                    Toast.makeText(activity, VoleyErrorHelper.getMessage(error, activity), Toast.LENGTH_LONG).show();
+                    Log.e("forget_error", "error");
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        HashMap<String, String> params = new HashMap<>();
+                        params.put("email", email);
+                        params.put("otp", generateOTP());
+                        Log.e("request", params.toString());
+                        return params;
+                    }
+                };
+                VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
         });
     }
 
+
+
+
+
+
+
+
+    // Log in Function
     private void initializeLogIn() {
         final EditText emailEditText = findViewById(R.id.emailInputLogin);
         final EditText passwordEditText = findViewById(R.id.passwordInputLogin);
         final Button loginButton = findViewById(R.id.login);
+
+        loginButton.setEnabled(false);
+
         emailEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -673,6 +766,8 @@ public class SignUpActivity extends AppCompatActivity
 
             }
         });
+
+
         loginButton.setOnClickListener(v -> {
             final String email = emailEditText.getText().toString().trim();
             final String password = passwordEditText.getText().toString().trim();
@@ -761,11 +856,22 @@ public class SignUpActivity extends AppCompatActivity
         });
     }
 
+
+
+
+
+
+
+
+    // New User sign up Function
     private void initializeCustomSignUp()
     {
         final EditText emailEditText = findViewById(R.id.emailInput);
         final EditText passwordEditText = findViewById(R.id.passwordInput);
         final Button signUpButton = findViewById(R.id.signUpButton);
+
+        signUpButton.setEnabled(false);
+
         emailEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -834,6 +940,7 @@ public class SignUpActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {
             }
         });
+
         signUpButton.setOnClickListener(v -> {
             final String email = emailEditText.getText().toString().trim();
             final String password = passwordEditText.getText().toString().trim();
@@ -849,8 +956,11 @@ public class SignUpActivity extends AppCompatActivity
                     if(status)
                     {
                         //user exist
-                        ((TextView)findViewById(R.id.emailError)).setText("Email id already registered.");
-                        findViewById(R.id.emailError).setVisibility(View.VISIBLE);
+
+                        makeSnackToast();
+//                        ((TextView)findViewById(R.id.emailError)).setText("Email id already registered.");
+//                        findViewById(R.id.emailError).setVisibility(View.VISIBLE);
+                        return;
                     }
                     else
                     {
@@ -859,8 +969,12 @@ public class SignUpActivity extends AppCompatActivity
                             case "db query failed":
                                 Toast.makeText(activity, "Something went wrong.\nPlease Retry...", Toast.LENGTH_LONG).show();
                                 break;
-                            case "user exist":
-                                JSONObject userJsonObject = jsonObject.optJSONObject("user");
+
+                                //Forwarding to main which is of no use :(
+
+
+                            //case user exist
+                               /* JSONObject userJsonObject = jsonObject.optJSONObject("user");
                                 String id = userJsonObject.optString("id");
                                 String emailRes = userJsonObject.optString("email");
                                 String firstName = userJsonObject.optString("first_name");
@@ -885,13 +999,26 @@ public class SignUpActivity extends AppCompatActivity
                                 Utility.setUserActivated(activity,activated);
                                 Intent intent = new Intent(activity,HomeActivity.class);
                                 startActivity(intent);
-                                finish();
-                                break;
+                                finish();*/
+
+                             //case registered with fb
+                                // proceed("", "", "", email, "", "", "custom", password);
+                                //break;
+
+                             // case 3 registered with google
+                                //proceed("", "", "", email, "", "", "custom", password);
+                                //break
+
+                            //Old cases ends
+
+
+                            //Showing message to the user that your are already registered try to login
+                            case "user already exist":
+                            case "user_exist":
+                            case "user exist":
                             case "registered with facebook":
-                                proceed("", "", "", email, "", "", "custom", password);
-                                break;
                             case "registered with google":
-                                proceed("", "", "", email, "", "", "custom", password);
+                                makeSnackToast();
                                 break;
                             case "User not found":
                                 proceed("", "", "", email, "", "", "custom", password);
@@ -924,6 +1051,22 @@ public class SignUpActivity extends AppCompatActivity
         });
     }
 
+
+
+
+
+
+
+    //Method for snack message
+    private void makeSnackToast() {
+        Snackbar.make(view, "Email already registered! Try to login", Snackbar.LENGTH_SHORT).show();
+    }
+
+
+
+
+
+    //OnStart Function
     @Override
     protected void onStart() {
         super.onStart();// Check for existing Google Sign In account, if the user is already signed in
@@ -932,6 +1075,10 @@ public class SignUpActivity extends AppCompatActivity
         updateUI(account);*/
     }
 
+
+
+
+    //OnBack press Function
     @Override
     public void onBackPressed() {
         if(stack.size() <2) {
@@ -944,6 +1091,12 @@ public class SignUpActivity extends AppCompatActivity
             switch (topStack)
             {
                 case COUSTOM:
+
+                    //setting Heading and subheading text
+                    welcome.setText("Welcome,");
+                    welcome.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    welcome_subheading.setText("Sign in to continue ...");
+
                     customSignUpLayout.setVisibility(View.VISIBLE);
                     signUpLayout.setVisibility(View.GONE);
                     loginLayout.setVisibility(View.GONE);
@@ -957,7 +1110,14 @@ public class SignUpActivity extends AppCompatActivity
                         findViewById(R.id.loginErrorMessage).setVisibility(View.VISIBLE);*/
                     }
                     break;
+
                 case LOGIN:
+
+                    //setting Heading and subheading text
+                    welcome.setText("Welcome,");
+                    welcome.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    welcome_subheading.setText("Sign in to continue ...");
+
                     customSignUpLayout.setVisibility(View.GONE);
                     signUpLayout.setVisibility(View.GONE);
                     loginLayout.setVisibility(View.VISIBLE);
@@ -965,7 +1125,14 @@ public class SignUpActivity extends AppCompatActivity
                     forgotPasswordLayout.setVisibility(View.GONE);
                     resetPasswordLayout.setVisibility(View.GONE);
                     break;
+
                 case SOCIAL:
+
+                    //setting Heading and subheading text
+                    welcome.setText("Welcome,");
+                    welcome.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    welcome_subheading.setText("Sign in to continue ...");
+
                     customSignUpLayout.setVisibility(View.GONE);
                     signUpLayout.setVisibility(View.VISIBLE);
                     loginLayout.setVisibility(View.GONE);
@@ -979,6 +1146,11 @@ public class SignUpActivity extends AppCompatActivity
         }
     }
 
+
+
+
+
+    // Activity result function
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -1000,6 +1172,13 @@ Log.e("result code" , "resultcode:"+resultCode);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+
+
+
+
+
+    //Handling Sign in by google
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask)
     {
         Log.d("#code", "+requestCode");
@@ -1021,6 +1200,12 @@ Log.e("result code" , "resultcode:"+resultCode);
 
     }
 
+
+
+
+
+
+    //Facebook sign in
     private void parseAccessToken()
     {
         GraphRequest request = GraphRequest.newMeRequest(
@@ -1077,6 +1262,11 @@ Log.e("result code" , "resultcode:"+resultCode);
         request.executeAsync();
     }
 
+
+
+
+
+    //Google sign in 2 function
     private void updateUI(GoogleSignInAccount account)
     {
         if(account != null)
@@ -1125,6 +1315,12 @@ Log.e("result code" , "resultcode:"+resultCode);
         }
     }
 
+
+
+
+
+
+    //OTP Generating Function
     protected String generateOTP()
     {
         Random rnd = new Random();
@@ -1142,6 +1338,12 @@ Log.e("result code" , "resultcode:"+resultCode);
     }
 
 
+
+
+
+
+
+    //Go to Profile Activity
     private void proceed(final String id, final String firstName, final String lastName, final String email, final String gender, final String profilePic, final String source, final String password)
     {
         if (source.equals("custom"))
@@ -1237,11 +1439,23 @@ Log.e("result code" , "resultcode:"+resultCode);
         }
     }
 
+
+
+
+
+
+
+    //Show bar
     private void showProgressBar(){
         progressBar.setEnabled(false);
         progressBar.setVisibility (View.VISIBLE);
 
     }
+
+
+
+
+    //Hide bar
     private void hideProgressBar(){
 
         progressBar.setVisibility (View.INVISIBLE);

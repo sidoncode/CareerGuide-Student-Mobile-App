@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/home_fragment">
 
-    <activity
+    <fragment
         android:id="@+id/nav_to_counsellor_profiles"
-        android:name="com.careerguide.activity.AllCounsellor"
+        android:name="com.careerguide.All_Couns_Fragment"
         android:label="Counsellor Profiles"
-        tools:layout="@layout/activity_all_counsellor"/>
+        tools:layout="@layout/fragment_all_couns"/>
 
     <fragment
         android:id="@id/contact_us"
@@ -73,12 +73,11 @@
         tools:layout="@layout/fragment_notification" />
 
 
-
     <action
         app:enterAnim="@android:anim/fade_in"
         app:exitAnim="@android:anim/fade_out"
         android:id="@+id/nav_to_profileFragment"
-        app:destination="@id/class_cat" />
+        app:destination="@id/class_cat"/>
 
 
     <action
@@ -182,7 +181,13 @@
         android:name="com.careerguide.HomeFragment"
         android:label="Category">
     </fragment>
-
+    <fragment
+        android:id="@+id/universalSearchFragment"
+        android:name="com.careerguide.universalsearch.UniversalSearchFragment"
+        android:label="Search" />
+    <action
+        android:id="@+id/action_global_universalSearchFragment"
+        app:destination="@id/universalSearchFragment" />
 
 
 </navigation>

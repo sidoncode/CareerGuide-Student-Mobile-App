@@ -118,6 +118,21 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="popup_window_animation_phone">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Gets rid of the search icon -->
+        <item name="searchIcon">@drawable/ic_back</item>
+        <!-- Gets rid of the "underline" in the text -->
+        <item name="queryBackground">@color/white</item>
+        <!-- Gets rid of the search icon when the SearchView is expanded -->
+        <item name="searchHintIcon">@null</item>
+        <!-- The hint text that appears when the user has not typed anything -->
+        <item name="queryHint">"Search"</item>
+    </style>
+
 
 
 

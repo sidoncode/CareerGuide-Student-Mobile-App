@@ -19,6 +19,7 @@
     <application
         android:name="com.ZohoSalesiq"
         android:allowBackup="true"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -57,8 +58,20 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".newsfeed.FeedViewActivity" />
-        <activity android:name=".newsfeed.NewsFeedActivity" />
+        <activity android:name=".newsfeed.FeedViewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="careerguidestudentarticle.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".newsfeed.NewsFeedActivity">
+
+        </activity>
         <activity
             android:name=".Book_Appoinment.BookingTime"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -67,6 +80,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AllCounsellor"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SubcategoryActivity"
@@ -203,7 +217,10 @@
             android:name=".HomeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+
+        </activity>
         <activity
             android:name=".PsychometricTestsActivity"
             android:configChanges="orientation"
@@ -221,7 +238,8 @@
             android:name=".ProfileDetailActivity"
             android:configChanges="orientation"
             android:label="Profile Details"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
         <activity
             android:name=".SettingActivity"
@@ -262,7 +280,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".TokBoxVideoCall" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".Refer_a_friend" />
+        <activity android:name=".Refer_a_friend"
+            android:screenOrientation="portrait"/>
         <activity android:name=".exoplayerActivity" />
         <activity
             android:name=".youtubeVideo.CM_youtubePlaylist"
@@ -289,7 +308,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".blog.activity.CategoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="careerguidestudentblogs.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".blog.activity.CatDetailWoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -312,7 +342,9 @@
         <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <activity android:name=".Onboarding" />
+        <activity android:name=".Onboarding"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.

@@ -11,6 +11,7 @@
     <color name="buttonColor">#54B7C8</color>
     <color name="app_pink">#e91e63</color>
     <color name="black_30">#4c000000</color>
+    <color name="black_search">#151515</color>
     <color name="white_ru">#D2E9FF</color>
     <color name="blue">#32c5f3</color>
     <color name="darkGray">#aaa</color>
@@ -39,4 +40,13 @@
     <color name="fire_blue">#085b9c</color>
     <color name="fire_red">#800000</color>
     <color name="fire_sky">#00BCD4</color>
+
+    <color name="red">#E53935</color>
+    <color name="green">#43A047</color>
+    <color name="yellow">#FDD835</color>
+
+    <color name="deep_pink">#FF1493</color>
+    <color name="first_leader">#92A3FF</color>
+    <color name="dark_blue">#4285F4</color>
+
 </resources>

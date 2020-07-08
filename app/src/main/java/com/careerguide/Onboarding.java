@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class Onboarding extends AppCompatActivity {
@@ -21,7 +22,9 @@ public class Onboarding extends AppCompatActivity {
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private TextView btnSkip, btnNext;
+
+    //private Button btnSkip, btnNext; old buttons
 
 
     @Override
@@ -55,9 +58,13 @@ public class Onboarding extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
 
         viewPager = (ViewPager) findViewById(R.id.view_pagera);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        btnSkip = findViewById(R.id.btn_skip);
+        btnNext = findViewById(R.id.btn_next);
 
+
+        //Old buttons
+        /*btnSkip = (Button) findViewById(R.id.btn_skip);
+        btnNext = (button) findViewById(R.id.btn_next);*/
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -104,11 +111,11 @@ public class Onboarding extends AppCompatActivity {
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText("Start");
+                btnNext.setText("START");
                 btnSkip.setVisibility(View.GONE);
             } else {
                 // still pages are left
-                btnNext.setText("Next");
+                btnNext.setText("NEXT");
                 btnSkip.setVisibility(View.VISIBLE);
             }
         }

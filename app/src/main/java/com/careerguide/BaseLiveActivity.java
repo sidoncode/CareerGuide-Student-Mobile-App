@@ -174,15 +174,15 @@ public abstract class BaseLiveActivity extends AgoraBaseActivity implements OnRt
         SurfaceView surface = RtcEngine.CreateRendererView(this);
         ((FrameLayout) findViewById(R.id.live_surfaceview)).addView(surface);
 
-        /*if (isAnchor()) {
+        if (isAnchor()) {
             mRtcEngine.enableLocalAudio(false);
             mRtcEngine.setupLocalVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
             mRtcEngine.startPreview();
-        } else {*/
+        } else {
             mRtcEngine.enableLocalAudio(false);
             mRtcEngine.enableLocalVideo(false);
             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, ANCHOR_UID));
-        //}
+        }
         Log.e("#cmm engine","ewkjbewjkfb" +getchannelid());
         mRtcEngine.joinChannel("", getchannelid(), "", getRtcUid());
         if (getchannelid().contentEquals("")){

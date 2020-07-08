@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.StrictMode;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -317,27 +316,18 @@ public class Video_player extends AppCompatActivity {
                             Log.e("main", "short Link" + flowchartLink);
                             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                             StrictMode.setVmPolicy(builder.build());
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        File imgFile = Utility.getFile(banner_image_fileName);
-                                        //Uri path = Uri.fromFile(imgFile);
-                                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                        //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
-                                        shareIntent.setType("image/*");
-                                        //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                                        //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-                                        String shareMessage = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
-                                        shareMessage = shareMessage + shortLink;
-                                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()));
-                                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                                        startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-
-                                    }
-                                }, 2000);
-
-
+                            File imgFile = Utility.getFile(banner_image_fileName);
+                            Uri path = Uri.fromFile(imgFile);
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            //shareIntent.setAction(Intent.ACTION_SEND); // temp permission for receiving app to read this file
+                            shareIntent.setType("image/*");
+                            //shareIntent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                            //shareIntent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+                            String shareMessage = "Let me recommend this video from CareerGuide.com- Must watch for you " + title + " by Guide " + Fullname + "\n";
+                            shareMessage = shareMessage + shortLink;
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()));
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
                         } else {
                             Log.e("Error", "error--> " + task.getException());
                             // Error

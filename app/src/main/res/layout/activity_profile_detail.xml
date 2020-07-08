@@ -1,144 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="3dp"
     tools:context="com.careerguide.ProfileDetailActivity">
-    <ScrollView
+
+
+    <!-- Design changed by Atul Kumar on 17 June
+    Note close all the Views first for better understanding-->
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/_15sdp">
+
+
+        <!-- Heading and sub heading -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Build Up Your Profile,"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Let us know you better..."
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+
+
+        <!-- Main content card view -->
+
+        <androidx.cardview.widget.CardView
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="40dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:background="@android:drawable/dialog_holo_light_frame">
+            android:padding="@dimen/_20sdp">
+
+
+            <!-- Layout for image-->
+
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_gravity="center_horizontal">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/default_profile"
-                    app:civ_border_color="#000"
-                    app:civ_border_width="0dp"/>
-                <!--<TextView
-                    android:id="@+id/imageInitial"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:textColor="#fff"
-                    android:textSize="21sp"
-                    android:gravity="center"
-                    android:text=""/>-->
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1dp" />
+
             </FrameLayout>
+
+
+
+
+            <!-- Information fields  (few are of no use) -->
+
             <TextView
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
                 android:textSize="12sp"
-                android:text="*First Name:"
+                android:text="First Name* :"
                 android:textColor="#e9397b"/>
+
             <EditText
                 android:id="@+id/firstName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/signup_login_btn_bg"
                 android:inputType="textPersonName"
-                android:backgroundTint="#d3d3d3"
                 android:textSize="12sp"
-                android:layout_marginTop="25dp"
-                android:hint="*First Name"
-                android:imeOptions="actionNext"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginTop="10dp"
+                android:hint="First Name"
+                android:imeOptions="actionNext"/>
+
             <TextView
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:textSize="12sp"
-                android:text="*Last Name:"
+                android:text="Last Name* :"
                 android:textColor="#e9397b"/>
+
             <EditText
                 android:id="@+id/lastName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#d3d3d3"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:background="@drawable/signup_login_btn_bg"
+                android:textColor="@color/colorPrimary"
                 android:inputType="textPersonName"
                 android:textSize="12sp"
-                android:hint="*Last Name"
+                android:hint="Last Name"
                 android:imeOptions="actionNext"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginTop="10dp"
+                />
+
             <TextView
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:textSize="12sp"
-                android:text="*Date of Birth:"
+                android:text="Date of Birth* :"
                 android:textColor="#e9397b"/>
             <EditText
                 android:id="@+id/dob"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#d3d3d3"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:background="@drawable/signup_login_btn_bg"
+                android:textColor="@color/colorPrimary"
                 android:inputType="date"
                 android:textSize="12sp"
-                android:hint="*Date of Birth"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:hint="Date of Birth"
+                android:layout_marginTop="10dp"
+                />
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_height="43dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@drawable/signup_login_btn_bg">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
-                    android:text="*Gender:"
+                    android:text="Gender:"
                     android:textColor="#e9397b"/>
                 <RadioGroup
                     android:id="@+id/genderRG"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
                     <RadioButton
                         android:id="@+id/maleRB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Male"/>
+                        android:text="Male"
+                        android:textColor="@color/colorPrimary"/>
                     <RadioButton
                         android:id="@+id/femaleRB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:text="Female"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Female"
+                        android:textColor="@color/colorPrimary"/>
                     <RadioButton
                         android:id="@+id/otherRB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Other"/>
+                        android:text="Other"
+                        android:textColor="@color/colorPrimary"/>
                 </RadioGroup>
             </RelativeLayout>
 
@@ -146,50 +196,61 @@
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:textSize="12sp"
-                android:text="*City:"
+                android:text="City* :"
                 android:textColor="#e9397b"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@drawable/signup_login_btn_bg">
+
                 <EditText
                     android:id="@+id/city"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="#d3d3d3"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorPrimary"
                     android:inputType="textCapWords"
                     android:imeOptions="actionDone"
                     android:textSize="12sp"
-                    android:hint="*City"/>
+                    android:hint="City"/>
+
                 <ImageView
                     android:id="@+id/fetchLocation"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="32dp"
                     android:padding="6dp"
                     android:src="@drawable/ic_fetch_loc"
                     android:layout_marginStart="5dp"/>
             </LinearLayout>
+
+
+
+
+            <!-- Button to submit-->
             <Button
                 android:id="@+id/createUserButton"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="20dp"
                 android:background="#e9397b"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:text="Get Started"/>
 
         </LinearLayout>
-    </ScrollView>
 
 
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
