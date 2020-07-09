@@ -1,6 +1,7 @@
 package com.careerguide.universalsearch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.careerguide.CounsellorProfile;
 import com.careerguide.R;
+import com.careerguide.Video_player;
+import com.careerguide.blog.activity.CategoryActivity;
 import com.careerguide.blog.model.CategoryDetails;
 import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,6 +187,16 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Glide.with(mContext).load(counsellor.getAvatar()).into(counsellorViewHolder.mProfilePic);
                 counsellorViewHolder.mNameView.setText(counsellor.getFirst_name()+" "+counsellor.getLast_name());
                 counsellorViewHolder.mLiveMinutesView.setText(String.valueOf(counsellor.getLive_minutes())+" Live Minutes");
+                counsellorViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, CounsellorProfile.class);
+                        intent.putExtra("host_name" , counsellor.getFirst_name()+" "+counsellor.getLast_name());
+                        intent.putExtra("host_img" , counsellor.getAvatar());
+                        intent.putExtra("host_email" , counsellor.getUsername());
+                        mContext.startActivity(intent);
+                    }
+                });
                 break;
             case Utility.LIVE_SESSION_SEARCH_TYPE:
                 final SessionViewHolder sessionViewHolder = (SessionViewHolder) holder;
@@ -189,6 +204,21 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Glide.with(mContext).load(session.getImgurl()).into(sessionViewHolder.thumbnail);
                 sessionViewHolder.mTitleView.setText(session.getTitle());
                 sessionViewHolder.mAuthorView.setText(session.getFullName());
+                sessionViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext , Video_player.class);
+                        intent.putExtra("video_id" , session.getVideoId());
+                        intent.putExtra("live_video_url" , session.getVideourl());
+                        intent.putExtra("Fullname" , session.getFullName());
+                        intent.putExtra("imgurl" , session.getImgurl());
+                        intent.putExtra("title" , session.getTitle());
+                        intent.putExtra("host_email" , session.getEmail());
+                        intent.putExtra("video_views" , session.getVideoViews());
+                        intent.putExtra("host_img" , session.getProfilePicUrl());
+                        view.getContext().startActivity(intent);
+                    }
+                });
                 break;
             case Utility.ARTICLE_SEARCH_TYPE:
                 final ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
@@ -196,6 +226,15 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Glide.with(mContext).load(article.getPic_url()).into(articleViewHolder.mThumbnail);
                 articleViewHolder.mTitleView.setText(article.getTitle());
                 articleViewHolder.mDescView.setText(article.getDesc());
+                articleViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, CategoryActivity.class);
+                        intent.putExtra("data", new Gson().toJson(mList.get(position)));
+                        intent.putExtra("pos", position);
+                        mContext.startActivity(intent);
+                    }
+                });
                 break;
 
 
