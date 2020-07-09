@@ -77,6 +77,7 @@ public class BatchSlotStepper extends Step<String> {
         tomorrow=batchSlotStepperView.findViewById(R.id.tomorrow);
         dayAfter=batchSlotStepperView.findViewById(R.id.dayAfter);
 
+        ((NewOneToOneRegisteration)getContext()).setSelectedDate(today.getText().toString());
 
         today.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +147,11 @@ public class BatchSlotStepper extends Step<String> {
         today.setText(todayDay);
         tomorrow.setText(tomorrowDay);
         dayAfter.setText(dayAfterDay);
+        today.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_blue));
+        tomorrow.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_grey));
+        dayAfter.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_grey));
+        ((NewOneToOneRegisteration)getContext()).setSelectedDate(today.getText().toString());
+        updateSlotsForSelectedDate(0);
     }
 
     public void updateSlotsForSelectedDate(int dayCode){

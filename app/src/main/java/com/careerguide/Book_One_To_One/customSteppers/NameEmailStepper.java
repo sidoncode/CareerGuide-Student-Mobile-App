@@ -1,5 +1,6 @@
 package com.careerguide.Book_One_To_One.customSteppers;
 
+import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -105,9 +106,18 @@ public class NameEmailStepper extends Step<String> {
                     return;
                 }
                 errorCodeCategory=0;
-                getFormView().markOpenStepAsCompleted(true);
                 ((NewOneToOneRegisteration)getContext()).setSelectedCategory(selectedItem);
                 ((NewOneToOneRegisteration)getContext()).batchSlotStepper.updateSlotsForSelectedDate(0);//update so available counselor can be found
+                if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
+                    getFormView().markOpenStepAsCompleted(true);
+                    ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
+                    ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+                    Log.i("menteename",((NewOneToOneRegisteration)getContext()).getMenteeName());
+                    Log.i("menteeemail",((NewOneToOneRegisteration)getContext()).getMenteeEmail());
+
+                }else
+                    getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
+
 
             }
 
@@ -152,7 +162,8 @@ public class NameEmailStepper extends Step<String> {
                 menteeName.setEnabled(true);
                 menteeEmail.setEnabled(true);
                 menteeName.setText("");
-                menteeEmail.setText("");
+                menteeEmail.setText(Utility.getUserEmail((Activity) getContext()));
+                menteeEmail.setEnabled(false);
                 tv_bookForYou.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_grey));
                 tv_bookForOther.setBackground(getContext().getResources().getDrawable(R.drawable.round_corner_blue));
                 tv_bookForYou.setPadding(12,12,12,12);
@@ -170,16 +181,22 @@ public class NameEmailStepper extends Step<String> {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (count<3){
+                if (menteeName.getText().length()<3){
                     menteeName.setError("Name must have more than 3 chars");
                     errorCodeName=1;
                 }else
                     errorCodeName=0;
 
                 if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
+                    ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
+                    ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+                    Log.i("menteename",((NewOneToOneRegisteration)getContext()).getMenteeName());
+                    Log.i("menteeemail",((NewOneToOneRegisteration)getContext()).getMenteeEmail());
                     getFormView().markOpenStepAsCompleted(true);
                 }else
                     getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
+
+
 
             }
 
@@ -212,11 +229,16 @@ public class NameEmailStepper extends Step<String> {
                     errorCodeEmail=0;
 
                 if (errorCodeName+errorCodeEmail+errorCodeCategory==0){
-                    getFormView().markOpenStepAsCompleted(true);
                     ((NewOneToOneRegisteration)getContext()).setMenteeName(menteeName.getText().toString());
                     ((NewOneToOneRegisteration)getContext()).setMenteeEmail(menteeEmail.getText().toString());
+                    Log.i("menteename",((NewOneToOneRegisteration)getContext()).getMenteeName());
+                    Log.i("menteeemail",((NewOneToOneRegisteration)getContext()).getMenteeEmail());
+                    getFormView().markOpenStepAsCompleted(true);
                 }else
                     getFormView().markOpenStepAsUncompleted(true,"Fields need attention");
+
+
+
 
             }
 

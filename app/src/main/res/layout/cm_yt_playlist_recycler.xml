@@ -433,6 +433,19 @@
 
 
 
+            <Button
+                android:id="@+id/bookOneToOneSesionBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confused? Speak to a Counselor"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+
+
+
+
             <!--Live Sessions Card View-->
             <androidx.cardview.widget.CardView
                 android:visibility="visible"

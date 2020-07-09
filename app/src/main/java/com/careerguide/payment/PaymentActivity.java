@@ -1,6 +1,8 @@
 package com.careerguide.payment;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -54,7 +56,7 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
             options.put("description", "Career Guidance Plan");
             options.put("image", "https://cdn.razorpay.com/logos/C4V67hNqJ8bXgx_medium.png");
             options.put("currency", "INR");
-            options.put("amount", "199900");
+            options.put("amount",Integer.parseInt(getIntent().getStringExtra("amount")));
             options.put("order_id", order_id);
 //            JSONObject preFill = new JSONObject();
 //            preFill.put("email", Utility.getUserEmail(this));
@@ -74,7 +76,7 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
         String new_url = "https://api.razorpay.com/v1/orders";
         try
         {
-            final JSONObject jsonBody = new JSONObject("{\"amount\":199900,\"currency\":\"INR\"}");
+            final JSONObject jsonBody = new JSONObject("{\"amount\":"+getIntent().getStringExtra("amount")+",\"currency\":\"INR\"}");
             Log.e("json query", jsonBody.toString());
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, new_url, jsonBody,
                     response ->{
@@ -113,6 +115,13 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
                 Log.e("payuhash_res", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
+
+                    Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show();
+
+                    String[] params={getIntent().getStringExtra("booking_id"),"1"};
+                    new TaskUpdatePayment().execute(params);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -125,7 +134,7 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
                 protected Map<String, String> getParams() {
                     HashMap<String,String> params = new HashMap<>();
                     params.put("productInfo",productinfo);
-                    params.put("amount",1999 + "");
+                    params.put("amount",getIntent().getStringExtra("amount"));
                     params.put("firstName",Utility.getUserFirstName(activity).trim());
                     params.put("email",Utility.getUserEmail(activity));
                     params.put("user_id",Utility.getUserId(activity));
@@ -142,13 +151,7 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
                 }
             };
             VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
-            Toast.makeText(this, "Payment Successful: " + paymentData +" "+ razorpayPaymentId , Toast.LENGTH_SHORT).show();
-            Log.e("data","" +paymentData.getPaymentId());
-            Log.e("data2","" +paymentData.getOrderId());
-            Log.e("data3","" +paymentData.getSignature());
-            customSuccessAlert.showAlert("Your Booking has been scheduled \n " +
-                    "You can manage your booking in Booking Tab");
-            //finish();
+
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }
@@ -159,9 +162,55 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
         try {
             Log.e("data3","" +paymentData +" "+ desc);
             Toast.makeText(this, "Payment failed", Toast.LENGTH_SHORT).show();
-            finish();
+            String[] params={getIntent().getStringExtra("booking_id"),"0"};//0 will delete the booking
+            new TaskUpdatePayment().execute(params);
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }
+    }
+
+    private class TaskUpdatePayment extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+
+            try {
+
+
+                JSONObject jsonBody = new JSONObject();
+
+                jsonBody.put("booking_id", params[0]);
+                jsonBody.put("confirmedBooking", params[1]);
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"updateOneToOneBookingConfirmed"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneDeepLink.php"*/,jsonBody, response -> {
+
+                    Log.i("session_updated","true");
+                    finish();
+                }, error -> {
+                    // pb_loading.setVisibility(View.GONE);
+                    error.printStackTrace();
+                    Log.i("session_updated","false");
+                    finish();
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
     }
 }
