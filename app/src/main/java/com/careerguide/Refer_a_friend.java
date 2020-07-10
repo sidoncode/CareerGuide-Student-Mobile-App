@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.careerguide.exoplayer.utils.PublicFunctions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -95,6 +96,10 @@ public class Refer_a_friend extends AppCompatActivity {
     }
     public void share() {
 
+        if (!PublicFunctions.checkAccessStoragePermission(this)){
+            return;
+        }
+
         String img;
         String androidId = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -103,7 +108,8 @@ public class Refer_a_friend extends AppCompatActivity {
             try {
                 imageUri = Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(),
                         BitmapFactory.decodeResource(getResources(), R.drawable.prizesshare), null, null));
-            } catch (NullPointerException e) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             img=imageUri.toString();
             Utility.setRefImg(img,this);
