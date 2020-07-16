@@ -438,28 +438,28 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
         if(progressDialogCustom != null && progressDialogCustom.isShowing()) {
             progressDialogCustom.dismiss();
         }
-            new AlertDialog.Builder(activity)
-                    .setMessage("Unable to fetch location. Please check your Location settings.")
-                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            fetchLocation();
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        new AlertDialog.Builder(activity)
+                .setMessage("Unable to fetch location. Please check your Location settings.")
+                .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        fetchLocation();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    })
-                    .setNeutralButton("Settings", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(intent);
-                        }
-                    })
-                    .show();
+                    }
+                })
+                .setNeutralButton("Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -499,19 +499,16 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                     boolean status = jsonObject.optBoolean("status",false);
                     /*if(jsonObject.optJSONArray("reward_point").length()!=0)
                     {*/
-                        JSONArray userJsonObject = jsonObject.optJSONArray("reward_point");
-                        JSONObject jbj = userJsonObject.optJSONObject(0);
-                        String rew=jbj.optString("rewards_point");
-                        String numref=jbj.optString("reward_number");
-                        String name=jbj.optString("name");
-                        rp[1]=String.valueOf(Integer.parseInt(numref)+1);
-                        Log.e("TAG", "onResponse: "+rew+" "+ numref );
-                        if(Integer.parseInt(rp[1])<=20)
-                            rp[0]=String.valueOf(Integer.parseInt(rew)+10);
-                        else
-                            rp[0]=String.valueOf(Integer.parseInt(rew)+15);
-                        setrewards(rp[0],rp[1],String.valueOf(name));
-                        //Utility.setRewardPoints(activity,String.valueOf(rew));
+                    JSONArray userJsonObject = jsonObject.optJSONArray("reward_point");
+                    JSONObject jbj = userJsonObject.optJSONObject(0);
+                    String rew=jbj.optString("rewards_point");
+                    String numref=jbj.optString("reward_number");
+                    String name=jbj.optString("name");
+                    rp[1]=String.valueOf(Integer.parseInt(numref)+1);
+                    Log.e("TAG", "onResponse: "+rew+" "+ numref );
+                    rp[0]=String.valueOf(Integer.parseInt(rew)+10);
+                    setrewards(rp[0],rp[1],String.valueOf(name));
+                    //Utility.setRewardPoints(activity,String.valueOf(rew));
                     /*}
                     else
                         setrewards("10","1");*/
@@ -542,8 +539,40 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
 
     }
+    private void setDevId()
+    {
+        String androidId = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        StringRequest stringRequest2=new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "updateDeviceID", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("devidupdate", response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
+                Log.e("devidupdate","error");
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("userId", Utility.getUserId(activity) );
+                params.put("deviceId", androidId);
+                Log.e("request",params.toString());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
+    }
     private void setrewards(String rew, String numref, String name)
     {
+        setDevId();
         String id=getIntent().getStringExtra("refid");
         //String id=dl;
         //final int rp=Integer.parseInt(dl.substring(dl.indexOf('/')+1));
@@ -651,7 +680,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                         setRewData(id, firstName+" "+lastName);
                         if(getIntent().getStringExtra("refid").compareTo("")!=0)
                             getrewards();
-                       // Log.e("TAG", "onResponse: "+ getIntent().getStringExtra("refid"));
+                        // Log.e("TAG", "onResponse: "+ getIntent().getStringExtra("refid"));
                         //intent.putExtra("refid",getIntent().getStringExtra("refid"));
                         startActivity(intent);
                         finish();

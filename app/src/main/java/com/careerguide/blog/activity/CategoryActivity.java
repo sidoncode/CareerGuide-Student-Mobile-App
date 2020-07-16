@@ -300,7 +300,7 @@ public class CategoryActivity extends AppCompatActivity {
         String img;
         androidId = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        if(Utility.getRefImg(activity).equals("")) {
+        /*if(Utility.getRefImg(activity).equals("")) {
             imageUri = null;
             try {
                 imageUri = Uri.parse(MediaStore.Images.Media.insertImage(activity.getContentResolver(),
@@ -311,13 +311,13 @@ public class CategoryActivity extends AppCompatActivity {
             Utility.setRefImg(img,activity);
         }
         else
-            img=Utility.getRefImg(activity);
-        /*Log.e("TAG", "sharee: "+categoryDetails.getPic_url() );
+            img=Utility.getRefImg(activity);*/
+        Log.e("TAG", "sharee: "+categoryDetails.getPic_url() );
         if (PublicFunctions.checkAccessStoragePermission ( this )) {
             if (!Utility.checkFileExist("blog"+categoryDetails.getId()+".jpeg")) {
                 Utility.downloadImage("blog"+categoryDetails.getId() +".jpeg"+ "", categoryDetails.getPic_url() + "", this);
             }
-        }*/
+        }
         Toast.makeText(this,"Opening apps...",Toast.LENGTH_LONG).show();
 
         DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
@@ -354,27 +354,27 @@ public class CategoryActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //File imgFile = Utility.getFile("blog"+categoryDetails.getId()+".jpeg");
-                                    //Log.e("TAG", "run: "+ imgFile.toString());
+                                    File imgFile = Utility.getFile("blog"+categoryDetails.getId()+".jpeg");
+                                    Log.e("TAG", "run: "+ imgFile.toString());
                                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                                     shareIntent.setType("image/*");
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(img) );
+                                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgFile.toString()) );
                                     shareIntent.putExtra(Intent.EXTRA_TEXT, "*"+categoryDetails.getTitle()+"*\n"+
                                             "Read the Complete Blog:\n"+
-                                            dynamicLinkUri+"\n\n"+
+                                            shortLink+"\n\n"+
                                             "It's real\n" +"\n" +
-                                                    "✅ Register to get ₹ 10 instantly for free!\n" +
-                                                    "✅ Check in Daily to withdraw Cash\n"+
-                                                    "✅ Earn Upto Rs ₹ 1000/day\n" +
-                                                    "\n" +
-                                                    "\uD83D\uDC47 Download CareerGuide App now to join now! \uD83D\uDC47\n" +
-                                                    Utility.getRefId(activity));
+                                            "✅ Register to get ₹ 10 instantly for free!\n" +
+                                            "✅ Check in Daily to withdraw Cash\n"+
+                                            "✅ Earn Upto Rs ₹ 1000/day\n" +
+                                            "\n" +
+                                            "\uD83D\uDC47 Download CareerGuide App now to join now! \uD83D\uDC47\n" +
+                                            Utility.getRefId(activity));
                                     startActivity(Intent.createChooser(shareIntent, "Choose an app"));
                                 }
                             },2000);
 
                             //Intent shareI=Intent.createChooser(intent,null);
-                           // startActivity(intent);
+                            // startActivity(intent);
                         } else {
                             Log.e("TAG", "onComplete: error" + task.getException());
                             // Error
@@ -399,14 +399,14 @@ public class CategoryActivity extends AppCompatActivity {
                 .subscribeWith(new DisposableSingleObserver<List<CategoryDetails>>() {
                     @Override
                     public void onSuccess(List<CategoryDetails> cd) {
-                 //       if (cd != null) {
-                            for (CategoryDetails c : cd) {
-                                c.setTitle(Utils.remove_tags(c.getTitle()));
-                                c.setDesc(Utils.remove_tags(c.getDesc()));
-                                categoryDetails_related.add(c);
-                                Log.e("#c-->" , "-->" +c);
-                            }
-                            adapter_related.notifyDataSetChanged();
+                        //       if (cd != null) {
+                        for (CategoryDetails c : cd) {
+                            c.setTitle(Utils.remove_tags(c.getTitle()));
+                            c.setDesc(Utils.remove_tags(c.getDesc()));
+                            categoryDetails_related.add(c);
+                            Log.e("#c-->" , "-->" +c);
+                        }
+                        adapter_related.notifyDataSetChanged();
                         shimmer_view_container.setVisibility(View.INVISIBLE);
                         //}
                     }
