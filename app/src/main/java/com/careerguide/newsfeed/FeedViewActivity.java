@@ -187,7 +187,7 @@ public class FeedViewActivity extends AppCompatActivity {
                             shareIntent.putExtra(Intent.EXTRA_TEXT,
                                     "*"+title+"*\n"+
                                             "Read the Complete Article:\n"+
-                                            dynamicLinkUri+"\n\n"+
+                                            shortLink+"\n\n"+
                                             "It's real\n" +
                                             "  ✅ Register to get ₹ 10 instantly for free!\n" +
                                             "  ✅ Check in Daily to withdraw Cash\n" +
