@@ -529,7 +529,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
         })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams(){
                 HashMap<String,String> params = new HashMap<>();
                 params.put("userId", id );
                 Log.e("request",params.toString());
@@ -563,16 +563,20 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> params = new HashMap<>();
                 params.put("userId", Utility.getUserId(activity) );
-                params.put("deviceId", androidId);
+                params.put("deviceId",androidId);
+                Log.e("deviceidcheck",androidId);
                 Log.e("request",params.toString());
-                return params;
+                return super.getParams();
             }
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
     }
     private void setrewards(String rew, String numref, String name)
     {
-        setDevId();
+
+        setDevId(); //->commented for the getting the device id in the referral section //
+
+
         String id=getIntent().getStringExtra("refid");
         //String id=dl;
         //final int rp=Integer.parseInt(dl.substring(dl.indexOf('/')+1));
@@ -682,6 +686,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                             getrewards();
                         // Log.e("TAG", "onResponse: "+ getIntent().getStringExtra("refid"));
                         //intent.putExtra("refid",getIntent().getStringExtra("refid"));
+                        setDevId();  //  -> for the getting the id from both the class// // signup + referrals //
                         startActivity(intent);
                         finish();
                     }
@@ -689,6 +694,7 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                     {
                         Toast.makeText(activity, "Something went wrong.",Toast.LENGTH_LONG).show();
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

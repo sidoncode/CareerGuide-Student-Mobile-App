@@ -346,7 +346,7 @@ public class SignUpActivity extends AppCompatActivity
                     }
 
                 } catch (JSONException j) {
-
+                    j.printStackTrace();
                 }
             }
         }, new Response.ErrorListener()
@@ -363,9 +363,12 @@ public class SignUpActivity extends AppCompatActivity
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> params = new HashMap<>();
-                params.put("deviceId", androidId );
+                String sid = new String();
+                sid = "sid";
+                params.put("deviceId",androidId);
+                params.put("status",sid);
                 Log.e("request",params.toString());
-                return params;
+                return super.getParams();
             }
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
