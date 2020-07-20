@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Sidd\\AndroidStudioProjects\\CareerGuide-Student-Mobile-App\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Sidd\\.gradle\\caches\\transforms-2\\files-2.1\\8f01eaa037b5686a19a74ae7e36d9a95\\jetified-android-image-cropper-2.5.1\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,107,169,232",
+                        "endColumns": "51,61,62,64",
+                        "endOffsets": "102,164,227,292"
+                    }
+                }
+            ]
+        }
+    ]
+}
