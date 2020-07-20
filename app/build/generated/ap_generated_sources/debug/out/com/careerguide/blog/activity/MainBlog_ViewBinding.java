@@ -15,11 +15,11 @@ import java.lang.Override;
 public class MainBlog_ViewBinding implements Unbinder {
   private MainBlog target;
 
-  private View view7f0800ba;
+  private View view7f0800c0;
 
-  private View view7f0800bd;
+  private View view7f0800c3;
 
-  private View view7f0800be;
+  private View view7f0800c4;
 
   @UiThread
   public MainBlog_ViewBinding(MainBlog target) {
@@ -33,7 +33,7 @@ public class MainBlog_ViewBinding implements Unbinder {
     View view;
     target.id_toolbar = Utils.findRequiredViewAsType(source, R.id.id_toolbar, "field 'id_toolbar'", Toolbar.class);
     view = Utils.findRequiredView(source, R.id.btn_category, "method 'open_category'");
-    view7f0800ba = view;
+    view7f0800c0 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -41,7 +41,7 @@ public class MainBlog_ViewBinding implements Unbinder {
       }
     });
     view = Utils.findRequiredView(source, R.id.btn_post, "method 'open_post'");
-    view7f0800bd = view;
+    view7f0800c3 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -49,7 +49,7 @@ public class MainBlog_ViewBinding implements Unbinder {
       }
     });
     view = Utils.findRequiredView(source, R.id.btn_post_without, "method 'open_post_without'");
-    view7f0800be = view;
+    view7f0800c4 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -67,11 +67,11 @@ public class MainBlog_ViewBinding implements Unbinder {
 
     target.id_toolbar = null;
 
-    view7f0800ba.setOnClickListener(null);
-    view7f0800ba = null;
-    view7f0800bd.setOnClickListener(null);
-    view7f0800bd = null;
-    view7f0800be.setOnClickListener(null);
-    view7f0800be = null;
+    view7f0800c0.setOnClickListener(null);
+    view7f0800c0 = null;
+    view7f0800c3.setOnClickListener(null);
+    view7f0800c3 = null;
+    view7f0800c4.setOnClickListener(null);
+    view7f0800c4 = null;
   }
 }
