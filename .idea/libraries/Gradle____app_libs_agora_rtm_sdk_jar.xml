@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./app/libs/agora-rtm-sdk.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/agora-rtm-sdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

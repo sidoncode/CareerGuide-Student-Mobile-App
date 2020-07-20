@@ -71,7 +71,7 @@ public class All_Couns_Fragment extends Fragment {
         recycler_view.setAdapter(counsellor_adapter);
         navController= Navigation.findNavController(getActivity(), R.id.nav_host_fragment_container);
         bottomNavigationView= getActivity().findViewById(R.id.bottom_navigation);
-        getcounsellor();
+        getCounsellor();
         view.setOnKeyListener( new View.OnKeyListener()
         {
             @Override
@@ -100,7 +100,18 @@ public class All_Couns_Fragment extends Fragment {
         counsellor_adapter.notifyDataSetChanged();
     }
 
-    private void getcounsellor() {
+    private void getCounsellor(){
+        Counsellors_profile = convert(com.careerguide.universalsearch.Utility.counsellorListForSearch);
+        Counsellors_profile_size = Counsellors_profile.size();
+        pb_loading.setVisibility(View.GONE);
+        prepareAlbums();
+    }
+    public ArrayList<Counsellor> convert(ArrayList<Object> a) {
+        return (ArrayList) a;
+    }
+
+
+ /*   private void getcounsellor() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "category_counsellors", response -> {
             Log.e("all_coun_res_counsellor", response);
             try {
@@ -140,7 +151,7 @@ public class All_Couns_Fragment extends Fragment {
             }
         };
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
+    }*/
 
 
 

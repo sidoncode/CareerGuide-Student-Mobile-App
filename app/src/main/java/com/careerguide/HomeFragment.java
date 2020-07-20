@@ -698,6 +698,8 @@ public class HomeFragment extends Fragment
                         //gettopic();
                         allPastLiveSessionAdapter.notifyDataSetChanged();
 
+                        com.careerguide.universalsearch.Utility.sessionListForSearch = new ArrayList<>(allPastLiveSessionList);
+
                         Log.e("size " , "==> " +counsellors );
                         //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
                     }

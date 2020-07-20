@@ -139,8 +139,8 @@ public class UniversalSearchFragment extends Fragment {
 
 
 
-        if(!(allPastLiveSessionList.size()>1))
-            getPastLiveSessions();
+       /* if(!(allPastLiveSessionList.size()>1))
+            getPastLiveSessions();*/
         if(!(categoryDetails.size()>1))
             new TaskBlog().execute();
 

@@ -1459,6 +1459,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         new TaskBlog().execute();
         new TaskFetchAllCounsellors().execute();
+        new TaskFetchAllLiveSessions().execute();
     }
 
 
@@ -1990,6 +1991,68 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.OnFr
         }
 
 
+    }
+
+
+    private class TaskFetchAllLiveSessions extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, com.careerguide.Utility.PRIVATE_SERVER + "AllVideos", response -> {
+                Log.e("all_coun_res", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean status = jsonObject.optBoolean("status", false);
+                    if (status)
+                    {
+                        JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+
+                        Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
+
+                        com.careerguide.universalsearch.Utility.sessionListForSearch.clear();//clear all the old data and fetch new data
+
+                        for (int i = 0; i < counsellorsJsonArray.length(); i++)
+                        {
+
+                            JSONObject JsonObject = counsellorsJsonArray.optJSONObject(i);
+                            String user_id = JsonObject.optString("user_id");
+                            String email = JsonObject.optString("email");
+                            String name = JsonObject.optString("Name");
+                            String img_url = JsonObject.optString("img_url");
+                            String title = JsonObject.optString("title");
+                            String video_url = JsonObject.optString("video_url");
+                            String video_views=JsonObject.optString("views");
+                            String video_id = JsonObject.optString("id");
+                            String video_category=JsonObject.optString("Video_category");
+                            String profile_pic="https://app.careerguide.com/api/user_dir/"+JsonObject.optString("profile_pic");
+                            com.careerguide.universalsearch.Utility.sessionListForSearch.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, profile_pic,video_views,video_id,video_category));
+
+
+                        }
+
+
+
+
+                        //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
+                    } else {
+                        Toast.makeText(getApplicationContext(),"Something went wrong.",Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }, error -> {
+
+
+                Toast.makeText(getApplicationContext(), VoleyErrorHelper.getMessage(error,getApplicationContext()),Toast.LENGTH_LONG).show();
+                Log.e("all_coun_rerror","error");
+            });
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+            return null;
+        }
     }
 
 
