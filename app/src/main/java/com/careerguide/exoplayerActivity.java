@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.careerguide.models.Counsellor;
 import com.careerguide.youtubeVideo.CommonEducationModel;
 
 import org.json.JSONArray;
@@ -185,61 +186,19 @@ public class exoplayerActivity extends AppCompatActivity {
 
     }
 
+
     private void getPastLiveSessions() {
-        final ProgressDialogCustom progressDialog = new ProgressDialogCustom(activity);
-        showPastLiveCounsellorsShimmer();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utility.PRIVATE_SERVER + "AllVideos", response -> {
-            Log.e("all_coun_res", response);
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                boolean status = jsonObject.optBoolean("status", false);
-                if (status)
-                {
-                    JSONArray counsellorsJsonArray = jsonObject.optJSONArray("counsellors");
+        hidePastLiveCounsellorsShimmer();
+        allPastLiveSessionList = convert(com.careerguide.universalsearch.Utility.sessionListForSearch);
+        allPastLiveSessionAdapter.notifyDataSetChanged();
+        allPastLiveSessionAdapter.updateList(allPastLiveSessionList);
 
-                    Log.e("lengthname--> " , "==> " +counsellorsJsonArray.length() );
-
-                    allPastLiveSessionList.clear();//clear all the old data and fetch new data
-
-                    for (int i = 0; i < counsellorsJsonArray.length(); i++)
-                    {
-
-                        JSONObject JsonObject = counsellorsJsonArray.optJSONObject(i);
-                        String user_id = JsonObject.optString("user_id");
-                        String email = JsonObject.optString("email");
-                        String name = JsonObject.optString("Name");
-                        String img_url = JsonObject.optString("img_url");
-                        String title = JsonObject.optString("title");
-                        String video_url = JsonObject.optString("video_url");
-                        String video_views=JsonObject.optString("views");
-                        String video_id = JsonObject.optString("id");
-                        String video_category=JsonObject.optString("Video_category");
-                        String profile_pic="https://app.careerguide.com/api/user_dir/"+JsonObject.optString("profile_pic");
-                        allPastLiveSessionList.add(new CommonEducationModel(user_id,email, name, img_url, video_url, title, profile_pic,video_views,video_id,video_category));
-
-
-                    }
-
-                    allPastLiveSessionAdapter.notifyDataSetChanged();
-
-                    //   Log.e("size1 " , "==> " +counsellors.get(0).getPicUrl());
-                } else {
-                    Toast.makeText(activity,"Something went wrong.",Toast.LENGTH_LONG).show();
-                }
-                progressDialog.dismiss();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            hidePastLiveCounsellorsShimmer();
-
-        }, error -> {
-            hidePastLiveCounsellorsShimmer();
-            progressDialog.dismiss();
-            Toast.makeText(activity,VoleyErrorHelper.getMessage(error,activity),Toast.LENGTH_LONG).show();
-            Log.e("all_coun_rerror","error");
-        });
-        VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest);
     }
+    public ArrayList<CommonEducationModel> convert(ArrayList<Object> a) {
+        return (ArrayList) a;
+    }
+
+
 
     void showcurrentLiveCounsellorsShimmer(){
         currentLiveCounsellorsShimmer.setEnabled(false);
