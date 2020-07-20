@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
@@ -28,6 +30,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -113,8 +116,19 @@ public class SignUpActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        checkDeviceId();
+        //checkDeviceId();
+
+        new TaskCheckDeviceId().execute();
+
+
+
+
+    }
+
+    private void afterresponse(){
+
         //Main Headings of welcome and subheading
+
         welcome=findViewById(R.id.text_Welcome);
         welcome_subheading=findViewById(R.id.text_welcome_subheading);
 
@@ -329,7 +343,60 @@ public class SignUpActivity extends AppCompatActivity
     }
 
 
-    private void checkDeviceId()
+    private class TaskCheckDeviceId extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                JSONObject jsonBody = new JSONObject();
+
+                jsonBody.put("deviceId",Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.ANDROID_ID));
+
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"checkDeviceIdExist",
+                        jsonBody,
+                        response -> {
+                    Log.e("CheckDevId","" + response);
+                    try {
+                        JSONObject jsonObject = new JSONObject("" + response);
+                        boolean status = jsonObject.optBoolean("status",false);
+                        if(jsonObject.optBoolean("deviceIdExist", false))
+                        {
+                            devid=true;
+                        }
+                        afterresponse();
+                    } catch (JSONException j) {
+                        j.printStackTrace();
+                    }
+                }, error -> {
+                    devid = true;
+                    afterresponse();
+
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
+    }
+
+
+/**    private void checkDeviceId()
     {
         String androidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -346,7 +413,7 @@ public class SignUpActivity extends AppCompatActivity
                     }
 
                 } catch (JSONException j) {
-
+                    j.printStackTrace();
                 }
             }
         }, new Response.ErrorListener()
@@ -363,13 +430,17 @@ public class SignUpActivity extends AppCompatActivity
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> params = new HashMap<>();
-                params.put("deviceId", androidId );
+                String sid = new String();
+                sid = "sid";
+                params.put("deviceId",androidId);
+                params.put("status",sid);
                 Log.e("request",params.toString());
-                return params;
+                return super.getParams();
             }
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
-    }
+    }**/
+
 
     //Forgot Password OTP function
     private void initializeForgotPasswordOTP()
