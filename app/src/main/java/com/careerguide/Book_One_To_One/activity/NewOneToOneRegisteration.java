@@ -415,6 +415,7 @@ public class NewOneToOneRegisteration extends AppCompatActivity implements Stepp
 
                 jsonBody.put("booking_id", params[0]);
                 jsonBody.put("deeplink", params[1]);
+
                 Log.i("jsonbodyy",jsonBody+"");
 
                 JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"updateOneToOneDeepLink"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneDeepLink.php"*/,jsonBody, response -> {

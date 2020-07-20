@@ -15,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -38,9 +39,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import com.careerguide.activity.Activity_class;
+import com.careerguide.payment.PaymentActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -539,7 +542,52 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
 
     }
-    private void setDevId()
+
+    private class TaskUpdateDeviceId extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+
+                JSONObject jsonBody = new JSONObject();
+
+                jsonBody.put("userId", Utility.getUserId(activity));
+                jsonBody.put("deviceId",Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.ANDROID_ID));
+
+                Log.i("jsonbodyy",jsonBody+"");
+
+                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Utility.PRIVATE_SERVER+"updateDeviceID"/*Utility.albinoServerIp+"/FoodRunner-API/foodrunner/v2/careerguide/updateOneToOneDeepLink.php"*/,jsonBody, response -> {
+                    Log.e("devidupdate","" + response);
+                }, error -> {
+                    Log.e("devidupdate", "Error at line 564");
+
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", "Basic ZTg1YWQyZjg3Mzc0NDc5ZWE5ZjZhMTE0MmY5NTRjZjc6YjdiZTUxM2Q4ZDI0NGFiNWFlYWU0ZWQxNWYwZDIyNWM=");
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+
+    }
+
+
+
+
+    /**private void setDevId()
     {
         String androidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -570,11 +618,13 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
             }
         };
         VolleySingleton.getInstance(activity).addToRequestQueue(stringRequest2);
-    }
+    } **/
+
     private void setrewards(String rew, String numref, String name)
     {
 
-        setDevId(); //->commented for the getting the device id in the referral section //
+
+       // setDevId(); //->commented for the getting the device id in the referral section //
 
 
         String id=getIntent().getStringExtra("refid");
@@ -686,7 +736,8 @@ public class ProfileDetailActivity extends AppCompatActivity implements Location
                             getrewards();
                         // Log.e("TAG", "onResponse: "+ getIntent().getStringExtra("refid"));
                         //intent.putExtra("refid",getIntent().getStringExtra("refid"));
-                        setDevId();  //  -> for the getting the id from both the class// // signup + referrals //
+                        //setDevId();  //  -> for the getting the id from both the class// // signup + referrals //
+                        new TaskUpdateDeviceId().execute();
                         startActivity(intent);
                         finish();
                     }

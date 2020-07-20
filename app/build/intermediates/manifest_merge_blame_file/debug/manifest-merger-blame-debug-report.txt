@@ -1,0 +1,1438 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.careerguide"
+4    android:versionCode="118"
+5    android:versionName="2.9.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:6:5-67
+11-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:6:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:7:5-79
+12-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:7:22-76
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:8:5-81
+13-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:8:22-78
+14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+14-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:9:5-80
+14-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:9:22-77
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+15-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:10:5-81
+15-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:10:22-78
+16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+16-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:11:5-79
+16-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:11:22-76
+17    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+17-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:12:5-71
+17-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:12:22-68
+18    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+18-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:13:5-80
+18-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:13:22-77
+19    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+19-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:14:5-75
+19-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:14:22-72
+20    <uses-permission android:name="android.permission.VIBRATE" />
+20-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:15:5-65
+20-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:15:22-63
+21    <uses-permission android:name="android.permission.CAMERA" />
+21-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:16:5-65
+21-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:16:22-62
+22
+23    <!-- Create a unique permission for your app and use it so only your app can receive your OneSignal messages. -->
+24    <permission
+24-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:7:5-9:47
+25        android:name="com.careerguide.permission.C2D_MESSAGE"
+25-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:8:9-63
+26        android:protectionLevel="signature" />
+26-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:9:9-44
+27
+28    <uses-permission android:name="com.careerguide.permission.C2D_MESSAGE" />
+28-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:11:5-79
+28-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:11:22-76
+29    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /> <!-- Required, makes sure notifications are delivered on time. -->
+29-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:17:5-82
+29-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:17:22-79
+30    <uses-permission android:name="android.permission.WAKE_LOCK" />
+30-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:18:5-68
+30-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:18:22-65
+31    <!--
+32 Use to restore notifications the user hasn't interacted with.
+33         They could be missed notifications if the user reboots their device if this isn't in place.
+34    -->
+35    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- START: ShortcutBadger -->
+35-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:29:5-81
+35-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:29:22-78
+36    <!-- Samsung -->
+37    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+37-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:31:5-86
+37-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:31:22-83
+38    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" /> <!-- HTC -->
+38-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:32:5-87
+38-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:32:22-84
+39    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+39-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:33:5-81
+39-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:33:22-78
+40    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" /> <!-- Sony -->
+40-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:34:5-83
+40-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:34:22-80
+41    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+41-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:35:5-88
+41-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:35:22-85
+42    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" /> <!-- Apex -->
+42-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:36:5-92
+42-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:36:22-89
+43    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" /> <!-- Solid -->
+43-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:37:5-84
+43-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:37:22-81
+44    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" /> <!-- Huawei -->
+44-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:38:5-83
+44-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:38:22-80
+45    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+45-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:39:5-91
+45-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:39:22-88
+46    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+46-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:40:5-92
+46-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:40:22-89
+47    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" /> <!-- ZUK -->
+47-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:41:5-93
+47-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:41:22-90
+48    <uses-permission android:name="android.permission.READ_APP_BADGE" /> <!-- OPPO -->
+48-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:42:5-73
+48-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:42:22-70
+49    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" />
+49-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:43:5-82
+49-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:43:22-79
+50    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" /> <!-- EvMe -->
+50-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:44:5-83
+50-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:44:22-80
+51    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" />
+51-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:45:5-88
+51-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:45:22-85
+52    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />
+52-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:46:5-89
+52-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:46:22-86
+53    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+53-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:23:5-98
+53-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:23:22-95
+54    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+54-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:26:5-110
+54-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:26:22-107
+55    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+55-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:28:5-77
+55-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:28:22-74
+56
+57    <application
+57-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:19:5-399:19
+58        android:name="com.ZohoSalesiq"
+58-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:20:9-39
+59        android:allowBackup="true"
+59-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:21:9-35
+60        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+60-->[androidx.core:core:1.1.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\a5c566d961e21bfa6d57135982c5b9a5\core-1.1.0\AndroidManifest.xml:24:18-86
+61        android:debuggable="true"
+62        android:icon="@mipmap/ic_launcher"
+62-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:23:9-43
+63        android:label="@string/app_name"
+63-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:24:9-41
+64        android:largeHeap="true"
+64-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:22:9-33
+65        android:roundIcon="@mipmap/ic_launcher_round"
+65-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:25:9-54
+66        android:supportsRtl="true"
+66-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:26:9-35
+67        android:testOnly="true"
+68        android:theme="@style/AppTheme"
+68-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:27:9-40
+69        android:usesCleartextTraffic="true" >
+69-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:28:9-44
+70        <activity
+70-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:31:9-48:20
+71            android:name="com.careerguide.Book_One_To_One.activity.OneToOneSessionActivity"
+71-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:31:19-83
+72            android:configChanges="orientation|keyboardHidden"
+72-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:32:13-63
+73            android:screenOrientation="portrait"
+73-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:33:13-49
+74            android:theme="@style/AppTheme.NoActionBar"
+74-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:34:13-56
+75            android:windowSoftInputMode="adjustPan|stateHidden" >
+75-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:35:13-64
+76            <intent-filter android:autoVerify="true" >
+76-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:37:13-46:29
+76-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:37:28-53
+77                <action android:name="android.intent.action.VIEW" />
+77-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+77-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+78
+79                <category android:name="android.intent.category.DEFAULT" />
+79-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+79-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+80                <category android:name="android.intent.category.BROWSABLE" />
+80-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+80-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+81
+82                <data
+82-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+83                    android:host="careerguideprivatesession.page.link"
+83-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+84                    android:scheme="https" />
+84-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+85            </intent-filter>
+86        </activity>
+87        <activity android:name="com.careerguide.Book_One_To_One.activity.NewOneToOneRegisteration" />
+87-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:49:9-87
+87-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:49:19-84
+88        <activity
+88-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:50:9-52:46
+89            android:name="com.careerguide.activity.SeeAllActivity"
+89-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:51:13-52
+90            android:launchMode="singleTop" />
+90-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:52:13-43
+91        <activity android:name="com.careerguide.LoadPdf" />
+91-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:53:9-45
+91-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:53:19-42
+92        <activity android:name="com.careerguide.blog.activity.MainBlog" />
+92-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:54:9-60
+92-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:54:19-57
+93        <activity
+93-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:55:9-59:59
+94            android:name="com.careerguide.youtubeVideo.youtubeFeedDetail"
+94-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:56:13-59
+95            android:configChanges="orientation|screenSize|keyboardHidden"
+95-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:57:13-74
+96            android:screenOrientation="nosensor"
+96-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:58:13-49
+97            android:theme="@style/AppTheme.NoActionBar" />
+97-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:59:13-56
+98        <activity
+98-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:60:9-70:20
+99            android:name="com.careerguide.newsfeed.FeedViewActivity"
+99-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:60:19-60
+100            android:theme="@style/AppTheme.NoActionBar" >
+100-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:61:13-56
+101            <intent-filter>
+101-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:62:13-69:29
+102                <action android:name="android.intent.action.VIEW" />
+102-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+102-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+103
+104                <category android:name="android.intent.category.DEFAULT" />
+104-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+104-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+105                <category android:name="android.intent.category.BROWSABLE" />
+105-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+105-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+106
+107                <data
+107-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+108                    android:host="careerguidestudentarticle.page.link"
+108-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+109                    android:scheme="https" />
+109-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+110            </intent-filter>
+111        </activity>
+112        <activity android:name="com.careerguide.newsfeed.NewsFeedActivity" >
+112-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:71:9-73:20
+112-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:71:19-60
+113        </activity>
+114        <activity
+114-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:74:9-76:59
+115            android:name="com.careerguide.Book_Appoinment.BookingTime"
+115-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:75:13-56
+116            android:theme="@style/AppTheme.NoActionBar" />
+116-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:76:13-56
+117        <activity
+117-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:77:9-79:59
+118            android:name="com.careerguide.Book_Appoinment.BookCounsellor"
+118-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:78:13-59
+119            android:theme="@style/AppTheme.NoActionBar" />
+119-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:79:13-56
+120        <activity
+120-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:80:9-83:59
+121            android:name="com.careerguide.activity.AllCounsellor"
+121-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:81:13-51
+122            android:screenOrientation="portrait"
+122-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:82:13-49
+123            android:theme="@style/AppTheme.NoActionBar" />
+123-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:83:13-56
+124        <activity
+124-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:84:9-86:59
+125            android:name="com.careerguide.activity.SubcategoryActivity"
+125-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:85:13-57
+126            android:theme="@style/AppTheme.NoActionBar" />
+126-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:86:13-56
+127        <activity
+127-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:87:9-89:59
+128            android:name="com.careerguide.video_chat_counsellor"
+128-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:88:13-50
+129            android:theme="@style/AppTheme.NoActionBar" />
+129-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:89:13-56
+130        <activity android:name="com.careerguide.Live_counsellor" />
+130-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:90:9-53
+130-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:90:19-50
+131        <activity
+131-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:91:9-93:59
+132            android:name="com.careerguide.activity.GoalsActivity"
+132-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:92:13-51
+133            android:theme="@style/AppTheme.NoActionBar" />
+133-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:93:13-56
+134        <activity android:name="com.careerguide.All_done" />
+134-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:94:9-46
+134-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:94:19-43
+135        <activity
+135-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:95:9-108:20
+136            android:name="com.careerguide.CounsellorProfile"
+136-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:96:13-46
+137            android:theme="@style/AppTheme.NoActionBar" >
+137-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:97:13-56
+138            <intent-filter android:autoVerify="true" >
+138-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:98:13-107:29
+138-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:98:28-53
+139                <action android:name="android.intent.action.VIEW" />
+139-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+139-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+140
+141                <category android:name="android.intent.category.DEFAULT" />
+141-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+141-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+142                <category android:name="android.intent.category.BROWSABLE" />
+142-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+142-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+143
+144                <data
+144-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+145                    android:host="careerguidecounselorprofile.page.link"
+145-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+146                    android:scheme="https" />
+146-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+147            </intent-filter>
+148        </activity>
+149        <activity
+149-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:109:9-125:20
+150            android:name="com.careerguide.ViewerLiveActivity"
+150-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:110:13-47
+151            android:configChanges="orientation|keyboardHidden"
+151-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:111:13-63
+152            android:screenOrientation="portrait"
+152-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:112:13-49
+153            android:theme="@style/AppTheme.NoActionBar"
+153-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:113:13-56
+154            android:windowSoftInputMode="adjustPan|stateHidden" >
+154-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:114:13-64
+155            <intent-filter android:autoVerify="true" >
+155-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:115:13-124:29
+155-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:115:28-53
+156                <action android:name="android.intent.action.VIEW" />
+156-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+156-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+157
+158                <category android:name="android.intent.category.DEFAULT" />
+158-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+158-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+159                <category android:name="android.intent.category.BROWSABLE" />
+159-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+159-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+160
+161                <data
+161-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+162                    android:host="careerguidelivestream.page.link"
+162-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+163                    android:scheme="https" />
+163-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+164            </intent-filter>
+165        </activity>
+166        <activity
+166-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:126:9-131:70
+167            android:name="com.careerguide.AgoraBaseActivity"
+167-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:127:13-46
+168            android:configChanges="orientation|keyboardHidden"
+168-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:128:13-63
+169            android:screenOrientation="portrait"
+169-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:129:13-49
+170            android:theme="@style/AppTheme.NoActionBar"
+170-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:130:13-56
+171            android:windowSoftInputMode="adjustResize|stateHidden" />
+171-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:131:13-67
+172        <activity
+172-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:132:9-152:20
+173            android:name="com.careerguide.MainActivity"
+173-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:133:13-41
+174            android:configChanges="orientation"
+174-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:134:13-48
+175            android:screenOrientation="portrait"
+175-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:135:13-49
+176            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+176-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:136:13-69
+177            <intent-filter>
+177-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:137:13-141:29
+178                <action android:name="android.intent.action.MAIN" />
+178-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:138:17-69
+178-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:138:25-66
+179
+180                <category android:name="android.intent.category.LAUNCHER" />
+180-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:140:17-77
+180-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:140:27-74
+181            </intent-filter>
+182            <intent-filter>
+182-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:142:13-151:29
+183                <action android:name="android.intent.action.VIEW" />
+183-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+183-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+184
+185                <category android:name="android.intent.category.DEFAULT" />
+185-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+185-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+186                <category android:name="android.intent.category.BROWSABLE" />
+186-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+186-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+187
+188                <data
+188-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+189                    android:host="careerguidestudent.page.link"
+189-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+190                    android:scheme="https" />
+190-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+191            </intent-filter>
+192        </activity>
+193        <activity
+193-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:153:9-157:58
+194            android:name="com.careerguide.OnBoardingActivity"
+194-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:154:13-47
+195            android:configChanges="orientation"
+195-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:155:13-48
+196            android:screenOrientation="portrait"
+196-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:156:13-49
+197            android:theme="@style/AppTheme.NoTitlebar" />
+197-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:157:13-55
+198        <activity
+198-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:158:9-161:52
+199            android:name="com.careerguide.SplashActivity"
+199-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:159:13-43
+200            android:configChanges="orientation"
+200-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:160:13-48
+201            android:screenOrientation="portrait" />
+201-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:161:13-49
+202        <activity
+202-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:162:9-178:20
+203            android:name="com.careerguide.SignUpActivity"
+203-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:163:13-43
+204            android:configChanges="orientation"
+204-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:164:13-48
+205            android:screenOrientation="portrait"
+205-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:165:13-49
+206            android:theme="@style/AppTheme.NoActionBar" >
+206-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:166:13-56
+207            <intent-filter>
+207-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:167:13-177:29
+208                <action android:name="android.intent.action.VIEW" />
+208-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+208-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+209
+210                <category android:name="android.intent.category.DEFAULT" />
+210-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+210-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+211                <category android:name="android.intent.category.BROWSABLE" />
+211-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+211-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+212
+213                <data
+213-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+214                    android:host="app.careerguide.com"
+214-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+215                    android:pathPrefix="/api/main/forgot_otp"
+215-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:175:21-62
+216                    android:scheme="http" />
+216-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+217            </intent-filter>
+218        </activity>
+219        <activity
+219-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:179:9-182:48
+220            android:name="com.facebook.FacebookActivity"
+220-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:180:13-57
+221            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+221-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:181:13-96
+222            android:label="@string/app_name"
+222-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:182:13-45
+223            android:theme="@style/com_facebook_activity_theme" />
+223-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:32:13-63
+224        <activity
+224-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:183:9-194:20
+225            android:name="com.facebook.CustomTabActivity"
+225-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:184:13-58
+226            android:exported="true" >
+226-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:185:13-36
+227            <intent-filter>
+227-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:186:13-193:29
+228                <action android:name="android.intent.action.VIEW" />
+228-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+228-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+229
+230                <category android:name="android.intent.category.DEFAULT" />
+230-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+230-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+231                <category android:name="android.intent.category.BROWSABLE" />
+231-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+231-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+232
+233                <data android:scheme="@string/fb_login_protocol_scheme" />
+233-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+233-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+234            </intent-filter>
+235        </activity>
+236        <activity
+236-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:195:9-198:52
+237            android:name="com.careerguide.FacebookSignUp"
+237-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:196:13-43
+238            android:configChanges="orientation"
+238-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:197:13-48
+239            android:screenOrientation="portrait" />
+239-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:198:13-49
+240        <activity
+240-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:199:9-202:52
+241            android:name="com.careerguide.AssessmentActivity"
+241-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:200:13-47
+242            android:configChanges="orientation"
+242-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:201:13-48
+243            android:screenOrientation="portrait" />
+243-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:202:13-49
+244        <activity
+244-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:203:9-206:52
+245            android:name="com.careerguide.QuestionActivity"
+245-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:204:13-45
+246            android:configChanges="orientation"
+246-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:205:13-48
+247            android:screenOrientation="portrait" />
+247-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:206:13-49
+248        <activity
+248-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:207:9-210:52
+249            android:name="com.careerguide.PassageActivity"
+249-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:208:13-44
+250            android:configChanges="orientation"
+250-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:209:13-48
+251            android:screenOrientation="portrait" />
+251-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:210:13-49
+252        <activity
+252-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:211:9-214:52
+253            android:name="com.careerguide.MainActivity_live_counsellor"
+253-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:212:13-57
+254            android:configChanges="orientation"
+254-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:213:13-48
+255            android:screenOrientation="portrait" />
+255-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:214:13-49
+256        <activity
+256-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:215:9-222:20
+257            android:name="com.careerguide.HomeActivity"
+257-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:216:13-41
+258            android:configChanges="orientation"
+258-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:217:13-48
+259            android:screenOrientation="portrait"
+259-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:218:13-49
+260            android:theme="@style/AppTheme.NoActionBar" >
+260-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:219:13-56
+261        </activity>
+262        <activity
+262-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:223:9-226:52
+263            android:name="com.careerguide.PsychometricTestsActivity"
+263-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:224:13-54
+264            android:configChanges="orientation"
+264-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:225:13-48
+265            android:screenOrientation="portrait" />
+265-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:226:13-49
+266        <activity
+266-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:227:9-231:72
+267            android:name="com.careerguide.PauseActivity"
+267-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:228:13-42
+268            android:configChanges="orientation"
+268-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:229:13-48
+269            android:screenOrientation="portrait"
+269-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:230:13-49
+270            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+270-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:231:13-69
+271        <activity
+271-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:232:9-235:52
+272            android:name="com.careerguide.WebViewActivity"
+272-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:233:13-44
+273            android:configChanges="orientation"
+273-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:234:13-48
+274            android:screenOrientation="portrait" />
+274-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:235:13-49
+275        <activity
+275-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:236:9-241:58
+276            android:name="com.careerguide.ProfileDetailActivity"
+276-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:237:13-50
+277            android:configChanges="orientation"
+277-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:238:13-48
+278            android:label="Profile Details"
+278-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:239:13-44
+279            android:screenOrientation="portrait"
+279-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:240:13-49
+280            android:theme="@style/AppTheme.NoActionBar" />
+280-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:241:13-56
+281        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
+281-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:242:9-85
+281-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:242:19-82
+282        <activity
+282-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:243:9-247:52
+283            android:name="com.careerguide.SettingActivity"
+283-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:244:13-44
+284            android:configChanges="orientation"
+284-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:245:13-48
+285            android:label="Settings"
+285-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:246:13-37
+286            android:screenOrientation="portrait" />
+286-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:247:13-49
+287        <activity
+287-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:248:9-252:59
+288            android:name="com.careerguide.PaymentGateway"
+288-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:249:13-43
+289            android:configChanges="orientation"
+289-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:250:13-48
+290            android:screenOrientation="portrait"
+290-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:251:13-49
+291            android:theme="@style/AppTheme.NoActionBar" />
+291-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:252:13-56
+292        <activity
+292-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:253:9-256:52
+293            android:name="com.careerguide.CheckOutActivity"
+293-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:254:13-45
+294            android:configChanges="orientation"
+294-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:255:13-48
+295            android:screenOrientation="portrait" />
+295-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:256:13-49
+296        <activity
+296-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:257:9-261:59
+297            android:name="com.careerguide.PlanActivity"
+297-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:258:13-41
+298            android:configChanges="orientation"
+298-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:259:13-48
+299            android:screenOrientation="portrait"
+299-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:260:13-49
+300            android:theme="@style/AppTheme.NoActionBar" />
+300-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:261:13-56
+301        <activity
+301-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:262:9-266:59
+302            android:name="com.careerguide.VideoChatViewActivity"
+302-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:263:13-50
+303            android:configChanges="orientation"
+303-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:264:13-48
+304            android:screenOrientation="portrait"
+304-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:265:13-49
+305            android:theme="@style/AppTheme.NoActionBar" />
+305-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:266:13-56
+306        <activity
+306-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:267:9-269:59
+307            android:name="com.careerguide.activity.feedDetailActivity"
+307-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:268:13-56
+308            android:theme="@style/AppTheme.NoActionBar" />
+308-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:269:13-56
+309        <activity
+309-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:270:9-274:59
+310            android:name="com.careerguide.LiveRoomsActivity"
+310-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:271:13-46
+311            android:configChanges="orientation"
+311-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:272:13-48
+312            android:screenOrientation="portrait"
+312-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:273:13-49
+313            android:theme="@style/AppTheme.NoActionBar" />
+313-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:274:13-56
+314        <activity
+314-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:275:9-279:55
+315            android:name="com.careerguide.BaseLiveActivity"
+315-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:276:13-45
+316            android:configChanges="orientation|keyboardHidden"
+316-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:277:13-63
+317            android:screenOrientation="portrait"
+317-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:278:13-49
+318            android:windowSoftInputMode="adjustPan" />
+318-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:279:13-52
+319        <activity android:name="com.careerguide.TokBoxVideoCall" />
+319-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:280:9-53
+319-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:280:19-50
+320        <activity android:name="com.careerguide.ChatActivity" />
+320-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:281:9-50
+320-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:281:19-47
+321        <activity
+321-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:282:9-283:51
+322            android:name="com.careerguide.Refer_a_friend"
+322-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:282:19-49
+323            android:screenOrientation="portrait" />
+323-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:283:13-49
+324        <activity android:name="com.careerguide.exoplayerActivity" />
+324-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:284:9-55
+324-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:284:19-52
+325        <activity
+325-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:285:9-287:59
+326            android:name="com.careerguide.youtubeVideo.CM_youtubePlaylist"
+326-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:286:13-60
+327            android:theme="@style/AppTheme.NoActionBar" />
+327-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:287:13-56
+328        <activity android:name="com.careerguide.ebookpdf" />
+328-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:288:9-46
+328-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:288:19-43
+329        <activity android:name="com.careerguide.payment.PaymentActivity" />
+329-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:289:9-61
+329-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:289:19-58
+330        <activity
+330-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:290:9-292:59
+331            android:name="com.careerguide.blog.DetailActivity"
+331-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:291:13-48
+332            android:theme="@style/AppTheme.NoActionBar" />
+332-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:292:13-56
+333        <activity
+333-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:293:9-295:59
+334            android:name="com.careerguide.blog.BlogActivity"
+334-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:294:13-46
+335            android:theme="@style/AppTheme.NoActionBar" />
+335-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:295:13-56
+336        <activity
+336-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:296:9-298:59
+337            android:name="com.careerguide.activity.Activity_class"
+337-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:297:13-52
+338            android:theme="@style/AppTheme.NoActionBar" />
+338-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:298:13-56
+339        <activity
+339-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:299:9-301:59
+340            android:name="com.careerguide.blog.activity.CatNotifiActivity"
+340-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:300:13-60
+341            android:theme="@style/AppTheme.NoActionBar" />
+341-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:301:13-56
+342        <activity
+342-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:302:9-304:59
+343            android:name="com.careerguide.blog.activity.CatListActivity"
+343-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:303:13-58
+344            android:theme="@style/AppTheme.NoActionBar" />
+344-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:304:13-56
+345        <activity
+345-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:305:9-307:59
+346            android:name="com.careerguide.blog.activity.CatDetailActivity"
+346-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:306:13-60
+347            android:theme="@style/AppTheme.NoActionBar" />
+347-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:307:13-56
+348        <activity
+348-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:308:9-321:20
+349            android:name="com.careerguide.blog.activity.CategoryActivity"
+349-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:309:13-59
+350            android:theme="@style/AppTheme.NoActionBar" >
+350-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:310:13-56
+351            <intent-filter>
+351-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:312:13-319:29
+352                <action android:name="android.intent.action.VIEW" />
+352-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+352-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+353
+354                <category android:name="android.intent.category.DEFAULT" />
+354-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+354-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+355                <category android:name="android.intent.category.BROWSABLE" />
+355-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+355-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+356
+357                <data
+357-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+358                    android:host="careerguidestudentblogs.page.link"
+358-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+359                    android:scheme="https" />
+359-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+360            </intent-filter>
+361        </activity>
+362        <activity
+362-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:322:9-324:59
+363            android:name="com.careerguide.blog.activity.CatDetailWoActivity"
+363-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:323:13-62
+364            android:theme="@style/AppTheme.NoActionBar" />
+364-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:324:13-56
+365        <activity
+365-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:325:9-339:20
+366            android:name="com.careerguide.Video_player"
+366-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:326:13-41
+367            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+367-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:327:13-122
+368            android:theme="@style/AppTheme.NoActionBar" > <!-- <receiver android:name=".SmsReceiver"> -->
+368-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:328:13-56
+369            <intent-filter android:autoVerify="true" >
+369-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:329:13-338:29
+369-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:329:28-53
+370                <action android:name="android.intent.action.VIEW" />
+370-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:17-69
+370-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:38:25-66
+371
+372                <category android:name="android.intent.category.DEFAULT" />
+372-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+372-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+373                <category android:name="android.intent.category.BROWSABLE" />
+373-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:17-78
+373-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:41:27-75
+374
+375                <data
+375-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+376                    android:host="careerguidesharevideo.page.link"
+376-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+377                    android:scheme="https" />
+377-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+378            </intent-filter>
+379        </activity> <!-- <receiver android:name=".SmsReceiver"> -->
+380        <!-- <intent-filter> -->
+381        <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED" /> -->
+382        <!-- </intent-filter> -->
+383        <!-- </receiver> -->
+384        <activity
+384-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:344:9-346:51
+385            android:name="com.careerguide.Onboarding"
+385-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:344:19-45
+386            android:screenOrientation="portrait"
+386-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:346:13-49
+387            android:theme="@style/AppTheme.NoActionBar" />
+387-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:345:13-56
+388        <!--
+389     Set custom default icon. This is used when no icon is set for incoming notification messages.
+390     See README(https://goo.gl/l4GJaQ) for more.
+391        -->
+392        <!--
+393            <meta-data
+394            android:name="com.google.firebase.messaging.default_notification_icon"
+395            android:resource="@mipmap/ic_launcher" />
+396        -->
+397        <!--
+398             Set color used with incoming notification messages. This is used when no color is set for the incoming
+399             notification message. See README(https://goo.gl/6BKBk7) for more.
+400        -->
+401        <!--
+402        <meta-data
+403            android:name="com.google.firebase.messaging.default_notification_color"
+404            android:resource="@color/colorAccent" />
+405
+406        <meta-data
+407            android:name="com.google.firebase.messaging.default_notification_channel_id"
+408            android:value="@string/default_notification_channel_id"/>
+409        -->
+410        <meta-data
+410-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:369:9-371:55
+411            android:name="com.razorpay.ApiKey"
+411-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:370:13-47
+412            android:value="rzp_test_ZdLWHqNUefQJV6" />
+412-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:371:13-52
+413        <meta-data
+413-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:372:9-374:55
+414            android:name="com.facebook.sdk.ApplicationId"
+414-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:373:13-58
+415            android:value="@string/facebook_app_id" />
+415-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:374:13-52
+416        <meta-data
+416-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:375:9-377:57
+417            android:name="com.google.firebase.messaging.default_notification_icon"
+417-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:376:13-83
+418            android:resource="@drawable/ic_stat_name" />
+418-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:377:13-54
+419
+420        <service
+420-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:379:9-386:19
+421            android:name="com.careerguide.MyFirebaseMessagingService"
+421-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:380:13-55
+422            android:enabled="true"
+422-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:381:13-35
+423            android:exported="false" >
+423-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:382:13-37
+424            <intent-filter>
+424-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:383:13-385:29
+425                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+425-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:384:17-78
+425-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:384:25-75
+426            </intent-filter>
+427        </service>
+428        <service
+428-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:387:9-394:19
+429            android:name="com.careerguide.MyFirebaseInstanceIdService"
+429-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:388:13-56
+430            android:enabled="true"
+430-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:389:13-35
+431            android:exported="false" >
+431-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:390:13-37
+432            <intent-filter>
+432-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:391:13-393:29
+433                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+433-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:392:17-80
+433-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:392:25-77
+434            </intent-filter>
+435        </service>
+436
+437        <uses-library
+437-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:396:9-398:40
+438            android:name="org.apache.http.legacy"
+438-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:397:13-50
+439            android:required="false" />
+439-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:398:13-37
+440
+441        <activity android:name="com.facebook.CustomTabMainActivity" />
+441-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:33:9-71
+441-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:33:19-68
+442        <!--
+443         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+444         with the application context. This config is merged in with the host app's manifest,
+445         but there can only be one provider with the same authority activated at any given
+446         point; so if the end user has two or more different apps that use Facebook SDK, only the
+447         first one will be able to use the provider. To work around this problem, we use the
+448         following placeholder in the authority to identify each host application as if it was
+449         a completely different provider.
+450        -->
+451        <provider
+451-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:44:9-47:40
+452            android:name="com.facebook.internal.FacebookInitProvider"
+452-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:45:13-70
+453            android:authorities="com.careerguide.FacebookInitProvider"
+453-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:46:13-72
+454            android:exported="false" />
+454-->[com.facebook.android:facebook-android-sdk:4.26.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\69b763dc3905d44a7fe1a3853c35bf23\jetified-facebook-android-sdk-4.26.0\AndroidManifest.xml:47:13-37
+455
+456        <activity
+456-->[pub.devrel:easypermissions:0.4.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\3aa891404b0372e1a7c457618743fb4d\jetified-easypermissions-0.4.0\AndroidManifest.xml:12:9-16:66
+457            android:name="pub.devrel.easypermissions.AppSettingsDialogHolderActivity"
+457-->[pub.devrel:easypermissions:0.4.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\3aa891404b0372e1a7c457618743fb4d\jetified-easypermissions-0.4.0\AndroidManifest.xml:13:13-86
+458            android:exported="false"
+458-->[pub.devrel:easypermissions:0.4.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\3aa891404b0372e1a7c457618743fb4d\jetified-easypermissions-0.4.0\AndroidManifest.xml:14:13-37
+459            android:label=""
+459-->[pub.devrel:easypermissions:0.4.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\3aa891404b0372e1a7c457618743fb4d\jetified-easypermissions-0.4.0\AndroidManifest.xml:15:13-29
+460            android:theme="@style/EasyPermissions.Transparent" />
+460-->[pub.devrel:easypermissions:0.4.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\3aa891404b0372e1a7c457618743fb4d\jetified-easypermissions-0.4.0\AndroidManifest.xml:16:13-63
+461
+462        <meta-data
+462-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:49:9-51:51
+463            android:name="onesignal_app_id"
+463-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:50:13-44
+464            android:value="f697ffb6-e6e5-4ece-a41f-fc4437918969" /> <!-- Deprecated - Pulled from OneSignal dashboard. -->
+464-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:51:13-48
+465        <meta-data
+465-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:53:9-55:70
+466            android:name="onesignal_google_project_number"
+466-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:54:13-59
+467            android:value="str:REMOTE" />
+467-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:55:13-67
+468
+469        <receiver
+469-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:57:9-67:20
+470            android:name="com.onesignal.GcmBroadcastReceiver"
+470-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:58:13-62
+471            android:permission="com.google.android.c2dm.permission.SEND" >
+471-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:59:13-73
+472
+473            <!-- High priority so OneSignal payloads can be filtered from other GCM receivers if filterOtherGCMReceivers is enabled. -->
+474            <intent-filter android:priority="999" >
+474-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:62:13-66:29
+474-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:62:28-50
+475                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+475-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:63:17-81
+475-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:63:25-78
+476
+477                <category android:name="com.careerguide" />
+477-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:65:17-61
+477-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:65:27-58
+478            </intent-filter>
+479        </receiver>
+480        <receiver android:name="com.onesignal.NotificationOpenedReceiver" />
+480-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:68:9-77
+480-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:68:19-74
+481
+482        <service android:name="com.onesignal.GcmIntentService" />
+482-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:70:9-66
+482-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:70:18-63
+483        <service
+483-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:71:9-73:72
+484            android:name="com.onesignal.GcmIntentJobService"
+484-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:72:13-61
+485            android:permission="android.permission.BIND_JOB_SERVICE" />
+485-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:73:13-69
+486        <service
+486-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:74:9-76:72
+487            android:name="com.onesignal.RestoreJobService"
+487-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:75:13-59
+488            android:permission="android.permission.BIND_JOB_SERVICE" />
+488-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:76:13-69
+489        <service
+489-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:77:9-79:72
+490            android:name="com.onesignal.RestoreKickoffJobService"
+490-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:78:13-66
+491            android:permission="android.permission.BIND_JOB_SERVICE" />
+491-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:79:13-69
+492        <service
+492-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:80:9-82:43
+493            android:name="com.onesignal.SyncService"
+493-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:81:13-53
+494            android:stopWithTask="true" />
+494-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:82:13-40
+495        <service
+495-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:83:9-85:72
+496            android:name="com.onesignal.SyncJobService"
+496-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:84:13-56
+497            android:permission="android.permission.BIND_JOB_SERVICE" />
+497-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:85:13-69
+498
+499        <activity
+499-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:87:9-89:75
+500            android:name="com.onesignal.PermissionsActivity"
+500-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:88:13-61
+501            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+501-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:89:13-72
+502
+503        <service android:name="com.onesignal.NotificationRestoreService" />
+503-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:91:9-76
+503-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:91:18-73
+504
+505        <receiver android:name="com.onesignal.BootUpReceiver" >
+505-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:93:9-98:20
+505-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:93:19-62
+506            <intent-filter>
+506-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:94:13-97:29
+507                <action android:name="android.intent.action.BOOT_COMPLETED" />
+507-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:95:17-79
+507-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:95:25-76
+508                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+508-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:96:17-82
+508-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:96:25-79
+509            </intent-filter>
+510        </receiver>
+511        <receiver android:name="com.onesignal.UpgradeReceiver" >
+511-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:99:9-103:20
+511-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:99:19-63
+512            <intent-filter>
+512-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:100:13-102:29
+513                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+513-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:101:17-84
+513-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:101:25-81
+514            </intent-filter>
+515        </receiver>
+516        <!--
+517             FirebaseMessagingService performs security checks at runtime,
+518             no need for explicit permissions despite exported="true"
+519        -->
+520        <service
+520-->[com.google.firebase:firebase-messaging:17.3.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\dde6562bf09897cb4385e0a327dc887b\jetified-firebase-messaging-17.3.3\AndroidManifest.xml:28:9-34:19
+521            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+521-->[com.google.firebase:firebase-messaging:17.3.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\dde6562bf09897cb4385e0a327dc887b\jetified-firebase-messaging-17.3.3\AndroidManifest.xml:29:13-82
+522            android:exported="true" >
+522-->[com.google.firebase:firebase-messaging:17.3.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\dde6562bf09897cb4385e0a327dc887b\jetified-firebase-messaging-17.3.3\AndroidManifest.xml:30:13-36
+523            <intent-filter android:priority="-500" >
+523-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:383:13-385:29
+524                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+524-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:384:17-78
+524-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:384:25-75
+525            </intent-filter>
+526        </service>
+527
+528        <provider
+528-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:28:9-32:39
+529            android:name="com.google.firebase.perf.provider.FirebasePerfProvider"
+529-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:29:13-82
+530            android:authorities="com.careerguide.firebaseperfprovider"
+530-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:30:13-72
+531            android:exported="false"
+531-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:31:13-37
+532            android:initOrder="101" />
+532-->[com.google.firebase:firebase-perf:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\1fc77a1a60a5e630f984c40df86ef56b\jetified-firebase-perf-15.0.0\AndroidManifest.xml:32:13-36
+533
+534        <activity
+534-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:23:9-27:75
+535            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+535-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:24:13-93
+536            android:excludeFromRecents="true"
+536-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:25:13-46
+537            android:exported="false"
+537-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:26:13-37
+538            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+538-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:27:13-72
+539        <!--
+540            Service handling Google Sign-In user revocation. For apps that do not integrate with
+541            Google Sign-In, this service will never be started.
+542        -->
+543        <service
+543-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:33:9-36:110
+544            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+544-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:34:13-89
+545            android:exported="true"
+545-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:35:13-36
+546            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+546-->[com.google.android.gms:play-services-auth:15.0.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\9fcc97bdcf791b64bc45158d4abcea0f\jetified-play-services-auth-15.0.0\AndroidManifest.xml:36:13-107
+547
+548        <receiver
+548-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:29:9-33:20
+549            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+549-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:30:13-85
+550            android:enabled="true"
+550-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:31:13-35
+551            android:exported="false" >
+551-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:32:13-37
+552        </receiver>
+553        <receiver
+553-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:34:9-42:20
+554            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+554-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:35:13-100
+555            android:enabled="true"
+555-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:36:13-35
+556            android:exported="true"
+556-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:37:13-36
+557            android:permission="android.permission.INSTALL_PACKAGES" >
+557-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:38:13-69
+558            <intent-filter>
+558-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:39:13-41:29
+559                <action android:name="com.android.vending.INSTALL_REFERRER" />
+559-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:40:17-79
+559-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:40:25-76
+560            </intent-filter>
+561        </receiver>
+562
+563        <service
+563-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:44:9-47:40
+564            android:name="com.google.android.gms.measurement.AppMeasurementService"
+564-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:45:13-84
+565            android:enabled="true"
+565-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:46:13-35
+566            android:exported="false" />
+566-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:47:13-37
+567        <service
+567-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:48:9-52:72
+568            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+568-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:49:13-87
+569            android:enabled="true"
+569-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:50:13-35
+570            android:exported="false"
+570-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:51:13-37
+571            android:permission="android.permission.BIND_JOB_SERVICE" />
+571-->[com.google.firebase:firebase-analytics:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cc020bf40ed174decd1fbeedd312758e\jetified-firebase-analytics-16.0.4\AndroidManifest.xml:52:13-69
+572
+573        <activity
+573-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:25:9-34:20
+574            android:name="com.google.android.gms.appinvite.PreviewActivity"
+574-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:26:13-76
+575            android:exported="true"
+575-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:27:13-36
+576            android:theme="@style/Theme.AppInvite.Preview" >
+576-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:28:13-59
+577            <intent-filter>
+577-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:29:13-33:29
+578                <action android:name="com.google.android.gms.appinvite.ACTION_PREVIEW" />
+578-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:30:17-90
+578-->[com.google.android.gms:play-services-appinvite:16.0.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\cf01ac0db5fefb2c64330737520ef44c\jetified-play-services-appinvite-16.0.4\AndroidManifest.xml:30:25-87
+579
+580                <category android:name="android.intent.category.DEFAULT" />
+580-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:17-76
+580-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:40:27-73
+581            </intent-filter>
+582        </activity>
+583
+584        <service
+584-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:29:9-35:19
+585            android:name="com.google.firebase.components.ComponentDiscoveryService"
+585-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:30:13-84
+586            android:exported="false" >
+586-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:31:13-37
+587            <meta-data
+587-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:32:13-34:85
+588                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+588-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:33:17-96
+589                android:value="com.google.firebase.components.ComponentRegistrar" />
+589-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:34:17-82
+590        </service>
+591
+592        <receiver
+592-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:37:9-44:20
+593            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+593-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:38:13-78
+594            android:exported="true"
+594-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:39:13-36
+595            android:permission="com.google.android.c2dm.permission.SEND" >
+595-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:40:13-73
+596            <intent-filter>
+596-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:41:13-43:29
+597                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+597-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:63:17-81
+597-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:63:25-78
+598            </intent-filter>
+599        </receiver>
+600        <!--
+601             FirebaseInstanceIdService performs security checks at runtime,
+602             no need for explicit permissions despite exported="true"
+603        -->
+604        <service
+604-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:50:9-56:19
+605            android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+605-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:51:13-77
+606            android:exported="true" >
+606-->[com.google.firebase:firebase-iid:17.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\67da895f6608118c3023c2a80c6c22b7\jetified-firebase-iid-17.0.3\AndroidManifest.xml:52:13-36
+607            <intent-filter android:priority="-500" >
+607-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:391:13-393:29
+608                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+608-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:392:17-80
+608-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:392:25-77
+609            </intent-filter>
+610        </service>
+611
+612        <provider
+612-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c0c8a7f2e68aa17ee8fa65db8beb42ed\jetified-firebase-common-16.0.3\AndroidManifest.xml:10:9-14:39
+613            android:name="com.google.firebase.provider.FirebaseInitProvider"
+613-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c0c8a7f2e68aa17ee8fa65db8beb42ed\jetified-firebase-common-16.0.3\AndroidManifest.xml:11:13-77
+614            android:authorities="com.careerguide.firebaseinitprovider"
+614-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c0c8a7f2e68aa17ee8fa65db8beb42ed\jetified-firebase-common-16.0.3\AndroidManifest.xml:12:13-72
+615            android:exported="false"
+615-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c0c8a7f2e68aa17ee8fa65db8beb42ed\jetified-firebase-common-16.0.3\AndroidManifest.xml:13:13-37
+616            android:initOrder="100" />
+616-->[com.google.firebase:firebase-common:16.0.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c0c8a7f2e68aa17ee8fa65db8beb42ed\jetified-firebase-common-16.0.3\AndroidManifest.xml:14:13-36
+617
+618        <activity
+618-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c4996c0d1a4e73d6e176138ea4cb0b02\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+619            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+619-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c4996c0d1a4e73d6e176138ea4cb0b02\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+620            android:exported="false"
+620-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c4996c0d1a4e73d6e176138ea4cb0b02\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+621            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+621-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\c4996c0d1a4e73d6e176138ea4cb0b02\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+622
+623        <meta-data
+623-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\418b99b5c9c5b23e0a8093610f74e064\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+624            android:name="com.google.android.gms.version"
+624-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\418b99b5c9c5b23e0a8093610f74e064\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+625            android:value="@integer/google_play_services_version" />
+625-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\418b99b5c9c5b23e0a8093610f74e064\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+626
+627        <provider
+627-->[com.crashlytics.sdk.android:crashlytics:2.9.6] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\5cde00f1ccbb0e4d2790c9f9e7b88eb2\crashlytics-2.9.6\AndroidManifest.xml:12:9-16:38
+628            android:name="com.crashlytics.android.CrashlyticsInitProvider"
+628-->[com.crashlytics.sdk.android:crashlytics:2.9.6] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\5cde00f1ccbb0e4d2790c9f9e7b88eb2\crashlytics-2.9.6\AndroidManifest.xml:13:13-75
+629            android:authorities="com.careerguide.crashlyticsinitprovider"
+629-->[com.crashlytics.sdk.android:crashlytics:2.9.6] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\5cde00f1ccbb0e4d2790c9f9e7b88eb2\crashlytics-2.9.6\AndroidManifest.xml:14:13-75
+630            android:exported="false"
+630-->[com.crashlytics.sdk.android:crashlytics:2.9.6] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\5cde00f1ccbb0e4d2790c9f9e7b88eb2\crashlytics-2.9.6\AndroidManifest.xml:15:13-37
+631            android:initOrder="90" />
+631-->[com.crashlytics.sdk.android:crashlytics:2.9.6] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\5cde00f1ccbb0e4d2790c9f9e7b88eb2\crashlytics-2.9.6\AndroidManifest.xml:16:13-35
+632
+633        <receiver android:name="com.razorpay.RzpTokenReceiver" >
+633-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:12:9-16:20
+633-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:12:19-63
+634            <intent-filter>
+634-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:13:13-15:29
+635                <action android:name="rzp.device_token.share" />
+635-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:14:17-65
+635-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:14:25-62
+636            </intent-filter>
+637        </receiver>
+638
+639        <activity
+639-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:18:9-29:20
+640            android:name="com.razorpay.CheckoutActivity"
+640-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:19:13-57
+641            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+641-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:20:13-83
+642            android:theme="@style/CheckoutTheme" >
+642-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:21:13-49
+643            <intent-filter>
+643-->[com.razorpay:checkout:1.5.13] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\33613052169f9a8890803615b97ea38b\checkout-1.5.13\AndroidManifest.xml:22:13-28:29
+644                <action android:name="android.intent.action.MAIN" />
+644-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:138:17-69
+644-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:138:25-66
+645
+646                <data
+646-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:43:17-45:46
+647                    android:host="rzp.io"
+647-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:44:21-71
+648                    android:scheme="io.rzp" />
+648-->C:\Users\Sidd\AndroidStudioProjects\CareerGuide-Student-Mobile-App\app\src\main\AndroidManifest.xml:45:21-43
+649            </intent-filter>
+650        </activity>
+651
+652        <provider
+652-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:31:9-37:35
+653            android:name="androidx.work.impl.WorkManagerInitializer"
+653-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:32:13-69
+654            android:authorities="com.careerguide.workmanager-init"
+654-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:33:13-68
+655            android:directBootAware="false"
+655-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:34:13-44
+656            android:exported="false"
+656-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:35:13-37
+657            android:multiprocess="true" />
+657-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:36:13-40
+658
+659        <service
+659-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:39:9-44:35
+660            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+660-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:40:13-88
+661            android:directBootAware="false"
+661-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:41:13-44
+662            android:enabled="@bool/enable_system_alarm_service_default"
+662-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:42:13-72
+663            android:exported="false" />
+663-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:43:13-37
+664        <service
+664-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:45:9-51:35
+665            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+665-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:46:13-84
+666            android:directBootAware="false"
+666-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:47:13-44
+667            android:enabled="@bool/enable_system_job_service_default"
+667-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:48:13-70
+668            android:exported="true"
+668-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:49:13-36
+669            android:permission="android.permission.BIND_JOB_SERVICE" />
+669-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:50:13-69
+670        <service
+670-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:52:9-57:35
+671            android:name="androidx.work.impl.foreground.SystemForegroundService"
+671-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:53:13-81
+672            android:directBootAware="false"
+672-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:54:13-44
+673            android:enabled="@bool/enable_system_foreground_service_default"
+673-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:55:13-77
+674            android:exported="false" />
+674-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:56:13-37
+675
+676        <receiver
+676-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:59:9-64:35
+677            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+677-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:60:13-88
+678            android:directBootAware="false"
+678-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:61:13-44
+679            android:enabled="true"
+679-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:62:13-35
+680            android:exported="false" />
+680-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:63:13-37
+681        <receiver
+681-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:65:9-75:20
+682            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+682-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:66:13-106
+683            android:directBootAware="false"
+683-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:67:13-44
+684            android:enabled="false"
+684-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:68:13-36
+685            android:exported="false" >
+685-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:69:13-37
+686            <intent-filter>
+686-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:71:13-74:29
+687                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+687-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:72:17-87
+687-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:72:25-84
+688                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+688-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:73:17-90
+688-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:73:25-87
+689            </intent-filter>
+690        </receiver>
+691        <receiver
+691-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:76:9-86:20
+692            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+692-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:77:13-104
+693            android:directBootAware="false"
+693-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:78:13-44
+694            android:enabled="false"
+694-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:79:13-36
+695            android:exported="false" >
+695-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:80:13-37
+696            <intent-filter>
+696-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:82:13-85:29
+697                <action android:name="android.intent.action.BATTERY_OKAY" />
+697-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:83:17-77
+697-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:83:25-74
+698                <action android:name="android.intent.action.BATTERY_LOW" />
+698-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:84:17-76
+698-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:84:25-73
+699            </intent-filter>
+700        </receiver>
+701        <receiver
+701-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:87:9-97:20
+702            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+702-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:88:13-104
+703            android:directBootAware="false"
+703-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:89:13-44
+704            android:enabled="false"
+704-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:90:13-36
+705            android:exported="false" >
+705-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:91:13-37
+706            <intent-filter>
+706-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:93:13-96:29
+707                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+707-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:94:17-83
+707-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:94:25-80
+708                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+708-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:95:17-82
+708-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:95:25-79
+709            </intent-filter>
+710        </receiver>
+711        <receiver
+711-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:98:9-107:20
+712            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+712-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:99:13-103
+713            android:directBootAware="false"
+713-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:100:13-44
+714            android:enabled="false"
+714-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:101:13-36
+715            android:exported="false" >
+715-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:102:13-37
+716            <intent-filter>
+716-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:104:13-106:29
+717                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+717-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:105:17-79
+717-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:105:25-76
+718            </intent-filter>
+719        </receiver>
+720        <receiver
+720-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:108:9-119:20
+721            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+721-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:109:13-88
+722            android:directBootAware="false"
+722-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:110:13-44
+723            android:enabled="false"
+723-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:111:13-36
+724            android:exported="false" >
+724-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:112:13-37
+725            <intent-filter>
+725-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:114:13-118:29
+726                <action android:name="android.intent.action.BOOT_COMPLETED" />
+726-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:95:17-79
+726-->[com.onesignal:OneSignal:3.13.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\ca98ab0a93df8e1ab1e6134d57ad7cce\jetified-OneSignal-3.13.0\AndroidManifest.xml:95:25-76
+727                <action android:name="android.intent.action.TIME_SET" />
+727-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:116:17-73
+727-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:116:25-70
+728                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+728-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:117:17-81
+728-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:117:25-78
+729            </intent-filter>
+730        </receiver>
+731        <receiver
+731-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:120:9-129:20
+732            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+732-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:121:13-99
+733            android:directBootAware="false"
+733-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:122:13-44
+734            android:enabled="@bool/enable_system_alarm_service_default"
+734-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:123:13-72
+735            android:exported="false" >
+735-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:124:13-37
+736            <intent-filter>
+736-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:126:13-128:29
+737                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+737-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:127:17-98
+737-->[androidx.work:work-runtime:2.3.4] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\488d9df813f533170fa8e13b88973703\work-runtime-2.3.4\AndroidManifest.xml:127:25-95
+738            </intent-filter>
+739        </receiver>
+740
+741        <provider
+741-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\6fbfefea6ef7b425502e23e942c7a1db\lifecycle-process-2.2.0\AndroidManifest.xml:25:9-29:43
+742            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+742-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\6fbfefea6ef7b425502e23e942c7a1db\lifecycle-process-2.2.0\AndroidManifest.xml:26:13-79
+743            android:authorities="com.careerguide.lifecycle-process"
+743-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\6fbfefea6ef7b425502e23e942c7a1db\lifecycle-process-2.2.0\AndroidManifest.xml:27:13-69
+744            android:exported="false"
+744-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\6fbfefea6ef7b425502e23e942c7a1db\lifecycle-process-2.2.0\AndroidManifest.xml:28:13-37
+745            android:multiprocess="true" />
+745-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\6fbfefea6ef7b425502e23e942c7a1db\lifecycle-process-2.2.0\AndroidManifest.xml:29:13-40
+746
+747        <service
+747-->[androidx.room:room-runtime:2.2.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\663b74abd0f19db5ff3bf68269c3b06a\room-runtime-2.2.3\AndroidManifest.xml:25:9-27:40
+748            android:name="androidx.room.MultiInstanceInvalidationService"
+748-->[androidx.room:room-runtime:2.2.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\663b74abd0f19db5ff3bf68269c3b06a\room-runtime-2.2.3\AndroidManifest.xml:26:13-74
+749            android:exported="false" />
+749-->[androidx.room:room-runtime:2.2.3] C:\Users\Sidd\.gradle\caches\transforms-2\files-2.1\663b74abd0f19db5ff3bf68269c3b06a\room-runtime-2.2.3\AndroidManifest.xml:27:13-37
+750    </application>
+751
+752</manifest>
