@@ -55,6 +55,8 @@ public class LivesessionAdapter extends RecyclerView.Adapter<LivesessionAdapter.
         }
     }
 
+
+
     public LivesessionAdapter(Context mContext, List<CommonEducationModel> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
